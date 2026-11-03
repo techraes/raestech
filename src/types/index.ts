@@ -162,6 +162,45 @@ export interface CartItem {
   quantity: number;
 }
 
+export type CustomerOrderPaymentMethod = "bank_transfer" | "instalments";
+
+export interface CustomerOrderItem {
+  sku: string;
+  name: string;
+  quantity: number;
+  unitPrice: number;
+}
+
+export interface CustomerOrder {
+  id: string;
+  orderNumber: string;
+  createdAt: string;
+  status: string;
+  paymentStatus: string;
+  paymentMethod: CustomerOrderPaymentMethod;
+  customerName: string;
+  email: string;
+  phone: string;
+  city: string;
+  province: string;
+  address: string;
+  notes: string;
+  items: CustomerOrderItem[];
+  subtotal: number;
+  discountAmount: number;
+  shipping: number;
+  total: number;
+}
+
+export interface ContactMessage {
+  id: string;
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+  createdAt: string;
+}
+
 export interface InstalmentPlan {
   advance: number;
   remaining: number;

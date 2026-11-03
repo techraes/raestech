@@ -200,10 +200,13 @@ export function ProductDetailPage() {
               <Button size="lg" className="rounded-full bg-neutral-950 text-white hover:bg-neutral-800" onClick={() => { addItem(product, variant); navigate("/checkout"); }}>
                 Buy Now
               </Button>
-              <Button asChild size="lg" variant="outline" className="rounded-full">
-                <Link to={`/instalments/apply?product=${product.slug}`}>Apply Instalment</Link>
+              <Button size="lg" variant="outline" className="rounded-full" onClick={() => addItem(product, variant)}>
+                Add to Cart
               </Button>
             </div>
+            <Button asChild size="lg" variant="outline" className="w-full rounded-full">
+              <Link to={`/instalments/apply?product=${product.slug}`}>Apply Instalment</Link>
+            </Button>
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               <Card className="p-4">
                 <p className="text-sm font-bold">Buy Now</p>

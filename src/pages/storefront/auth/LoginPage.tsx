@@ -1,14 +1,13 @@
 import { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "@/features/auth/AuthContext";
-import { isSupabaseConfigured } from "@/lib/supabase";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
 
 export function LoginPage() {
-  const { signIn, devSignIn } = useAuth();
+  const { signIn } = useAuth();
   const navigate = useNavigate();
   const location = useLocation() as { state?: { from?: string } };
   const [email, setEmail] = useState("");
@@ -38,15 +37,6 @@ export function LoginPage() {
             {error && <p className="text-sm text-red-600">{error}</p>}
             <Button type="submit" className="w-full" disabled={busy}>{busy ? "Signing in…" : "Login"}</Button>
           </form>
-
-          {!isSupabaseConfigured && (
-            <div className="mt-4 rounded-lg bg-muted/40 p-3 text-center text-xs text-muted-foreground">
-              Dev mode: no Supabase configured. Use demo login below.
-              <Button variant="secondary" size="sm" className="mt-2 w-full" onClick={async () => { await devSignIn(); navigate("/account"); }}>
-                Demo customer login
-              </Button>
-            </div>
-          )}
 
           <div className="mt-4 flex items-center justify-between text-sm">
             <Link to="/forgot-password" className="text-muted-foreground hover:underline">Forgot password?</Link>

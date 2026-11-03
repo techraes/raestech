@@ -78,10 +78,10 @@ export default function App() {
         <Route path="/payment-instructions" element={<PaymentInstructionsPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
-        <Route path="/:slug" element={<ContentPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+        <Route path="/:slug" element={<ContentPage />} />
       </Route>
 
       {/* Customer account */}

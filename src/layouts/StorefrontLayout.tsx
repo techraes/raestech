@@ -125,8 +125,9 @@ export function StorefrontLayout() {
       )}
 
       {/* ---- Main header ---- */}
-      <header className={cn("sticky top-0 z-40 bg-white/95 backdrop-blur transition-all duration-300", scrolled ? "border-b border-neutral-200 shadow-sm" : "border-b border-transparent")}>
-        <div className="mx-auto flex max-w-7xl items-center gap-3 px-4 py-2">
+      <header className={cn("sticky top-0 z-40 bg-white/90 backdrop-blur-md transition-all duration-300", scrolled ? "border-b border-neutral-200 shadow-sm" : "border-b border-transparent")}>
+        <div className="h-0.5 w-full bg-gradient-to-r from-neutral-900 via-neutral-400 to-neutral-900" />
+        <div className="mx-auto flex max-w-7xl items-center gap-3 px-4 py-3">
           <button className="inline-flex h-10 w-10 items-center justify-center rounded-md hover:bg-neutral-100 lg:hidden" onClick={() => setMobileOpen(true)} aria-label="Menu">
             <Menu className="h-5 w-5" />
           </button>
@@ -171,22 +172,33 @@ export function StorefrontLayout() {
             )}
           </form>
 
-          {/* Right icons */}
-          <div className="ml-auto flex items-center gap-0.5 sm:gap-1">
-            <Link to={user ? "/account" : "/login"} className="inline-flex h-10 w-10 items-center justify-center rounded-md hover:bg-neutral-100" aria-label="Account">
-              <User className="h-5 w-5" />
-            </Link>
-            <Link to="/wishlist" className="hidden h-10 w-10 items-center justify-center rounded-md hover:bg-neutral-100 sm:inline-flex" aria-label="Wishlist">
-              <Heart className="h-5 w-5" />
-            </Link>
-            <Link to="/cart" className="relative inline-flex h-10 w-10 items-center justify-center rounded-md hover:bg-neutral-100" aria-label="Cart">
-              <ShoppingCart className="h-5 w-5" />
+          {/* Right actions */}
+          <div className="ml-auto flex items-center gap-1.5 sm:gap-2">
+            <Link to="/cart" className="relative inline-flex h-10 w-10 items-center justify-center rounded-full transition-colors hover:bg-neutral-100" aria-label="Cart">
+              <ShoppingCart className="h-5 w-5" strokeWidth={1.8} />
               {count > 0 && (
-                <span className="absolute right-0 top-0 inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-neutral-950 px-1 text-[10px] font-bold text-white">
+                <span className="absolute right-0.5 top-0.5 inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-neutral-950 px-1 text-[10px] font-bold text-white">
                   {count}
                 </span>
               )}
             </Link>
+            <Link to="/wishlist" className="hidden h-10 w-10 items-center justify-center rounded-full transition-colors hover:bg-neutral-100 sm:inline-flex" aria-label="Wishlist">
+              <Heart className="h-5 w-5" strokeWidth={1.8} />
+            </Link>
+            {user ? (
+              <Link to="/account" className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-neutral-100 text-neutral-900 transition-colors hover:bg-neutral-200" aria-label="My account">
+                <User className="h-5 w-5" strokeWidth={1.8} />
+              </Link>
+            ) : (
+              <>
+                <Button asChild variant="outline" size="sm" className="h-9 rounded-full px-4">
+                  <Link to="/login">Login</Link>
+                </Button>
+                <Button asChild size="sm" className="h-9 rounded-full px-4">
+                  <Link to="/register">Register</Link>
+                </Button>
+              </>
+            )}
             {isAdmin && (
               <Button asChild variant="outline" size="sm" className="ml-1 hidden lg:inline-flex">
                 <Link to="/admin">Admin</Link>

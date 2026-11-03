@@ -11,6 +11,29 @@ import { CheckCircle2 } from "lucide-react";
 export function ContactPage() {
   const { settings } = useSettings();
   const [sent, setSent] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [subject, setSubject] = useState("");
+  const [message, setMessage] = useState("");
+
+  function submit(e: React.FormEvent) {
+    e.preventDefault();
+    try {
+      const log = JSON.parse(localStorage.getItem("raes.contact.v1") ?? "[]") as unknown[];
+      log.push({
+        id: Date.now().toString(36),
+        name,
+        email,
+        subject,
+        message,
+        createdAt: new Date().toISOString(),
+      });
+      localStorage.setItem("raes.contact.v1", JSON.stringify(log));
+    } catch {
+      /* storage unavailable — ignore */
+    }
+    setSent(true);
+  }
 
   return (
     <div className="mx-auto max-w-5xl space-y-8">
@@ -30,11 +53,11 @@ export function ContactPage() {
                 <p className="text-sm text-muted-foreground">We'll reply by email or phone.</p>
               </div>
             ) : (
-              <form onSubmit={(e) => { e.preventDefault(); setSent(true); }} className="grid gap-4 sm:grid-cols-2">
-                <div className="space-y-1.5"><Label>Name</Label><Input required placeholder="Your name" /></div>
-                <div className="space-y-1.5"><Label>Email</Label><Input required type="email" placeholder="you@email.com" /></div>
-                <div className="space-y-1.5 sm:col-span-2"><Label>Subject</Label><Input placeholder="How can we help?" /></div>
-                <div className="space-y-1.5 sm:col-span-2"><Label>Message</Label><Textarea required rows={5} /></div>
+              <form onSubmit={submit} className="grid gap-4 sm:grid-cols-2">
+                <div className="space-y-1.5"><Label>Name</Label><Input required placeholder="Your name" value={name} onChange={(e) => setName(e.target.value)} /></div>
+                <div className="space-y-1.5"><Label>Email</Label><Input required type="email" placeholder="you@email.com" value={email} onChange={(e) => setEmail(e.target.value)} /></div>
+                <div className="space-y-1.5 sm:col-span-2"><Label>Subject</Label><Input placeholder="How can we help?" value={subject} onChange={(e) => setSubject(e.target.value)} /></div>
+                <div className="space-y-1.5 sm:col-span-2"><Label>Message</Label><Textarea required rows={5} value={message} onChange={(e) => setMessage(e.target.value)} /></div>
                 <Button type="submit" className="sm:col-span-2">Send message</Button>
               </form>
             )}

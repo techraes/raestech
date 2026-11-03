@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { CheckCircle2, Landmark, ShieldCheck } from "lucide-react";
 import { useCart } from "@/store/cart";
+import { useOrders } from "@/features/orders/store";
 import { useSettings } from "@/features/settings/store";
 import { useAuth } from "@/features/auth/AuthContext";
 import { buyNowPrice } from "@/lib/pricing";
@@ -16,8 +17,9 @@ import { Separator } from "@/components/ui/separator";
 export function CheckoutPage() {
   const { items, subtotal, clear } = useCart();
   const { settings } = useSettings();
-  const { user, isAuthenticated } = useAuth();
+  const { user } = useAuth();
   const navigate = useNavigate();
+  const placeOrderToStore = useOrders((s) => s.placeOrder);
 
   const [form, setForm] = useState({
     fullName: user?.fullName ?? "",
@@ -30,6 +32,8 @@ export function CheckoutPage() {
   });
   const [placed, setPlaced] = useState(false);
   const [orderNo, setOrderNo] = useState("");
+  const [error, setError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
 
   const buyNowSubtotal = subtotal("buyNow");
   const shipping = buyNowSubtotal >= settings.freeShippingThreshold || buyNowSubtotal === 0 ? 0 : settings.shippingCharge;
@@ -39,18 +43,37 @@ export function CheckoutPage() {
     setForm((prev) => ({ ...prev, [key]: value }));
   }
 
-  function placeOrder(e: React.FormEvent) {
+  async function placeOrder(e: React.FormEvent) {
     e.preventDefault();
-    if (!isAuthenticated) {
-      navigate("/login", { state: { from: "/checkout" } });
-      return;
+    setError("");
+    setSubmitting(true);
+    try {
+      const result = await placeOrderToStore(
+        {
+          fullName: form.fullName,
+          email: form.email,
+          phone: form.phone,
+          city: form.city,
+          province: form.province,
+          address: form.address,
+          notes: form.notes,
+          items,
+          subtotal: buyNowSubtotal,
+          shipping,
+          discountPercent: settings.buyNowDiscountPercent,
+        },
+        user?.id
+      );
+      if (!result.ok) {
+        setError(result.error);
+        return;
+      }
+      setOrderNo(result.order.orderNumber);
+      setPlaced(true);
+      clear();
+    } finally {
+      setSubmitting(false);
     }
-    // In production this calls the server-side place_order function / edge function
-    // which validates stock + prices and returns the order id. Here we simulate.
-    const no = "ORD-" + Math.random().toString(36).slice(2, 10).toUpperCase();
-    setOrderNo(no);
-    setPlaced(true);
-    clear();
   }
 
   if (placed) {
@@ -162,8 +185,13 @@ export function CheckoutPage() {
                 <div className="flex justify-between"><span className="text-muted-foreground">Shipping</span><span>{shipping === 0 ? "Free" : formatPKR(shipping)}</span></div>
                 <div className="flex justify-between text-base font-bold"><span>Total payable</span><span>{formatPKR(total)}</span></div>
               </div>
-              <Button type="submit" size="lg" className="mt-5 w-full">
-                {isAuthenticated ? "Place Order" : "Login to Place Order"}
+              {error && (
+                <div className="mt-4 rounded-xl border border-destructive/40 bg-destructive/10 px-4 py-3 text-sm text-destructive">
+                  {error}
+                </div>
+              )}
+              <Button type="submit" size="lg" className="mt-5 w-full" disabled={submitting}>
+                {submitting ? "Placing order…" : "Place Order"}
               </Button>
               <p className="mt-3 text-center text-xs text-muted-foreground">
                 By placing this order you agree to our Terms &amp; Conditions.
