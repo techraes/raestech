@@ -1,0 +1,772 @@
+[
+  {
+    "slug": "apple-iphone-12-mini",
+    "model": "iPhone 12 mini",
+    "status": "saved",
+    "src": "existing"
+  },
+  {
+    "slug": "apple-iphone-12",
+    "model": "iPhone 12",
+    "status": "saved",
+    "src": "existing"
+  },
+  {
+    "slug": "apple-iphone-12-pro",
+    "model": "iPhone 12 Pro",
+    "status": "saved",
+    "src": "existing"
+  },
+  {
+    "slug": "apple-iphone-12-pro-max",
+    "model": "iPhone 12 Pro Max",
+    "status": "saved",
+    "src": "existing"
+  },
+  {
+    "slug": "apple-iphone-13-mini",
+    "model": "iPhone 13 mini",
+    "status": "saved",
+    "src": "existing"
+  },
+  {
+    "slug": "apple-iphone-13",
+    "model": "iPhone 13",
+    "status": "saved",
+    "src": "existing"
+  },
+  {
+    "slug": "apple-iphone-13-pro",
+    "model": "iPhone 13 Pro",
+    "status": "saved",
+    "src": "existing"
+  },
+  {
+    "slug": "apple-iphone-13-pro-max",
+    "model": "iPhone 13 Pro Max",
+    "status": "saved",
+    "src": "existing"
+  },
+  {
+    "slug": "apple-iphone-14",
+    "model": "iPhone 14",
+    "status": "saved",
+    "src": "existing"
+  },
+  {
+    "slug": "apple-iphone-14-plus",
+    "model": "iPhone 14 Plus",
+    "status": "saved",
+    "src": "existing"
+  },
+  {
+    "slug": "apple-iphone-14-pro",
+    "model": "iPhone 14 Pro",
+    "status": "saved",
+    "src": "existing"
+  },
+  {
+    "slug": "apple-iphone-14-pro-max",
+    "model": "iPhone 14 Pro Max",
+    "status": "saved",
+    "src": "existing"
+  },
+  {
+    "slug": "apple-iphone-15",
+    "model": "iPhone 15",
+    "status": "saved",
+    "src": "existing"
+  },
+  {
+    "slug": "apple-iphone-15-plus",
+    "model": "iPhone 15 Plus",
+    "status": "saved",
+    "src": "existing"
+  },
+  {
+    "slug": "apple-iphone-15-pro",
+    "model": "iPhone 15 Pro",
+    "status": "saved",
+    "src": "existing"
+  },
+  {
+    "slug": "apple-iphone-15-pro-max",
+    "model": "iPhone 15 Pro Max",
+    "status": "saved",
+    "src": "existing"
+  },
+  {
+    "slug": "apple-iphone-16e",
+    "model": "iPhone 16e",
+    "status": "saved",
+    "src": "existing"
+  },
+  {
+    "slug": "apple-iphone-16",
+    "model": "iPhone 16",
+    "status": "saved",
+    "src": "existing"
+  },
+  {
+    "slug": "apple-iphone-16-plus",
+    "model": "iPhone 16 Plus",
+    "status": "saved",
+    "src": "existing"
+  },
+  {
+    "slug": "apple-iphone-16-pro",
+    "model": "iPhone 16 Pro",
+    "status": "saved",
+    "src": "existing"
+  },
+  {
+    "slug": "apple-iphone-16-pro-max",
+    "model": "iPhone 16 Pro Max",
+    "status": "saved",
+    "src": "existing"
+  },
+  {
+    "slug": "apple-iphone-17",
+    "model": "iPhone 17",
+    "status": "saved",
+    "src": "existing"
+  },
+  {
+    "slug": "apple-iphone-17-air",
+    "model": "iPhone 17 Air",
+    "status": "saved",
+    "src": "existing"
+  },
+  {
+    "slug": "apple-iphone-17-pro",
+    "model": "iPhone 17 Pro",
+    "status": "saved",
+    "src": "existing"
+  },
+  {
+    "slug": "apple-iphone-17-pro-max",
+    "model": "iPhone 17 Pro Max",
+    "status": "saved",
+    "src": "existing"
+  },
+  {
+    "slug": "apple-iphone-18",
+    "model": "iPhone 18",
+    "status": "saved",
+    "src": "existing"
+  },
+  {
+    "slug": "apple-iphone-18-pro",
+    "model": "iPhone 18 Pro",
+    "status": "saved",
+    "src": "existing"
+  },
+  {
+    "slug": "apple-iphone-18-pro-max",
+    "model": "iPhone 18 Pro Max",
+    "status": "saved",
+    "src": "existing"
+  },
+  {
+    "slug": "google-pixel-6",
+    "model": "Pixel 6",
+    "status": "saved",
+    "src": "existing"
+  },
+  {
+    "slug": "google-pixel-6-pro",
+    "model": "Pixel 6 Pro",
+    "status": "saved",
+    "src": "existing"
+  },
+  {
+    "slug": "google-pixel-6a",
+    "model": "Pixel 6a",
+    "status": "saved",
+    "src": "existing"
+  },
+  {
+    "slug": "google-pixel-7",
+    "model": "Pixel 7",
+    "status": "saved",
+    "src": "existing"
+  },
+  {
+    "slug": "google-pixel-7-pro",
+    "model": "Pixel 7 Pro",
+    "status": "saved",
+    "src": "existing"
+  },
+  {
+    "slug": "google-pixel-7a",
+    "model": "Pixel 7a",
+    "status": "saved",
+    "src": "existing"
+  },
+  {
+    "slug": "google-pixel-8",
+    "model": "Pixel 8",
+    "status": "saved",
+    "src": "existing"
+  },
+  {
+    "slug": "google-pixel-8-pro",
+    "model": "Pixel 8 Pro",
+    "status": "saved",
+    "src": "existing"
+  },
+  {
+    "slug": "google-pixel-8a",
+    "model": "Pixel 8a",
+    "status": "saved",
+    "src": "existing"
+  },
+  {
+    "slug": "google-pixel-9",
+    "model": "Pixel 9",
+    "status": "saved",
+    "src": "existing"
+  },
+  {
+    "slug": "google-pixel-9-pro",
+    "model": "Pixel 9 Pro",
+    "status": "saved",
+    "src": "existing"
+  },
+  {
+    "slug": "google-pixel-9-pro-xl",
+    "model": "Pixel 9 Pro XL",
+    "status": "saved",
+    "src": "existing"
+  },
+  {
+    "slug": "google-pixel-9a",
+    "model": "Pixel 9a",
+    "status": "saved",
+    "src": "existing"
+  },
+  {
+    "slug": "google-pixel-10",
+    "model": "Pixel 10",
+    "status": "saved",
+    "src": "existing"
+  },
+  {
+    "slug": "google-pixel-10-pro",
+    "model": "Pixel 10 Pro",
+    "status": "saved",
+    "src": "existing"
+  },
+  {
+    "slug": "google-pixel-10-pro-fold",
+    "model": "Pixel 10 Pro Fold",
+    "status": "saved",
+    "src": "existing"
+  },
+  {
+    "slug": "google-pixel-10a",
+    "model": "Pixel 10a",
+    "status": "saved",
+    "src": "existing"
+  },
+  {
+    "slug": "google-pixel-11-pro-fold",
+    "model": "Pixel 11 Pro Fold",
+    "status": "saved",
+    "src": "existing"
+  },
+  {
+    "slug": "samsung-galaxy-s26-ultra",
+    "model": "Galaxy S26 Ultra",
+    "status": "saved",
+    "src": "existing"
+  },
+  {
+    "slug": "samsung-galaxy-s26-plus",
+    "model": "Galaxy S26 Plus",
+    "status": "saved",
+    "src": "existing"
+  },
+  {
+    "slug": "samsung-galaxy-s26",
+    "model": "Galaxy S26",
+    "status": "saved",
+    "src": "existing"
+  },
+  {
+    "slug": "samsung-galaxy-s26-fe",
+    "model": "Galaxy S26 FE",
+    "status": "no_match"
+  },
+  {
+    "slug": "samsung-galaxy-a57-5g",
+    "model": "Galaxy A57 5G",
+    "status": "saved",
+    "src": "existing"
+  },
+  {
+    "slug": "samsung-galaxy-a37-5g",
+    "model": "Galaxy A37 5G",
+    "status": "saved",
+    "src": "existing"
+  },
+  {
+    "slug": "samsung-galaxy-a27-5g",
+    "model": "Galaxy A27 5G",
+    "status": "saved",
+    "src": "existing"
+  },
+  {
+    "slug": "samsung-galaxy-a17-5g",
+    "model": "Galaxy A17 5G",
+    "status": "saved",
+    "src": "existing"
+  },
+  {
+    "slug": "samsung-galaxy-a17-4g",
+    "model": "Galaxy A17 4G",
+    "status": "saved",
+    "src": "existing"
+  },
+  {
+    "slug": "samsung-galaxy-a07",
+    "model": "Galaxy A07",
+    "status": "saved",
+    "src": "existing"
+  },
+  {
+    "slug": "samsung-galaxy-a56-5g",
+    "model": "Galaxy A56 5G",
+    "status": "saved",
+    "src": "existing"
+  },
+  {
+    "slug": "samsung-galaxy-a36-5g",
+    "model": "Galaxy A36 5G",
+    "status": "saved",
+    "src": "existing"
+  },
+  {
+    "slug": "apple-iphone-17e",
+    "model": "iPhone 17e",
+    "status": "no_match"
+  },
+  {
+    "slug": "google-pixel-11",
+    "model": "Pixel 11",
+    "status": "no_match"
+  },
+  {
+    "slug": "google-pixel-11-pro",
+    "model": "Pixel 11 Pro",
+    "status": "no_match"
+  },
+  {
+    "slug": "google-pixel-11-pro-xl",
+    "model": "Pixel 11 Pro XL",
+    "status": "no_match"
+  },
+  {
+    "slug": "google-pixel-10-pro-xl",
+    "model": "Pixel 10 Pro XL",
+    "status": "no_match"
+  },
+  {
+    "slug": "samsung-galaxy-z-fold8-ultra",
+    "model": "Galaxy Z Fold8 Ultra",
+    "status": "saved",
+    "src": "File:Samsung Galaxy Z Fold8 and Fold8 Ultra.jpg",
+    "bytes": 113611
+  },
+  {
+    "slug": "samsung-galaxy-z-fold8",
+    "model": "Galaxy Z Fold8",
+    "status": "saved",
+    "src": "File:Samsung Galaxy Z Fold8 and Fold8 Ultra.jpg",
+    "bytes": 113611
+  },
+  {
+    "slug": "samsung-galaxy-z-fold7",
+    "model": "Galaxy Z Fold7",
+    "status": "saved",
+    "src": "File:Samsung Galaxy Fold7 Cover Screen.jpg",
+    "bytes": 36941
+  },
+  {
+    "slug": "samsung-galaxy-s25-fe",
+    "model": "Galaxy S25 FE",
+    "status": "saved",
+    "src": "File:第一手！Samsung Galaxy S25系列拿到了：5个升级！S Pen不支持蓝牙了？ (2160p 50fps VP9-96kbit AAC)-00.00.07.100.png",
+    "bytes": 775180
+  },
+  {
+    "slug": "samsung-galaxy-s25-ultra",
+    "model": "Galaxy S25 Ultra",
+    "status": "saved",
+    "src": "File:第一手！Samsung Galaxy S25系列拿到了：5个升级！S Pen不支持蓝牙了？ (2160p 50fps VP9-96kbit AAC)-00.07.27.789.png",
+    "bytes": 450635
+  },
+  {
+    "slug": "samsung-galaxy-z-fold6",
+    "model": "Galaxy Z Fold6",
+    "status": "saved",
+    "src": "File:Samsung Galaxy Z Fold6.png",
+    "bytes": 311617
+  },
+  {
+    "slug": "oppo-reno-16f-5g",
+    "model": "Reno 16F 5G",
+    "status": "no_match"
+  },
+  {
+    "slug": "samsung-galaxy-z-fold5",
+    "model": "Galaxy Z Fold5",
+    "status": "saved",
+    "src": "File:Samsung-Galaxy-Z-Flip-5 kamera-telefonu.jpg",
+    "bytes": 77411
+  },
+  {
+    "slug": "oppo-a6",
+    "model": "A6",
+    "status": "saved",
+    "src": "File:Marian from Sanremo 2026.jpg",
+    "bytes": 203526
+  },
+  {
+    "slug": "samsung-galaxy-z-fold4",
+    "model": "Galaxy Z Fold4",
+    "status": "saved",
+    "src": "File:Front of the Samsung Galaxy Z Fold 4.jpg",
+    "bytes": 123660
+  },
+  {
+    "slug": "oppo-a6c",
+    "model": "A6C",
+    "status": "no_match"
+  },
+  {
+    "slug": "oppo-a6s-pro",
+    "model": "A6s Pro",
+    "status": "no_match"
+  },
+  {
+    "slug": "oppo-a6k",
+    "model": "A6K",
+    "status": "no_match"
+  },
+  {
+    "slug": "oppo-reno-16-5g",
+    "model": "Reno 16 5G",
+    "status": "saved",
+    "src": "File:Poolan fish 9tank goby) from chalakkudy river , krala-india.jpg",
+    "bytes": 212047
+  },
+  {
+    "slug": "oppo-a6s",
+    "model": "A6s",
+    "status": "no_match"
+  },
+  {
+    "slug": "oppo-reno-15f",
+    "model": "Reno 15F",
+    "status": "no_match"
+  },
+  {
+    "slug": "oppo-reno-15-pro",
+    "model": "Reno 15 Pro",
+    "status": "saved",
+    "src": "File:Kavishri Sundaram Chowk.jpg",
+    "bytes": 187509
+  },
+  {
+    "slug": "realme-16-5g",
+    "model": "16 5G",
+    "status": "saved",
+    "src": "File:Taizhou Intangible Cultural Heritage Exhibition Hall-16.jpg",
+    "bytes": 76381
+  },
+  {
+    "slug": "realme-c100i",
+    "model": "C100i",
+    "status": "saved",
+    "src": "File:Masjid Agung At-Taqwa Amuntai - Pelatihan Karate di Pendopo.jpg",
+    "bytes": 263046
+  },
+  {
+    "slug": "realme-c100",
+    "model": "C100",
+    "status": "no_match"
+  },
+  {
+    "slug": "oppo-reno-15",
+    "model": "Reno 15",
+    "status": "saved",
+    "src": "File:Parc floral de la Prairie 15.jpg",
+    "bytes": 495822
+  },
+  {
+    "slug": "realme-c75x",
+    "model": "C75x",
+    "status": "saved",
+    "src": "File:TaariqMd.jpg",
+    "bytes": 149081
+  },
+  {
+    "slug": "realme-c100x",
+    "model": "C100X",
+    "status": "no_match"
+  },
+  {
+    "slug": "realme-15-pro",
+    "model": "15 Pro",
+    "status": "saved",
+    "src": "File:68-KM-15-PDOT Kamienna 52.jpg",
+    "bytes": 497911
+  },
+  {
+    "slug": "vivo-y05",
+    "model": "Y05",
+    "status": "no_match"
+  },
+  {
+    "slug": "vivo-y05e",
+    "model": "Y05e",
+    "status": "no_match"
+  },
+  {
+    "slug": "realme-note-60x",
+    "model": "Note 60x",
+    "status": "saved",
+    "src": "File:Realme note 60x.jpg",
+    "bytes": 477101
+  },
+  {
+    "slug": "vivo-x300-fe",
+    "model": "X300 FE",
+    "status": "no_match"
+  },
+  {
+    "slug": "vivo-y11d",
+    "model": "Y11d",
+    "status": "no_match"
+  },
+  {
+    "slug": "realme-note-70",
+    "model": "Note 70",
+    "status": "saved",
+    "src": "File:Carte représentant l'Afrique orientale, du Delta d'Egypte jusqu'au centre de Madagascar tirée de la Relation del Realme di Congo e delle vicinate contrade - par F. Pigafetta - btv1b84595214.jpg",
+    "bytes": 592911
+  },
+  {
+    "slug": "vivo-y500",
+    "model": "Y500",
+    "status": "saved",
+    "src": "File:System Settings on the vivo Y500 Pro (Gold).jpg",
+    "bytes": 190694
+  },
+  {
+    "slug": "vivo-y31d",
+    "model": "Y31d",
+    "status": "saved",
+    "src": "File:Vivo Y31d front panel.jpg",
+    "bytes": 361332
+  },
+  {
+    "slug": "infinix-note-60-edge-5g",
+    "model": "Note 60 Edge 5G",
+    "status": "no_match"
+  },
+  {
+    "slug": "vivo-x300-pro",
+    "model": "X300 Pro",
+    "status": "saved",
+    "src": "File:The front of the unreleased vivo X300 Pro.jpg",
+    "bytes": 186468
+  },
+  {
+    "slug": "infinix-hot-70-pro-5g",
+    "model": "Hot 70 Pro 5G",
+    "status": "no_match"
+  },
+  {
+    "slug": "vivo-v70-fe",
+    "model": "V70 FE",
+    "status": "saved",
+    "src": "File:Tabby at VivoV70 FE Roadshow 2026.jpg",
+    "bytes": 568407
+  },
+  {
+    "slug": "vivo-x200-fe",
+    "model": "X200 FE",
+    "status": "saved",
+    "src": "File:Wang Tzu-wei Fan Meeting on December 13, 2025.jpg",
+    "bytes": 358583
+  },
+  {
+    "slug": "infinix-smart-20",
+    "model": "Smart 20",
+    "status": "saved",
+    "src": "File:Wikipedia 20 In Kano 02.jpg",
+    "bytes": 151365
+  },
+  {
+    "slug": "infinix-hot-70",
+    "model": "Hot 70",
+    "status": "saved",
+    "src": "File:Eyo Ephraim Adam.jpg",
+    "bytes": 222363
+  },
+  {
+    "slug": "infinix-hot-60i",
+    "model": "Hot 60i",
+    "status": "saved",
+    "src": "File:Bahaushe a bisa mashin.jpg",
+    "bytes": 615234
+  },
+  {
+    "slug": "infinix-gt-50-pro",
+    "model": "GT 50 Pro",
+    "status": "saved",
+    "src": "File:Mitsubishi Lancer EX CY6A 1.8 GT-A Octane Blue Pearl 01.jpg",
+    "bytes": 270947
+  },
+  {
+    "slug": "infinix-hot-60-pro",
+    "model": "Hot 60 Pro",
+    "status": "saved",
+    "src": "File:Infinix Hot 60 Pro Plus.jpg",
+    "bytes": 260272
+  },
+  {
+    "slug": "infinix-note-60-pro",
+    "model": "Note 60 Pro",
+    "status": "saved",
+    "src": "File:Infinix Note 60 Pro.png",
+    "bytes": 119145
+  },
+  {
+    "slug": "infinix-note-60",
+    "model": "Note 60",
+    "status": "saved",
+    "src": "File:Infinix Note 60 Pro.png",
+    "bytes": 119145
+  },
+  {
+    "slug": "tecno-spark-50",
+    "model": "Spark 50",
+    "status": "saved",
+    "src": "File:Tecno Spark 20.jpg",
+    "bytes": 150590
+  },
+  {
+    "slug": "tecno-spark-50-pro",
+    "model": "Spark 50 Pro",
+    "status": "saved",
+    "src": "File:Tecno Spark 20.jpg",
+    "bytes": 150590
+  },
+  {
+    "slug": "tecno-spark-40-pro-plus",
+    "model": "Spark 40 Pro Plus",
+    "status": "no_match"
+  },
+  {
+    "slug": "tecno-camon-50",
+    "model": "Camon 50",
+    "status": "saved",
+    "src": "File:Tecno Camon 50 rear panel.jpg",
+    "bytes": 278712
+  },
+  {
+    "slug": "tecno-camon-50-pro",
+    "model": "Camon 50 Pro",
+    "status": "saved",
+    "src": "File:Physical Training 2.jpg",
+    "bytes": 388979
+  },
+  {
+    "slug": "tecno-pova-curve-2-5g",
+    "model": "Pova Curve 2 5G",
+    "status": "saved",
+    "src": "File:MY College.jpg",
+    "bytes": 264027
+  },
+  {
+    "slug": "xiaomi-17-ultra",
+    "model": "17 Ultra",
+    "status": "saved",
+    "src": "File:Xiaomi 17 Ultra 001.jpg",
+    "bytes": 190527
+  },
+  {
+    "slug": "xiaomi-redmi-15c",
+    "model": "Redmi 15C",
+    "status": "saved",
+    "src": "File:Redmi 15C back.jpg",
+    "bytes": 325794
+  },
+  {
+    "slug": "honor-x8d",
+    "model": "X8d",
+    "status": "saved",
+    "src": "File:Almacafé Armenia.jpg",
+    "bytes": 224427
+  },
+  {
+    "slug": "tecno-camon-50-ultra-5g",
+    "model": "Camon 50 Ultra 5G",
+    "status": "saved",
+    "src": "File:Koleksi keris di Museum Keris Nusantara 04.jpg",
+    "bytes": 177956
+  },
+  {
+    "slug": "honor-x9d",
+    "model": "X9d",
+    "status": "saved",
+    "src": "File:Honor X9d front panel.jpg",
+    "bytes": 334444
+  },
+  {
+    "slug": "itel-a200",
+    "model": "A200",
+    "status": "no_match"
+  },
+  {
+    "slug": "honor-x6c",
+    "model": "X6c",
+    "status": "saved",
+    "src": "File:Domestic rooster (Gallus gallus domesticus) in Quepos, Costa Rica.jpg",
+    "bytes": 467930
+  },
+  {
+    "slug": "itel-power-80",
+    "model": "Power 80",
+    "status": "no_match"
+  },
+  {
+    "slug": "nothing-cmf-phone-1-5g",
+    "model": "CMF Phone 1 5G",
+    "status": "no_match"
+  },
+  {
+    "slug": "itel-a100c",
+    "model": "A100C",
+    "status": "saved",
+    "src": "File:Chief Okujagu street.jpg",
+    "bytes": 262152
+  },
+  {
+    "slug": "tecno-spark-go-3",
+    "model": "Spark Go 3",
+    "status": "saved",
+    "src": "File:Worthy ishaya photography- hustle series 3.jpg",
+    "bytes": 125132
+  },
+  {
+    "slug": "motorola-edge-70-fusion",
+    "model": "Edge 70 Fusion",
+    "status": "saved",
+    "src": "File:Kohoj Entry Gate.jpg",
+    "bytes": 895552
+  }
+]

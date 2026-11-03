@@ -1,0 +1,14 @@
+# RAES TECH — Supabase project configuration.
+project_id = "raestech"
+
+[api]
+enabled = true
+port = 54321
+
+[db]
+port = 54322
+
+# The admin-provisioning function is guarded by its own shared-secret header
+# (Authorization: Bearer $ADMIN_SEED_SECRET), so it does NOT require a user JWT.
+[functions.create-admin]
+verify_jwt = false

@@ -1,0 +1,59 @@
+import { useState } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useAuth } from "@/features/auth/AuthContext";
+import { isSupabaseConfigured } from "@/lib/supabase";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Card, CardContent } from "@/components/ui/card";
+
+export function LoginPage() {
+  const { signIn, devSignIn } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation() as { state?: { from?: string } };
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [busy, setBusy] = useState(false);
+
+  async function submit(e: React.FormEvent) {
+    e.preventDefault();
+    setBusy(true);
+    setError("");
+    const { error: err } = await signIn(email, password);
+    setBusy(false);
+    if (err) return setError(err);
+    navigate(location.state?.from ?? "/account", { replace: true });
+  }
+
+  return (
+    <div className="mx-auto max-w-md">
+      <Card>
+        <CardContent className="p-8">
+          <h1 className="text-2xl font-bold">Welcome back</h1>
+          <p className="mt-1 text-sm text-muted-foreground">Log in to your RAES TECH account.</p>
+          <form onSubmit={submit} className="mt-6 space-y-4">
+            <div className="space-y-1.5"><Label>Email</Label><Input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} /></div>
+            <div className="space-y-1.5"><Label>Password</Label><Input type="password" required value={password} onChange={(e) => setPassword(e.target.value)} /></div>
+            {error && <p className="text-sm text-red-600">{error}</p>}
+            <Button type="submit" className="w-full" disabled={busy}>{busy ? "Signing in…" : "Login"}</Button>
+          </form>
+
+          {!isSupabaseConfigured && (
+            <div className="mt-4 rounded-lg bg-muted/40 p-3 text-center text-xs text-muted-foreground">
+              Dev mode: no Supabase configured. Use demo login below.
+              <Button variant="secondary" size="sm" className="mt-2 w-full" onClick={async () => { await devSignIn(); navigate("/account"); }}>
+                Demo customer login
+              </Button>
+            </div>
+          )}
+
+          <div className="mt-4 flex items-center justify-between text-sm">
+            <Link to="/forgot-password" className="text-muted-foreground hover:underline">Forgot password?</Link>
+            <Link to="/register" className="font-medium hover:underline">Create account</Link>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
