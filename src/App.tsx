@@ -20,7 +20,7 @@ import { AboutPage } from "@/pages/storefront/AboutPage";
 import { ContactPage } from "@/pages/storefront/ContactPage";
 import { ContentPage } from "@/pages/storefront/ContentPage";
 import { NotFoundPage } from "@/pages/storefront/NotFoundPage";
-import { LoginPage, RegisterPage, ForgotPasswordPage } from "@/pages/storefront/auth";
+import { LoginPage, RegisterPage, ForgotPasswordPage, ResetPasswordPage } from "@/pages/storefront/auth";
 import { AccountLayout } from "@/layouts/AccountLayout";
 import { AccountHome } from "@/pages/account/AccountHome";
 import { AccountOrders } from "@/pages/account/AccountOrders";
@@ -81,6 +81,7 @@ export default function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+        <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route path="/:slug" element={<ContentPage />} />
       </Route>
 

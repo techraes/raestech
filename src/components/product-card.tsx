@@ -54,7 +54,10 @@ export function ProductCard({ product }: { product: Product }) {
   function quickAdd(e: React.MouseEvent) {
     e.preventDefault();
     e.stopPropagation();
-    addItem(product, variant);
+    // Cards have no colour picker; default to the first listed colour so the item
+    // is never added without a colour. Detailed choice happens on the product page.
+    const defaultColor = variant.colors.length ? variant.colors[0] : "";
+    addItem(product, variant, 1, defaultColor);
   }
 
   return (

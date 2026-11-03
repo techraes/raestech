@@ -18,6 +18,22 @@ import { useCart } from "@/store/cart";
 import { ptaInfo } from "@/lib/pta";
 import { NotFoundPage } from "./NotFoundPage";
 
+/** Map a colour name to a representative swatch background. */
+function swatchColor(c: string): string {
+  const s = c.toLowerCase();
+  if (s.includes("white") || s.includes("silver") || s.includes("starlight") || s.includes("grey") || s.includes("gray") || s.includes("natural")) return "#f5f5f5";
+  if (s.includes("black") || s.includes("midnight") || s.includes("graphite") || s.includes("obsidian") || s.includes("ink") || s.includes("space")) return "#1c1c1e";
+  if (s.includes("pink") || s.includes("rose")) return "#f9a8c4";
+  if (s.includes("blue") || s.includes("navy") || s.includes("azure") || s.includes("sky") || s.includes("ocean")) return "#3b82f6";
+  if (s.includes("green") || s.includes("mint") || s.includes("emerald") || s.includes("sage")) return "#22c55e";
+  if (s.includes("red") || s.includes("crimson") || s.includes("maroon") || s.includes("scarlet")) return "#ef4444";
+  if (s.includes("gold") || s.includes("yellow") || s.includes("amber") || s.includes("sand") || s.includes("champagne")) return "#facc15";
+  if (s.includes("purple") || s.includes("violet") || s.includes("lavender")) return "#a855f7";
+  if (s.includes("titanium") || s.includes("storm") || s.includes("alpine")) return "#9ca3af";
+  if (s.includes("brown") || s.includes("bronze") || s.includes("copper") || s.includes("cognac")) return "#8b5e3c";
+  return "#6b7280";
+}
+
 export function ProductDetailPage() {
   const { slug } = useParams<{ slug: string }>();
   const product = slug ? getProductBySlug(slug) : undefined;
@@ -29,6 +45,16 @@ export function ProductDetailPage() {
   const [vIndex, setVIndex] = useState(0);
   const variant = variants[vIndex];
   const [color, setColor] = useState<string>("");
+  const [colorError, setColorError] = useState<string>("");
+
+  function requireColor(): boolean {
+    if (variant.colors.length > 0 && !color) {
+      setColorError("Please select a colour before adding to cart. Colour choices matter for your delivery.");
+      return false;
+    }
+    setColorError("");
+    return true;
+  }
 
   const plan = useMemo(
     () => (variant ? instalmentPlan(variant.listedPrice, 12, settings.instalmentAdvancePercent, settings.instalmentMarkupPercent) : null),
@@ -69,20 +95,36 @@ export function ProductDetailPage() {
         {/* Image / visuals */}
         <div>
           <div className="aspect-square overflow-hidden rounded-3xl bg-muted/30">
-            <ProductImage product={product} variant={variant} className="h-full w-full p-4" />
+            <ProductImage product={product} variant={variant} color={color} className="h-full w-full p-4" />
           </div>
           <p className="mt-2 text-center text-[10px] text-neutral-400">Representative image — colour may vary</p>
-          <div className="mt-4 flex flex-wrap gap-2">
-            {variant.colors.map((c, i) => (
-              <button
-                key={c + i}
-                onClick={() => setColor(c)}
-                className="h-9 w-9 rounded-full border-2 shadow-sm transition-transform hover:scale-105"
-                style={{ background: c.toLowerCase().includes("white") || c.toLowerCase().includes("silver") || c.toLowerCase().includes("starlight") ? "#f5f5f5" : c.toLowerCase().includes("black") || c.toLowerCase().includes("midnight") ? "#000" : c.toLowerCase().includes("pink") ? "#f9a8c4" : c.toLowerCase().includes("blue") ? "#3b82f6" : c.toLowerCase().includes("green") ? "#22c55e" : c.toLowerCase().includes("red") ? "#ef4444" : c.toLowerCase().includes("gold") || c.toLowerCase().includes("yellow") ? "#facc15" : c.toLowerCase().includes("purple") ? "#a855f7" : c.toLowerCase().includes("graphite") ? "#374151" : c.toLowerCase().includes("titanium") ? "#9ca3af" : "#6b7280" }}
-                aria-label={`Colour ${c}`}
-                title={c}
-              />
-            ))}
+          <div className="mt-4">
+            <div className="mb-2 flex items-center justify-between">
+              <p className="text-sm font-medium">Colour</p>
+              <p className="text-sm font-semibold text-foreground">{color || (variant.colors.length ? "Select a colour" : "—")}</p>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {variant.colors.map((c, i) => {
+                const selected = color === c;
+                return (
+                  <button
+                    key={c + i}
+                    onClick={() => setColor(c)}
+                    className={cn(
+                      "h-9 w-9 rounded-full border-2 shadow-sm transition-transform hover:scale-105",
+                      selected ? "border-foreground ring-2 ring-foreground/40 ring-offset-2" : "border-neutral-300"
+                    )}
+                    style={{ background: swatchColor(c) }}
+                    aria-label={`Colour ${c}`}
+                    aria-pressed={selected}
+                    title={c}
+                  />
+                );
+              })}
+            </div>
+            {variant.colors.length > 0 && !color && (
+              <p className="mt-2 text-xs text-amber-700">Please select a colour to add to cart.</p>
+            )}
           </div>
         </div>
 
@@ -197,13 +239,16 @@ export function ProductDetailPage() {
           {/* Buy / instalment CTAs */}
           <div className="space-y-3">
             <div className="grid grid-cols-2 gap-3">
-              <Button size="lg" className="rounded-full bg-neutral-950 text-white hover:bg-neutral-800" onClick={() => { addItem(product, variant); navigate("/checkout"); }}>
+              <Button size="lg" className="rounded-full bg-neutral-950 text-white hover:bg-neutral-800" onClick={() => { if (!requireColor()) return; addItem(product, variant, 1, color); navigate("/checkout"); }}>
                 Buy Now
               </Button>
-              <Button size="lg" variant="outline" className="rounded-full" onClick={() => addItem(product, variant)}>
+              <Button size="lg" variant="outline" className="rounded-full" onClick={() => { if (!requireColor()) return; addItem(product, variant, 1, color); }}>
                 Add to Cart
               </Button>
             </div>
+            {colorError && (
+              <p className="rounded-lg bg-amber-50 px-3 py-2 text-xs text-amber-800">{colorError}</p>
+            )}
             <Button asChild size="lg" variant="outline" className="w-full rounded-full">
               <Link to={`/instalments/apply?product=${product.slug}`}>Apply Instalment</Link>
             </Button>

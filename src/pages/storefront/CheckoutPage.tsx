@@ -91,7 +91,7 @@ export function CheckoutPage() {
             payment instructions, then upload your receipt from your account. Your payment will be verified manually before dispatch.
           </p>
           <Button asChild variant="outline" className="mt-4 w-full">
-            <Link to="/payment-instructions">View Payment Instructions</Link>
+            <Link to={`/payment-instructions?order=${encodeURIComponent(orderNo)}&amount=${total}`}>View Payment Instructions</Link>
           </Button>
           <Button asChild className="mt-2 w-full">
             <Link to="/account/orders">Go to My Orders</Link>
@@ -173,9 +173,16 @@ export function CheckoutPage() {
               <h2 className="mb-3 text-lg font-bold">Summary</h2>
               <div className="space-y-3">
                 {items.map((i) => (
-                  <div key={i.variant.sku} className="flex justify-between gap-2 text-sm">
-                    <span className="line-clamp-1 text-muted-foreground">{i.product.name} × {i.quantity}</span>
-                    <span className="font-medium">{formatPKR(buyNowPrice(i.variant.listedPrice, settings.buyNowDiscountPercent) * i.quantity)}</span>
+                  <div key={`${i.variant.sku}__${(i.color || "").toLowerCase()}`} className="flex justify-between gap-2 text-sm">
+                    <span className="min-w-0">
+                      <span className="line-clamp-1 text-muted-foreground">{i.product.name}</span>
+                      {i.color ? (
+                        <span className="block text-xs text-muted-foreground/80">Colour: {i.color} · × {i.quantity}</span>
+                      ) : (
+                        <span className="block text-xs text-muted-foreground/80">× {i.quantity}</span>
+                      )}
+                    </span>
+                    <span className="font-medium whitespace-nowrap">{formatPKR(buyNowPrice(i.variant.listedPrice, settings.buyNowDiscountPercent) * i.quantity)}</span>
                   </div>
                 ))}
               </div>

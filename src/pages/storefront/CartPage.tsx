@@ -36,7 +36,7 @@ export function CartPage() {
             {items.map((item) => {
               const bn = buyNowPrice(item.variant.listedPrice, settings.buyNowDiscountPercent);
               return (
-                <Card key={item.variant.sku} className="flex gap-4 p-4">
+                <Card key={`${item.variant.sku}__${(item.color || "").toLowerCase()}`} className="flex gap-4 p-4">
                   <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-xl bg-muted/50">
                     <span className="text-2xl font-black text-muted-foreground">{item.product.model[0]}</span>
                   </div>
@@ -45,19 +45,20 @@ export function CartPage() {
                       {item.product.name}
                     </Link>
                     <p className="text-xs text-muted-foreground">
-                      {item.variant.storage} · {item.variant.ram} · {item.variant.colors[0] ?? ""}
+                      {item.variant.storage} · {item.variant.ram}
+                      {item.color ? ` · ${item.color}` : ""}
                     </p>
                     <p className="mt-1 text-sm font-bold">{formatPKR(bn * item.quantity)}</p>
                     <p className="text-xs text-muted-foreground line-through">{formatPKR(item.variant.listedPrice * item.quantity)}</p>
                     <div className="mt-2 flex items-center gap-2">
-                      <Button variant="outline" size="icon" className="h-8 w-8" onClick={() => updateQuantity(item.variant.sku, item.quantity - 1)}>
+                      <Button variant="outline" size="icon" className="h-8 w-8" onClick={() => updateQuantity(item.variant.sku, item.quantity - 1, item.color)}>
                         <Minus className="h-3.5 w-3.5" />
                       </Button>
                       <span className="w-8 text-center text-sm font-medium">{item.quantity}</span>
-                      <Button variant="outline" size="icon" className="h-8 w-8" onClick={() => updateQuantity(item.variant.sku, item.quantity + 1)}>
+                      <Button variant="outline" size="icon" className="h-8 w-8" onClick={() => updateQuantity(item.variant.sku, item.quantity + 1, item.color)}>
                         <Plus className="h-3.5 w-3.5" />
                       </Button>
-                      <Button variant="ghost" size="icon" className="ml-auto h-8 w-8 text-red-600" onClick={() => removeItem(item.variant.sku)}>
+                      <Button variant="ghost" size="icon" className="ml-auto h-8 w-8 text-red-600" onClick={() => removeItem(item.variant.sku, item.color)}>
                         <Trash2 className="h-4 w-4" />
                       </Button>
                     </div>

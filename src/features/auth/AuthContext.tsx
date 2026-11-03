@@ -129,7 +129,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setUser(dev);
       return {};
     }
-    return { error: "Authentication is unavailable in this deployment." };
+    return {
+      error:
+        "Authentication is not configured on this deployment. Please contact customer support to enable login, or try again shortly.",
+    };
   }
 
   async function signUp(email: string, password: string, fullName: string) {
@@ -143,7 +146,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setUser(dev);
       return {};
     }
-    return { error: "Sign-up is unavailable in this deployment." };
+    return {
+      error:
+        "Registration is not configured on this deployment. Please contact customer support to enable account creation, or try again shortly.",
+    };
   }
 
   async function signOut() {

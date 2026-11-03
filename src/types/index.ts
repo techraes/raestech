@@ -160,6 +160,8 @@ export interface CartItem {
   product: Product;
   variant: ProductVariant;
   quantity: number;
+  /** Selected colour for this variant (empty string when none / not applicable). */
+  color?: string;
 }
 
 export type CustomerOrderPaymentMethod = "bank_transfer" | "instalments";
@@ -169,6 +171,8 @@ export interface CustomerOrderItem {
   name: string;
   quantity: number;
   unitPrice: number;
+  /** Selected colour carried through to order records and admin view. */
+  color?: string;
 }
 
 export interface CustomerOrder {

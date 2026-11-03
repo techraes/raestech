@@ -49,27 +49,38 @@ function variantBySku(sku: string): ProductVariant | undefined {
   return undefined;
 }
 
+/** Map a Supabase/PostgREST error to a customer-friendly message. */
+function formatServerError(err: { message?: string }): string {
+  const msg = err.message ?? "";
+  if (/insufficient stock/i.test(msg)) {
+    return "Insufficient stock for one or more items. Please adjust quantities and try again.";
+  }
+  if (/authenticated/i.test(msg)) {
+    return "Please sign in to place an order.";
+  }
+  return "Could not save your order. Please try again.";
+}
+
 /**
  * Local-first order store. Orders are persisted to localStorage immediately so a
  * customer's order always exists regardless of backend state. When Supabase is
- * configured and reachable we also sync the order server-side so admins can see
- * it. The UI reads from the local store.
+ * configured we sync the order server-side so admins and the customer's account
+ * history see it.
  *
- * Server sync is authoritative where it matters:
- *  - Prices are recomputed from the canonical catalogue (never trusted from
- *    tampered client cart state) and every item is checked against stock before
- *    an order is created.
- *  - The order header AND its line items are written to Supabase; if the line
- *    items cannot be written the created order is rolled back so admins never
- *    see a header without products/SKUs/quantities, and the failure is surfaced
- *    to the customer instead of being silently swallowed.
+ * Server-side guarantees:
+ *  - The order owner is resolved from the real session (supabase.auth.getUser()),
+ *    never from a client-supplied id, so orders cannot be orphaned or spoofed.
+ *  - Stock is validated and decremented atomically by the `place_order_buynow`
+ *    RPC (single transaction), preventing overselling under concurrent checkouts.
+ *  - The order header AND its line items are persisted together; on failure the
+ *    order is rolled back and the error is surfaced to the customer.
  */
 export const useOrders = create<OrdersState>()(
   persist(
     (set) => ({
       orders: [],
 
-      placeOrder: async (draft, userId) => {
+      placeOrder: async (draft) => {
         const discount = Math.max(0, Number(draft.discountPercent) || 0);
 
         // ---- 1. Validate every item against the canonical catalogue before
@@ -94,7 +105,7 @@ export const useOrders = create<OrdersState>()(
             };
           }
           const unitPrice = buyNowPrice(variant.listedPrice, discount);
-          items.push({ sku: variant.sku, name: cartItem.product.name, quantity, unitPrice });
+          items.push({ sku: variant.sku, name: cartItem.product.name, quantity, unitPrice, color: cartItem.color });
           computedSubtotal += unitPrice * quantity;
         }
 
@@ -119,18 +130,51 @@ export const useOrders = create<OrdersState>()(
           total: computedSubtotal + draft.shipping,
         };
 
-        // Keep a local copy immediately so the customer always has a record.
-        set((state) => ({ orders: [order, ...state.orders] }));
-
-        // ---- 2. Server sync. When Supabase is configured we must persist BOTH
-        // the order header and its line items. If that fails we surface an error
-        // instead of silently leaving an empty/orphaned order row for admins.
+        // ---- 2. Server sync. When Supabase is configured the order must
+        // belong to the real session and stock must be reserved server-side.
         if (supabase) {
+          // Resolve the authenticated user authoritatively.
+          const { data: authData } = await supabase.auth.getUser();
+          const currentUserId = authData?.user?.id;
+          if (!currentUserId) {
+            return { ok: false, error: "Please sign in to place an order." };
+          }
+
+          // Preferred path: atomic server-side RPC.
+          const rpc = await supabase.rpc("place_order_buynow", {
+            p_payload: {
+              email: draft.email,
+              phone: draft.phone,
+              discount_percent: discount,
+              shipping_charge: draft.shipping,
+              customer_notes: draft.notes || null,
+              items: items.map((item) => ({
+                sku: item.sku,
+                quantity: item.quantity,
+                product_name: item.name,
+                color: item.color || "",
+              })),
+            },
+          });
+
+          if (!rpc.error) {
+            const serverOrder: CustomerOrder = { ...order, id: String(rpc.data ?? order.id) };
+            set((state) => ({ orders: [serverOrder, ...state.orders] }));
+            return { ok: true, order: serverOrder };
+          }
+
+          // Fallback: if the RPC is not deployed yet (migration not applied),
+          // keep checkout working via direct inserts with a client-side stock
+          // guard. Any other RPC error (e.g. insufficient stock) is surfaced.
+          if (rpc.error.code !== "PGRST202") {
+            return { ok: false, error: formatServerError(rpc.error) };
+          }
+
           const { data: inserted, error: orderErr } = await supabase
             .from("orders")
             .insert({
               order_number: order.orderNumber,
-              user_id: userId ?? null,
+              user_id: currentUserId,
               email: order.email,
               phone: order.phone,
               status: order.status,
@@ -165,13 +209,14 @@ export const useOrders = create<OrdersState>()(
             unit_price: item.unitPrice,
             buy_now: item.unitPrice,
             subtotal: item.unitPrice * item.quantity,
+            color: item.color || null,
           }));
 
           const { error: itemsErr } = await supabase.from("order_items").insert(itemRows);
 
           if (itemsErr) {
             // Roll back the orphaned order so admins never see a header without
-            // its line items (would make fulfilment impossible).
+            // its line items.
             try {
               await supabase.from("orders").delete().eq("id", orderId);
             } catch {
@@ -181,6 +226,8 @@ export const useOrders = create<OrdersState>()(
           }
         }
 
+        // Keep a local copy (offline / dev mode or successful server sync).
+        set((state) => ({ orders: [order, ...state.orders] }));
         return { ok: true, order };
       },
     }),
