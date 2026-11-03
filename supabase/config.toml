@@ -12,3 +12,8 @@ port = 54322
 # (Authorization: Bearer $ADMIN_SEED_SECRET), so it does NOT require a user JWT.
 [functions.create-admin]
 verify_jwt = false
+
+# Transactional email sender (Resend). Guarded by its own shared-secret header
+# (Authorization: Bearer $SEND_EMAIL_SECRET), so it does NOT require a user JWT.
+[functions.send-email]
+verify_jwt = false

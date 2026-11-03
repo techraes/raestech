@@ -7,7 +7,7 @@ import {
 import { getProductBySlug, relatedProducts } from "@/data/catalog";
 import { useSettings } from "@/features/settings/store";
 import { buyNowPrice, instalmentPlan } from "@/lib/pricing";
-import { formatPKR, cn } from "@/lib/utils";
+import { formatPKR, cn, displayCondition } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
@@ -98,7 +98,7 @@ export function ProductDetailPage() {
             </div>
             <h1 className="mt-1 text-2xl font-bold sm:text-3xl">{product.name}</h1>
             <p className="mt-1 text-sm text-muted-foreground">
-              {variant.storage} · {variant.ram} · {variant.condition}
+              {variant.storage} · {variant.ram} · {displayCondition()}
             </p>
           </div>
 
@@ -176,7 +176,7 @@ export function ProductDetailPage() {
             </p>
             <p className="flex items-center gap-2">
               <Lock className="h-4 w-4" />
-              <span className="font-medium">Condition:</span> {variant.condition}
+              <span className="font-medium">Condition:</span> {displayCondition()}
             </p>
             {variant.requiresVerification && (
               <p className="rounded-lg bg-amber-50 px-3 py-2 text-xs text-amber-800">
@@ -230,25 +230,21 @@ export function ProductDetailPage() {
         </div>
       </div>
 
-      {/* Specs + description */}
-      <div className="grid gap-6 lg:grid-cols-2">
-        <Card>
-          <CardContent className="p-6">
-            <h2 className="mb-4 text-lg font-bold">Specifications</h2>
-            <div className="space-y-3">
-              {specs.map((s) => (
-                <div key={s.label} className="flex items-start gap-3">
-                  <s.icon className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" />
-                  <div>
-                    <p className="text-xs text-muted-foreground">{s.label}</p>
-                    <p className="text-sm">{s.value}</p>
-                  </div>
-                </div>
-              ))}
+      {/* Specifications */}
+      <section className="rounded-3xl border bg-card p-6 sm:p-8">
+        <h2 className="mb-6 text-xl font-bold">Specifications</h2>
+        <dl className="grid gap-x-10 gap-y-5 sm:grid-cols-2">
+          {specs.map((s) => (
+            <div key={s.label} className="flex items-start gap-3">
+              <s.icon className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" />
+              <div>
+                <dt className="text-xs text-muted-foreground">{s.label}</dt>
+                <dd className="mt-0.5 text-sm font-medium">{s.value}</dd>
+              </div>
             </div>
-          </CardContent>
-        </Card>
-      </div>
+          ))}
+        </dl>
+      </section>
 
       {/* Related */}
       <section>

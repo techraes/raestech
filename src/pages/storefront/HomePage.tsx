@@ -1,11 +1,11 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, ShieldCheck, Truck, Percent, RotateCcw, SlidersHorizontal, Calendar, Lock, Headphones, BadgeCheck } from "lucide-react";
+import { ArrowRight, ShieldCheck, Truck, Percent, RotateCcw, SlidersHorizontal, Lock, Headphones, BadgeCheck } from "lucide-react";
 
 import { useSettings } from "@/features/settings/store";
 import { allProducts, newArrivals, getBrands } from "@/data/catalog";
 import { ProductGrid } from "@/components/product-card";
-import { ProductImage } from "@/components/product-image";
+import { HeroInstalmentCalculator } from "@/components/hero-instalment-calculator";
 import { Reveal } from "@/components/reveal";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -17,12 +17,6 @@ export function HomePage() {
   const { settings } = useSettings();
   const fresh = newArrivals();
   const brands = getBrands();
-  const showcase = useMemo(() => {
-    const withImg = allProducts.filter((p) => p.brand === "Apple" && p.image);
-    const pool = withImg.length ? withImg : allProducts.filter((p) => p.image);
-    return pool.slice(0, 3);
-  }, []);
-
   const [sort, setSort] = useState<"default" | "price-asc" | "price-desc" | "newest">("default");
   const [minS, setMinS] = useState("");
   const [maxS, setMaxS] = useState("");
@@ -108,33 +102,9 @@ export function HomePage() {
             </Reveal>
           </div>
 
-          {/* Right: realistic phone showcase */}
+          {/* Right: instalment calculator (replaces phone mockup) */}
           <div className="relative hidden items-center justify-center lg:flex">
-            <div className="absolute right-0 top-0 z-20 rounded-2xl border border-white/15 bg-white/5 p-4 backdrop-blur animate-float">
-              <div className="flex items-center gap-2">
-                <Calendar className="h-4 w-4 text-white/80" />
-                <span className="text-xs font-medium text-white">Easy Instalments</span>
-              </div>
-              <p className="mt-1 text-xs text-white/70">3 | 6 | 9 | 12 Months</p>
-            </div>
-            <div className="relative flex items-center justify-center py-6">
-              {showcase[2] && (
-                <div className="absolute -left-4 top-4 h-52 w-32 -rotate-6 overflow-hidden rounded-[1.75rem] border-4 border-neutral-800 bg-neutral-900 opacity-90 shadow-xl">
-                  <ProductImage product={showcase[2]} className="h-full w-full object-cover" />
-                </div>
-              )}
-              {showcase[1] && (
-                <div className="absolute -right-3 top-10 h-52 w-32 rotate-6 overflow-hidden rounded-[1.75rem] border-4 border-neutral-800 bg-neutral-900 opacity-90 shadow-xl">
-                  <ProductImage product={showcase[1]} className="h-full w-full object-cover" />
-                </div>
-              )}
-              {showcase[0] && (
-                <div className="relative z-10 h-80 w-48 -rotate-2 overflow-hidden rounded-[2.25rem] border-4 border-neutral-800 bg-neutral-900 shadow-2xl">
-                  <ProductImage product={showcase[0]} className="h-full w-full object-cover" />
-                  <div className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-black/50 to-transparent" />
-                </div>
-              )}
-            </div>
+            <HeroInstalmentCalculator />
           </div>
         </div>
       </section>

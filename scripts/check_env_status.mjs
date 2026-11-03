@@ -18,6 +18,9 @@ const want = [
   "VITE_SUPABASE_ANON_KEY",
   "VITE_DEV_ADMIN_EMAIL",
   "VITE_DEV_ADMIN_PASSWORD",
+  "RESEND_API_KEY",
+  "RESEND_FROM",
+  "SEND_EMAIL_SECRET",
 ];
 
 for (const k of want) {

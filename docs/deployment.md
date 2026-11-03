@@ -54,6 +54,27 @@ Set these in Vercel (Project → Settings → Environment Variables):
 
 > Never commit `.env` or real keys. `.env.example` shows required names only.
 
+**Edge function secrets** (set in Supabase → Edge Functions → Secrets, or in
+`supabase/config.toml` for local dev):
+
+| Variable | Used by | Purpose |
+|---|---|---|
+| `RESEND_API_KEY` | `send-email` | Resend API key (server-side only, never client) |
+| `RESEND_FROM` | `send-email` | Verified sender, e.g. `RAES TECH <onboarding@resend.dev>` |
+| `SEND_EMAIL_SECRET` | `send-email` | Shared secret guarding the function (`Authorization: Bearer`) |
+
+### Resend setup
+1. Create a project at https://resend.com, add and verify your sending domain.
+2. Create an API key (`re_…`) in **API Keys**.
+3. Set `RESEND_API_KEY`, `RESEND_FROM`, and `SEND_EMAIL_SECRET`
+   (a strong random value, e.g. `openssl rand -hex 32`).
+4. Deploy the Edge Function:
+   `supabase functions deploy send-email`.
+5. Seed the `email_templates` table with at least `order_confirmation`,
+   `password_reset`, and `instalment_reminder` templates (subject/body may use
+   `{{placeholder}}` tokens — see `supabase/functions/send-email/render.mjs`).
+6. Test: invoke the function (see header comment in `index.ts`).
+
 ---
 
 ## 3. Deploy the frontend to Vercel

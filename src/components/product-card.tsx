@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useSettings } from "@/features/settings/store";
 import { buyNowPrice } from "@/lib/pricing";
-import { formatPKR } from "@/lib/utils";
+import { formatPKR, displayCondition } from "@/lib/utils";
 import { useCart } from "@/store/cart";
 import { ProductImage } from "@/components/product-image";
 import { ptaInfo } from "@/lib/pta";
@@ -102,7 +102,7 @@ export function ProductCard({ product }: { product: Product }) {
               {pta.label}
             </Badge>
             <Badge variant="muted" className="text-[10px]">
-              {variant.condition}
+              {displayCondition()}
             </Badge>
           </div>
 
