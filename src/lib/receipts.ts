@@ -2,18 +2,40 @@ import { supabase, isSupabaseConfigured } from "@/lib/supabase";
 import { uploadPrivateFile, RECEIPT_BUCKET } from "@/lib/uploads";
 
 export type ReceiptResult = { ok: true; message: string } | { ok: false; error: string };
+export type ReceiptUploadResult = { ok: true; path: string } | { ok: false; error: string };
 
 /**
- * Submit a bank-transfer receipt for a given order:
- *  1. resolves the authenticated user,
- *  2. uploads the file to the private `receipts` bucket,
- *  3. ensures a `payments` row exists for the order,
- *  4. records the receipt in `payment_receipts` and flags the payment as
- *     pending verification so admins can review and approve/reject it.
+ * Upload a bank-transfer receipt file to the private `receipts` bucket.
+ * This is intentionally separate from order creation so a checkout can verify
+ * the upload succeeded BEFORE an order is generated. The returned path is later
+ * attached to the order via `attachReceiptToOrder`.
  */
-export async function submitReceipt(
+export async function uploadReceipt(file: File): Promise<ReceiptUploadResult> {
+  if (!isSupabaseConfigured) {
+    return { ok: false, error: "Receipt upload storage is not configured on this deployment." };
+  }
+
+  const { data: authData } = await supabase!.auth.getUser();
+  const userId = authData.user?.id;
+  if (!userId) {
+    return { ok: false, error: "Please sign in to upload a receipt." };
+  }
+
+  return uploadPrivateFile(RECEIPT_BUCKET, file, "orders", userId);
+}
+
+/**
+ * Attach an already-uploaded receipt to an order:
+ *  1. ensures a `payments` row exists for the order with the exact amount,
+ *  2. records the receipt in `payment_receipts`,
+ *  3. flags the payment as pending verification for admin review.
+ * `file` is used only for metadata (name/type/size); the blob itself was
+ * already uploaded by `uploadReceipt`.
+ */
+export async function attachReceiptToOrder(
   orderId: string,
   amount: number,
+  path: string,
   file: File
 ): Promise<ReceiptResult> {
   if (!isSupabaseConfigured) {
@@ -21,34 +43,24 @@ export async function submitReceipt(
   }
 
   const { data: authData } = await supabase!.auth.getUser();
-  const userId = authData?.user?.id;
+  const userId = authData.user?.id;
   if (!userId) {
     return { ok: false, error: "Please sign in to upload a receipt." };
   }
 
-  // 1. Upload the file to private storage.
-  const up = await uploadPrivateFile(RECEIPT_BUCKET, file, "orders", userId);
-  if (!up.ok) return up;
-
-  // 2. Ensure a payment row exists for this order (owned by the session user).
+  // 1. Ensure a payment row exists for the order.
   const { data: existing } = await supabase!
     .from("payments")
     .select("id")
     .eq("order_id", orderId)
     .maybeSingle();
 
-  let paymentId: string | undefined = existing?.id as string | undefined;
+  let paymentId = existing?.id as string | undefined;
+
   if (!paymentId) {
     const { data: inserted, error: payErr } = await supabase!
       .from("payments")
-      .insert({
-        order_id: orderId,
-        user_id: userId,
-        amount,
-        method: "manual_bank_transfer",
-        status: "pending_verification",
-        reference: null,
-      })
+      .insert({ order_id: orderId, user_id: userId, amount, status: "pending", method: "bank_transfer" })
       .select("id")
       .single();
     if (payErr) {
@@ -57,10 +69,10 @@ export async function submitReceipt(
     paymentId = inserted?.id as string;
   }
 
-  // 3. Record the receipt.
+  // 2. Record the receipt.
   const { error: rcErr } = await supabase!.from("payment_receipts").insert({
     payment_id: paymentId,
-    file_path: up.path,
+    file_path: path,
     file_name: file.name,
     mime_type: file.type || "application/octet-stream",
     file_size: file.size,
@@ -70,11 +82,26 @@ export async function submitReceipt(
     return { ok: false, error: "Could not save receipt. Please try again." };
   }
 
-  // 4. Flag payment as pending verification.
+  // 3. Flag payment as pending verification (admin review).
   await supabase!.from("payments").update({ status: "pending_verification" }).eq("id", paymentId);
 
   return {
     ok: true,
     message: "Receipt uploaded. Our team will verify your payment shortly.",
   };
+}
+
+/**
+ * Submit a bank-transfer receipt for an order that already exists (used by the
+ * payment-instructions page). For checkout, prefer `uploadReceipt` followed by
+ * `attachReceiptToOrder` so the order is only generated after a successful upload.
+ */
+export async function submitReceipt(
+  orderId: string,
+  amount: number,
+  file: File
+): Promise<ReceiptResult> {
+  const uploaded = await uploadReceipt(file);
+  if (!uploaded.ok) return uploaded;
+  return attachReceiptToOrder(orderId, amount, uploaded.path, file);
 }

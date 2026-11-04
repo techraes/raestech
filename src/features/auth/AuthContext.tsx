@@ -25,6 +25,14 @@ interface AuthContextValue {
   signIn: (email: string, password: string) => Promise<{ error?: string }>;
   signUp: (email: string, password: string, fullName: string) => Promise<{ error?: string }>;
   signOut: () => Promise<void>;
+  /**
+   * Send an email OTP to auto-register a guest during checkout. When Supabase is
+   * configured this creates the account (if missing) and emails a 6-digit code.
+   * In dev mode it simulates the flow so checkout remains usable offline.
+   */
+  requestOtp: (email: string, fullName?: string) => Promise<{ error?: string }>;
+  /** Verify an email OTP to complete auto-registration / sign-in. */
+  confirmOtp: (email: string, token: string) => Promise<{ error?: string }>;
   /** Development-only: sign in to the local sample account. */
   devSignIn: () => Promise<{ error?: string }>;
 }
@@ -38,6 +46,8 @@ const AuthContext = createContext<AuthContextValue>({
   signIn: async () => ({}),
   signUp: async () => ({}),
   signOut: async () => {},
+  requestOtp: async () => ({}),
+  confirmOtp: async () => ({}),
   devSignIn: async () => ({}),
 });
 
@@ -53,6 +63,9 @@ const isDevMode = () => Boolean(import.meta.env.DEV);
 const DEV_ADMIN_EMAIL = (import.meta.env.VITE_DEV_ADMIN_EMAIL as string | undefined)?.toLowerCase();
 const DEV_ADMIN_PASSWORD = import.meta.env.VITE_DEV_ADMIN_PASSWORD as string | undefined;
 const DEV_ADMIN_NAME = "RAES TECH Admin";
+// Simulated OTP code used only in dev mode (no mail server). The checkout screen
+// shows this code as a prompt so developers can complete the flow.
+const DEV_OTP_CODE = "123456";
 
 async function fetchSupabaseRole(userId: string): Promise<UserRole> {
   if (!supabase) return "customer";
@@ -82,6 +95,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     isSupabaseConfigured ? null : readDevUser()
   );
   const [loading, setLoading] = useState(true);
+  const [pendingOtpEmail, setPendingOtpEmail] = useState<string | null>(null);
+  const [pendingOtpName, setPendingOtpName] = useState<string>("");
 
   useEffect(() => {
     if (!isSupabaseConfigured) {
@@ -152,6 +167,51 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     };
   }
 
+  async function requestOtp(email: string, fullName?: string) {
+    if (isSupabaseConfigured) {
+      const { error } = await supabase!.auth.signInWithOtp({
+        email,
+        options: {
+          shouldCreateUser: true,
+          data: fullName ? { full_name: fullName } : undefined,
+        },
+      });
+      return { error: error?.message };
+    }
+    if (isDevMode()) {
+      // Simulate the OTP flow offline: remember the pending email so the dev
+      // "code" can complete registration without a mail server.
+      setPendingOtpEmail(email.toLowerCase());
+      setPendingOtpName(fullName ?? "");
+      return {};
+    }
+    return { error: "Email verification is not configured on this deployment." };
+  }
+
+  async function confirmOtp(email: string, token: string) {
+    if (isSupabaseConfigured) {
+      const { error } = await supabase!.auth.verifyOtp({ email, token, type: "email" });
+      if (error) return { error: error?.message };
+      // Session is now established; onAuthStateChange updates `user`.
+      return {};
+    }
+    if (isDevMode()) {
+      if (!pendingOtpEmail || email.toLowerCase() !== pendingOtpEmail) {
+        return { error: "That email has not been sent a code." };
+      }
+      // Dev mode only ever accepts the fixed simulated code. Any other token is
+      // rejected so the flow behaves like a real OTP and cannot be spoofed.
+      if (token !== DEV_OTP_CODE) {
+        return { error: "Incorrect verification code. Use the demo code shown on screen." };
+      }
+      const dev: AuthUser = { id: "dev-" + email.replace(/[^a-z0-9]/gi, ""), email, fullName: pendingOtpName || "Customer", role: "customer" };
+      localStorage.setItem(DEV_USER_KEY, JSON.stringify(dev));
+      setUser(dev);
+      return {};
+    }
+    return { error: "Email verification is not configured on this deployment." };
+  }
+
   async function signOut() {
     if (isSupabaseConfigured) {
       await supabase!.auth.signOut();
@@ -181,9 +241,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       signIn,
       signUp,
       signOut,
+      requestOtp,
+      confirmOtp,
       devSignIn,
     }),
-    [user, loading]
+    [user, loading, pendingOtpEmail, pendingOtpName]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
