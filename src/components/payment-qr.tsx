@@ -7,27 +7,37 @@ interface PaymentQrProps {
   amount: number;
   orderNumber?: string;
   className?: string;
+  /** Override bank details (from admin payment settings). */
+  bank?: { bankName?: string; accountTitle?: string; accountNumber?: string; iban?: string };
+  /** Custom scannable payload (from admin payment settings). */
+  payload?: string;
 }
 
 /**
  * Builds a scannable payment payload (bank details + exact amount) and renders
  * it as a QR code so customers can scan-to-pay for the exact order total.
+ * An admin-configured payload (from payment settings) takes precedence.
  */
-export function buildPaymentQrPayload(amount: number, orderNumber?: string): string {
+export function buildPaymentQrPayload(amount: number, orderNumber?: string, bank?: { bankName?: string; accountTitle?: string; accountNumber?: string; iban?: string }, customPayload?: string): string {
+  if (customPayload && customPayload.trim()) {
+    const lines = [customPayload.trim()];
+    if (orderNumber) lines.push(`Order: ${orderNumber}`);
+    return lines.join("\n");
+  }
   const lines = [
     "RAES TECH - Bank Transfer",
-    `Bank: ${BANK_DETAILS.bankName}`,
-    `Account Title: ${BANK_DETAILS.accountTitle}`,
-    `Account Number: ${BANK_DETAILS.accountNumber}`,
-    `IBAN: ${BANK_DETAILS.iban}`,
+    `Bank: ${bank?.bankName || BANK_DETAILS.bankName}`,
+    `Account Title: ${bank?.accountTitle || BANK_DETAILS.accountTitle}`,
+    `Account Number: ${bank?.accountNumber || BANK_DETAILS.accountNumber}`,
+    `IBAN: ${bank?.iban || BANK_DETAILS.iban}`,
     `Amount: ${formatPKR(amount)}`,
   ];
   if (orderNumber) lines.push(`Order: ${orderNumber}`);
   return lines.join("\n");
 }
 
-export function PaymentQr({ amount, orderNumber, className }: PaymentQrProps) {
-  const payload = buildPaymentQrPayload(amount, orderNumber);
+export function PaymentQr({ amount, orderNumber, className, bank, payload: customPayload }: PaymentQrProps) {
+  const payload = buildPaymentQrPayload(amount, orderNumber, bank, customPayload);
   return (
     <Card className={className}>
       <div className="flex flex-col items-center gap-3 p-5 text-center">

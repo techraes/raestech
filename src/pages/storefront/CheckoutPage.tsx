@@ -63,6 +63,19 @@ export function CheckoutPage() {
   const shipping = buyNowSubtotal >= settings.freeShippingThreshold || buyNowSubtotal === 0 ? 0 : settings.shippingCharge;
   const total = buyNowSubtotal + shipping;
 
+  // Resolve the active manual payment method (bank/JazzCash/Easypaisa) so the
+  // payment card and QR reflect the admin-configured details.
+  const manualMethod = settings.paymentMethods?.find((m) => m.enabled && m.type === "manual") ?? null;
+  const bankDetails = manualMethod
+    ? {
+        bankName: manualMethod.bankName ?? "",
+        accountTitle: manualMethod.accountTitle ?? "",
+        accountNumber: manualMethod.accountNumber ?? "",
+        iban: manualMethod.iban ?? "",
+        instructions: manualMethod.instructions ?? "",
+      }
+    : undefined;
+
   function setField(key: keyof typeof form, value: string) {
     setForm((prev) => ({ ...prev, [key]: value }));
   }
@@ -365,7 +378,7 @@ export function CheckoutPage() {
       {step === "payment" && (
         <div className="grid gap-8 lg:grid-cols-[1fr_360px]">
           <div className="space-y-6">
-            <BankTransferDetails amountText={formatPKR(total)} />
+            <BankTransferDetails amountText={formatPKR(total)} bank={bankDetails} />
 
             <Card className="p-5">
               <h2 className="mb-3 text-lg font-bold">Pay the exact amount</h2>
@@ -373,7 +386,7 @@ export function CheckoutPage() {
                 Please transfer <span className="font-bold text-foreground">{formatPKR(total)}</span> to the account above (or scan the QR code
                 to confirm the details). The order will only be confirmed after we receive your payment screenshot.
               </p>
-              <PaymentQr amount={total} className="mt-4" />
+              <PaymentQr amount={total} className="mt-4" bank={bankDetails} payload={manualMethod?.qrPayload} />
             </Card>
 
             <Card className="p-5">

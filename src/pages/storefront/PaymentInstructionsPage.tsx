@@ -15,6 +15,7 @@ export function PaymentInstructionsPage() {
   const orderNo = params.get("order") || "";
   const amountParam = params.get("amount") || "";
   const amount = amountParam ? Number(amountParam) : 0;
+  const manualMethod = settings.paymentMethods?.find((m) => m.enabled && m.type === "manual") ?? null;
 
   const [receipt, setReceipt] = useState<File | null>(null);
   const [submitting, setSubmitting] = useState(false);
@@ -46,7 +47,11 @@ export function PaymentInstructionsPage() {
     <div className="mx-auto max-w-3xl space-y-6">
       <h1 className="text-2xl font-bold">Payment Instructions</h1>
 
-      <BankTransferDetails orderNumber={orderNo ? `Order: ${orderNo}` : undefined} amountText={amount ? formatPKR(amount) : undefined} />
+      <BankTransferDetails
+        orderNumber={orderNo ? `Order: ${orderNo}` : undefined}
+        amountText={amount ? formatPKR(amount) : undefined}
+        bank={manualMethod ? { bankName: manualMethod.bankName, accountTitle: manualMethod.accountTitle, accountNumber: manualMethod.accountNumber, iban: manualMethod.iban, instructions: manualMethod.instructions } : undefined}
+      />
 
       {/* Receipt upload */}
       <Card>

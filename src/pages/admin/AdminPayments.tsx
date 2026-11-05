@@ -99,6 +99,18 @@ export function AdminPayments() {
                   </div>
                 </div>
               )}
+
+              {m.type === "manual" && (
+                <div className="grid gap-4 rounded-lg border p-4">
+                  <p className="text-sm font-semibold">QR code payment</p>
+                  <Field
+                    label="QR code payment payload"
+                    hint="Optional. The exact text encoded into the scannable QR (e.g. account details / JazzCash / Easypaisa ID). Leave empty to auto-generate from bank details where applicable."
+                  >
+                    <TextArea value={m.qrPayload ?? ""} onChange={(v) => set(m.id, { qrPayload: v })} rows={3} />
+                  </Field>
+                </div>
+              )}
             </SectionCard>
           );
         })}

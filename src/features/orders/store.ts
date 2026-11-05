@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import type { CartItem, CustomerOrder, CustomerOrderItem, ProductVariant } from "@/types";
 import { supabase } from "@/lib/supabase";
+import { sendOrderConfirmation } from "@/lib/email";
 import { buyNowPrice } from "@/lib/pricing";
 import { allProducts } from "@/data/catalog";
 
@@ -132,6 +133,7 @@ export const useOrders = create<OrdersState>()(
 
         // ---- 2. Server sync. When Supabase is configured the order must
         // belong to the real session and stock must be reserved server-side.
+        let serverOrderId: string | null = null;
         if (supabase) {
           // Resolve the authenticated user authoritatively.
           const { data: authData } = await supabase.auth.getUser();
@@ -160,6 +162,7 @@ export const useOrders = create<OrdersState>()(
           if (!rpc.error) {
             const serverOrder: CustomerOrder = { ...order, id: String(rpc.data ?? order.id) };
             set((state) => ({ orders: [serverOrder, ...state.orders] }));
+            void sendOrderConfirmation(serverOrder);
             return { ok: true, order: serverOrder };
           }
 
@@ -196,13 +199,13 @@ export const useOrders = create<OrdersState>()(
             return { ok: false, error: "Could not save your order. Please try again." };
           }
 
-          const orderId = inserted?.[0]?.id;
-          if (!orderId) {
+          serverOrderId = inserted?.[0]?.id ?? null;
+          if (!serverOrderId) {
             return { ok: false, error: "Could not save your order. Please try again." };
           }
 
           const itemRows = items.map((item) => ({
-            order_id: orderId,
+            order_id: serverOrderId,
             product_name: item.name,
             sku: item.sku,
             quantity: item.quantity,
@@ -218,7 +221,7 @@ export const useOrders = create<OrdersState>()(
             // Roll back the orphaned order so admins never see a header without
             // its line items.
             try {
-              await supabase.from("orders").delete().eq("id", orderId);
+              await supabase.from("orders").delete().eq("id", serverOrderId);
             } catch {
               // rollback is best-effort; the error below is still surfaced
             }
@@ -228,6 +231,10 @@ export const useOrders = create<OrdersState>()(
 
         // Keep a local copy (offline / dev mode or successful server sync).
         set((state) => ({ orders: [order, ...state.orders] }));
+        // Send the confirmation keyed by the real server order id (so the
+        // email shows the authoritative order number/total), when available.
+        const confirmedOrder = serverOrderId ? { ...order, id: serverOrderId } : order;
+        void sendOrderConfirmation(confirmedOrder);
         return { ok: true, order };
       },
     }),

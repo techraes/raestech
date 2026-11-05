@@ -8,12 +8,37 @@ port = 54321
 [db]
 port = 54322
 
+# Base URL of the deployed app. Used to build auth URLs and as a redirect
+# allow-list. Keep this pointing directly at the app (NOT at Vercel's SSO
+# endpoint) so confirmation links don't bounce through SSO.
+[auth]
+site_url = "https://raestech-raes3.vercel.app"
+additional_redirect_urls = ["http://localhost:5173", "https://raestech.store"]
+
+[auth.email]
+enable_signup = true
+otp_length = 6
+
+# OTP login/registration must deliver a 6-digit CODE, not a magic link. The
+# default Supabase templates render {{ .ConfirmationURL }}, which (a) sends a
+# link instead of the numeric code the app expects, and (b) currently redirects
+# through Vercel's SSO for this deployment. These overrides send the code
+# (`{{ .Token }}`) so no confirmation URL is needed at all.
+[auth.email.template_magic_link]
+subject = "Your RAES TECH sign-in code"
+content_path = "./supabase/templates/magic_link.html"
+
+[auth.email.template_confirmation]
+subject = "Confirm your RAES TECH sign-up"
+content_path = "./supabase/templates/confirmation.html"
+
 # The admin-provisioning function is guarded by its own shared-secret header
 # (Authorization: Bearer $ADMIN_SEED_SECRET), so it does NOT require a user JWT.
 [functions.create-admin]
 verify_jwt = false
 
-# Transactional email sender (Resend). Guarded by its own shared-secret header
-# (Authorization: Bearer $SEND_EMAIL_SECRET), so it does NOT require a user JWT.
+# Transactional email sender (Resend). Requires a valid Supabase session JWT;
+# it only sends to the authenticated user's own verified email. No shared
+# secret is used, so nothing sensitive is exposed to the browser.
 [functions.send-email]
-verify_jwt = false
+verify_jwt = true

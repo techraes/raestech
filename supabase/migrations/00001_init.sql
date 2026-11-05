@@ -601,6 +601,7 @@ create trigger instalment_applications_updated_at before update on instalment_ap
 create or replace function public.current_role()
 returns user_role
 language sql stable
+security definer set search_path = public
 as $$
   select role from public.user_roles where user_id = auth.uid()
   limit 1;
@@ -609,6 +610,7 @@ $$;
 create or replace function public.is_admin()
 returns boolean
 language sql stable
+security definer set search_path = public
 as $$
   select (select public.current_role()) in (
     'super_admin'::user_role, 'product_manager'::user_role,
@@ -620,6 +622,7 @@ $$;
 create or replace function public.is_super_admin()
 returns boolean
 language sql stable
+security definer set search_path = public
 as $$
   select (select public.current_role()) = 'super_admin'::user_role;
 $$;

@@ -607,6 +607,7 @@ create trigger instalment_applications_updated_at before update on instalment_ap
 create or replace function public.current_role()
 returns user_role
 language sql stable
+security definer set search_path = public
 as $$
   select role from public.user_roles where user_id = auth.uid()
   limit 1;
@@ -615,6 +616,7 @@ $$;
 create or replace function public.is_admin()
 returns boolean
 language sql stable
+security definer set search_path = public
 as $$
   select (select public.current_role()) in (
     'super_admin'::user_role, 'product_manager'::user_role,
@@ -626,6 +628,7 @@ $$;
 create or replace function public.is_super_admin()
 returns boolean
 language sql stable
+security definer set search_path = public
 as $$
   select (select public.current_role()) = 'super_admin'::user_role;
 $$;
@@ -2223,10 +2226,20 @@ create table if not exists public.email_send_log (
   created_at timestamptz not null default now()
 );
 
+-- Index expressions may only use IMMUTABLE functions; date_trunc on a
+-- timestamptz is only STABLE, so a UTC-day helper is injected instead.
+create or replace function public.email_log_day(ts timestamptz)
+returns date
+language sql immutable
+set search_path = public
+as $$
+  select (ts at time zone 'utc')::date;
+$$;
+
 create index if not exists email_send_log_recipient_day_idx
-  on public.email_send_log (recipient, date_trunc('day', created_at));
+  on public.email_send_log (recipient, public.email_log_day(created_at));
 create index if not exists email_send_log_sender_ip_day_idx
-  on public.email_send_log (sender_ip, date_trunc('day', created_at));
+  on public.email_send_log (sender_ip, public.email_log_day(created_at));
 create index if not exists email_send_log_created_idx
   on public.email_send_log (created_at);
 

@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { CheckCircle2, ShieldCheck } from "lucide-react";
+import { CheckCircle2, ShieldCheck, UploadCloud } from "lucide-react";
 import { getProductBySlug } from "@/data/catalog";
 import { useSettings } from "@/features/settings/store";
 import { useAuth } from "@/features/auth/AuthContext";
@@ -12,6 +12,8 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import { FileUploadField } from "@/components/file-upload-field";
+import { BankTransferDetails } from "@/components/bank-transfer-details";
 import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from "@/components/ui/select";
@@ -30,6 +32,7 @@ export function InstalmentApplyPage() {
   const [form, setForm] = useState({
     fullName: "", mobile: "", email: "", cnic: "", address: "", employment: "", income: "",
   });
+  const [documents, setDocuments] = useState<{ cnic?: File | null; incomeProof?: File | null }>({});
 
   const plan = useMemo(
     () => (variant ? instalmentPlan(variant.listedPrice, tenure, settings.instalmentAdvancePercent, settings.instalmentMarkupPercent) : null),
@@ -92,10 +95,15 @@ export function InstalmentApplyPage() {
               <div className="flex justify-between"><span className="text-muted-foreground">Remaining balance</span><span className="font-semibold">{formatPKR(plan.remaining)}</span></div>
               <div className="flex justify-between"><span className="text-muted-foreground">Monthly ({tenure} months)</span><span className="font-semibold">{formatPKR(plan.monthly)}</span></div>
               <div className="flex justify-between"><span className="text-muted-foreground">Total payable (0% markup)</span><span className="font-semibold">{formatPKR(plan.total)}</span></div>
+              <div className="pt-2 text-xs text-muted-foreground">
+                A non-refundable advance of <span className="font-semibold text-foreground">{formatPKR(plan.advance)}</span> is payable when your application is approved. You'll receive bank details by email to complete the advance payment.
+              </div>
             </div>
           </CardContent>
         </Card>
       )}
+
+      <BankTransferDetails amountText={variant && plan ? formatPKR(plan.advance) : undefined} />
 
       <Card>
         <CardContent className="p-6">
@@ -167,10 +175,40 @@ export function InstalmentApplyPage() {
             <span>Documents you upload are kept in a private, access-controlled storage. No public links are ever generated.</span>
           </div>
 
+          <div className="mt-6">
+            <div className="mb-3 flex items-center gap-2">
+              <UploadCloud className="h-4 w-4 text-muted-foreground" />
+              <h3 className="text-sm font-semibold">Upload required documents</h3>
+            </div>
+            <p className="mb-4 text-xs text-muted-foreground">
+              Attach a clear copy of your CNIC and a proof of income (e.g. recent payslip or bank statement) to speed up verification. All files are stored privately.
+            </p>
+            <div className="grid gap-3 sm:grid-cols-2">
+              <FileUploadField
+                id="doc-cnic"
+                label="CNIC copy (front)"
+                accept=".jpg,.jpeg,.png,.pdf"
+                maxSize={5 * 1024 * 1024}
+                value={documents.cnic ?? null}
+                onChange={(f) => setDocuments((d) => ({ ...d, cnic: f }))}
+                helperText="JPG, PNG or PDF, up to 5 MB."
+              />
+              <FileUploadField
+                id="doc-income"
+                label="Proof of income"
+                accept=".jpg,.jpeg,.png,.pdf"
+                maxSize={5 * 1024 * 1024}
+                value={documents.incomeProof ?? null}
+                onChange={(f) => setDocuments((d) => ({ ...d, incomeProof: f }))}
+                helperText="Payslip or bank statement (JPG, PNG or PDF)."
+              />
+            </div>
+          </div>
+
           <Button
             size="lg"
             className="mt-6 w-full"
-            disabled={!consent || !form.fullName || !form.mobile}
+            disabled={!consent || !form.fullName || !form.mobile || !documents.cnic || !documents.incomeProof}
             onClick={() => setSubmitted(true)}
           >
             Submit Application

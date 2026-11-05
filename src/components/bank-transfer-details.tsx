@@ -14,12 +14,25 @@ export const BANK_DETAILS = {
 export const BANK_PAYMENT_INSTRUCTIONS =
   "Please transfer the payment to the bank account provided above. After completing your transaction, upload your payment receipt and submit your payment confirmation for verification.";
 
+/** Resolve the active manual payment method from settings. */
+export function resolveManualPaymentMethod(paymentMethods: Array<{ enabled?: boolean; type?: string; code?: string }> = []) {
+  return paymentMethods.find((m) => m.enabled && m.type === "manual") ?? null;
+}
+
 interface BankTransferDetailsProps {
   /** Optional order number shown alongside the details. */
   orderNumber?: string;
   /** Optional payable amount shown alongside the details. */
   amountText?: string;
   className?: string;
+  /** Override bank details (from admin payment settings). */
+  bank?: {
+    bankName?: string;
+    accountTitle?: string;
+    accountNumber?: string;
+    iban?: string;
+    instructions?: string;
+  };
 }
 
 function CopyCell({ label, value }: { label: string; value: string }) {
@@ -69,7 +82,14 @@ function CopyCell({ label, value }: { label: string; value: string }) {
  * instructions page and in the customer order view. Includes one-tap copy
  * buttons with a small success confirmation.
  */
-export function BankTransferDetails({ orderNumber, amountText, className }: BankTransferDetailsProps) {
+export function BankTransferDetails({ orderNumber, amountText, className, bank }: BankTransferDetailsProps) {
+  const details = {
+    accountTitle: bank?.accountTitle || BANK_DETAILS.accountTitle,
+    bankName: bank?.bankName || BANK_DETAILS.bankName,
+    accountNumber: bank?.accountNumber || BANK_DETAILS.accountNumber,
+    iban: bank?.iban || BANK_DETAILS.iban,
+    instructions: bank?.instructions || BANK_PAYMENT_INSTRUCTIONS,
+  };
   return (
     <Card className={cn("overflow-hidden", className)}>
       <div className="flex items-center gap-3 border-b bg-gradient-to-r from-emerald-50 to-teal-50 px-5 py-4">
@@ -88,11 +108,11 @@ export function BankTransferDetails({ orderNumber, amountText, className }: Bank
         )}
       </div>
       <CardContent className="space-y-2.5 p-5">
-        <CopyCell label="Account Title" value={BANK_DETAILS.accountTitle} />
-        <CopyCell label="Bank Name" value={BANK_DETAILS.bankName} />
-        <CopyCell label="Account Number" value={BANK_DETAILS.accountNumber} />
-        <CopyCell label="IBAN" value={BANK_DETAILS.iban} />
-        <p className="pt-2 text-sm text-muted-foreground">{BANK_PAYMENT_INSTRUCTIONS}</p>
+        <CopyCell label="Account Title" value={details.accountTitle} />
+        <CopyCell label="Bank Name" value={details.bankName} />
+        <CopyCell label="Account Number" value={details.accountNumber} />
+        <CopyCell label="IBAN" value={details.iban} />
+        <p className="pt-2 text-sm text-muted-foreground">{details.instructions}</p>
       </CardContent>
     </Card>
   );

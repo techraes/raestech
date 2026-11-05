@@ -281,6 +281,8 @@ export interface PaymentMethod {
   iban?: string;
   branch?: string;
   instructions?: string;
+  /** Optional scannable QR payment payload (text encoded into the QR). */
+  qrPayload?: string;
 }
 
 export interface SocialLinks {

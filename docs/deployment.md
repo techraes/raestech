@@ -34,6 +34,43 @@ Vercel on `raestech.store`.
 
    Only a Super Admin can manage roles/permissions.
 
+### OTP / magic‑link emails (read this if you get a link instead of a code)
+
+The app signs users in with an **email OTP** (`signInWithOtp` → `verifyOtp`).
+By default Supabase's "Magic Link / OTP" and "Confirm Sign Up" templates send a
+clickable `{{ .ConfirmationURL }}` **link**, not the 6‑digit code — so users
+get an email like `https://vercel.com/sso/access/request…` (a Vercel SSO
+redirect) instead of a code. Two fixes:
+
+1. **Send the code, not a link.** Change the **Magic Link / OTP** and
+   **Confirm Sign Up** templates to render `{{ .Token }}` (the 6‑digit code)
+   and remove the confirmation‑URL link. Copy‑paste body:
+
+   ```html
+   <h2>Your RAES TECH sign-in code</h2>
+   <p>Hi {{ .Email }},</p>
+   <p>Use the 6-digit code below to sign in to your RAES TECH account:</p>
+   <p style="font-size:26px;font-weight:700;letter-spacing:4px">{{ .Token }}</p>
+   <p>This code expires shortly and can only be used once.</p>
+   <p>If you didn't request this email, you can safely ignore it.</p>
+   ```
+
+   Where to apply it (the live project must be changed in the dashboard — the
+   `config.toml` overrides in this repo only apply to local/self‑hosted dev):
+
+   - **Dashboard** → Authentication → Email Templates → *Magic Link / OTP*
+     (and *Confirm Sign Up*) → replace the body, set a subject like
+     "Your RAES TECH sign-in code".
+   - Or via the Management API:
+     `curl -X PATCH "https://api.supabase.com/v1/projects/otvfosijrectvlwqqoll/config/auth"` with `mailer_templates_magic_link_content` / `mailer_subjects_magic_link` (and `mailer_templates_confirmation_content`).
+
+2. **Keep Site URL/Redirect URLs pointing at the app**, not at Vercel's SSO.
+   In Authentication → URL Configuration set the **Site URL** to the deployed
+   app (e.g. `https://raestech-raes3.vercel.app`). If you see the
+   `vercel.com/sso/access/request` bounce, your Vercel team/project has
+   **SSO / Deployment Protection** enabled — unless all projects use it, turn
+   that off (or exempt these URLs) so auth links don't get intercepted.
+
 ### Storage buckets
 
 - Bucket `product-images` — **public** read, admin write (product photos).
@@ -61,19 +98,21 @@ Set these in Vercel (Project → Settings → Environment Variables):
 |---|---|---|
 | `RESEND_API_KEY` | `send-email` | Resend API key (server-side only, never client) |
 | `RESEND_FROM` | `send-email` | Verified sender, e.g. `RAES TECH <onboarding@resend.dev>` |
-| `SEND_EMAIL_SECRET` | `send-email` | Shared secret guarding the function (`Authorization: Bearer`) |
+
+> `send-email` authenticates with the caller's Supabase **session JWT**
+> (`verify_jwt = true`) and only sends to the authenticated user's own verified
+> email. No shared secret is exposed to the browser.
 
 ### Resend setup
 1. Create a project at https://resend.com, add and verify your sending domain.
 2. Create an API key (`re_…`) in **API Keys**.
-3. Set `RESEND_API_KEY`, `RESEND_FROM`, and `SEND_EMAIL_SECRET`
-   (a strong random value, e.g. `openssl rand -hex 32`).
+3. Set `RESEND_API_KEY` and `RESEND_FROM`.
 4. Deploy the Edge Function:
    `supabase functions deploy send-email`.
 5. Seed the `email_templates` table with at least `order_confirmation`,
    `password_reset`, and `instalment_reminder` templates (subject/body may use
    `{{placeholder}}` tokens — see `supabase/functions/send-email/render.mjs`).
-6. Test: invoke the function (see header comment in `index.ts`).
+6. Test: invoke the function while signed in (see header comment in `index.ts`).
 
 ---
 
