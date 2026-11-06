@@ -33,3 +33,14 @@ tmp_*
 *.tmp
 supabase/.temp/
 raestech/
+
+# Imported master-pack data (extracted zip / archives / scratch) — NOT shipped,
+# never committed. Contains image SHA-256 hashes & markdown/text documentation.
+data/attachments/
+data/image-import-live/
+data/image-import-pack/
+data/image-master-extracted/
+data/image-master-pack.zip
+data/reports/imageAssets_store.txt
+data/reports/mapping_report.txt
+data/reports/zip_manifest.txt
