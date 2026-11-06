@@ -6,12 +6,13 @@ import {
   LayoutGrid, Check, ShieldCheck,
 } from "lucide-react";
 import { useSettings } from "@/features/settings/store";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { useAuth } from "@/features/auth/AuthContext";
 import { useCart } from "@/store/cart";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ProductImage } from "@/components/product-image";
-import { getBrands, allProducts } from "@/data/catalog";
+import { getBrands, useProducts } from "@/data/catalog";
 import { cn } from "@/lib/utils";
 import type { Product } from "@/types";
 
@@ -44,14 +45,15 @@ export function StorefrontLayout() {
   const [catOpen, setCatOpen] = useState(false);
   const navigate = useNavigate();
   const brands = getBrands();
+  const products = useProducts();
 
   const suggestions = useMemo(() => {
     const q = query.trim().toLowerCase();
     if (q.length < 2) return [];
-    return allProducts
+    return products
       .filter((p) => p.name.toLowerCase().includes(q) || p.brand.toLowerCase().includes(q) || p.model.toLowerCase().includes(q))
       .slice(0, 5);
-  }, [query]);
+  }, [query, products]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -185,6 +187,7 @@ export function StorefrontLayout() {
             <Link to="/wishlist" className="hidden h-10 w-10 items-center justify-center rounded-full transition-colors hover:bg-neutral-100 sm:inline-flex" aria-label="Wishlist">
               <Heart className="h-5 w-5" strokeWidth={1.8} />
             </Link>
+            <ThemeToggle />
             {user ? (
               <Link to="/account" className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-neutral-100 text-neutral-900 transition-colors hover:bg-neutral-200" aria-label="My account">
                 <User className="h-5 w-5" strokeWidth={1.8} />
@@ -368,6 +371,10 @@ export function StorefrontLayout() {
               })}
             </div>
           </div>
+        </div>
+        <div className="flex items-center justify-center gap-2 border-t border-white/10 px-4 py-4">
+          <span className="text-xs text-neutral-400">Theme</span>
+          <ThemeToggle />
         </div>
       </footer>
 

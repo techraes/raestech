@@ -33,6 +33,43 @@
   --shadow-pop: 0 12px 32px -10px rgba(0, 0, 0, 0.18);
 }
 
+/* ---- Dark theme (premium technology palette) ----
+   Active when the `dark` class is present on <html>. Surface / text tokens
+   switch to dark values while the accent (--primary/--ring) stays configurable
+   from admin settings via brand-theme.tsx. */
+.dark {
+  --background: 215 28% 6%;
+  --foreground: 210 40% 98%;
+
+  --card: 216 25% 10%;
+  --card-foreground: 210 40% 98%;
+
+  --popover: 216 25% 10%;
+  --popover-foreground: 210 40% 98%;
+
+  --primary: 210 40% 98%;
+  --primary-foreground: 215 28% 6%;
+
+  --secondary: 216 25% 16%;
+  --secondary-foreground: 210 40% 96%;
+
+  --muted: 216 20% 14%;
+  --muted-foreground: 216 17% 70%;
+
+  --accent: 216 22% 18%;
+  --accent-foreground: 210 40% 96%;
+
+  --destructive: 0 62% 45%;
+  --destructive-foreground: 210 40% 98%;
+
+  --border: 216 20% 19%;
+  --input: 216 20% 24%;
+  --ring: 210 40% 78%;
+
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.5), 0 12px 28px -8px rgba(0, 0, 0, 0.7);
+  --shadow-pop: 0 12px 32px -10px rgba(0, 0, 0, 0.85);
+}
+
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;

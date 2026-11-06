@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import type { SiteSettings } from "@/types";
+import { useTheme } from "@/lib/theme";
 
 /** Convert a hex color to an HSL triplet string ("h s% l%") matching the CSS custom properties. */
 function hexToHsl(hex: string): string {
@@ -33,24 +34,33 @@ function hexToHsl(hex: string): string {
  * This is the "publish" layer for the Branding & Appearance module.
  */
 export function BrandTheme({ settings }: { settings: SiteSettings }) {
+  const { resolvedTheme } = useTheme();
   useEffect(() => {
     const root = document.documentElement;
     const t = settings.theme;
     const set = (name: string, value: string) => root.style.setProperty(name, value);
+    const dark = resolvedTheme === "dark";
 
-    set("--background", hexToHsl(t.backgroundColor));
-    set("--foreground", hexToHsl(t.textColor));
+    // Light-only surface tokens come from the admin theme tokens.
+    if (!dark) {
+      set("--background", hexToHsl(t.backgroundColor));
+      set("--foreground", hexToHsl(t.textColor));
+      set("--secondary", hexToHsl(settings.secondaryColor));
+      set("--secondary-foreground", hexToHsl(t.textColor));
+      set("--muted", hexToHsl(t.backgroundColor) === hexToHsl("#ffffff") ? "0 0% 96%" : hexToHsl(t.backgroundColor));
+      set("--border", hexToHsl(t.borderColor));
+    }
+
+    // Accent / interactive tokens apply in both themes.
     set("--primary", hexToHsl(t.buttonColor));
     set("--primary-foreground", hexToHsl("#ffffff"));
-    set("--secondary", hexToHsl(settings.secondaryColor));
-    set("--secondary-foreground", hexToHsl(t.textColor));
     set("--accent", hexToHsl(t.accentColor));
-    set("--muted", hexToHsl(t.backgroundColor) === hexToHsl("#ffffff") ? "0 0% 96%" : hexToHsl(t.backgroundColor));
-    set("--border", hexToHsl(t.borderColor));
     set("--ring", hexToHsl(t.buttonColor));
     set("--radius", `${t.radiusScale}rem`);
-    root.style.setProperty("--header-bg", t.headerColor);
-    root.style.setProperty("--footer-bg", t.footerColor);
+
+    // Header / footer: in dark use the card surface so they don't flash white.
+    root.style.setProperty("--header-bg", dark ? "hsl(216 25% 10%)" : t.headerColor);
+    root.style.setProperty("--footer-bg", dark ? "hsl(216 25% 10%)" : t.footerColor);
     root.style.setProperty("font-family", t.fontFamily);
 
     document.title = settings.seoAnalytics?.browserTitle || settings.browserTitle || "RAES TECH";
@@ -70,7 +80,7 @@ export function BrandTheme({ settings }: { settings: SiteSettings }) {
       document.head.appendChild(favicon);
     }
     if (settings.faviconDataUrl) favicon.setAttribute("href", settings.faviconDataUrl);
-  }, [settings]);
+  }, [settings, resolvedTheme]);
 
   return null;
 }

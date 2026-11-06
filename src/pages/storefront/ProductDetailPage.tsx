@@ -7,6 +7,7 @@ import {
 import { getProductBySlug, relatedProducts } from "@/data/catalog";
 import { useSettings } from "@/features/settings/store";
 import { buyNowPrice, instalmentPlan } from "@/lib/pricing";
+import { defaultVariantIndex, defaultColor } from "@/lib/variant-select";
 import { formatPKR, cn, displayCondition } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -42,9 +43,13 @@ export function ProductDetailPage() {
   const navigate = useNavigate();
 
   const variants = product?.variants ?? [];
-  const [vIndex, setVIndex] = useState(0);
+  const [vIndex, setVIndex] = useState(() => (product ? defaultVariantIndex(product.variants) : 0));
   const variant = variants[vIndex];
-  const [color, setColor] = useState<string>("");
+  const [color, setColor] = useState<string>(() => {
+    if (!product) return "";
+    const idx = defaultVariantIndex(product.variants);
+    return defaultColor(product.variants[idx]);
+  });
   const [colorError, setColorError] = useState<string>("");
 
   function requireColor(): boolean {
@@ -167,7 +172,7 @@ export function ProductDetailPage() {
                   return (
                     <button
                       key={v.sku}
-                      onClick={() => { setVIndex(i); setColor(""); }}
+                      onClick={() => { setVIndex(i); setColor(defaultColor(variants[i])); }}
                       className={cn(
                         "rounded-xl border p-3 text-left transition-all",
                         selected
@@ -250,7 +255,7 @@ export function ProductDetailPage() {
               <p className="rounded-lg bg-amber-50 px-3 py-2 text-xs text-amber-800">{colorError}</p>
             )}
             <Button asChild size="lg" variant="outline" className="w-full rounded-full">
-              <Link to={`/instalments/apply?product=${product.slug}`}>Apply Instalment</Link>
+              <Link to={`/instalments/apply?product=${product.slug}&sku=${encodeURIComponent(variant.sku)}&color=${encodeURIComponent(color || "")}`}>Apply Instalment</Link>
             </Button>
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               <Card className="p-4">
@@ -270,7 +275,7 @@ export function ProductDetailPage() {
                 <div className="mt-1 flex justify-between"><span className="text-muted-foreground">Remaining balance</span><span className="font-semibold">{formatPKR(plan.remaining)}</span></div>
                 <div className="mt-1 flex justify-between"><span className="text-muted-foreground">Monthly (12 months)</span><span className="font-semibold">{formatPKR(plan.monthly)}</span></div>
                 <Button asChild variant="outline" className="mt-3 w-full">
-                  <Link to={`/instalments/apply?product=${product.slug}`}>Apply for Instalments</Link>
+                  <Link to={`/instalments/apply?product=${product.slug}&sku=${encodeURIComponent(variant.sku)}&color=${encodeURIComponent(color || "")}`}>Apply for Instalments</Link>
                 </Button>
               </div>
             )}

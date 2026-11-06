@@ -1,48 +1,165 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/features/auth/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
+import { Eye, EyeOff, Mail } from "lucide-react";
+
+const OTP_LENGTH = 6;
+const RESEND_COOLDOWN_SEC = 60;
+const MAX_ATTEMPTS = 5;
+
+function OtpInput({ value, onChange, disabled }: { value: string; onChange: (v: string) => void; disabled?: boolean }) {
+  const refs = useRef<Array<HTMLInputElement | null>>([]);
+
+  function selectRange() {
+    // Select the first empty or last box on focus for easy overwrite.
+    const idx = Math.min(value.length, OTP_LENGTH - 1);
+    refs.current[idx]?.focus();
+    refs.current[idx]?.select();
+  }
+
+  function handleChange(i: number, digit: string) {
+    const clean = digit.replace(/\D/g, "");
+    if (!clean) return;
+    const next = value.slice(0, i) + clean.slice(-1) + value.slice(i + 1);
+    onChange(next.slice(0, OTP_LENGTH));
+    const nextEmpty = i + 1 < OTP_LENGTH ? i + 1 : i;
+    refs.current[nextEmpty]?.focus();
+  }
+
+  function handleKeyDown(i: number, e: React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key === "Backspace" && !value[i] && i > 0) {
+      refs.current[i - 1]?.focus();
+    }
+  }
+
+  return (
+    <div className="flex justify-center gap-2" onFocus={selectRange}>
+      {Array.from({ length: OTP_LENGTH }).map((_, i) => (
+        <input
+          key={i}
+          ref={(el) => { refs.current[i] = el; }}
+          inputMode="numeric"
+          autoComplete={i === 0 ? "one-time-code" : "off"}
+          maxLength={1}
+          disabled={disabled}
+          value={value[i] ?? ""}
+          onChange={(e) => handleChange(i, e.target.value)}
+          onKeyDown={(e) => handleKeyDown(i, e)}
+          onPaste={(e) => {
+            e.preventDefault();
+            const pasted = e.clipboardData.getData("text").replace(/\D/g, "").slice(0, OTP_LENGTH);
+            if (pasted) onChange(pasted);
+          }}
+          aria-label={`Digit ${i + 1}`}
+          className="h-14 w-11 rounded-xl border text-center text-xl font-bold outline-none transition-colors focus:border-primary focus:ring-2 focus:ring-primary/30 disabled:opacity-50"
+        />
+      ))}
+    </div>
+  );
+}
+
+function passwordStrength(pw: string): { label: string; ok: boolean } {
+  if (!pw) return { label: "", ok: false };
+  const lenOk = pw.length >= 8;
+  const varietyOk = /[a-z]/.test(pw) && /[A-Z]/.test(pw) && /[0-9]/.test(pw);
+  if (lenOk && varietyOk) return { label: "Strong", ok: true };
+  if (lenOk || varietyOk) return { label: "Medium", ok: false };
+  return { label: "Weak — use 8+ chars with upper, lower & number", ok: false };
+}
 
 export function RegisterPage() {
-  const { signUp, user, loading: authLoading } = useAuth();
+  const { signUp, requestOtp, confirmOtp, user, loading: authLoading } = useAuth();
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPw, setShowPw] = useState(false);
   const [error, setError] = useState("");
-  const [notice, setNotice] = useState("");
   const [busy, setBusy] = useState(false);
 
-  // Refs mirror the latest auth state so the async submit handler can observe
-  // the session that Supabase propagates asynchronously after sign-up.
+  const [phase, setPhase] = useState<"form" | "otp">("form");
+  const [otp, setOtp] = useState("");
+  const [attempts, setAttempts] = useState(0);
+  const [cooldown, setCooldown] = useState(0);
+  const [otpBusy, setOtpBusy] = useState(false);
+  const [verified, setVerified] = useState(false);
+
   const userRef = useRef(user);
   userRef.current = user;
   const authLoadingRef = useRef(authLoading);
   authLoadingRef.current = authLoading;
 
+  // Resend cooldown ticker.
+  useEffect(() => {
+    if (cooldown <= 0) return;
+    const t = setTimeout(() => setCooldown((c) => Math.max(0, c - 1)), 1000);
+    return () => clearTimeout(t);
+  }, [cooldown]);
+
   async function submit(e: React.FormEvent) {
     e.preventDefault();
     setBusy(true);
     setError("");
-    setNotice("");
+    const strength = passwordStrength(password);
+    if (!strength.ok && password) {
+      setError(strength.label || "Password is too weak.");
+      setBusy(false);
+      return;
+    }
     const { error: err } = await signUp(email, password, name);
     setBusy(false);
-    if (err) return setError(err);
-    // When Supabase requires email confirmation, no session exists yet. Wait
-    // briefly for a session to land (dev mode signs in immediately); if there
-    // is still no user, prompt the customer to confirm their email.
+    if (err) {
+      setError(err);
+      return;
+    }
+    // Identity created and verification email requested. Move to the OTP screen.
+    setPhase("otp");
+    setCooldown(RESEND_COOLDOWN_SEC);
+  }
+
+  async function verify() {
+    setOtpBusy(true);
+    setError("");
+    if (otp.length !== OTP_LENGTH) {
+      setError("Enter the 6-digit code we emailed you.");
+      setOtpBusy(false);
+      return;
+    }
+    const { error: err } = await confirmOtp(email, otp);
+    setOtpBusy(false);
+    if (err) {
+      setAttempts((a) => a + 1);
+      setError(err);
+      if (attempts + 1 >= MAX_ATTEMPTS) {
+        setError("Too many incorrect attempts. Please request a new code.");
+      }
+      setOtp("");
+      return;
+    }
+    setVerified(true);
     const deadline = Date.now() + 4000;
     while (Date.now() < deadline && authLoadingRef.current) {
       await new Promise((r) => setTimeout(r, 50));
     }
     if (userRef.current) {
       navigate("/account");
-    } else {
-      setNotice("Your account was created! Check your inbox for a confirmation link, then log in.");
     }
+  }
+
+  async function resend() {
+    setError("");
+    setAttempts(0);
+    const { error: err } = await requestOtp(email);
+    if (err) {
+      setError(err);
+      return;
+    }
+    setCooldown(RESEND_COOLDOWN_SEC);
+    setOtp("");
   }
 
   return (
@@ -50,15 +167,60 @@ export function RegisterPage() {
       <Card>
         <CardContent className="p-8">
           <h1 className="text-2xl font-bold">Create your account</h1>
-          <p className="mt-1 text-sm text-muted-foreground">Track orders, instalments and wishlist.</p>
-          <form onSubmit={submit} className="mt-6 space-y-4">
-            <div className="space-y-1.5"><Label>Full name</Label><Input required value={name} onChange={(e) => setName(e.target.value)} /></div>
-            <div className="space-y-1.5"><Label>Email</Label><Input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} /></div>
-            <div className="space-y-1.5"><Label>Password</Label><Input type="password" required minLength={6} value={password} onChange={(e) => setPassword(e.target.value)} /></div>
-            {error && <p className="text-sm text-red-600">{error}</p>}
-            {notice && <p className="text-sm text-emerald-600">{notice}</p>}
-            <Button type="submit" className="w-full" disabled={busy}>{busy ? "Creating…" : "Register"}</Button>
-          </form>
+
+          {phase === "form" ? (
+            <>
+              <p className="mt-1 text-sm text-muted-foreground">Verify your email to activate your account.</p>
+              <form onSubmit={submit} className="mt-6 space-y-4">
+                <div className="space-y-1.5"><Label htmlFor="name">Full name</Label><Input id="name" required value={name} onChange={(e) => setName(e.target.value)} /></div>
+                <div className="space-y-1.5"><Label htmlFor="email">Email</Label><Input id="email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} /></div>
+                <div className="space-y-1.5">
+                  <Label htmlFor="password">Password</Label>
+                  <div className="relative">
+                    <Input id="password" type={showPw ? "text" : "password"} required minLength={6} value={password} onChange={(e) => setPassword(e.target.value)} className="pr-10" />
+                    <button type="button" onClick={() => setShowPw((v) => !v)} aria-label={showPw ? "Hide password" : "Show password"} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground">
+                      {showPw ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                    </button>
+                  </div>
+                  {password && <p className="text-xs text-muted-foreground">{passwordStrength(password).label}</p>}
+                </div>
+                {error && <p className="text-sm text-red-600 dark:text-red-400">{error}</p>}
+                <Button type="submit" className="w-full" disabled={busy}>{busy ? "Sending code…" : "Continue"}</Button>
+              </form>
+            </>
+          ) : verified ? (
+            <div className="mt-6 text-center">
+              <Mail className="mx-auto h-10 w-10 text-emerald-600" />
+              <p className="mt-3 text-lg font-semibold">Welcome to RAES TECH!</p>
+              <p className="mt-1 text-sm text-muted-foreground">Your email is verified and your account is active.</p>
+              <Button asChild className="mt-6 w-full"><Link to="/account">Go to my account</Link></Button>
+            </div>
+          ) : (
+            <>
+              <p className="mt-1 text-sm text-muted-foreground">
+                We sent a six-digit verification code to <span className="font-medium text-foreground">{email}</span>.
+              </p>
+              <div className="mt-6 space-y-5">
+                <div className="space-y-2">
+                  <Label className="text-center">Enter verification code</Label>
+                  <OtpInput value={otp} onChange={setOtp} disabled={otpBusy} />
+                </div>
+                {error && <p className="text-center text-sm text-red-600 dark:text-red-400">{error}</p>}
+                <Button type="button" className="w-full" disabled={otpBusy || attempts >= MAX_ATTEMPTS} onClick={verify}>
+                  {otpBusy ? "Verifying…" : "Verify & Create Account"}
+                </Button>
+                <div className="flex items-center justify-between text-sm">
+                  <button type="button" disabled={cooldown > 0} onClick={resend} className="font-medium text-foreground underline-offset-2 hover:underline disabled:cursor-not-allowed disabled:text-muted-foreground">
+                    {cooldown > 0 ? `Resend in ${cooldown}s` : "Resend OTP"}
+                  </button>
+                  <button type="button" onClick={() => { setPhase("form"); setOtp(""); setAttempts(0); setError(""); }} className="text-muted-foreground underline-offset-2 hover:underline">
+                    Change email address
+                  </button>
+                </div>
+              </div>
+            </>
+          )}
+
           <p className="mt-4 text-center text-sm text-muted-foreground">
             Already have an account? <Link to="/login" className="font-medium text-foreground hover:underline">Login</Link>
           </p>

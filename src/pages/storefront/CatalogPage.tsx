@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { SlidersHorizontal } from "lucide-react";
-import { allProducts, getBrands } from "@/data/catalog";
+import { useProducts, getBrands } from "@/data/catalog";
 import { ProductGrid } from "@/components/product-card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -17,6 +17,7 @@ import type { Product } from "@/types";
 export function CatalogPage() {
   const { settings } = useSettings();
   const brands = getBrands();
+  const allProducts = useProducts();
   const [brand, setBrand] = useState<string>("all");
   const [sort, setSort] = useState<string>("featured");
   const [minPrice, setMinPrice] = useState("");
@@ -28,7 +29,7 @@ export function CatalogPage() {
     const s = new Set<string>();
     for (const p of allProducts) for (const v of p.variants) if (v.storage) s.add(v.storage);
     return [...s].sort((a, b) => (parseInt(a) || 0) - (parseInt(b) || 0));
-  }, []);
+  }, [allProducts]);
 
   const PRICE_PRESETS = [
     { label: "Under 50k", min: "", max: "50000" },
@@ -70,7 +71,7 @@ export function CatalogPage() {
       default: break;
     }
     return list;
-  }, [brand, sort, minPrice, maxPrice, pta, storage, settings]);
+  }, [brand, sort, minPrice, maxPrice, pta, storage, settings, allProducts]);
 
   const reset = () => {
     setBrand("all"); setSort("featured"); setMinPrice(""); setMaxPrice("");

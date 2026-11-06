@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Trash2, Plus } from "lucide-react";
-import { allProducts } from "@/data/catalog";
+import { useProducts } from "@/data/catalog";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { formatPKR } from "@/lib/utils";
 
 export function ComparePage() {
+  const allProducts = useProducts();
   const [selected, setSelected] = useState<number[]>([allProducts[0]?.id, allProducts[1]?.id].filter(Boolean));
   const products = allProducts.filter((p) => selected.includes(p.id));
   const options = allProducts.filter((p) => !selected.includes(p.id));

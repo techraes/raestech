@@ -58,21 +58,22 @@ export function CheckoutPage() {
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [placed, setPlaced] = useState(false);
+  const [selectedMethodId, setSelectedMethodId] = useState("");
 
   const buyNowSubtotal = subtotal("buyNow");
   const shipping = buyNowSubtotal >= settings.freeShippingThreshold || buyNowSubtotal === 0 ? 0 : settings.shippingCharge;
   const total = buyNowSubtotal + shipping;
 
-  // Resolve the active manual payment method (bank/JazzCash/Easypaisa) so the
-  // payment card and QR reflect the admin-configured details.
-  const manualMethod = settings.paymentMethods?.find((m) => m.enabled && m.type === "manual") ?? null;
-  const bankDetails = manualMethod
+  // All payment methods enabled by the admin (bank, mobile wallet, crypto, card).
+  const enabledMethods = settings.paymentMethods?.filter((m) => m.enabled) ?? [];
+  const selectedMethod = enabledMethods.find((m) => m.id === selectedMethodId) ?? enabledMethods[0] ?? null;
+  const bankDetails = selectedMethod
     ? {
-        bankName: manualMethod.bankName ?? "",
-        accountTitle: manualMethod.accountTitle ?? "",
-        accountNumber: manualMethod.accountNumber ?? "",
-        iban: manualMethod.iban ?? "",
-        instructions: manualMethod.instructions ?? "",
+        bankName: selectedMethod.bankName ?? "",
+        accountTitle: selectedMethod.accountTitle ?? "",
+        accountNumber: selectedMethod.accountNumber ?? "",
+        iban: selectedMethod.iban ?? "",
+        instructions: selectedMethod.instructions ?? "",
       }
     : undefined;
 
@@ -176,6 +177,7 @@ export function CheckoutPage() {
           subtotal: buyNowSubtotal,
           shipping,
           discountPercent: settings.buyNowDiscountPercent,
+          paymentMethod: selectedMethod?.code ?? "manual_bank_transfer",
         },
         userId
       );
@@ -378,16 +380,84 @@ export function CheckoutPage() {
       {step === "payment" && (
         <div className="grid gap-8 lg:grid-cols-[1fr_360px]">
           <div className="space-y-6">
-            <BankTransferDetails amountText={formatPKR(total)} bank={bankDetails} />
+            {enabledMethods.length === 0 ? (
+              <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800">
+                No payment methods are enabled yet. Please contact us to complete your order.
+              </div>
+            ) : (
+              <>
+                {/* Payment method selector */}
+                <div className="grid gap-2 sm:grid-cols-2">
+                  {enabledMethods.map((m) => {
+                    const active = selectedMethod?.id === m.id;
+                    return (
+                      <button
+                        key={m.id}
+                        type="button"
+                        onClick={() => setSelectedMethodId(m.id)}
+                        className={`rounded-xl border p-3 text-left transition-colors ${
+                          active ? "border-primary bg-primary/5 ring-1 ring-primary" : "hover:bg-muted/50"
+                        }`}
+                      >
+                        <div className="flex items-center justify-between gap-2">
+                          <span className="text-sm font-semibold">{m.name}</span>
+                          <span className={`h-3.5 w-3.5 rounded-full border ${active ? "border-primary bg-primary" : "border-muted-foreground/40"}`} />
+                        </div>
+                        {m.customerDescription && <p className="mt-1 text-xs text-muted-foreground">{m.customerDescription}</p>}
+                      </button>
+                    );
+                  })}
+                </div>
 
-            <Card className="p-5">
-              <h2 className="mb-3 text-lg font-bold">Pay the exact amount</h2>
-              <p className="text-sm text-muted-foreground">
-                Please transfer <span className="font-bold text-foreground">{formatPKR(total)}</span> to the account above (or scan the QR code
-                to confirm the details). The order will only be confirmed after we receive your payment screenshot.
-              </p>
-              <PaymentQr amount={total} className="mt-4" bank={bankDetails} payload={manualMethod?.qrPayload} />
-            </Card>
+                {selectedMethod && (
+                  <>
+                    {selectedMethod.kind === "crypto" ? (
+                      <Card className="p-5">
+                        <h2 className="mb-3 text-lg font-bold">Crypto payment</h2>
+                        <div className="space-y-2 text-sm">
+                          <div className="flex items-center justify-between gap-2 rounded-lg border px-3 py-2">
+                            <span className="text-muted-foreground">Asset</span>
+                            <span className="font-semibold">{selectedMethod.coinSymbol ?? "USDT"} · {selectedMethod.network ?? "TRC-20"}</span>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 rounded-lg border px-3 py-2">
+                            <span className="text-muted-foreground">Amount due</span>
+                            <span className="font-semibold">{formatPKR(total)}</span>
+                          </div>
+                          <div className="rounded-lg border px-3 py-2">
+                            <p className="text-muted-foreground">Wallet address</p>
+                            <p className="break-all font-mono text-xs">{selectedMethod.walletAddress}</p>
+                          </div>
+                          {selectedMethod.instructions && <p className="pt-1 text-xs text-muted-foreground">{selectedMethod.instructions}</p>}
+                        </div>
+                        <PaymentQr amount={total} className="mt-4" imageUrl={selectedMethod.qrImageUrl} payload={selectedMethod.qrPayload} />
+                      </Card>
+                    ) : selectedMethod.kind === "card" ? (
+                      <Card className="p-5">
+                        <h2 className="mb-3 text-lg font-bold">Card payment</h2>
+                        <p className="text-sm text-muted-foreground">
+                          Pay securely by card{selectedMethod.cardProcessor ? ` via ${selectedMethod.cardProcessor}` : ""}. Amount due:{" "}
+                          <span className="font-bold text-foreground">{formatPKR(total)}</span>.
+                        </p>
+                        {selectedMethod.instructions && <p className="mt-3 text-sm text-muted-foreground">{selectedMethod.instructions}</p>}
+                        <PaymentQr amount={total} className="mt-4" imageUrl={selectedMethod.qrImageUrl} payload={selectedMethod.qrPayload} />
+                      </Card>
+                    ) : (
+                      <>
+                        <BankTransferDetails amountText={formatPKR(total)} bank={bankDetails} />
+                        <Card className="p-5">
+                          <h2 className="mb-3 text-lg font-bold">Pay the exact amount</h2>
+                          <p className="text-sm text-muted-foreground">
+                            Please transfer <span className="font-bold text-foreground">{formatPKR(total)}</span> to the account above (or scan the QR code
+                            to confirm the details). The order will only be confirmed after we receive your payment screenshot.
+                          </p>
+                          <PaymentQr amount={total} className="mt-4" bank={bankDetails} payload={selectedMethod?.qrPayload} imageUrl={selectedMethod?.qrImageUrl} />
+                        </Card>
+                      </>
+                    )}
+                  </>
+                )}
+              </>
+            )}
 
             <Card className="p-5">
               <h2 className="mb-3 text-lg font-bold">Upload payment receipt</h2>

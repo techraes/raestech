@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { Heart, Trash2 } from "lucide-react";
-import { allProducts } from "@/data/catalog";
+import { useProducts } from "@/data/catalog";
 import { useSettings } from "@/features/settings/store";
 import { buyNowPrice } from "@/lib/pricing";
 import { formatPKR } from "@/lib/utils";
@@ -10,8 +10,9 @@ import { Card } from "@/components/ui/card";
 import { useCart } from "@/store/cart";
 
 export function WishlistPage() {
+  const allProducts = useProducts();
   // In dev mode we keep wishlist in memory; persisted in Supabase when configured.
-  const [wish, setWish] = useState<number[]>(useMemo(() => allProducts.slice(0, 6).map((p) => p.id), []));
+  const [wish, setWish] = useState<number[]>(useMemo(() => allProducts.slice(0, 6).map((p) => p.id), [allProducts]));
   const { settings } = useSettings();
   const { addItem } = useCart();
   const products = allProducts.filter((p) => wish.includes(p.id));

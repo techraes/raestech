@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Save, Info } from "lucide-react";
+import { Save, Info, ImagePlus } from "lucide-react";
 import { useSettings } from "@/features/settings/store";
 import { useAudit } from "@/features/audit/useAudit";
 import { Button } from "@/components/ui/button";
@@ -7,7 +7,18 @@ import { Badge } from "@/components/ui/badge";
 import { SectionCard, Field, TextInput, NumberInput, TextArea, Toggle, PageHeader } from "./_ui";
 import type { PaymentMethod } from "@/types";
 
+function readFileAsDataURL(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const r = new FileReader();
+    r.onload = () => resolve(String(r.result));
+    r.onerror = reject;
+    r.readAsDataURL(file);
+  });
+}
+
 function isManualConfigured(m: PaymentMethod): boolean {
+  if (m.kind === "crypto") return Boolean((m.walletAddress ?? "").trim() && (m.coinSymbol ?? "").trim());
+  if (m.kind === "card") return Boolean((m.cardProcessor ?? "").trim() || (m.instructions ?? "").trim());
   if (m.type === "online") return false;
   const required = [m.name, m.instructions];
   return required.every((v) => (v ?? "").trim() !== "");
@@ -29,6 +40,13 @@ export function AdminPayments() {
     if (!m) return;
     if (next && !isManualConfigured(m)) return; // do not activate until configured
     set(id, { enabled: next, liveMode: next, verified: next });
+  }
+
+  function onUploadQr(id: string, file: File | undefined | null) {
+    if (!file) return;
+    readFileAsDataURL(file)
+      .then((url) => set(id, { qrImageUrl: url }))
+      .catch(() => {});
   }
 
   async function save() {
@@ -56,7 +74,9 @@ export function AdminPayments() {
       <div className="space-y-4">
         {methods.map((m) => {
           const configured = isManualConfigured(m);
-          const isBank = m.code === "faysal_bank";
+          const isBank = m.code === "faysal_bank" || m.kind === "bank";
+          const isCrypto = m.kind === "crypto";
+          const isCard = m.kind === "card";
           return (
             <SectionCard key={m.id} title={m.name}>
               <div className="flex flex-wrap items-center justify-between gap-3">
@@ -72,9 +92,10 @@ export function AdminPayments() {
                 />
               </div>
 
-              {m.type === "online" && (
+              {isCard && (
                 <p className="text-xs text-muted-foreground">
-                  Online gateway — add a provider adapter, set secret credentials server-side and verify callbacks before activation.
+                  Card gateway — configure your provider. Live transactions require verified server-side credentials and webhooks;
+                  until then, enter your processor details and instructions so customers know how to pay.
                 </p>
               )}
 
@@ -100,17 +121,58 @@ export function AdminPayments() {
                 </div>
               )}
 
-              {m.type === "manual" && (
-                <div className="grid gap-4 rounded-lg border p-4">
-                  <p className="text-sm font-semibold">QR code payment</p>
-                  <Field
-                    label="QR code payment payload"
-                    hint="Optional. The exact text encoded into the scannable QR (e.g. account details / JazzCash / Easypaisa ID). Leave empty to auto-generate from bank details where applicable."
-                  >
-                    <TextArea value={m.qrPayload ?? ""} onChange={(v) => set(m.id, { qrPayload: v })} rows={3} />
-                  </Field>
+              {isCrypto && (
+                <div className="grid gap-4 rounded-lg border p-4 sm:grid-cols-2">
+                  <p className="text-sm font-semibold sm:col-span-2">Crypto wallet details</p>
+                  <Field label="Coin / asset"><TextInput value={m.coinSymbol ?? "USDT"} onChange={(v) => set(m.id, { coinSymbol: v })} /></Field>
+                  <Field label="Network"><TextInput value={m.network ?? "TRC-20"} onChange={(v) => set(m.id, { network: v })} /></Field>
+                  <div className="sm:col-span-2">
+                    <Field label="Wallet address"><TextInput value={m.walletAddress ?? ""} onChange={(v) => set(m.id, { walletAddress: v })} placeholder="e.g. T… (TRC-20)" /></Field>
+                  </div>
+                  <div className="sm:col-span-2">
+                    <Field label="Payment instructions"><TextArea value={m.instructions ?? ""} onChange={(v) => set(m.id, { instructions: v })} rows={3} /></Field>
+                  </div>
                 </div>
               )}
+
+              {isCard && (
+                <div className="grid gap-4 rounded-lg border p-4 sm:grid-cols-2">
+                  <p className="text-sm font-semibold sm:col-span-2">Card gateway details</p>
+                  <Field label="Processor"><TextInput value={m.cardProcessor ?? ""} onChange={(v) => set(m.id, { cardProcessor: v })} placeholder="e.g. Stripe, 2Checkout" /></Field>
+                  <Field label="Merchant ID"><TextInput value={m.merchantId ?? ""} onChange={(v) => set(m.id, { merchantId: v })} /></Field>
+                  <div className="sm:col-span-2">
+                    <Field label="Instructions for customer"><TextArea value={m.instructions ?? ""} onChange={(v) => set(m.id, { instructions: v })} rows={3} /></Field>
+                  </div>
+                </div>
+              )}
+
+              <div className="grid gap-4 rounded-lg border p-4">
+                <p className="text-sm font-semibold">QR code payment</p>
+                <div className="flex flex-wrap items-center gap-3">
+                  {m.qrImageUrl ? (
+                    <img src={m.qrImageUrl} alt="Uploaded QR" className="h-24 w-24 rounded-lg border bg-white object-contain" />
+                  ) : (
+                    <div className="flex h-24 w-24 items-center justify-center rounded-lg border bg-muted text-xs text-muted-foreground">No image</div>
+                  )}
+                  <div className="space-y-1">
+                    <Button type="button" variant="outline" size="sm" asChild>
+                      <label className="cursor-pointer">
+                        <ImagePlus className="mr-1.5 h-3.5 w-3.5" /> {m.qrImageUrl ? "Replace QR image" : "Upload QR image"}
+                        <input type="file" accept=".jpg,.jpeg,.png,.webp" className="hidden" onChange={(e) => onUploadQr(m.id, e.target.files?.[0])} />
+                      </label>
+                    </Button>
+                    {m.qrImageUrl && (
+                      <Button type="button" variant="ghost" size="sm" onClick={() => set(m.id, { qrImageUrl: undefined })}>Remove image</Button>
+                    )}
+                  </div>
+                </div>
+                <Field
+                  label="QR payload (optional)"
+                  hint="If you upload a QR image, it is shown to customers as-is. The payload text below is used only to auto-generate a QR when no image is uploaded."
+                >
+                  <TextArea value={m.qrPayload ?? ""} onChange={(v) => set(m.id, { qrPayload: v })} rows={2} />
+                </Field>
+              </div>
             </SectionCard>
           );
         })}

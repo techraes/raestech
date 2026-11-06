@@ -15,6 +15,7 @@ import { CartPage } from "@/pages/storefront/CartPage";
 import { CheckoutPage } from "@/pages/storefront/CheckoutPage";
 import { InstalmentInfoPage } from "@/pages/storefront/InstalmentInfoPage";
 import { InstalmentApplyPage } from "@/pages/storefront/InstalmentApplyPage";
+import { InstalmentPaymentPage } from "@/pages/storefront/InstalmentPaymentPage";
 import { PaymentInstructionsPage } from "@/pages/storefront/PaymentInstructionsPage";
 import { AboutPage } from "@/pages/storefront/AboutPage";
 import { ContactPage } from "@/pages/storefront/ContactPage";
@@ -31,6 +32,7 @@ import { AccountAddresses } from "@/pages/account/AccountAddresses";
 import { ProtectedRoute } from "@/features/auth/ProtectedRoute";
 import { AdminDashboard } from "@/pages/admin/AdminDashboard";
 import { AdminProducts } from "@/pages/admin/AdminProducts";
+import { AdminProductEditor } from "@/pages/admin/AdminProductEditor";
 import { AdminImport } from "@/pages/admin/AdminImport";
 import { AdminOrders } from "@/pages/admin/AdminOrders";
 import { AdminSettings } from "@/pages/admin/AdminSettings";
@@ -75,6 +77,7 @@ export default function App() {
         <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/instalments" element={<InstalmentInfoPage />} />
         <Route path="/instalments/apply" element={<InstalmentApplyPage />} />
+        <Route path="/installments/payment/:applicationId" element={<InstalmentPaymentPage />} />
         <Route path="/payment-instructions" element={<PaymentInstructionsPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
@@ -112,6 +115,8 @@ export default function App() {
       >
         <Route index element={<AdminDashboard />} />
         <Route path="products" element={<AdminProducts />} />
+        <Route path="products/new" element={<AdminProductEditor />} />
+        <Route path="products/:id/edit" element={<AdminProductEditor />} />
         <Route path="import" element={<AdminImport />} />
         <Route path="orders" element={<AdminOrders />} />
         <Route path="settings" element={<AdminSettings />} />

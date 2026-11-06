@@ -72,7 +72,7 @@ begin
     p_payload->>'email', p_payload->>'phone',
     v_subtotal, round(v_subtotal * (v_discount / 100), 2),
     v_shipping, v_subtotal + v_shipping,
-    'manual_bank_transfer',
+    coalesce(p_payload->>'payment_method', 'manual_bank_transfer')::payment_method,
     p_payload->>'customer_notes'
   ) returning id into v_order_id;
 

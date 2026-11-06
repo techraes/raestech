@@ -34,6 +34,35 @@ Vercel on `raestech.store`.
 
    Only a Super Admin can manage roles/permissions.
 
+> **Can't log in to the admin panel?** If sign-in fails with **"Invalid
+> login credentials"**, the admin account is not provisioned in Supabase Auth
+> (or the password is wrong). A password-only sign-in (`signInWithPassword`)
+> requires a real, confirmed user in `auth.users`. Create one with either:
+>
+> **Option A — Edge function** (recommended, after deploying `create-admin`):
+> ```bash
+> supabase functions deploy create-admin
+> npm run provision:admin -- tech.raes@gmail.com 'STRONG_PASSWORD'
+> ```
+> Requires `SUPABASE_PROJECT_REF` and `ADMIN_SEED_SECRET` env vars (or call the
+> function directly with curl):
+> ```bash
+> curl -X POST https://<ref>.functions.supabase.co/create-admin \
+>   -H "Authorization: Bearer $ADMIN_SEED_SECRET" \
+>   -H "Content-Type: application/json" \
+>   -d '{"email":"tech.raes@gmail.com","password":"STRONG_PASSWORD_HERE"}'
+> ```
+>
+> **Option B — SQL script** (`supabase/scripts/provision_admin.sql`):
+> ```bash
+> psql "$DATABASE_URL" -v app_email='tech.raes@gmail.com' -v admin_password='STRONG_PASSWORD_HERE' -f supabase/scripts/provision_admin.sql
+> ```
+>
+> Both create the user (email pre-confirmed), attach the profile, and grant
+> `super_admin`. Use a strong password (≥ 8 characters). After that, sign in
+> on `/login` and visit `/admin`. If the account exists but the password is
+> unknown, use **Forgot password** to reset it.
+
 ### OTP / magic‑link emails (read this if you get a link instead of a code)
 
 The app signs users in with an **email OTP** (`signInWithOtp` → `verifyOtp`).
@@ -188,3 +217,4 @@ IMAGE_PROVIDER=replicate IMAGE_API_KEY=r8_... node scripts/generate-ai-images.mj
 - [ ] Courier + tracking fields configured in Admin.
 - [ ] Email provider (e.g. Resend/SendGrid) connected if you want real email.
 - [ ] WhatsApp templates finalised (no live integration without a provider).
+

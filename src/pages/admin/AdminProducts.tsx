@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { Download, Upload, Search, Package } from "lucide-react";
-import { allProducts } from "@/data/catalog";
+import { Download, Upload, Search, Package, Plus, Pencil } from "lucide-react";
+import { useProducts } from "@/data/catalog";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -25,6 +25,7 @@ function ptaSummary(p: { variants: Array<{ pta_status?: string; notes?: string }
 }
 
 export function AdminProducts() {
+  const allProducts = useProducts();
   const [q, setQ] = useState("");
   const [imported, setImported] = useState(0);
 
@@ -35,7 +36,7 @@ export function AdminProducts() {
       return list.filter((p) => p.name.toLowerCase().includes(needle) || p.brand.toLowerCase().includes(needle));
     }
     return list;
-  }, [q]);
+  }, [q, allProducts]);
 
   function exportExcel() {
     // Generate CSV (could be swapped for a true .xlsx via SheetJS).
@@ -69,6 +70,7 @@ export function AdminProducts() {
           <p className="text-sm text-muted-foreground">{rows.length} of {allProducts.length} products · {allProducts.reduce((s, p) => s + p.variants.length, 0)} variants</p>
         </div>
         <div className="flex gap-2">
+          <Button asChild><Link to="/admin/products/new"><Plus className="h-4 w-4" /> New product</Link></Button>
           <Button variant="outline" onClick={exportExcel}><Download className="h-4 w-4" /> Export</Button>
           <label className="inline-flex cursor-pointer items-center gap-2 rounded-md border px-4 py-2 text-sm font-medium shadow-sm hover:bg-accent">
             <Upload className="h-4 w-4" /> Import
@@ -99,6 +101,7 @@ export function AdminProducts() {
                 <th className="p-3 font-medium">PTA status</th>
                 <th className="p-3 font-medium">From</th>
                 <th className="p-3 font-medium">Status</th>
+                <th className="p-3 font-medium">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -128,6 +131,11 @@ export function AdminProducts() {
                   </td>
                   <td className="p-3">{formatPKR(Math.min(...p.variants.map((v) => v.listedPrice)))}</td>
                   <td className="p-3"><Badge variant="success">Active</Badge></td>
+                  <td className="p-3">
+                    <Button asChild variant="outline" size="sm">
+                      <Link to={`/admin/products/${p.id}/edit`}><Pencil className="h-3.5 w-3.5" /> Edit</Link>
+                    </Button>
+                  </td>
                 </tr>
               ))}
             </tbody>

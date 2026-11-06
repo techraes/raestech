@@ -3,12 +3,13 @@ import { Link } from "react-router-dom";
 import {
   Package, ShoppingBag, Users, AlertTriangle, Banknote, CalendarClock, ArrowUpRight,
 } from "lucide-react";
-import { allProducts } from "@/data/catalog";
+import { useProducts } from "@/data/catalog";
 import { Card, CardContent } from "@/components/ui/card";
 import { useSettings } from "@/features/settings/store";
 
 export function AdminIndex() {
   const { settings } = useSettings();
+  const allProducts = useProducts();
 
   const stats = useMemo(() => {
     let totalVariants = 0;
@@ -22,7 +23,7 @@ export function AdminIndex() {
       }
     }
     return { products: allProducts.length, brands: new Set(allProducts.map((p) => p.brand)).size, totalVariants, lowStock, outOfStock };
-  }, []);
+  }, [allProducts]);
 
   const tiles = [
     { label: "Total products", value: stats.products, icon: Package },

@@ -11,6 +11,8 @@ interface PaymentQrProps {
   bank?: { bankName?: string; accountTitle?: string; accountNumber?: string; iban?: string };
   /** Custom scannable payload (from admin payment settings). */
   payload?: string;
+  /** Optional uploaded QR code image (data URL) — shown in place of the generated QR. */
+  imageUrl?: string;
 }
 
 /**
@@ -36,8 +38,25 @@ export function buildPaymentQrPayload(amount: number, orderNumber?: string, bank
   return lines.join("\n");
 }
 
-export function PaymentQr({ amount, orderNumber, className, bank, payload: customPayload }: PaymentQrProps) {
+export function PaymentQr({ amount, orderNumber, className, bank, payload: customPayload, imageUrl }: PaymentQrProps) {
   const payload = buildPaymentQrPayload(amount, orderNumber, bank, customPayload);
+
+  if (imageUrl && imageUrl.trim()) {
+    return (
+      <Card className={className}>
+        <div className="flex flex-col items-center gap-3 p-5 text-center">
+          <p className="text-sm font-semibold">Scan to pay</p>
+          <div className="rounded-2xl border bg-white p-3">
+            <img src={imageUrl} alt="Payment QR code" className="h-44 w-44 object-contain" />
+          </div>
+          <p className="text-xs text-muted-foreground">
+            Scan the QR code with your payment app to complete this payment.
+          </p>
+        </div>
+      </Card>
+    );
+  }
+
   return (
     <Card className={className}>
       <div className="flex flex-col items-center gap-3 p-5 text-center">

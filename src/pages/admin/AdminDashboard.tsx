@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Info } from "lucide-react";
-import { allProducts } from "@/data/catalog";
+import { useProducts } from "@/data/catalog";
 import { useSettings } from "@/features/settings/store";
 import { isSupabaseConfigured, supabase } from "@/lib/supabase";
 import { formatPKR } from "@/lib/utils";
@@ -19,6 +19,7 @@ interface DbStats {
 export function AdminDashboard() {
   const { settings } = useSettings();
   const [db, setDb] = useState<DbStats | null>(null);
+  const allProducts = useProducts();
 
   const products = allProducts.length;
   const active = allProducts.length;

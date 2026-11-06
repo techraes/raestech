@@ -164,7 +164,15 @@ export interface CartItem {
   color?: string;
 }
 
-export type CustomerOrderPaymentMethod = "bank_transfer" | "instalments";
+export type CustomerOrderPaymentMethod =
+  | "bank_transfer"
+  | "instalments"
+  | "jazzcash"
+  | "easypaisa"
+  | "faysal_bank"
+  | "crypto_usdt"
+  | "card"
+  | (string & {});
 
 export interface CustomerOrderItem {
   sku: string;
@@ -274,6 +282,8 @@ export interface PaymentMethod {
   testMode: boolean;
   liveMode: boolean;
   verified: boolean;
+  /** Gateway category: bank transfer, mobile wallet, crypto or card. */
+  kind?: "bank" | "mobile_wallet" | "crypto" | "card";
   // manual bank transfer details
   bankName?: string;
   accountTitle?: string;
@@ -283,6 +293,15 @@ export interface PaymentMethod {
   instructions?: string;
   /** Optional scannable QR payment payload (text encoded into the QR). */
   qrPayload?: string;
+  /** Optional uploaded QR code image (data URL) shown to customers at checkout. */
+  qrImageUrl?: string;
+  // crypto payment details
+  network?: string;
+  coinSymbol?: string;
+  walletAddress?: string;
+  // card payment details
+  cardProcessor?: string;
+  merchantId?: string;
 }
 
 export interface SocialLinks {

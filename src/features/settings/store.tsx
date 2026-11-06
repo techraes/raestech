@@ -28,10 +28,12 @@ export const DEFAULT_HOMEPAGE_SECTIONS: HomepageSection[] = [
 ];
 
 export const DEFAULT_PAYMENT_METHODS: PaymentMethod[] = [
-  { id: "pm-faysal", code: "faysal_bank", name: "Faysal Bank Manual Transfer", enabled: false, customerDescription: "Manual bank transfer to our Faysal account.", displayOrder: 0, type: "manual", testMode: false, liveMode: false, verified: false, bankName: "", accountTitle: "", accountNumber: "", iban: "", branch: "", instructions: "" },
-  { id: "pm-jazzcash", code: "jazzcash", name: "JazzCash", enabled: false, displayOrder: 1, type: "manual", testMode: false, liveMode: false, verified: false },
-  { id: "pm-easypaisa", code: "easypaisa", name: "Easypaisa", enabled: false, displayOrder: 2, type: "manual", testMode: false, liveMode: false, verified: false },
-  { id: "pm-bank", code: "bank_transfer", name: "Bank Transfer", enabled: false, displayOrder: 3, type: "manual", testMode: false, liveMode: false, verified: false },
+  { id: "pm-faysal", code: "faysal_bank", name: "Faysal Bank Manual Transfer", enabled: false, customerDescription: "Manual bank transfer to our Faysal account.", displayOrder: 0, type: "manual", kind: "bank", testMode: false, liveMode: false, verified: false, bankName: "", accountTitle: "", accountNumber: "", iban: "", branch: "", instructions: "" },
+  { id: "pm-jazzcash", code: "jazzcash", name: "JazzCash", enabled: false, displayOrder: 1, type: "manual", kind: "mobile_wallet", testMode: false, liveMode: false, verified: false },
+  { id: "pm-easypaisa", code: "easypaisa", name: "Easypaisa", enabled: false, displayOrder: 2, type: "manual", kind: "mobile_wallet", testMode: false, liveMode: false, verified: false },
+  { id: "pm-bank", code: "bank_transfer", name: "Bank Transfer", enabled: false, displayOrder: 3, type: "manual", kind: "bank", testMode: false, liveMode: false, verified: false },
+  { id: "pm-crypto", code: "crypto_usdt", name: "Crypto (USDT)", enabled: false, customerDescription: "Pay with USDT (TRC-20). Send the exact amount to our wallet and upload proof.", displayOrder: 4, type: "manual", kind: "crypto", testMode: false, liveMode: false, verified: false, network: "TRC-20", coinSymbol: "USDT", walletAddress: "", instructions: "" },
+  { id: "pm-card", code: "card", name: "Card Payment", enabled: false, customerDescription: "Pay by debit/credit card securely.", displayOrder: 5, type: "online", kind: "card", testMode: false, liveMode: false, verified: false, cardProcessor: "", merchantId: "", instructions: "" },
 ];
 
 export const DEFAULT_SOCIAL_LINKS: SocialLinks = { instagram: "", facebook: "", tiktok: "", youtube: "", other: [] };

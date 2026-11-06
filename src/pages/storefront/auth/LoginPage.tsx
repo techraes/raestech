@@ -21,7 +21,15 @@ export function LoginPage() {
     setError("");
     const { error: err } = await signIn(email, password);
     setBusy(false);
-    if (err) return setError(err);
+    if (err) {
+      const lower = err.toLowerCase();
+      if (/invalid login|incorrect|not found|credentials/i.test(lower)) {
+        return setError(
+          "We couldn't sign you in with those credentials. Double-check your email and password. If you are an administrator, make sure your admin account has been provisioned (see the deployment guide)."
+        );
+      }
+      return setError(err);
+    }
     navigate(location.state?.from ?? "/account", { replace: true });
   }
 

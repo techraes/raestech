@@ -1,10 +1,11 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import type { CartItem, CustomerOrder, CustomerOrderItem, ProductVariant } from "@/types";
+import type { CartItem, CustomerOrder, CustomerOrderItem, CustomerOrderPaymentMethod, ProductVariant } from "@/types";
 import { supabase } from "@/lib/supabase";
 import { sendOrderConfirmation } from "@/lib/email";
 import { buyNowPrice } from "@/lib/pricing";
-import { allProducts } from "@/data/catalog";
+import { getVariantBySku } from "@/data/catalog";
+import { toDbPaymentMethod } from "@/lib/payment-method";
 
 export interface OrderDraft {
   fullName: string;
@@ -19,6 +20,14 @@ export interface OrderDraft {
   shipping: number;
   /** Buy-now discount percent applied at checkout (e.g. 10). */
   discountPercent: number;
+  /**
+   * Selected payment method code (e.g. crypto_usdt, card). This is the
+   * customer-facing code used for display and payment instructions. When the
+   * order is persisted it is normalised to a value the DB `payment_method`
+   * enum accepts (see toDbPaymentMethod); the original code is preserved on
+   * the local order.
+   */
+  paymentMethod?: string;
 }
 
 export type PlaceOrderResult =
@@ -41,13 +50,9 @@ function makeOrderNumber(): string {
   return "ORD-" + Math.random().toString(36).slice(2, 10).toUpperCase();
 }
 
-/** Resolve a variant by SKU from the canonical catalogue. */
+/** Resolve a variant by SKU from the canonical (live) catalogue. */
 function variantBySku(sku: string): ProductVariant | undefined {
-  for (const product of allProducts) {
-    const variant = product.variants.find((v) => v.sku === sku);
-    if (variant) return variant;
-  }
-  return undefined;
+  return getVariantBySku(sku)?.variant;
 }
 
 /** Map a Supabase/PostgREST error to a customer-friendly message. */
@@ -116,7 +121,7 @@ export const useOrders = create<OrdersState>()(
           createdAt: new Date().toISOString(),
           status: "pending",
           paymentStatus: "unpaid",
-          paymentMethod: "bank_transfer",
+          paymentMethod: (draft.paymentMethod as CustomerOrderPaymentMethod) || "manual_bank_transfer",
           customerName: draft.fullName,
           email: draft.email,
           phone: draft.phone,
@@ -150,6 +155,7 @@ export const useOrders = create<OrdersState>()(
               discount_percent: discount,
               shipping_charge: draft.shipping,
               customer_notes: draft.notes || null,
+              payment_method: toDbPaymentMethod(order.paymentMethod),
               items: items.map((item) => ({
                 sku: item.sku,
                 quantity: item.quantity,
@@ -181,7 +187,7 @@ export const useOrders = create<OrdersState>()(
               email: order.email,
               phone: order.phone,
               status: order.status,
-              payment_method: "manual_bank_transfer",
+              payment_method: toDbPaymentMethod(order.paymentMethod),
               payment_status: order.paymentStatus,
               shipping_full_name: order.customerName,
               shipping_phone: order.phone,

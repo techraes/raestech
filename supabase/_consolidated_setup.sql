@@ -29,7 +29,7 @@ create type order_status as enum (
   'delivered', 'cancelled', 'refund_requested', 'refunded'
 );
 
-create type payment_method as enum ('manual_bank_transfer');
+create type payment_method as enum ('manual_bank_transfer', 'bank_transfer', 'instalments', 'jazzcash', 'easypaisa', 'faysal_bank', 'crypto_usdt', 'card');
 create type payment_status as enum (
   'unpaid', 'pending_verification', 'verified', 'rejected', 'refunded'
 );

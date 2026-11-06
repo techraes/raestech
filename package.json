@@ -7,7 +7,12 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "provision:admin": "node scripts/provision-admin.mjs",
+    "deploy": "vercel --prod",
+    "deploy:preview": "vercel",
+    "db:migrate": "supabase db push",
+    "db:migration:list": "supabase migration list"
   },
   "dependencies": {
     "@radix-ui/react-avatar": "^1.1.0",

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, ShieldCheck, Truck, Percent, RotateCcw, SlidersHorizontal, Lock, Headphones, BadgeCheck } from "lucide-react";
 
 import { useSettings } from "@/features/settings/store";
-import { allProducts, newArrivals, getBrands } from "@/data/catalog";
+import { useProducts, newArrivals, getBrands } from "@/data/catalog";
 import { ProductGrid } from "@/components/product-card";
 import { HeroInstalmentCalculator } from "@/components/hero-instalment-calculator";
 import { Reveal } from "@/components/reveal";
@@ -17,6 +17,7 @@ export function HomePage() {
   const { settings } = useSettings();
   const fresh = newArrivals();
   const brands = getBrands();
+  const allProducts = useProducts();
   const [sort, setSort] = useState<"default" | "price-asc" | "price-desc" | "newest">("default");
   const [minS, setMinS] = useState("");
   const [maxS, setMaxS] = useState("");
@@ -46,7 +47,7 @@ export function HomePage() {
     else if (sort === "newest")
       sorted.sort((a, b) => (Number((b as unknown as { created_at?: number }).created_at) || 0) - (Number((a as unknown as { created_at?: number }).created_at) || 0));
     return sorted;
-  }, [sort, minS, maxS, settings]);
+  }, [sort, minS, maxS, settings, allProducts]);
 
   const heroSection = settings.homepageSections.find((s) => s.kind === "hero" && s.enabled);
 
