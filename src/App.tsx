@@ -42,6 +42,7 @@ import { AdminPayments } from "@/pages/admin/AdminPayments";
 import { AdminRoles } from "@/pages/admin/AdminRoles";
 import { AdminSystem } from "@/pages/admin/AdminSystem";
 import { AdminAudit } from "@/pages/admin/AdminAudit";
+import { AdminImages } from "@/pages/admin/AdminImages";
 import { useSettings } from "@/features/settings/store";
 import { BrandTheme } from "@/components/brand-theme";
 import { ScrollToTop } from "@/components/scroll-to-top";
@@ -118,6 +119,7 @@ export default function App() {
         <Route path="products/new" element={<AdminProductEditor />} />
         <Route path="products/:id/edit" element={<AdminProductEditor />} />
         <Route path="import" element={<AdminImport />} />
+        <Route path="images" element={<AdminImages />} />
         <Route path="orders" element={<AdminOrders />} />
         <Route path="settings" element={<AdminSettings />} />
         <Route path="appearance" element={<AdminAppearance />} />

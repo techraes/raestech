@@ -12,8 +12,8 @@ port = 54322
 # allow-list. Keep this pointing directly at the app (NOT at Vercel's SSO
 # endpoint) so confirmation links don't bounce through SSO.
 [auth]
-site_url = "https://raestech-raes3.vercel.app"
-additional_redirect_urls = ["http://localhost:5173", "https://raestech.store"]
+site_url = "https://raestech.store"
+additional_redirect_urls = ["http://localhost:5173", "https://raestech-raes3.vercel.app"]
 
 [auth.email]
 enable_signup = true
@@ -31,6 +31,17 @@ content_path = "./supabase/templates/magic_link.html"
 [auth.email.template_confirmation]
 subject = "Confirm your RAES TECH sign-up"
 content_path = "./supabase/templates/confirmation.html"
+
+# Google OAuth sign-in. Enabled by default so the login screen shows the Google
+# button, but the provider only actually works once you supply credentials in
+# the Supabase dashboard (Authentication > Providers > Google) AND the two env
+# vars below. Client ID/secret live in the Google Cloud Console
+# (APIs & Services > Credentials > OAuth 2.0 Client IDs).
+[auth.external.google]
+enabled = true
+client_id = "env(GOOGLE_OAUTH_CLIENT_ID)"
+secret = "env(GOOGLE_OAUTH_SECRET)"
+redirect_uri = "https://raestech.store/auth/v1/callback"
 
 # The admin-provisioning function is guarded by its own shared-secret header
 # (Authorization: Bearer $ADMIN_SEED_SECRET), so it does NOT require a user JWT.

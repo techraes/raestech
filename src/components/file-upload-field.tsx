@@ -83,7 +83,7 @@ export function FileUploadField({
           {showPreview ? (
             <img src={URL.createObjectURL(value)} alt={label} className="h-16 w-16 rounded-lg border object-cover" />
           ) : (
-            <div className="flex h-16 w-16 items-center justify-center rounded-lg border bg-white text-muted-foreground">
+            <div className="flex h-16 w-16 items-center justify-center rounded-lg border-border border bg-muted text-muted-foreground">
               {isImageFile(value) ? <ImageIcon className="h-6 w-6" /> : <FileText className="h-6 w-6" />}
             </div>
           )}

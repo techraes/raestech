@@ -28,6 +28,17 @@
   --input: 0 0% 86%;
   --ring: 0 0% 5%;
 
+  /* Status semantics (light) */
+  --success: 152 60% 40%;
+  --success-foreground: 0 0% 100%;
+  --warning: 38 92% 50%;
+  --warning-foreground: 24 80% 10%;
+  --info: 217 91% 60%;
+  --info-foreground: 0 0% 100%;
+  --disabled: 0 0% 90%;
+  --disabled-foreground: 0 0% 55%;
+  --focus-ring: 217 91% 60%;
+
   --radius: 0.9rem;
   --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.04), 0 12px 28px -8px rgba(0, 0, 0, 0.08);
   --shadow-pop: 0 12px 32px -10px rgba(0, 0, 0, 0.18);
@@ -63,8 +74,19 @@
   --destructive-foreground: 210 40% 98%;
 
   --border: 216 20% 19%;
-  --input: 216 20% 24%;
-  --ring: 210 40% 78%;
+  --input: 216 22% 22%;
+  --ring: 210 60% 70%;
+
+  /* Status semantics (dark) */
+  --success: 152 52% 46%;
+  --success-foreground: 215 28% 6%;
+  --warning: 38 92% 56%;
+  --warning-foreground: 24 80% 10%;
+  --info: 217 91% 62%;
+  --info-foreground: 215 28% 6%;
+  --disabled: 216 20% 20%;
+  --disabled-foreground: 216 15% 48%;
+  --focus-ring: 210 70% 68%;
 
   --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.5), 0 12px 28px -8px rgba(0, 0, 0, 0.7);
   --shadow-pop: 0 12px 32px -10px rgba(0, 0, 0, 0.85);

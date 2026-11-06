@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
 
 export function LoginPage() {
-  const { signIn } = useAuth();
+  const { signIn, googleSignIn } = useAuth();
   const navigate = useNavigate();
   const location = useLocation() as { state?: { from?: string } };
   const [email, setEmail] = useState("");
@@ -45,6 +45,28 @@ export function LoginPage() {
             {error && <p className="text-sm text-red-600">{error}</p>}
             <Button type="submit" className="w-full" disabled={busy}>{busy ? "Signing in…" : "Login"}</Button>
           </form>
+
+          <div className="my-6 flex items-center gap-3 text-xs text-muted-foreground">
+            <div className="h-px flex-1 bg-border" />
+            <span>or</span>
+            <div className="h-px flex-1 bg-border" />
+          </div>
+
+          <Button
+            type="button"
+            variant="outline"
+            className="w-full"
+            disabled={busy}
+            onClick={async () => {
+              setBusy(true);
+              setError("");
+              const { error: err } = await googleSignIn();
+              setBusy(false);
+              if (err) setError(err);
+            }}
+          >
+            {busy ? "Redirecting to Google…" : "Continue with Google"}
+          </Button>
 
           <div className="mt-4 flex items-center justify-between text-sm">
             <Link to="/forgot-password" className="text-muted-foreground hover:underline">Forgot password?</Link>

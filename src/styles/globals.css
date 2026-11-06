@@ -6,9 +6,26 @@
   * {
     @apply border-border;
   }
+  html {
+    /* Prevent horizontal overflow from any oversized child. The header/hero
+       now use earlier-safe widths, so this is a defensive baseline rather than
+       a band-aid covering layout bugs. */
+    overflow-x: clip;
+    -webkit-text-size-adjust: 100%;
+  }
   body {
     @apply bg-background text-foreground antialiased;
     font-feature-settings: "rlig" 1, "calt" 1;
+    overflow-x: clip;
+    min-width: 320px;
+  }
+  /* iOS Safari zooms into any focused input whose font-size is under 16px. */
+  @media (max-width: 767px) {
+    input,
+    select,
+    textarea {
+      font-size: 16px !important;
+    }
   }
 }
 
@@ -30,6 +47,31 @@
   }
   .text-balance {
     text-wrap: balance;
+  }
+
+  /* iOS safe-area helpers (notch / home indicator). */
+  .pt-safe {
+    padding-top: env(safe-area-inset-top);
+  }
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .pl-safe {
+    padding-left: env(safe-area-inset-left);
+  }
+  .pr-safe {
+    padding-right: env(safe-area-inset-right);
+  }
+
+  /* Controlled horizontal scroll container (used for brand/category rails) —
+     scrolls within its own box instead of pushing the page wider. */
+  .scroll-rail {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .scroll-rail::-webkit-scrollbar {
+    display: none;
   }
 
   /* Animated "shimmer" skeleton / loading sweep */

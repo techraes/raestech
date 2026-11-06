@@ -234,7 +234,7 @@ export function ProductDetailPage() {
               <p className="text-xs text-muted-foreground">Price checked: {variant.priceCheckedDate}</p>
             )}
             {variant.notes && (
-              <p className="rounded-lg bg-neutral-100 px-3 py-2 text-xs text-neutral-700">{variant.notes}</p>
+              <p className="rounded-lg bg-muted px-3 py-2 text-xs text-muted-foreground">{variant.notes}</p>
             )}
             <p className="flex items-center gap-1.5 text-xs font-medium text-emerald-700">
               <ShieldCheck className="h-4 w-4" /> Stock and IMEI verified before dispatch.

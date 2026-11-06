@@ -95,6 +95,51 @@ export interface Product {
   variants: ProductVariant[];
 }
 
+// ---------- Product image staging / review domain ----------
+
+/** Source classification for a staged image asset. */
+export type ImageAssetKind = "gallery_original" | "concept_preview";
+export type ImageSubKind = "gallery" | "white" | "dark";
+export type ImageAssetStatus = "pending" | "staged" | "approved" | "rejected";
+
+/** A single staged image asset in the private review pipeline. */
+export interface ImageAsset {
+  /** Stable id (derived from the mapped asset key). */
+  id: string;
+  brand: string;
+  model: string;
+  productSlug: string;
+  sku?: string;
+  kind: ImageAssetKind;
+  subKind: ImageSubKind;
+  /** Concept assets are preview-only — never publishable as product photos. */
+  previewOnly: boolean;
+  /** SHA-256 of the image bytes (idempotency / duplicate detection). */
+  sha256?: string;
+  /** Storage path inside the private staging bucket (Supabase mode). */
+  storagePath?: string;
+  /** Local data-URL preview (dev mode). */
+  previewUrl?: string;
+  status: ImageAssetStatus;
+  isFeatured: boolean;
+  reviewNote?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+/** One entry in the image import audit log. */
+export interface ImageImportLogEntry {
+  id: string;
+  batch: string;
+  kind: "gallery" | "concept_preview" | "upload";
+  total: number;
+  staged: number;
+  duplicates: number;
+  failed: number;
+  summary: string;
+  createdAt: string;
+}
+
 export interface Brand {
   name: string;
   slug: string;

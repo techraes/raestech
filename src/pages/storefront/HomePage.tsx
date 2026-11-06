@@ -113,20 +113,20 @@ export function HomePage() {
       {/* Floating category bar */}
       <section className="relative z-20 mx-auto -mt-9 max-w-7xl px-4">
         <Reveal>
-          <div className="overflow-x-auto rounded-3xl border bg-white p-3 shadow-xl sm:p-4">
+          <div className="overflow-x-auto rounded-3xl border-border border bg-card p-3 shadow-xl sm:p-4">
             <div className="flex min-w-max gap-3">
               {brands.map((b) => (
                 <Link
                   key={b.slug}
                   to={`/brand/${b.slug}`}
-                  className="flex min-w-[104px] flex-col items-center justify-center rounded-2xl bg-neutral-50 px-4 py-4 text-sm font-bold text-neutral-800 transition-all duration-300 hover:-translate-y-1 hover:bg-neutral-100 hover:shadow-md"
+                  className="flex min-w-[104px] flex-col items-center justify-center rounded-2xl bg-muted px-4 py-4 text-sm font-bold text-foreground transition-all duration-300 hover:-translate-y-1 hover:bg-secondary hover:shadow-md"
                 >
                   {b.name}
                 </Link>
               ))}
               <Link
                 to="/brand/apple"
-                className="flex min-w-[104px] flex-col items-center justify-center rounded-2xl border border-neutral-200 bg-white px-4 py-4 text-sm font-bold text-neutral-800 transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
+                className="flex min-w-[104px] flex-col items-center justify-center rounded-2xl border-border border bg-card px-4 py-4 text-sm font-bold text-foreground transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
               >
                 JV iPhones
               </Link>

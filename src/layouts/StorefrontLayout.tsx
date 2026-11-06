@@ -127,10 +127,10 @@ export function StorefrontLayout() {
       )}
 
       {/* ---- Main header ---- */}
-      <header className={cn("sticky top-0 z-40 bg-white/90 backdrop-blur-md transition-all duration-300", scrolled ? "border-b border-neutral-200 shadow-sm" : "border-b border-transparent")}>
+      <header className={cn("sticky top-0 z-40 bg-background/90 backdrop-blur-md transition-all duration-300", scrolled ? "border-b border-border shadow-sm" : "border-b border-transparent")}>
         <div className="h-0.5 w-full bg-gradient-to-r from-neutral-900 via-neutral-400 to-neutral-900" />
         <div className="mx-auto flex max-w-7xl items-center gap-3 px-4 py-3">
-          <button className="inline-flex h-10 w-10 items-center justify-center rounded-md hover:bg-neutral-100 lg:hidden" onClick={() => setMobileOpen(true)} aria-label="Menu">
+          <button className="inline-flex h-10 w-10 items-center justify-center rounded-md hover:bg-muted lg:hidden" onClick={() => setMobileOpen(true)} aria-label="Menu">
             <Menu className="h-5 w-5" />
           </button>
 
@@ -138,7 +138,7 @@ export function StorefrontLayout() {
             {settings.logoDataUrl ? (
               <img src={settings.logoDataUrl} alt={settings.storeName} className="h-9 w-auto max-w-[160px] object-contain" />
             ) : (
-              <span className="text-xl font-black tracking-tight text-neutral-950">{settings.storeName}</span>
+              <span className="text-xl font-black tracking-tight text-foreground">{settings.storeName}</span>
             )}
           </Link>
 
@@ -151,22 +151,22 @@ export function StorefrontLayout() {
                 onFocus={() => setShowSuggestions(true)}
                 onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
                 placeholder="Search for smartphones…"
-                className="h-11 rounded-full border-neutral-200 bg-neutral-50 pl-4 pr-12 text-sm"
+                className="h-11 rounded-full border-border bg-muted pl-4 pr-12 text-sm"
               />
-              <button type="submit" className="absolute right-1.5 top-1/2 inline-flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-neutral-950 text-white transition-transform hover:scale-105" aria-label="Search">
+              <button type="submit" className="absolute right-1.5 top-1/2 inline-flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-primary text-primary-foreground transition-transform hover:scale-105" aria-label="Search">
                 <Search className="h-4 w-4" />
               </button>
             </div>
             {showSuggestions && suggestions.length > 0 && (
               <div className="absolute left-0 right-0 top-full z-50 mt-2 rounded-2xl border bg-white p-2 shadow-xl">
                 {suggestions.map((p) => (
-                  <button key={p.id} type="button" onMouseDown={() => goToProduct(p)} className="flex w-full items-center gap-3 rounded-xl px-2 py-2 text-left transition-colors hover:bg-neutral-50">
-                    <span className="h-10 w-10 shrink-0 overflow-hidden rounded-lg border bg-neutral-100">
+                  <button key={p.id} type="button" onMouseDown={() => goToProduct(p)} className="flex w-full items-center gap-3 rounded-xl px-2 py-2 text-left transition-colors hover:bg-muted">
+                    <span className="h-10 w-10 shrink-0 overflow-hidden rounded-lg border-border border bg-muted">
                       <ProductImage product={p} className="h-full w-full object-cover" />
                     </span>
                     <span className="min-w-0">
                       <span className="block truncate text-sm font-medium">{p.name}</span>
-                      <span className="block text-xs text-neutral-500">{p.brand} · {p.model}</span>
+                      <span className="block text-xs text-muted-foreground">{p.brand} · {p.model}</span>
                     </span>
                   </button>
                 ))}
@@ -176,28 +176,31 @@ export function StorefrontLayout() {
 
           {/* Right actions */}
           <div className="ml-auto flex items-center gap-1.5 sm:gap-2">
-            <Link to="/cart" className="relative inline-flex h-10 w-10 items-center justify-center rounded-full transition-colors hover:bg-neutral-100" aria-label="Cart">
+            <Link to="/cart" className="relative inline-flex h-10 w-10 items-center justify-center rounded-full transition-colors hover:bg-muted" aria-label="Cart">
               <ShoppingCart className="h-5 w-5" strokeWidth={1.8} />
               {count > 0 && (
-                <span className="absolute right-0.5 top-0.5 inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-neutral-950 px-1 text-[10px] font-bold text-white">
+                <span className="absolute right-0.5 top-0.5 inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-primary px-1 text-[10px] font-bold text-primary-foreground">
                   {count}
                 </span>
               )}
             </Link>
-            <Link to="/wishlist" className="hidden h-10 w-10 items-center justify-center rounded-full transition-colors hover:bg-neutral-100 sm:inline-flex" aria-label="Wishlist">
+            <Link to="/wishlist" className="hidden h-10 w-10 items-center justify-center rounded-full transition-colors hover:bg-muted sm:inline-flex" aria-label="Wishlist">
               <Heart className="h-5 w-5" strokeWidth={1.8} />
             </Link>
             <ThemeToggle />
             {user ? (
-              <Link to="/account" className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-neutral-100 text-neutral-900 transition-colors hover:bg-neutral-200" aria-label="My account">
+              <Link to="/account" className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-muted text-foreground transition-colors hover:bg-secondary" aria-label="My account">
                 <User className="h-5 w-5" strokeWidth={1.8} />
               </Link>
             ) : (
               <>
-                <Button asChild variant="outline" size="sm" className="h-9 rounded-full px-4">
+                {/* Login always visible (compact on mobile) so there is an auth
+                    entry point with the menu closed; Register moves into the
+                    mobile drawer on small screens to avoid crowding. */}
+                <Button asChild variant="outline" size="sm" className="h-9 rounded-full px-3.5 sm:px-4">
                   <Link to="/login">Login</Link>
                 </Button>
-                <Button asChild size="sm" className="h-9 rounded-full px-4">
+                <Button asChild size="sm" className="hidden h-9 rounded-full px-4 sm:inline-flex">
                   <Link to="/register">Register</Link>
                 </Button>
               </>
@@ -213,8 +216,8 @@ export function StorefrontLayout() {
         {/* Mobile search */}
         <form onSubmit={submitSearch} className="px-4 pb-3 md:hidden">
           <div className="relative">
-            <Input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search for smartphones…" className="h-10 rounded-full border-neutral-200 bg-neutral-50 pl-4 pr-11 text-sm" />
-            <button type="submit" className="absolute right-1.5 top-1/2 inline-flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full bg-neutral-950 text-white" aria-label="Search">
+            <Input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search for smartphones…" className="h-10 rounded-full border-border bg-muted pl-4 pr-11 text-sm" />
+            <button type="submit" className="absolute right-1.5 top-1/2 inline-flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full bg-primary text-primary-foreground" aria-label="Search">
               <Search className="h-3.5 w-3.5" />
             </button>
           </div>
@@ -222,23 +225,23 @@ export function StorefrontLayout() {
       </header>
 
       {/* ---- Desktop navigation row ---- */}
-      <nav className="hidden border-b border-neutral-200 bg-white lg:block">
+      <nav className="hidden border-b border-border bg-background lg:block">
         <div className="mx-auto flex max-w-7xl items-center gap-1 px-4">
           {/* All Categories */}
           <div className="relative mr-2" onMouseEnter={() => setCatOpen(true)} onMouseLeave={() => setCatOpen(false)}>
-            <button className="inline-flex h-11 items-center gap-2 rounded-full bg-neutral-950 px-5 text-sm font-semibold text-white transition-transform hover:scale-[1.02]">
+            <button className="inline-flex h-11 items-center gap-2 rounded-full bg-primary px-5 text-sm font-semibold text-primary-foreground transition-transform hover:scale-[1.02]">
               <LayoutGrid className="h-4 w-4" /> All Categories <ChevronDown className="h-3.5 w-3.5" />
             </button>
             {catOpen && (
-              <div className="absolute left-0 top-full z-50 mt-2 w-64 rounded-2xl border bg-white p-2 shadow-xl animate-fade-in">
-                <p className="px-3 pb-1 pt-2 text-[11px] font-semibold uppercase tracking-wide text-neutral-500">Smartphones</p>
+              <div className="absolute left-0 top-full z-50 mt-2 w-64 rounded-2xl border-border border bg-popover p-2 shadow-xl animate-fade-in">
+                <p className="px-3 pb-1 pt-2 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">Smartphones</p>
                 {brands.map((b) => (
-                  <Link key={b.slug} to={`/brand/${b.slug}`} className="block rounded-xl px-3 py-2 text-sm text-neutral-700 transition-colors hover:bg-neutral-50">
+                  <Link key={b.slug} to={`/brand/${b.slug}`} className="block rounded-xl px-3 py-2 text-sm text-foreground transition-colors hover:bg-muted">
                     {b.name}
                   </Link>
                 ))}
                 <div className="mt-1 border-t pt-1">
-                  <Link to="/brand/apple" className="block rounded-xl px-3 py-2 text-sm font-medium text-neutral-700 transition-colors hover:bg-neutral-50">
+                  <Link to="/brand/apple" className="block rounded-xl px-3 py-2 text-sm font-medium text-foreground transition-colors hover:bg-muted">
                     JV / SIM-Locked iPhones
                   </Link>
                 </div>
@@ -254,14 +257,14 @@ export function StorefrontLayout() {
               className={({ isActive }) =>
                 cn(
                   "relative inline-flex h-11 items-center px-3 text-sm font-medium transition-colors",
-                  isActive ? "text-neutral-950" : "text-neutral-500 hover:text-neutral-950"
+                  isActive ? "text-foreground" : "text-muted-foreground hover:text-foreground"
                 )
               }
             >
               {({ isActive }) => (
                 <>
                   {item.label}
-                  <span className={cn("absolute inset-x-3 bottom-0 h-0.5 rounded-full bg-neutral-950 transition-transform duration-300", isActive ? "scale-x-100" : "scale-x-0")} />
+                  <span className={cn("absolute inset-x-3 bottom-0 h-0.5 rounded-full bg-foreground transition-transform duration-300", isActive ? "scale-x-100" : "scale-x-0")} />
                 </>
               )}
             </NavLink>
@@ -273,28 +276,48 @@ export function StorefrontLayout() {
       {mobileOpen && (
         <div className="fixed inset-0 z-50 lg:hidden">
           <div className="absolute inset-0 bg-black/45 animate-fade-in" onClick={() => setMobileOpen(false)} />
-          <div className="absolute inset-y-0 left-0 flex w-[300px] max-w-[85vw] flex-col bg-white shadow-2xl animate-slide-in-left">
+          <div className="absolute inset-y-0 left-0 flex w-[300px] max-w-[85vw] flex-col bg-background shadow-2xl animate-slide-in-left">
             <div className="flex items-center justify-between border-b px-4 py-3">
               <span className="text-lg font-black tracking-tight">{settings.storeName}</span>
-              <button onClick={() => setMobileOpen(false)} className="inline-flex h-9 w-9 items-center justify-center rounded-md hover:bg-neutral-100" aria-label="Close menu">
+              <button onClick={() => setMobileOpen(false)} className="inline-flex h-9 w-9 items-center justify-center rounded-md hover:bg-muted" aria-label="Close menu">
                 <X className="h-5 w-5" />
               </button>
             </div>
             <div className="flex-1 overflow-y-auto p-3">
               {NAV.map((item) => (
-                <Link key={item.label} to={item.to} onClick={() => setMobileOpen(false)} className="block rounded-xl px-3 py-2.5 text-sm font-medium text-neutral-800 hover:bg-neutral-50">
+                <Link key={item.label} to={item.to} onClick={() => setMobileOpen(false)} className="block rounded-xl px-3 py-2.5 text-sm font-medium text-foreground hover:bg-muted">
                   {item.label}
                 </Link>
               ))}
-              <p className="px-3 pb-1 pt-3 text-[11px] font-semibold uppercase tracking-wide text-neutral-400">Brands</p>
+              <p className="px-3 pb-1 pt-3 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">Brands</p>
               {brands.map((b) => (
-                <Link key={b.slug} to={`/brand/${b.slug}`} onClick={() => setMobileOpen(false)} className="block rounded-xl px-3 py-2 text-sm text-neutral-600 hover:bg-neutral-50">
+                <Link key={b.slug} to={`/brand/${b.slug}`} onClick={() => setMobileOpen(false)} className="block rounded-xl px-3 py-2 text-sm text-muted-foreground hover:bg-muted">
                   {b.name}
                 </Link>
               ))}
-              <Link to="/brand/apple" onClick={() => setMobileOpen(false)} className="block rounded-xl px-3 py-2 text-sm font-medium text-neutral-800 hover:bg-neutral-50">
+              <Link to="/brand/apple" onClick={() => setMobileOpen(false)} className="block rounded-xl px-3 py-2 text-sm font-medium text-foreground hover:bg-muted">
                 JV / SIM-Locked iPhones
               </Link>
+
+              <div className="mt-3 border-t pt-3">
+                {user ? (
+                  <Link to="/account" onClick={() => setMobileOpen(false)} className="flex items-center gap-2 rounded-xl bg-muted px-3 py-2.5 text-sm font-medium text-foreground">
+                    <User className="h-4 w-4" /> My Account
+                  </Link>
+                ) : (
+                  <div className="grid grid-cols-2 gap-2">
+                    <Button asChild variant="outline" size="sm" className="rounded-full">
+                      <Link to="/login" onClick={() => setMobileOpen(false)}>Login</Link>
+                    </Button>
+                    <Button asChild size="sm" className="rounded-full">
+                      <Link to="/register" onClick={() => setMobileOpen(false)}>Register</Link>
+                    </Button>
+                  </div>
+                )}
+                <Link to="/wishlist" onClick={() => setMobileOpen(false)} className="mt-2 flex items-center gap-2 rounded-xl px-3 py-2.5 text-sm text-muted-foreground hover:bg-muted">
+                  <Heart className="h-4 w-4" /> Wishlist
+                </Link>
+              </div>
             </div>
           </div>
         </div>

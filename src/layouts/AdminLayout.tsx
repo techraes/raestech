@@ -3,7 +3,7 @@ import { NavLink, Outlet, Link } from "react-router-dom";
 import {
   LayoutDashboard, Package, ShoppingBag, Settings, LogOut, Store,
   CreditCard, ShieldCheck, ArrowLeft, FileUp, Palette, LayoutTemplate,
-  Wrench, History, Search,
+  Wrench, History, Search, Images,
 } from "lucide-react";
 import { useAuth } from "@/features/auth/AuthContext";
 import { useSettings } from "@/features/settings/store";
@@ -35,6 +35,7 @@ const GROUPS: NavGroup[] = [
     items: [
       { to: "/admin/products", label: "Products", icon: Package, perm: "products" },
       { to: "/admin/import", label: "Import Catalogue", icon: FileUp, perm: "products" },
+      { to: "/admin/images", label: "Image Manager", icon: Images, perm: "images" },
     ],
   },
   {

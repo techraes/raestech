@@ -30,9 +30,11 @@ interface AuthContextValue {
    * configured this creates the account (if missing) and emails a 6-digit code.
    * In dev mode it simulates the flow so checkout remains usable offline.
    */
-  requestOtp: (email: string, fullName?: string) => Promise<{ error?: string }>;
+  requestOtp: (email: string, fullName?: string) => Promise<{ error?: string; info?: string }>;
   /** Verify an email OTP to complete auto-registration / sign-in. */
   confirmOtp: (email: string, token: string) => Promise<{ error?: string }>;
+  /** Google OAuth sign-in (requires the Google provider enabled in Supabase). */
+  googleSignIn: () => Promise<{ error?: string }>;
   /** Development-only: sign in to the local sample account. */
   devSignIn: () => Promise<{ error?: string }>;
 }
@@ -48,6 +50,7 @@ const AuthContext = createContext<AuthContextValue>({
   signOut: async () => {},
   requestOtp: async () => ({}),
   confirmOtp: async () => ({}),
+  googleSignIn: async () => ({}),
   devSignIn: async () => ({}),
 });
 
@@ -167,6 +170,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     };
   }
 
+  function friendlySendError(raw: string): string {
+    const t = (raw || "").toLowerCase();
+    if (t.includes("rate") || t.includes("too many") || t.includes("exceed")) {
+      return "You've requested too many codes. Please wait a few minutes and try again.";
+    }
+    if (t.includes("over_email_send_rate_limit")) {
+      return "You've requested too many codes. Please wait a few minutes and try again.";
+    }
+    if (t.includes("not allowed") || t.includes("disabled") || t.includes("smtp")) {
+      return "Email sending is not configured yet. Please contact support or try again later.";
+    }
+    return "We couldn't send your verification code. Please try again.";
+  }
+
   async function requestOtp(email: string, fullName?: string) {
     if (isSupabaseConfigured) {
       const { error } = await supabase!.auth.signInWithOtp({
@@ -176,7 +193,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           data: fullName ? { full_name: fullName } : undefined,
         },
       });
-      return { error: error?.message };
+      if (error) return { error: friendlySendError(error.message) };
+      // A successful response only means the provider accepted the request — it
+      // does NOT guarantee inbox delivery. Never claim delivery here.
+      return { info: "Verification code requested. Please check your inbox and spam folder." };
     }
     if (isDevMode()) {
       // Simulate the OTP flow offline: remember the pending email so the dev
@@ -231,6 +251,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return { error: "Demo login is only available in development." };
   }
 
+  async function googleSignIn() {
+    if (isSupabaseConfigured) {
+      const { error } = await supabase!.auth.signInWithOAuth({
+        provider: "google",
+        options: { redirectTo: window.location.origin },
+      });
+      if (error) return { error: error?.message };
+      // signInWithOAuth redirects away to Google; on return Supabase Auth
+      // creates the session and onAuthStateChange updates `user`.
+      return {};
+    }
+    return { error: "Google sign-in is not configured on this deployment." };
+  }
+
   const value = useMemo<AuthContextValue>(
     () => ({
       user,
@@ -244,6 +278,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       requestOtp,
       confirmOtp,
       devSignIn,
+      googleSignIn,
     }),
     [user, loading, pendingOtpEmail, pendingOtpName]
   );

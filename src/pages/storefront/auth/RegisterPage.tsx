@@ -79,6 +79,7 @@ export function RegisterPage() {
   const [password, setPassword] = useState("");
   const [showPw, setShowPw] = useState(false);
   const [error, setError] = useState("");
+  const [info, setInfo] = useState("");
   const [busy, setBusy] = useState(false);
 
   const [phase, setPhase] = useState<"form" | "otp">("form");
@@ -104,6 +105,7 @@ export function RegisterPage() {
     e.preventDefault();
     setBusy(true);
     setError("");
+    setInfo("");
     const strength = passwordStrength(password);
     if (!strength.ok && password) {
       setError(strength.label || "Password is too weak.");
@@ -119,11 +121,13 @@ export function RegisterPage() {
     // Identity created and verification email requested. Move to the OTP screen.
     setPhase("otp");
     setCooldown(RESEND_COOLDOWN_SEC);
+    setInfo("Verification code requested. Please check your inbox and spam folder.");
   }
 
   async function verify() {
     setOtpBusy(true);
     setError("");
+    setInfo("");
     if (otp.length !== OTP_LENGTH) {
       setError("Enter the 6-digit code we emailed you.");
       setOtpBusy(false);
@@ -152,12 +156,14 @@ export function RegisterPage() {
 
   async function resend() {
     setError("");
+    setInfo("");
     setAttempts(0);
-    const { error: err } = await requestOtp(email);
+    const { error: err, info } = await requestOtp(email);
     if (err) {
       setError(err);
       return;
     }
+    if (info) setInfo(info);
     setCooldown(RESEND_COOLDOWN_SEC);
     setOtp("");
   }
@@ -166,7 +172,7 @@ export function RegisterPage() {
     <div className="mx-auto max-w-md">
       <Card>
         <CardContent className="p-8">
-          <h1 className="text-2xl font-bold">Create your account</h1>
+          <h1 className="text-2xl font-bold">{phase === "otp" && !verified ? "Verify Your Email" : "Create your account"}</h1>
 
           {phase === "form" ? (
             <>
@@ -184,6 +190,7 @@ export function RegisterPage() {
                   </div>
                   {password && <p className="text-xs text-muted-foreground">{passwordStrength(password).label}</p>}
                 </div>
+                {info && <p className="text-sm text-blue-600 dark:text-blue-400">{info}</p>}
                 {error && <p className="text-sm text-red-600 dark:text-red-400">{error}</p>}
                 <Button type="submit" className="w-full" disabled={busy}>{busy ? "Sending code…" : "Continue"}</Button>
               </form>
@@ -198,13 +205,16 @@ export function RegisterPage() {
           ) : (
             <>
               <p className="mt-1 text-sm text-muted-foreground">
-                We sent a six-digit verification code to <span className="font-medium text-foreground">{email}</span>.
+                A six-digit verification code was requested for{" "}
+                <span className="font-medium text-foreground">{email}</span>.{" "}
+                Check your inbox and spam folder if it doesn't arrive.
               </p>
               <div className="mt-6 space-y-5">
                 <div className="space-y-2">
                   <Label className="text-center">Enter verification code</Label>
                   <OtpInput value={otp} onChange={setOtp} disabled={otpBusy} />
                 </div>
+                {info && <p className="text-center text-sm text-blue-600 dark:text-blue-400">{info}</p>}
                 {error && <p className="text-center text-sm text-red-600 dark:text-red-400">{error}</p>}
                 <Button type="button" className="w-full" disabled={otpBusy || attempts >= MAX_ATTEMPTS} onClick={verify}>
                   {otpBusy ? "Verifying…" : "Verify & Create Account"}

@@ -24,6 +24,7 @@ export type AdminPermission =
   | "system"
   | "audit"
   | "products"
+  | "images"
   | "orders"
   | "customers"
   | "instalments"
@@ -32,7 +33,7 @@ export type AdminPermission =
 export const ALL_PERMISSIONS: AdminPermission[] = [
   "dashboard", "settings", "appearance", "homepage", "payments", "shipping",
   "warranty", "content", "menus", "coupons", "social", "seo", "roles",
-  "system", "audit", "products", "orders", "customers", "instalments", "communications",
+  "system", "audit", "products", "images", "orders", "customers", "instalments", "communications",
 ];
 
 export const ADMIN_ROLES: UserRole[] = [
@@ -43,7 +44,7 @@ export const ADMIN_ROLES: UserRole[] = [
 const ROLE_PERMISSIONS: Record<UserRole, Set<AdminPermission>> = {
   customer: new Set(),
   super_admin: new Set(ALL_PERMISSIONS),
-  product_manager: new Set(["dashboard", "products", "homepage", "seo", "settings"]),
+  product_manager: new Set(["dashboard", "products", "images", "homepage", "seo", "settings"]),
   order_manager: new Set(["dashboard", "orders", "customers"]),
   payment_verifier: new Set(["dashboard", "payments", "orders", "audit"]),
   instalment_reviewer: new Set(["dashboard", "instalments", "customers"]),
