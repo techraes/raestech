@@ -41,11 +41,12 @@ export function BrandTheme({ settings }: { settings: SiteSettings }) {
     const set = (name: string, value: string) => root.style.setProperty(name, value);
     const dark = resolvedTheme === "dark";
 
-    // Surface tokens come from admin branding in light mode, and from the
-    // `.dark` stylesheet in dark mode. When dark, we must REMOVE any previously
-    // applied inline surface tokens — otherwise stale light overrides persist
-    // and force a white background / low-contrast text in dark (the bug).
-    const SURFACE_TOKENS = [
+    // All admin-overridable colour tokens. In light mode they come from the
+    // admin branding; in dark mode we REMOVE them so the `.dark` stylesheet
+    // defaults apply. Keeping stale light values (surfaces or interactive) in
+    // dark causes white backgrounds and invisible/low-contrast elements (e.g. a
+    // white brand button colour + hardcoded white foreground).
+    const TOKENS = [
       "--background", "--foreground",
       "--secondary", "--secondary-foreground",
       "--muted", "--muted-foreground",
@@ -53,9 +54,11 @@ export function BrandTheme({ settings }: { settings: SiteSettings }) {
       "--card", "--card-foreground",
       "--popover", "--popover-foreground",
       "--accent", "--accent-foreground",
+      "--primary", "--primary-foreground",
+      "--ring",
     ];
     if (dark) {
-      for (const k of SURFACE_TOKENS) root.style.removeProperty(k);
+      for (const k of TOKENS) root.style.removeProperty(k);
     } else {
       set("--background", hexToHsl(t.backgroundColor));
       set("--foreground", hexToHsl(t.textColor));
@@ -63,13 +66,11 @@ export function BrandTheme({ settings }: { settings: SiteSettings }) {
       set("--secondary-foreground", hexToHsl(t.textColor));
       set("--muted", hexToHsl(t.backgroundColor) === hexToHsl("#ffffff") ? "0 0% 96%" : hexToHsl(t.backgroundColor));
       set("--border", hexToHsl(t.borderColor));
+      set("--primary", hexToHsl(t.buttonColor));
+      set("--primary-foreground", hexToHsl("#ffffff"));
+      set("--accent", hexToHsl(t.accentColor));
+      set("--ring", hexToHsl(t.buttonColor));
     }
-
-    // Accent / interactive tokens apply in both themes.
-    set("--primary", hexToHsl(t.buttonColor));
-    set("--primary-foreground", hexToHsl("#ffffff"));
-    set("--accent", hexToHsl(t.accentColor));
-    set("--ring", hexToHsl(t.buttonColor));
     set("--radius", `${t.radiusScale}rem`);
 
     // Header / footer: in dark use the card surface so they don't flash white.
