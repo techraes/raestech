@@ -1,8 +1,11 @@
 import json, os, hashlib
 from collections import Counter
 
-# 1) read authoritative mapping from the live pack
-mp = json.load(open('data/image-import-live/manifests/model_image_mapping.json', encoding='utf8'))
+# 1) read authoritative mapping (committed source for reproducibility)
+MAPPING_PATH = 'data/image-master/manifests/model_image_mapping.json'
+if not os.path.exists(MAPPING_PATH):
+    raise SystemExit('Missing authoritative mapping source: %s (commit it or re-extract the master pack)' % MAPPING_PATH)
+mp = json.load(open(MAPPING_PATH, encoding='utf8'))
 models = mp['models']
 
 # 2) read catalog

@@ -1,0 +1,3369 @@
+{
+  "package": "RAES TECH Mercury 3 model-image import",
+  "schema_version": "1.0.0",
+  "generated_at_utc": "2026-11-06T21:20:45.569762+00:00",
+  "total_models": 125,
+  "generated_concept_models": 123,
+  "reference_only_models": 2,
+  "all_images_require_admin_approval": true,
+  "images_not_official_photos": true,
+  "models": [
+    {
+      "brand": "Apple",
+      "model": "iPhone 12 mini",
+      "model_slug": "apple-iphone-12-mini",
+      "expected_original_filename": "apple-iphone-12-mini.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Ready — AI concept; review before publishing",
+      "qa_status": "qa_review",
+      "qa_note": "Prior batch image — model details and colour not independently verified",
+      "qa_state_from_source": "Needs model/colour check",
+      "catalog_colour_hint": "Black",
+      "original_zip_path": "01_Individual_Renders/Previous_44/apple-iphone-12-mini.png",
+      "source_png_sha256": "c1ed3803b472c69a22713e3401be2e603597cdfb2bdd760db6f28e693dc040ab",
+      "source_image_dimensions": [
+        620,
+        620
+      ],
+      "images": {
+        "1280": "product-images/apple-iphone-12-mini-1280.webp",
+        "600": "product-images/apple-iphone-12-mini-600.webp"
+      },
+      "sha256": {
+        "1280": "b3b3b0d6c958ae419b41112e73338ae4748470d0bf0d730fb4e9161d654ae3dc",
+        "600": "5cdc2822f6b4d85fec1069ac64c1d962b951ce5bd4672805447ab4940b2293d5"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 12",
+      "model_slug": "apple-iphone-12",
+      "expected_original_filename": "apple-iphone-12.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Ready — AI concept; review before publishing",
+      "qa_status": "qa_review",
+      "qa_note": "Prior batch image — model details and colour not independently verified",
+      "qa_state_from_source": "Needs model/colour check",
+      "catalog_colour_hint": "Black",
+      "original_zip_path": "01_Individual_Renders/Previous_44/apple-iphone-12.png",
+      "source_png_sha256": "cb012243c8a16064215e5f736b0f195aac3889bf87cc0e6fd6b0e83f15aff2dd",
+      "source_image_dimensions": [
+        620,
+        620
+      ],
+      "images": {
+        "1280": "product-images/apple-iphone-12-1280.webp",
+        "600": "product-images/apple-iphone-12-600.webp"
+      },
+      "sha256": {
+        "1280": "3bee9a9bcbe947d538fc3afafd052d0e341d84272fb62a6e049b55c178b9c50c",
+        "600": "365089cb770dba71151abbc7ef8ef7e30b44236d0c035655f59068414777b963"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 12 Pro",
+      "model_slug": "apple-iphone-12-pro",
+      "expected_original_filename": "apple-iphone-12-pro.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Ready — AI concept; review before publishing",
+      "qa_status": "qa_review",
+      "qa_note": "Prior batch image — model details and colour not independently verified",
+      "qa_state_from_source": "Needs model/colour check",
+      "catalog_colour_hint": "Silver",
+      "original_zip_path": "01_Individual_Renders/Previous_44/apple-iphone-12-pro.png",
+      "source_png_sha256": "9a7073f9be4c0bdd970a8a78a4acd347ca61c30613d1d2be9fdd449ac8fae010",
+      "source_image_dimensions": [
+        620,
+        620
+      ],
+      "images": {
+        "1280": "product-images/apple-iphone-12-pro-1280.webp",
+        "600": "product-images/apple-iphone-12-pro-600.webp"
+      },
+      "sha256": {
+        "1280": "336931d8f26ba127756d62e238bd49282084bdd9d31d5b9306905a007d1d4bc0",
+        "600": "9f7b4a50cfde1e9f1315c5ec0b7f251fda3077174a7867b14ef1230c9e48108d"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 12 Pro Max",
+      "model_slug": "apple-iphone-12-pro-max",
+      "expected_original_filename": "apple-iphone-12-pro-max.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Ready — AI concept; review before publishing",
+      "qa_status": "qa_review",
+      "qa_note": "Prior batch image — model details and colour not independently verified",
+      "qa_state_from_source": "Needs model/colour check",
+      "catalog_colour_hint": "Silver",
+      "original_zip_path": "01_Individual_Renders/Previous_44/apple-iphone-12-pro-max.png",
+      "source_png_sha256": "b1475efc49867ed816b8ff208327e207df0979ca73acb076577e36cfcaa7aaac",
+      "source_image_dimensions": [
+        620,
+        620
+      ],
+      "images": {
+        "1280": "product-images/apple-iphone-12-pro-max-1280.webp",
+        "600": "product-images/apple-iphone-12-pro-max-600.webp"
+      },
+      "sha256": {
+        "1280": "4c943d59708c0b8730ef69e213a78144f99cc4cd0fc4785d4deae35fe98d9f8f",
+        "600": "5d7d4d618c9b8666dca631521d9253086e5180855168de4868cf461897125256"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 13 mini",
+      "model_slug": "apple-iphone-13-mini",
+      "expected_original_filename": "apple-iphone-13-mini.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Ready — AI concept; review before publishing",
+      "qa_status": "qa_review",
+      "qa_note": "Prior batch image — model details and colour not independently verified",
+      "qa_state_from_source": "Needs model/colour check",
+      "catalog_colour_hint": "Pink",
+      "original_zip_path": "01_Individual_Renders/Previous_44/apple-iphone-13-mini.png",
+      "source_png_sha256": "de9603b86087cbba0c6a2f83be9ddde55f5fbb98e8ed994d976cfbdeebf96030",
+      "source_image_dimensions": [
+        620,
+        620
+      ],
+      "images": {
+        "1280": "product-images/apple-iphone-13-mini-1280.webp",
+        "600": "product-images/apple-iphone-13-mini-600.webp"
+      },
+      "sha256": {
+        "1280": "86bca50b88e01c0c560258fee5c74f8032888a958e07efb4919b407fb2f09d0c",
+        "600": "4dbac813527854bd4b353bdb32410fdd4b85f7cb5ecb36905a64072efd2223f8"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 13",
+      "model_slug": "apple-iphone-13",
+      "expected_original_filename": "apple-iphone-13.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Ready — AI concept; review before publishing",
+      "qa_status": "qa_review",
+      "qa_note": "Prior batch image — model details and colour not independently verified",
+      "qa_state_from_source": "Needs model/colour check",
+      "catalog_colour_hint": "Pink",
+      "original_zip_path": "01_Individual_Renders/Previous_44/apple-iphone-13.png",
+      "source_png_sha256": "4c6d8b9bbfccfe9160af803829b6c287ceb86e73d3282e34ab4aa2dbec5171b4",
+      "source_image_dimensions": [
+        620,
+        620
+      ],
+      "images": {
+        "1280": "product-images/apple-iphone-13-1280.webp",
+        "600": "product-images/apple-iphone-13-600.webp"
+      },
+      "sha256": {
+        "1280": "60fe4257927916b001cf4857b03f61b206aaede60f5326550c5076183a3defd4",
+        "600": "d6bf551bec6363707cff5c8c374100b47e6c5b1190dc266d4489dd24b5356208"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 13 Pro",
+      "model_slug": "apple-iphone-13-pro",
+      "expected_original_filename": "apple-iphone-13-pro.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Ready — AI concept; review before publishing",
+      "qa_status": "qa_review",
+      "qa_note": "Prior batch image — model details and colour not independently verified",
+      "qa_state_from_source": "Needs model/colour check",
+      "catalog_colour_hint": "Graphite",
+      "original_zip_path": "01_Individual_Renders/Previous_44/apple-iphone-13-pro.png",
+      "source_png_sha256": "a224b4f08272bcb16b22dc0b8dfd2beeb3da8c15b851581f2d04d52a6e4d7328",
+      "source_image_dimensions": [
+        620,
+        620
+      ],
+      "images": {
+        "1280": "product-images/apple-iphone-13-pro-1280.webp",
+        "600": "product-images/apple-iphone-13-pro-600.webp"
+      },
+      "sha256": {
+        "1280": "8e1a620cdd73e981fae11276b06d3285af238d9302683e673154875319069e5a",
+        "600": "6242d36ad940e277c3b4e5d4c8fed015db046c07260f0f04617b67e10cbc235c"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 13 Pro Max",
+      "model_slug": "apple-iphone-13-pro-max",
+      "expected_original_filename": "apple-iphone-13-pro-max.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Ready — AI concept; review before publishing",
+      "qa_status": "qa_review",
+      "qa_note": "Prior batch image — model details and colour not independently verified",
+      "qa_state_from_source": "Needs model/colour check",
+      "catalog_colour_hint": "Graphite",
+      "original_zip_path": "01_Individual_Renders/Previous_44/apple-iphone-13-pro-max.png",
+      "source_png_sha256": "8fb07caac3823ad1064dd2d9f0e0108256351f50c4c55224a10737393425a177",
+      "source_image_dimensions": [
+        620,
+        620
+      ],
+      "images": {
+        "1280": "product-images/apple-iphone-13-pro-max-1280.webp",
+        "600": "product-images/apple-iphone-13-pro-max-600.webp"
+      },
+      "sha256": {
+        "1280": "3d4df7a8357ed61e9f5c788559b7ce3577e169ab3059c2add1bc287b9cceb1ad",
+        "600": "cf5a6eb2929107022d6c19f9a88bf157b90a1667f39b094d0919ea62014b96fe"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 14",
+      "model_slug": "apple-iphone-14",
+      "expected_original_filename": "apple-iphone-14.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Ready — AI concept; review before publishing",
+      "qa_status": "qa_review",
+      "qa_note": "Prior batch image — model details and colour not independently verified",
+      "qa_state_from_source": "Needs model/colour check",
+      "catalog_colour_hint": "Midnight",
+      "original_zip_path": "01_Individual_Renders/Previous_44/apple-iphone-14.png",
+      "source_png_sha256": "c1f601bc2ba2ba1c50197dd2f73bbd3d5c785fe3b96d7e823685770fb9ef6af0",
+      "source_image_dimensions": [
+        620,
+        620
+      ],
+      "images": {
+        "1280": "product-images/apple-iphone-14-1280.webp",
+        "600": "product-images/apple-iphone-14-600.webp"
+      },
+      "sha256": {
+        "1280": "e7c75d929990d29d67756db2732d36d687f6b3d6bc5f9927883f653c271a0e32",
+        "600": "f933357b2f6f745dddb7ac13a1747d1398444439b555731e4cabce6756774376"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 14 Plus",
+      "model_slug": "apple-iphone-14-plus",
+      "expected_original_filename": "apple-iphone-14-plus.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Ready — AI concept; review before publishing",
+      "qa_status": "qa_review",
+      "qa_note": "Prior batch image — model details and colour not independently verified",
+      "qa_state_from_source": "Needs model/colour check",
+      "catalog_colour_hint": "Midnight",
+      "original_zip_path": "01_Individual_Renders/Previous_44/apple-iphone-14-plus.png",
+      "source_png_sha256": "62750713da0d2c4da1a15d9163ab6f6936ae0825445236773fdae4125e95815d",
+      "source_image_dimensions": [
+        620,
+        620
+      ],
+      "images": {
+        "1280": "product-images/apple-iphone-14-plus-1280.webp",
+        "600": "product-images/apple-iphone-14-plus-600.webp"
+      },
+      "sha256": {
+        "1280": "4c669222bc9393c53f20fb476a2d4b5a8041a01d13e7694e6b07f94cb518f737",
+        "600": "4e955c72093070281c307144290a8316f603272dac8bb8c29ff25b9d57c09279"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 14 Pro",
+      "model_slug": "apple-iphone-14-pro",
+      "expected_original_filename": "apple-iphone-14-pro.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Ready — AI concept; review before publishing",
+      "qa_status": "qa_review",
+      "qa_note": "Prior batch image — model details and colour not independently verified",
+      "qa_state_from_source": "Needs model/colour check",
+      "catalog_colour_hint": "Space Black",
+      "original_zip_path": "01_Individual_Renders/Previous_44/apple-iphone-14-pro.png",
+      "source_png_sha256": "44c146a4b262fe5bbb3a124bef69458c55c51d1f40e72ef04a69b77a5c4b2364",
+      "source_image_dimensions": [
+        620,
+        620
+      ],
+      "images": {
+        "1280": "product-images/apple-iphone-14-pro-1280.webp",
+        "600": "product-images/apple-iphone-14-pro-600.webp"
+      },
+      "sha256": {
+        "1280": "ac6c8cb3d1e081786a83e369dab845db112f0f083d9eb16d415b7e4bbe2be009",
+        "600": "980cf8e493795a72eefdc4d0cf82afc55c2014c4bea48444150f035beac8e23a"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 14 Pro Max",
+      "model_slug": "apple-iphone-14-pro-max",
+      "expected_original_filename": "apple-iphone-14-pro-max.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Ready — AI concept; review before publishing",
+      "qa_status": "qa_review",
+      "qa_note": "Prior batch image — model details and colour not independently verified",
+      "qa_state_from_source": "Needs model/colour check",
+      "catalog_colour_hint": "Space Black",
+      "original_zip_path": "01_Individual_Renders/Previous_44/apple-iphone-14-pro-max.png",
+      "source_png_sha256": "188f42d9391fd04aadfab6099508bf48358c707fbb71003e15edc5a92be4b63b",
+      "source_image_dimensions": [
+        620,
+        620
+      ],
+      "images": {
+        "1280": "product-images/apple-iphone-14-pro-max-1280.webp",
+        "600": "product-images/apple-iphone-14-pro-max-600.webp"
+      },
+      "sha256": {
+        "1280": "1c127467191b88038b762628ae96dec1e8f7fc7df4696993301833b0ac77baf7",
+        "600": "e9ccfe1e5148d7aed8bf9ff647c59bcdc0bab84caec0a7dae2ec475b869140ff"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 15",
+      "model_slug": "apple-iphone-15",
+      "expected_original_filename": "apple-iphone-15.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Ready — AI concept; review before publishing",
+      "qa_status": "qa_review",
+      "qa_note": "Prior batch image — model details and colour not independently verified",
+      "qa_state_from_source": "Needs model/colour check",
+      "catalog_colour_hint": "Black",
+      "original_zip_path": "01_Individual_Renders/Previous_44/apple-iphone-15.png",
+      "source_png_sha256": "66dc4023723e8ab71eaa453fde73ca59f2164aeca03f9ba216faf5ac7017ec4a",
+      "source_image_dimensions": [
+        620,
+        620
+      ],
+      "images": {
+        "1280": "product-images/apple-iphone-15-1280.webp",
+        "600": "product-images/apple-iphone-15-600.webp"
+      },
+      "sha256": {
+        "1280": "469d33a982c9c997007146a055f21b6b34ce121dc1f4ae021d8dac7a2eeb3b86",
+        "600": "8f0d31ae0cbc71df9eed9787cc44b0d4978b8e40e15756e18a17765bbf7e6d3e"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 15 Plus",
+      "model_slug": "apple-iphone-15-plus",
+      "expected_original_filename": "apple-iphone-15-plus.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Ready — AI concept; review before publishing",
+      "qa_status": "qa_review",
+      "qa_note": "Prior batch image — model details and colour not independently verified",
+      "qa_state_from_source": "Needs model/colour check",
+      "catalog_colour_hint": "Black",
+      "original_zip_path": "01_Individual_Renders/Previous_44/apple-iphone-15-plus.png",
+      "source_png_sha256": "61d78cfc2865f3e24868df95b2a77c5e60f96616cc4f4cf8c76b028dff94eb4e",
+      "source_image_dimensions": [
+        620,
+        620
+      ],
+      "images": {
+        "1280": "product-images/apple-iphone-15-plus-1280.webp",
+        "600": "product-images/apple-iphone-15-plus-600.webp"
+      },
+      "sha256": {
+        "1280": "e8e158037cbd11da19d33dc1748c4256d5190b199deda0ec434749b579e10cd7",
+        "600": "7ab6b60d5a2e504011aebf5b04adb9328fc2f0abc9039358c092da5d288860dc"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 15 Pro",
+      "model_slug": "apple-iphone-15-pro",
+      "expected_original_filename": "apple-iphone-15-pro.png",
+      "source_type": "reference_only",
+      "image_status": "Reference only — original individual image not packaged",
+      "qa_status": "reference_only",
+      "qa_note": "User screenshot/reference exists; no verified standalone image asset in package",
+      "qa_state_from_source": "Pending",
+      "catalog_colour_hint": "Black Titanium",
+      "original_zip_path": null,
+      "source_png_sha256": null,
+      "source_image_dimensions": null,
+      "images": {},
+      "sha256": {},
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 15 Pro Max",
+      "model_slug": "apple-iphone-15-pro-max",
+      "expected_original_filename": "apple-iphone-15-pro-max.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Ready — AI concept; review before publishing",
+      "qa_status": "qa_review",
+      "qa_note": "Prior batch image — model details and colour not independently verified",
+      "qa_state_from_source": "Needs model/colour check",
+      "catalog_colour_hint": "Black Titanium",
+      "original_zip_path": "01_Individual_Renders/Previous_44/apple-iphone-15-pro-max.png",
+      "source_png_sha256": "17e8b712c5156441d7a3ad81ae0f774a6d16c7795470dd115edec9cbe7ed87d9",
+      "source_image_dimensions": [
+        1024,
+        1024
+      ],
+      "images": {
+        "1280": "product-images/apple-iphone-15-pro-max-1280.webp",
+        "600": "product-images/apple-iphone-15-pro-max-600.webp"
+      },
+      "sha256": {
+        "1280": "8098620016484509a7427ca6b0601f53c80b799bfa65049d4e7bb3a793856dc4",
+        "600": "beac7ed9a0c7d8358035a94e5a6fe00915826d5c9a53d2bc1ce67caf80389bb0"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 16e",
+      "model_slug": "apple-iphone-16e",
+      "expected_original_filename": "apple-iphone-16e.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Ready — newly generated AI concept; label included; unverified",
+      "qa_status": "qa_review",
+      "qa_note": "Inspect official design, camera arrangement, SKU/color and badge before commercial use.",
+      "qa_state_from_source": "Needs manufacturer/product verification",
+      "catalog_colour_hint": "Black",
+      "original_zip_path": "01_Individual_Renders/Latest_10/apple-iphone-16e.png",
+      "source_png_sha256": "54c6dddca410934a630cb9da58ffab5ecde09dc0f4e12a3d29bc92ac2bdfee0b",
+      "source_image_dimensions": [
+        1254,
+        1254
+      ],
+      "images": {
+        "1280": "product-images/apple-iphone-16e-1280.webp",
+        "600": "product-images/apple-iphone-16e-600.webp"
+      },
+      "sha256": {
+        "1280": "f79bcde05977baf34f9c9409d77ca2f8edccac44b302f457e00548cffe7d346b",
+        "600": "ce61013e7e694ca0c63cd655ade8b4827dba6821d02bbd1686aee2697f25a17d"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 16",
+      "model_slug": "apple-iphone-16",
+      "expected_original_filename": "apple-iphone-16.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Ready — AI concept; review before publishing",
+      "qa_status": "qa_review",
+      "qa_note": "Prior batch image — model details and colour not independently verified",
+      "qa_state_from_source": "Needs model/colour check",
+      "catalog_colour_hint": "Black",
+      "original_zip_path": "01_Individual_Renders/Previous_44/apple-iphone-16.png",
+      "source_png_sha256": "fc0f748240cc4215cb4c6df2129dd44a6361badafa02d9b10fb70e22dbf75830",
+      "source_image_dimensions": [
+        1024,
+        1024
+      ],
+      "images": {
+        "1280": "product-images/apple-iphone-16-1280.webp",
+        "600": "product-images/apple-iphone-16-600.webp"
+      },
+      "sha256": {
+        "1280": "01c1ac6b6a6f9141fac70148c41c0e5003e3567d7a171121018d0ab7bd375e94",
+        "600": "27dd6e4efd76f74b908e020f024070edcd6f34c4a27e1c8a0135a0bcc05b6674"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 16 Plus",
+      "model_slug": "apple-iphone-16-plus",
+      "expected_original_filename": "apple-iphone-16-plus.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Ready — AI concept; review before publishing",
+      "qa_status": "qa_review",
+      "qa_note": "Prior batch image — model details and colour not independently verified",
+      "qa_state_from_source": "Needs model/colour check",
+      "catalog_colour_hint": "Black",
+      "original_zip_path": "01_Individual_Renders/Previous_44/apple-iphone-16-plus.png",
+      "source_png_sha256": "f507afa38c7d38920e2838b5cce591129b78339128f2596358c601c29755cd73",
+      "source_image_dimensions": [
+        1024,
+        1024
+      ],
+      "images": {
+        "1280": "product-images/apple-iphone-16-plus-1280.webp",
+        "600": "product-images/apple-iphone-16-plus-600.webp"
+      },
+      "sha256": {
+        "1280": "351190dcd1ed8bd5978cb08714b9b6ec6c85cd73c9d5d5c52a259d9a9bc1e717",
+        "600": "9c329248cf3a43cb8f0c3cfe6bbb091f7e13aa38518d1b93b22a001372863bb8"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 16 Pro",
+      "model_slug": "apple-iphone-16-pro",
+      "expected_original_filename": "apple-iphone-16-pro.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Ready — AI concept; review before publishing",
+      "qa_status": "qa_review",
+      "qa_note": "Prior batch image — model details and colour not independently verified",
+      "qa_state_from_source": "Needs model/colour check",
+      "catalog_colour_hint": "Black Titanium",
+      "original_zip_path": "01_Individual_Renders/Previous_44/apple-iphone-16-pro.png",
+      "source_png_sha256": "78a7f0164bd1cc122f5c2e811dcf522df9e487787c03c530e1ed07ebf457802d",
+      "source_image_dimensions": [
+        1024,
+        1024
+      ],
+      "images": {
+        "1280": "product-images/apple-iphone-16-pro-1280.webp",
+        "600": "product-images/apple-iphone-16-pro-600.webp"
+      },
+      "sha256": {
+        "1280": "9d24ee619396019e33508a3393a6f3caabb4dfea2641753f0e0fc1a61690815e",
+        "600": "ebe7029ccf2724916693fdf78a7a87e9442ad0134a58c949240370d8ce1d2214"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 16 Pro Max",
+      "model_slug": "apple-iphone-16-pro-max",
+      "expected_original_filename": "apple-iphone-16-pro-max.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Ready — AI concept; review before publishing",
+      "qa_status": "qa_review",
+      "qa_note": "Prior batch image — model details and colour not independently verified",
+      "qa_state_from_source": "Needs model/colour check",
+      "catalog_colour_hint": "Black Titanium",
+      "original_zip_path": "01_Individual_Renders/Previous_44/apple-iphone-16-pro-max.png",
+      "source_png_sha256": "b3ff16e6389e9c46365173d68627de344fced64276a5cd6697a7d15378e5ddf1",
+      "source_image_dimensions": [
+        1024,
+        1024
+      ],
+      "images": {
+        "1280": "product-images/apple-iphone-16-pro-max-1280.webp",
+        "600": "product-images/apple-iphone-16-pro-max-600.webp"
+      },
+      "sha256": {
+        "1280": "a42faf310ca0522d5553c40902751d24d035e4f8bfec65ebb496c5eb294dacd2",
+        "600": "ce0ff8d953fc261504f82350074ca82366f7731bb619850eaf4e505701157be6"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 17e",
+      "model_slug": "apple-iphone-17e",
+      "expected_original_filename": "apple-iphone-17e.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Ready — AI concept; review before publishing",
+      "qa_status": "qa_review",
+      "qa_note": "Prior batch image — model details and colour not independently verified",
+      "qa_state_from_source": "Needs model/colour check",
+      "catalog_colour_hint": "Confirm official Pakistan colorways",
+      "original_zip_path": "01_Individual_Renders/Previous_44/apple-iphone-17e.png",
+      "source_png_sha256": "11bc395e50681b0481d499a658c43f4f0099f7924d59b9f0e33b09fa9a4fa69e",
+      "source_image_dimensions": [
+        617,
+        617
+      ],
+      "images": {
+        "1280": "product-images/apple-iphone-17e-1280.webp",
+        "600": "product-images/apple-iphone-17e-600.webp"
+      },
+      "sha256": {
+        "1280": "fcb5965afe6a8b0658d60ffa0bc50895a0377fdb153a21ab8955d8c809c931a0",
+        "600": "98c47cd4ba1ac463ae1ce434086d136210bcdbe5173c6220ee310c3f08994616"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 17",
+      "model_slug": "apple-iphone-17",
+      "expected_original_filename": "apple-iphone-17.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Ready — AI concept; review before publishing",
+      "qa_status": "qa_review",
+      "qa_note": "Prior batch image — model details and colour not independently verified",
+      "qa_state_from_source": "Needs model/colour check",
+      "catalog_colour_hint": "Black",
+      "original_zip_path": "01_Individual_Renders/Previous_44/apple-iphone-17.png",
+      "source_png_sha256": "4539b139a314b420c3f4fd8b76caa0055841ecdfdf764da3819fd7a6883efa5d",
+      "source_image_dimensions": [
+        617,
+        617
+      ],
+      "images": {
+        "1280": "product-images/apple-iphone-17-1280.webp",
+        "600": "product-images/apple-iphone-17-600.webp"
+      },
+      "sha256": {
+        "1280": "996489ed94a0ee7ff73ff9647b0abd7de7ba8cda533deef69d088fe72f7b9847",
+        "600": "a42a54a616e8e6bd3ddb9d1fd4384f257b646ee699f382a23608268bc1e4b06f"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 17 Air",
+      "model_slug": "apple-iphone-17-air",
+      "expected_original_filename": "apple-iphone-17-air.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Ready — newly generated AI concept; label included; unverified",
+      "qa_status": "qa_review",
+      "qa_note": "Inspect official design, camera arrangement, SKU/color and badge before commercial use.",
+      "qa_state_from_source": "Needs manufacturer/product verification",
+      "catalog_colour_hint": "Sky Blue",
+      "original_zip_path": "01_Individual_Renders/Latest_10/apple-iphone-17-air.png",
+      "source_png_sha256": "fae51db20d848a2f92776bc40a31bd65d65d92405cb7334c0e8925c01cd37179",
+      "source_image_dimensions": [
+        1254,
+        1254
+      ],
+      "images": {
+        "1280": "product-images/apple-iphone-17-air-1280.webp",
+        "600": "product-images/apple-iphone-17-air-600.webp"
+      },
+      "sha256": {
+        "1280": "bbaddeabb2f55a2a228c490a1c4665178062ebd3370c5928e63d0dfd4979045d",
+        "600": "bb1447286b4e4ae140b72cc72b1e752dc1a34999396999f3c85141577503809e"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 17 Pro",
+      "model_slug": "apple-iphone-17-pro",
+      "expected_original_filename": "apple-iphone-17-pro.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Ready — AI concept; review before publishing",
+      "qa_status": "qa_review",
+      "qa_note": "Prior batch image — model details and colour not independently verified",
+      "qa_state_from_source": "Needs model/colour check",
+      "catalog_colour_hint": "Cosmic Orange",
+      "original_zip_path": "01_Individual_Renders/Previous_44/apple-iphone-17-pro.png",
+      "source_png_sha256": "211dc822f6cd2feabb422e5a73f7f82c93dadbb5afdf5e3a6479022c67d7bca2",
+      "source_image_dimensions": [
+        617,
+        617
+      ],
+      "images": {
+        "1280": "product-images/apple-iphone-17-pro-1280.webp",
+        "600": "product-images/apple-iphone-17-pro-600.webp"
+      },
+      "sha256": {
+        "1280": "9ca5be8779e5ec7909abde93d02f6e0f40dec8d13cb4acbced72c6c6f587e300",
+        "600": "665b88bca5f7df7e7878a53c66418a8de47903a738851930a77acf9a0c59ea64"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 17 Pro Max",
+      "model_slug": "apple-iphone-17-pro-max",
+      "expected_original_filename": "apple-iphone-17-pro-max.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Ready — AI concept; review before publishing",
+      "qa_status": "qa_review",
+      "qa_note": "Prior batch image — model details and colour not independently verified",
+      "qa_state_from_source": "Needs model/colour check",
+      "catalog_colour_hint": "Cosmic Orange",
+      "original_zip_path": "01_Individual_Renders/Previous_44/apple-iphone-17-pro-max.png",
+      "source_png_sha256": "c924fc6116caea01d42d64d10084f6b46907acaef18e90008f2763621bcaedc9",
+      "source_image_dimensions": [
+        617,
+        617
+      ],
+      "images": {
+        "1280": "product-images/apple-iphone-17-pro-max-1280.webp",
+        "600": "product-images/apple-iphone-17-pro-max-600.webp"
+      },
+      "sha256": {
+        "1280": "988f7dbbf6c3faa1bcf64c516fd39498f2d7996ba958e60f8acf7ae1717959d2",
+        "600": "62fa23ed5524bff8416ad3a64e83971d639ce57d2e5b6a67318c2c2eb947d62f"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 18",
+      "model_slug": "apple-iphone-18",
+      "expected_original_filename": "apple-iphone-18.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Ready — newly generated AI concept; label included; unverified",
+      "qa_status": "qa_review",
+      "qa_note": "Inspect official design, camera arrangement, SKU/color and badge before commercial use.",
+      "qa_state_from_source": "Needs manufacturer/product verification",
+      "catalog_colour_hint": "Official Pakistan colorways not verified",
+      "original_zip_path": "01_Individual_Renders/Latest_10/apple-iphone-18.png",
+      "source_png_sha256": "bbc2a866a7afaa567bd15f4fd6bb9e56aa1dac4e084a535bcc4ea57cb1e43915",
+      "source_image_dimensions": [
+        1254,
+        1254
+      ],
+      "images": {
+        "1280": "product-images/apple-iphone-18-1280.webp",
+        "600": "product-images/apple-iphone-18-600.webp"
+      },
+      "sha256": {
+        "1280": "dc298b3fe272853befbc03e8adaf5dd2d8106449345b014615e64fdb61500956",
+        "600": "3979b82ae397ad731bcf81e908cc224e066fdfbd39a9c345110be7eb8a947773"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 18 Pro",
+      "model_slug": "apple-iphone-18-pro",
+      "expected_original_filename": "apple-iphone-18-pro.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Ready — newly generated AI concept; label included; unverified",
+      "qa_status": "qa_review",
+      "qa_note": "Inspect official design, camera arrangement, SKU/color and badge before commercial use.",
+      "qa_state_from_source": "Needs manufacturer/product verification",
+      "catalog_colour_hint": "Official Pakistan colorways not verified",
+      "original_zip_path": "01_Individual_Renders/Latest_10/apple-iphone-18-pro.png",
+      "source_png_sha256": "46fc00b26017d3e9fffa32380a32e820552c12b8f6d3dc479dddb3c2d3764a9f",
+      "source_image_dimensions": [
+        1254,
+        1254
+      ],
+      "images": {
+        "1280": "product-images/apple-iphone-18-pro-1280.webp",
+        "600": "product-images/apple-iphone-18-pro-600.webp"
+      },
+      "sha256": {
+        "1280": "0a5464540b97bcb3141da3837e1fbd904ca60c8e2e5f918ad98736ae482d14d7",
+        "600": "faa055427555b9076f7a6cba3a47aa77fe8f3b6bcdc958ec198fd8a1378a5baf"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 18 Pro Max",
+      "model_slug": "apple-iphone-18-pro-max",
+      "expected_original_filename": "apple-iphone-18-pro-max.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Ready — newly generated AI concept; label included; unverified",
+      "qa_status": "qa_review",
+      "qa_note": "Inspect official design, camera arrangement, SKU/color and badge before commercial use.",
+      "qa_state_from_source": "Needs manufacturer/product verification",
+      "catalog_colour_hint": "Official Pakistan colorways not verified",
+      "original_zip_path": "01_Individual_Renders/Latest_10/apple-iphone-18-pro-max.png",
+      "source_png_sha256": "9d1b1d32c085fc3f454d39319b37145ca4ab7f9ab9d8d0cfaf51da29924f324c",
+      "source_image_dimensions": [
+        1254,
+        1254
+      ],
+      "images": {
+        "1280": "product-images/apple-iphone-18-pro-max-1280.webp",
+        "600": "product-images/apple-iphone-18-pro-max-600.webp"
+      },
+      "sha256": {
+        "1280": "00d3a7171b6c2b8e33976daeda2d8ac95bff4d4158e5bfa3c6da52655776405f",
+        "600": "d6078ed74898d8598aa67d741038f1cdf228364faef9ee89566ef5bb89e08617"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Google",
+      "model": "Pixel 6",
+      "model_slug": "google-pixel-6",
+      "expected_original_filename": "google-pixel-6.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Ready — newly generated AI concept; label included; unverified",
+      "qa_status": "qa_review",
+      "qa_note": "Inspect official design, camera arrangement, SKU/color and badge before commercial use.",
+      "qa_state_from_source": "Needs manufacturer/product verification",
+      "catalog_colour_hint": "Obsidian",
+      "original_zip_path": "01_Individual_Renders/Latest_10/google-pixel-6.png",
+      "source_png_sha256": "6724b0495c61ddc2a64f2346dc373e9cbd792d17fd98a56e9510c7dcd9ec77cb",
+      "source_image_dimensions": [
+        1254,
+        1254
+      ],
+      "images": {
+        "1280": "product-images/google-pixel-6-1280.webp",
+        "600": "product-images/google-pixel-6-600.webp"
+      },
+      "sha256": {
+        "1280": "bd3c60b6ccb1d243d12e9fb35593892bc9906a3596294f55475d341088a59ebd",
+        "600": "e18c537aa1e3fdb804bc07f2ce05566b0334a9da58427772ccc2787abdcc0215"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Google",
+      "model": "Pixel 6 Pro",
+      "model_slug": "google-pixel-6-pro",
+      "expected_original_filename": "google-pixel-6-pro.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Ready — AI concept; review before publishing",
+      "qa_status": "qa_review",
+      "qa_note": "Prior batch image — model details and colour not independently verified",
+      "qa_state_from_source": "Needs model/colour check",
+      "catalog_colour_hint": "Obsidian (rendered graphite concept; verify colour)",
+      "original_zip_path": "01_Individual_Renders/Previous_44/google-pixel-6-pro.png",
+      "source_png_sha256": "f69d46c9c9da41f45f9b2d575ec43489218d77486f539074ee46debdd78150b5",
+      "source_image_dimensions": [
+        1024,
+        1024
+      ],
+      "images": {
+        "1280": "product-images/google-pixel-6-pro-1280.webp",
+        "600": "product-images/google-pixel-6-pro-600.webp"
+      },
+      "sha256": {
+        "1280": "33951d91de7f3792498811d7ba93757d6213f63c7d915a5e0811fe65d5c5ab89",
+        "600": "d10c63c419fda0d554b19e3617eb0e0c63c837450dbac1476e1f73de2e449962"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Google",
+      "model": "Pixel 6a",
+      "model_slug": "google-pixel-6a",
+      "expected_original_filename": "google-pixel-6a.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Ready — newly generated AI concept; label included; unverified",
+      "qa_status": "qa_review",
+      "qa_note": "Inspect official design, camera arrangement, SKU/color and badge before commercial use.",
+      "qa_state_from_source": "Needs manufacturer/product verification",
+      "catalog_colour_hint": "Charcoal",
+      "original_zip_path": "01_Individual_Renders/Latest_10/google-pixel-6a.png",
+      "source_png_sha256": "4c00769a054334efb5aec84b66e9e3ceeba6cbec45d1fc936378af142e01b242",
+      "source_image_dimensions": [
+        1254,
+        1254
+      ],
+      "images": {
+        "1280": "product-images/google-pixel-6a-1280.webp",
+        "600": "product-images/google-pixel-6a-600.webp"
+      },
+      "sha256": {
+        "1280": "7c2e5783995e44706fc209d1ca2ea34f117d59b625b2b4550d410bd4096838fb",
+        "600": "ad3dff40c8af04d40c601848379b728308ddc9dbb34fe397803b48a0b0da1a9e"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Google",
+      "model": "Pixel 7",
+      "model_slug": "google-pixel-7",
+      "expected_original_filename": "google-pixel-7.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Ready — AI concept; review before publishing",
+      "qa_status": "qa_review",
+      "qa_note": "Prior batch image — model details and colour not independently verified",
+      "qa_state_from_source": "Needs model/colour check",
+      "catalog_colour_hint": "Obsidian",
+      "original_zip_path": "01_Individual_Renders/Previous_44/google-pixel-7.png",
+      "source_png_sha256": "5ef4870cdaf51829accd66afd2f320942920c9690c26887d46a1dadd3d7c50c2",
+      "source_image_dimensions": [
+        1024,
+        1024
+      ],
+      "images": {
+        "1280": "product-images/google-pixel-7-1280.webp",
+        "600": "product-images/google-pixel-7-600.webp"
+      },
+      "sha256": {
+        "1280": "722a076a1755fc284d4d2e66c726ce281b42f75be34bb2d8aa94f527abe75627",
+        "600": "f93395966138a956259af1a087beba5da9ad7b8edcac3a54e32559b249a154c2"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Google",
+      "model": "Pixel 7 Pro",
+      "model_slug": "google-pixel-7-pro",
+      "expected_original_filename": "google-pixel-7-pro.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Ready — newly generated AI concept; label included; unverified",
+      "qa_status": "qa_review",
+      "qa_note": "Inspect official design, camera arrangement, SKU/color and badge before commercial use.",
+      "qa_state_from_source": "Needs manufacturer/product verification",
+      "catalog_colour_hint": "Obsidian",
+      "original_zip_path": "01_Individual_Renders/Latest_10/google-pixel-7-pro.png",
+      "source_png_sha256": "274743df5e77066e1d2d579cdc4d6a1c6c95b2e2743773e90f821d022fc52ac5",
+      "source_image_dimensions": [
+        1254,
+        1254
+      ],
+      "images": {
+        "1280": "product-images/google-pixel-7-pro-1280.webp",
+        "600": "product-images/google-pixel-7-pro-600.webp"
+      },
+      "sha256": {
+        "1280": "df72aa5d2b1df54cc02a2d0e49d9425c773e9afe95615f86d170c1fc38f2dfe6",
+        "600": "2013cc2e6ba9f96fddc7aed7c6bb288090e67336e539644005d87b840e5f4f07"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Google",
+      "model": "Pixel 7a",
+      "model_slug": "google-pixel-7a",
+      "expected_original_filename": "google-pixel-7a.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Ready — AI concept; review before publishing",
+      "qa_status": "qa_review",
+      "qa_note": "Prior batch image — model details and colour not independently verified",
+      "qa_state_from_source": "Needs model/colour check",
+      "catalog_colour_hint": "Charcoal",
+      "original_zip_path": "01_Individual_Renders/Previous_44/google-pixel-7a.png",
+      "source_png_sha256": "b23e5c0db2bc53f54195034b0a9c3686bb4540acf4af6d11e04a1596a13b5b4a",
+      "source_image_dimensions": [
+        1254,
+        1254
+      ],
+      "images": {
+        "1280": "product-images/google-pixel-7a-1280.webp",
+        "600": "product-images/google-pixel-7a-600.webp"
+      },
+      "sha256": {
+        "1280": "04c6deb13b6fc44664e06286f4d4913db67725acd00d5367ebed5d4e6b55e5f6",
+        "600": "23c3cc5a9035c1840dc1c1093b02e5553fcb3229976220910f3e188f03b1ffa0"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Google",
+      "model": "Pixel 8",
+      "model_slug": "google-pixel-8",
+      "expected_original_filename": "google-pixel-8.png",
+      "source_type": "reference_only",
+      "image_status": "Reference only — original individual image not packaged",
+      "qa_status": "reference_only",
+      "qa_note": "User screenshot/reference exists; no verified standalone image asset in package",
+      "qa_state_from_source": "Pending",
+      "catalog_colour_hint": "Obsidian",
+      "original_zip_path": null,
+      "source_png_sha256": null,
+      "source_image_dimensions": null,
+      "images": {},
+      "sha256": {},
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Google",
+      "model": "Pixel 8 Pro",
+      "model_slug": "google-pixel-8-pro",
+      "expected_original_filename": "google-pixel-8-pro.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Ready — newly generated AI concept; label included; unverified",
+      "qa_status": "qa_review",
+      "qa_note": "Inspect official design, camera arrangement, SKU/color and badge before commercial use.",
+      "qa_state_from_source": "Needs manufacturer/product verification",
+      "catalog_colour_hint": "Obsidian",
+      "original_zip_path": "01_Individual_Renders/Latest_10/google-pixel-8-pro.png",
+      "source_png_sha256": "acd3e6704aa524035f60718e35f911c4efd9eb54d55317f7083379fb4f657981",
+      "source_image_dimensions": [
+        1254,
+        1254
+      ],
+      "images": {
+        "1280": "product-images/google-pixel-8-pro-1280.webp",
+        "600": "product-images/google-pixel-8-pro-600.webp"
+      },
+      "sha256": {
+        "1280": "da0b9ad95108de4ac0d49583a5528982f9c5adcec43f218ef2ae49cbfda28601",
+        "600": "174184265a936400aa627a89466f6b9d6f322a9dc4d47ec562d7bcf2f703f690"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Google",
+      "model": "Pixel 8a",
+      "model_slug": "google-pixel-8a",
+      "expected_original_filename": "google-pixel-8a.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Ready — newly generated AI concept; label included; unverified",
+      "qa_status": "qa_review",
+      "qa_note": "Inspect official design, camera arrangement, SKU/color and badge before commercial use.",
+      "qa_state_from_source": "Needs manufacturer/product verification",
+      "catalog_colour_hint": "Obsidian",
+      "original_zip_path": "01_Individual_Renders/Latest_10/google-pixel-8a.png",
+      "source_png_sha256": "44370e18e50bea7e6fc3720c2086c83cd329b8e06a06aabf976f33f19e8f1b99",
+      "source_image_dimensions": [
+        1254,
+        1254
+      ],
+      "images": {
+        "1280": "product-images/google-pixel-8a-1280.webp",
+        "600": "product-images/google-pixel-8a-600.webp"
+      },
+      "sha256": {
+        "1280": "650bcc886b83d94edc40d3f1142be751a5c79e2adffacff57d2fd4e5b7678909",
+        "600": "e99b984b347d01e8e826b55508c7ea23a1adcb714af5f6f7bbb88d3dd1bcfdc3"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Google",
+      "model": "Pixel 9",
+      "model_slug": "google-pixel-9",
+      "expected_original_filename": "google-pixel-9.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Ready — AI concept; review before publishing",
+      "qa_status": "qa_review",
+      "qa_note": "Prior batch image — model details and colour not independently verified",
+      "qa_state_from_source": "Needs model/colour check",
+      "catalog_colour_hint": "Obsidian",
+      "original_zip_path": "01_Individual_Renders/Previous_44/google-pixel-9.png",
+      "source_png_sha256": "c874638efd01b5cc403d031479262ae9e80d762b1a225521f0eefd131cc1aeb2",
+      "source_image_dimensions": [
+        1024,
+        1024
+      ],
+      "images": {
+        "1280": "product-images/google-pixel-9-1280.webp",
+        "600": "product-images/google-pixel-9-600.webp"
+      },
+      "sha256": {
+        "1280": "ff9aed50c9b105b5a09b87bceebcf2e9c3f5836dfdbee84b9e402cc3b984d8da",
+        "600": "49c274f13d73c04035af194f5633cc510f23ebfe2d732c8bb68936438b6a65e5"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Google",
+      "model": "Pixel 9 Pro",
+      "model_slug": "google-pixel-9-pro",
+      "expected_original_filename": "google-pixel-9-pro.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 11 AI concept; model QA required",
+      "qa_status": "qa_review",
+      "qa_note": "Compare exact lens layout, finish and device size to Google official photos before publication.",
+      "qa_state_from_source": "Needs manufacturer/product verification",
+      "catalog_colour_hint": "Obsidian",
+      "original_zip_path": "01_Individual_Renders/Batch_11/google-pixel-9-pro.png",
+      "source_png_sha256": "d1be4047d7375a40f32a0548c5f3653c7359363824d4343c9a8251d0fa7c97d0",
+      "source_image_dimensions": [
+        1240,
+        1240
+      ],
+      "images": {
+        "1280": "product-images/google-pixel-9-pro-1280.webp",
+        "600": "product-images/google-pixel-9-pro-600.webp"
+      },
+      "sha256": {
+        "1280": "61d1acc3bb842e93d01172665e353496fd8d7b2078ed5ae130622e7c499adece",
+        "600": "af3e385f9ec35bc4f197f12acfdd8d7c00638d2356fa0e00133b3611d4beb2c5"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Google",
+      "model": "Pixel 9 Pro XL",
+      "model_slug": "google-pixel-9-pro-xl",
+      "expected_original_filename": "google-pixel-9-pro-xl.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 11 AI concept; model QA required",
+      "qa_status": "qa_review",
+      "qa_note": "Compare to Google official photos. Pixel 9 Pro XL camera render has extra apparent elements; review before retail publication.",
+      "qa_state_from_source": "Needs manufacturer/product verification",
+      "catalog_colour_hint": "Obsidian",
+      "original_zip_path": "01_Individual_Renders/Batch_11/google-pixel-9-pro-xl.png",
+      "source_png_sha256": "22801a4815981e4fa49a799456359f4fdff7c40f81c761ca47afdc87f618aea0",
+      "source_image_dimensions": [
+        1240,
+        1240
+      ],
+      "images": {
+        "1280": "product-images/google-pixel-9-pro-xl-1280.webp",
+        "600": "product-images/google-pixel-9-pro-xl-600.webp"
+      },
+      "sha256": {
+        "1280": "578c32e8d5ddf8e667f9b060e678a40a4c9331cf91b84f815b0cedf69d3b7af4",
+        "600": "770c2d0a4c444f1a1b2deaeadec3f6d8d02ce0b7391cbacec3b20f9eacf634e0"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Google",
+      "model": "Pixel 9a",
+      "model_slug": "google-pixel-9a",
+      "expected_original_filename": "google-pixel-9a.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 11 AI concept; model QA required",
+      "qa_status": "qa_review",
+      "qa_note": "Compare exact lens layout, finish and device size to Google official photos before publication.",
+      "qa_state_from_source": "Needs manufacturer/product verification",
+      "catalog_colour_hint": "Obsidian",
+      "original_zip_path": "01_Individual_Renders/Batch_11/google-pixel-9a.png",
+      "source_png_sha256": "1513a339720521efa57d2b89739daa585e59b3f85199ef8b25d2dea91c514769",
+      "source_image_dimensions": [
+        1240,
+        1240
+      ],
+      "images": {
+        "1280": "product-images/google-pixel-9a-1280.webp",
+        "600": "product-images/google-pixel-9a-600.webp"
+      },
+      "sha256": {
+        "1280": "c411a33ed18706b2be095210a118da9e25743f4c6ac9f4f46bdcd91ab048cf2a",
+        "600": "dd076345483b7497a18b5697dc606a27e7daea131f48f1fbdc27b8dc8bcc474f"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Google",
+      "model": "Pixel 10",
+      "model_slug": "google-pixel-10",
+      "expected_original_filename": "google-pixel-10.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 11 AI concept; model QA required",
+      "qa_status": "qa_review",
+      "qa_note": "Compare exact lens layout, finish and device size to Google official photos before publication.",
+      "qa_state_from_source": "Needs manufacturer/product verification",
+      "catalog_colour_hint": "Colorways require Pakistan SKU check",
+      "original_zip_path": "01_Individual_Renders/Batch_11/google-pixel-10.png",
+      "source_png_sha256": "75f1afe9e3d323a38c77ce41a4ac1006aeeb87b01ed27c9a0089f2c7bfc692d9",
+      "source_image_dimensions": [
+        1240,
+        1240
+      ],
+      "images": {
+        "1280": "product-images/google-pixel-10-1280.webp",
+        "600": "product-images/google-pixel-10-600.webp"
+      },
+      "sha256": {
+        "1280": "f71a8c59b7e90090da6879913b2b3f977dd45c275606675f5316b32d0e978a2b",
+        "600": "45a9bad24e432c71056096d742697ba20d03d2cb39f4ab69598a4c4fe8a5500c"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Google",
+      "model": "Pixel 10 Pro",
+      "model_slug": "google-pixel-10-pro",
+      "expected_original_filename": "google-pixel-10-pro.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 12 AI concept; QA pending",
+      "qa_status": "qa_review",
+      "qa_note": "Review camera lens count and colour against Google product photography",
+      "qa_state_from_source": "Needs model, color and regional SKU verification",
+      "catalog_colour_hint": "Colorways require Pakistan SKU check",
+      "original_zip_path": "01_Individual_Renders/Batch_12/google-pixel-10-pro.png",
+      "source_png_sha256": "d1777ae7a95f03a7c4dca6b34f128664e2159dc4e47377b494677ea8a32b0af5",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/google-pixel-10-pro-1280.webp",
+        "600": "product-images/google-pixel-10-pro-600.webp"
+      },
+      "sha256": {
+        "1280": "e00915d90fd74daba38a40357f4ef4b7ffa130e752aab444de0ef140f5a1d924",
+        "600": "21b627c2c77d1c95ab6bcdffc5be7faa78f840c98fe4e88968417fdb0f3206a0"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Google",
+      "model": "Pixel 10 Pro XL",
+      "model_slug": "google-pixel-10-pro-xl",
+      "expected_original_filename": "google-pixel-10-pro-xl.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 12 AI concept; QA pending",
+      "qa_status": "qa_review",
+      "qa_note": "AI rendering may show too many lenses; exact camera design requires verification",
+      "qa_state_from_source": "Needs model, color and regional SKU verification",
+      "catalog_colour_hint": "Colorways require Pakistan SKU check",
+      "original_zip_path": "01_Individual_Renders/Batch_12/google-pixel-10-pro-xl.png",
+      "source_png_sha256": "cb2e759b4393ed730850708e8fa1de51832242bb5666dea733baf0df2e56e49d",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/google-pixel-10-pro-xl-1280.webp",
+        "600": "product-images/google-pixel-10-pro-xl-600.webp"
+      },
+      "sha256": {
+        "1280": "1c1de99eb97656a47bee1081e600f57cb751eae2fe775525d1406011d79a980a",
+        "600": "287c427772c366532a4b9e615abe600c0f6a44c0d1bdabce446512b1d39e13bf"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Google",
+      "model": "Pixel 10 Pro Fold",
+      "model_slug": "google-pixel-10-pro-fold",
+      "expected_original_filename": "google-pixel-10-pro-fold.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 12 AI concept; QA pending",
+      "qa_status": "qa_review",
+      "qa_note": "Confirm fold mechanism and rear camera housing against Google product photography",
+      "qa_state_from_source": "Needs model, color and regional SKU verification",
+      "catalog_colour_hint": "Colorways require Pakistan SKU check",
+      "original_zip_path": "01_Individual_Renders/Batch_12/google-pixel-10-pro-fold.png",
+      "source_png_sha256": "6fb6d6b95a2c53003f4162766b34640b0f0f101d67d6b413b6445c4377bb8142",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/google-pixel-10-pro-fold-1280.webp",
+        "600": "product-images/google-pixel-10-pro-fold-600.webp"
+      },
+      "sha256": {
+        "1280": "914144b6b6a4fdc4cd0eb9436a54bb89b61e4c549e30128d1e2ea761c5ec9f7e",
+        "600": "58e0ef0dc8a15decc7f72130e53685289d88c0ab74778631f83e4f428f6c1fb3"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Google",
+      "model": "Pixel 10a",
+      "model_slug": "google-pixel-10a",
+      "expected_original_filename": "google-pixel-10a.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 12 AI concept; QA pending",
+      "qa_status": "qa_review",
+      "qa_note": "Google confirms flush camera housing; AI rendering has slight raised outline, verify before publishing",
+      "qa_state_from_source": "Needs model, color and regional SKU verification",
+      "catalog_colour_hint": "Colorways/specs require verification",
+      "original_zip_path": "01_Individual_Renders/Batch_12/google-pixel-10a.png",
+      "source_png_sha256": "3b41a3bd52336e86885d7a3d99f614e792690450d4302d4e5ea04c98f3d3d194",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/google-pixel-10a-1280.webp",
+        "600": "product-images/google-pixel-10a-600.webp"
+      },
+      "sha256": {
+        "1280": "f96723fe744dd292b1eeee348161aff5754bc28def13acbb2561b7282b6f6028",
+        "600": "93ae8422541c19af7f18f49c88a87174e8c27d2baefe7de376b576ad2c4563eb"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Google",
+      "model": "Pixel 11",
+      "model_slug": "google-pixel-11",
+      "expected_original_filename": "google-pixel-11.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 13 AI concept; QA pending",
+      "qa_status": "qa_review",
+      "qa_note": "Camera bar and listed colour are AI interpretations. Verify against Google Pixel 11 reference.",
+      "qa_state_from_source": "Requires exact colour / camera / region SKU verification",
+      "catalog_colour_hint": "Colorways require Pakistan SKU check",
+      "original_zip_path": "01_Individual_Renders/Batch_13/google-pixel-11.png",
+      "source_png_sha256": "1c19a5d6935a032bf62b174f20e1c64bd97bea076c955a53d759e249aefb19a0",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/google-pixel-11-1280.webp",
+        "600": "product-images/google-pixel-11-600.webp"
+      },
+      "sha256": {
+        "1280": "f74f1592458a025898e1d00d44d992db414c1eb54bbfc5c186c168e466da7b17",
+        "600": "1adeb76da8c601905fa5f84e39c5b0221f4ba250c65baf9cdde3152bf384d171"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Google",
+      "model": "Pixel 11 Pro",
+      "model_slug": "google-pixel-11-pro",
+      "expected_original_filename": "google-pixel-11-pro.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 13 AI concept; QA pending",
+      "qa_status": "qa_review",
+      "qa_note": "Triple rear camera concept. Verify number/placement of sensors and regional colour.",
+      "qa_state_from_source": "Requires exact colour / camera / region SKU verification",
+      "catalog_colour_hint": "Colorways require Pakistan SKU check",
+      "original_zip_path": "01_Individual_Renders/Batch_13/google-pixel-11-pro.png",
+      "source_png_sha256": "62a1ce447b3ccdb45f8a0afb32c92e5905ad9120199d8787641cb1399f70f240",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/google-pixel-11-pro-1280.webp",
+        "600": "product-images/google-pixel-11-pro-600.webp"
+      },
+      "sha256": {
+        "1280": "c87e8e3238c242550cf6b889d8092bf0b902187f55ea68c8b9f4e63522441f0e",
+        "600": "adba73e411f721ca2e340efeb441853b80832f96452b4b1f25c11d23435d86df"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Google",
+      "model": "Pixel 11 Pro XL",
+      "model_slug": "google-pixel-11-pro-xl",
+      "expected_original_filename": "google-pixel-11-pro-xl.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 13 AI concept; QA pending",
+      "qa_status": "qa_review",
+      "qa_note": "Scale, camera layout and regional colour require manufacturer photo confirmation.",
+      "qa_state_from_source": "Requires exact colour / camera / region SKU verification",
+      "catalog_colour_hint": "Colorways require Pakistan SKU check",
+      "original_zip_path": "01_Individual_Renders/Batch_13/google-pixel-11-pro-xl.png",
+      "source_png_sha256": "b4cf9c6f57422523044de877212ac8097aca197d3d9745896f91f6697ab212be",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/google-pixel-11-pro-xl-1280.webp",
+        "600": "product-images/google-pixel-11-pro-xl-600.webp"
+      },
+      "sha256": {
+        "1280": "e3b7a98e96a38019edf4a91bfd0007489d90b61c7c3f033e360b909333859b61",
+        "600": "3500b1b3c8e4d7a86862d49400196ab0aa15d9e87553af5a12d3945a3b5e000e"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Google",
+      "model": "Pixel 11 Pro Fold",
+      "model_slug": "google-pixel-11-pro-fold",
+      "expected_original_filename": "google-pixel-11-pro-fold.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 13 AI concept; QA pending",
+      "qa_status": "qa_review",
+      "qa_note": "Fold hinge, rear camera and interior screen are concept representations; verify.",
+      "qa_state_from_source": "Requires exact colour / camera / region SKU verification",
+      "catalog_colour_hint": "Colorways require Pakistan SKU check",
+      "original_zip_path": "01_Individual_Renders/Batch_13/google-pixel-11-pro-fold.png",
+      "source_png_sha256": "dce757cb9477eefacfce27da39ed01acf551530340533e92d89b5c34f5107005",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/google-pixel-11-pro-fold-1280.webp",
+        "600": "product-images/google-pixel-11-pro-fold-600.webp"
+      },
+      "sha256": {
+        "1280": "aa4f278e1dbdc73c548bd6ae5ca0d1b041ea16b5f46f0f2c86ea39a7cf912629",
+        "600": "48ad5a17b4a91860cf2c9115aed7f4b625305fd2e57a0ce522a6c453a34bfd54"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Samsung",
+      "model": "Galaxy S26 Ultra",
+      "model_slug": "samsung-galaxy-s26-ultra",
+      "expected_original_filename": "samsung-galaxy-s26-ultra.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Ready — AI concept; review before publishing",
+      "qa_status": "qa_review",
+      "qa_note": "Prior batch image — model details and colour not independently verified",
+      "qa_state_from_source": "Needs model/colour check",
+      "catalog_colour_hint": "Black concept render",
+      "original_zip_path": "01_Individual_Renders/Previous_44/samsung-galaxy-s26-ultra.png",
+      "source_png_sha256": "2c36e6f6efe70d01b9914fff642cabd112f381d5bcfb6c29a8a3ee059d3db0f9",
+      "source_image_dimensions": [
+        620,
+        620
+      ],
+      "images": {
+        "1280": "product-images/samsung-galaxy-s26-ultra-1280.webp",
+        "600": "product-images/samsung-galaxy-s26-ultra-600.webp"
+      },
+      "sha256": {
+        "1280": "239c37aa3977fc16d07b050d9dd098da52d227e8a4046f5e209c5971e3c76619",
+        "600": "056861d05de8263f4c38917995b8c404bb1e8126630caabd8aff5f42b27503a6"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Samsung",
+      "model": "Galaxy S26 Plus",
+      "model_slug": "samsung-galaxy-s26-plus",
+      "expected_original_filename": "samsung-galaxy-s26-plus.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 14 AI concept; commercial QA pending",
+      "qa_status": "qa_review",
+      "qa_note": "Samsung S26+ ambient island module; colour and camera arrangement to verify",
+      "qa_state_from_source": "Requires official design/color verification",
+      "catalog_colour_hint": "Sky Blue (AI concept)",
+      "original_zip_path": "01_Individual_Renders/Batch_14/samsung-galaxy-s26-plus.png",
+      "source_png_sha256": "69cd35760ff84de7d05de241d232dd1fe03777fa311ec05539343a31cc3f3679",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/samsung-galaxy-s26-plus-1280.webp",
+        "600": "product-images/samsung-galaxy-s26-plus-600.webp"
+      },
+      "sha256": {
+        "1280": "fd177bf572e8d6d605efa18a1b0b92eeb2914e7a87a058b207d60db59fab3676",
+        "600": "f00a163662ebc5e99bb66099034846440e5d018cc112ef9a753df9af90be5ac0"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Samsung",
+      "model": "Galaxy S26",
+      "model_slug": "samsung-galaxy-s26",
+      "expected_original_filename": "samsung-galaxy-s26.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 14 AI concept; commercial QA pending",
+      "qa_status": "qa_review",
+      "qa_note": "Samsung S26 ambient island module; colour and camera arrangement to verify",
+      "qa_state_from_source": "Requires official design/color verification",
+      "catalog_colour_hint": "Cobalt Violet (AI concept)",
+      "original_zip_path": "01_Individual_Renders/Batch_14/samsung-galaxy-s26.png",
+      "source_png_sha256": "97f301f7612ab49dc5e2ef9c202592cddb7e68a23846e482bf702b5e98c8c545",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/samsung-galaxy-s26-1280.webp",
+        "600": "product-images/samsung-galaxy-s26-600.webp"
+      },
+      "sha256": {
+        "1280": "80d88bd72ad0ce8c3571eaf9ac768e73235d477e87b7ea1e1a81f4e4189b1810",
+        "600": "0cc9601e25a0c38e135f7ac2001f78711b743cb65bb63c55476db2fd22a6633e"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Samsung",
+      "model": "Galaxy S26 FE",
+      "model_slug": "samsung-galaxy-s26-fe",
+      "expected_original_filename": "samsung-galaxy-s26-fe.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 14 AI concept; commercial QA pending",
+      "qa_status": "qa_review",
+      "qa_note": "AI concept may differ from manufacturer Galaxy S26 FE camera module/colour",
+      "qa_state_from_source": "Requires official design/color verification",
+      "catalog_colour_hint": "Graphite concept (AI concept)",
+      "original_zip_path": "01_Individual_Renders/Batch_14/samsung-galaxy-s26-fe.png",
+      "source_png_sha256": "6bbb8bee9dade5cc0cfc8ee6c8125f0cb1b59f0619d7fdf9a413ec80fc4eaf7a",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/samsung-galaxy-s26-fe-1280.webp",
+        "600": "product-images/samsung-galaxy-s26-fe-600.webp"
+      },
+      "sha256": {
+        "1280": "4eba478760ab7814540905c0b2c35233188575ccd330735b5058861a5b0f79ee",
+        "600": "26ea9c8d17d8e55bf2c9f07864fa5b9453194449536df9ba542313d4b74f16e9"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Samsung",
+      "model": "Galaxy A57 5G",
+      "model_slug": "samsung-galaxy-a57-5g",
+      "expected_original_filename": "samsung-galaxy-a57-5g.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 14 AI concept; commercial QA pending",
+      "qa_status": "qa_review",
+      "qa_note": "Samsung A57 5G triple camera island; verify regional model finish and lens details",
+      "qa_state_from_source": "Requires official design/color verification",
+      "catalog_colour_hint": "Icy Blue (AI concept)",
+      "original_zip_path": "01_Individual_Renders/Batch_14/samsung-galaxy-a57-5g.png",
+      "source_png_sha256": "6603759125b5c8fc8cefd50977e178ba7896edfb1afdf3079e367733e3e8a168",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/samsung-galaxy-a57-5g-1280.webp",
+        "600": "product-images/samsung-galaxy-a57-5g-600.webp"
+      },
+      "sha256": {
+        "1280": "ab53b6affecdb26fe4cda831443aef346ef60faf74ae613f3953e94cca78166c",
+        "600": "f6ede9f793f36c2cb1cb7dcf9da2d8a2edae5336fc1a4d935ae79c4025545281"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Samsung",
+      "model": "Galaxy A37 5G",
+      "model_slug": "samsung-galaxy-a37-5g",
+      "expected_original_filename": "samsung-galaxy-a37-5g.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 15 AI concept; commercial QA pending",
+      "qa_status": "qa_review",
+      "qa_note": "Verify camera module, finish, and regional SKU before storefront publishing; A17 4G and A17 5G have similar exterior.",
+      "qa_state_from_source": "Requires official design / colour verification",
+      "catalog_colour_hint": "Awesome Lavender (AI concept)",
+      "original_zip_path": "01_Individual_Renders/Batch_15/samsung-galaxy-a37-5g.png",
+      "source_png_sha256": "ace7e0c9bb94c5ec5ab3ab966b2848bef6dcd24b24ebc32113910b903c180663",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/samsung-galaxy-a37-5g-1280.webp",
+        "600": "product-images/samsung-galaxy-a37-5g-600.webp"
+      },
+      "sha256": {
+        "1280": "6ee275d7b1abdba999b80bb17b4df0d1da92340e1dd2e4e9a74bb85136af8dc6",
+        "600": "92a3a383390fe8c79b70c5be497104edc308f11ef91124ad590c1a2eb2012c1a"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Samsung",
+      "model": "Galaxy A27 5G",
+      "model_slug": "samsung-galaxy-a27-5g",
+      "expected_original_filename": "samsung-galaxy-a27-5g.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 15 AI concept; commercial QA pending",
+      "qa_status": "qa_review",
+      "qa_note": "Verify camera module, finish, and regional SKU before storefront publishing; A17 4G and A17 5G have similar exterior.",
+      "qa_state_from_source": "Requires official design / colour verification",
+      "catalog_colour_hint": "Blue (AI concept)",
+      "original_zip_path": "01_Individual_Renders/Batch_15/samsung-galaxy-a27-5g.png",
+      "source_png_sha256": "4b3e2f091a66834996137666e98f970ece4f87450edfd27b60476e0973152ec3",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/samsung-galaxy-a27-5g-1280.webp",
+        "600": "product-images/samsung-galaxy-a27-5g-600.webp"
+      },
+      "sha256": {
+        "1280": "04410d7adb3dca0270f5d051d0306e26ea6bfcd00f9e5bc474ac50c1fff6d71d",
+        "600": "aab4d843f085a7e429f7d7c3048964906601cc34a0824ab37f87912155eed922"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Samsung",
+      "model": "Galaxy A17 5G",
+      "model_slug": "samsung-galaxy-a17-5g",
+      "expected_original_filename": "samsung-galaxy-a17-5g.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 15 AI concept; commercial QA pending",
+      "qa_status": "qa_review",
+      "qa_note": "Verify camera module, finish, and regional SKU before storefront publishing; A17 4G and A17 5G have similar exterior.",
+      "qa_state_from_source": "Requires official design / colour verification",
+      "catalog_colour_hint": "Black (AI concept)",
+      "original_zip_path": "01_Individual_Renders/Batch_15/samsung-galaxy-a17-5g.png",
+      "source_png_sha256": "8940fea41f61784f0ccce9503057195ba171072719752e28b78069608e3b9f60",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/samsung-galaxy-a17-5g-1280.webp",
+        "600": "product-images/samsung-galaxy-a17-5g-600.webp"
+      },
+      "sha256": {
+        "1280": "336c7642e78e3b65a3492ef930a3fe444059803757ee56935365aa4b8ab035b5",
+        "600": "8df95c10f2a12a0e581b11f45d67c63a6e1e3f1f7c450e2920d52efcb3992f10"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Samsung",
+      "model": "Galaxy A17 4G",
+      "model_slug": "samsung-galaxy-a17-4g",
+      "expected_original_filename": "samsung-galaxy-a17-4g.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 15 AI concept; commercial QA pending",
+      "qa_status": "qa_review",
+      "qa_note": "Verify camera module, finish, and regional SKU before storefront publishing; A17 4G and A17 5G have similar exterior.",
+      "qa_state_from_source": "Requires official design / colour verification",
+      "catalog_colour_hint": "Silver (AI concept) (AI concept)",
+      "original_zip_path": "01_Individual_Renders/Batch_15/samsung-galaxy-a17-4g.png",
+      "source_png_sha256": "df982f829b568dd58b037415194c69e7b80458810961835c1199aa723e8c15ee",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/samsung-galaxy-a17-4g-1280.webp",
+        "600": "product-images/samsung-galaxy-a17-4g-600.webp"
+      },
+      "sha256": {
+        "1280": "4bbb9eab51ff4ace1e54ccc0e79dc1e021d182bb9d3fbf297909775700ee7ba2",
+        "600": "1d2df1477441ac9856e5ae96ce9d1004b36222c7ee901d5ce3975ec20f55ccfb"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Samsung",
+      "model": "Galaxy A07",
+      "model_slug": "samsung-galaxy-a07",
+      "expected_original_filename": "samsung-galaxy-a07.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 16 AI concept; commercial QA pending",
+      "qa_status": "qa_review",
+      "qa_note": "Verify camera module, screen notch, colour and Pakistan variant before publishing.",
+      "qa_state_from_source": "Model / colour accuracy requires review",
+      "catalog_colour_hint": "Black (rendered concept)",
+      "original_zip_path": "01_Individual_Renders/Batch_16/samsung-galaxy-a07.png",
+      "source_png_sha256": "0ad13f9daeca8acfcbed816b6edcc56034fe1a4b9b5b2a99463489cf1d273462",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/samsung-galaxy-a07-1280.webp",
+        "600": "product-images/samsung-galaxy-a07-600.webp"
+      },
+      "sha256": {
+        "1280": "ad1529f786293e631f9d1aa5dc725341b6a598331ebc6c18b0ddf805cd753b44",
+        "600": "57947be90d47bba22aef9f164042fb5271ca2a1cad7563c2503927555cd9c23b"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Samsung",
+      "model": "Galaxy A56 5G",
+      "model_slug": "samsung-galaxy-a56-5g",
+      "expected_original_filename": "samsung-galaxy-a56-5g.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 16 AI concept; commercial QA pending",
+      "qa_status": "qa_review",
+      "qa_note": "Verify camera module, screen notch, colour and Pakistan variant before publishing.",
+      "qa_state_from_source": "Model / colour accuracy requires review",
+      "catalog_colour_hint": "Awesome Graphite (rendered concept)",
+      "original_zip_path": "01_Individual_Renders/Batch_16/samsung-galaxy-a56-5g.png",
+      "source_png_sha256": "80928df1381af59105c79d0e7b031b061c421947ff4d554963f6611d6ceec5bd",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/samsung-galaxy-a56-5g-1280.webp",
+        "600": "product-images/samsung-galaxy-a56-5g-600.webp"
+      },
+      "sha256": {
+        "1280": "32943003333664d38a17e9462a3fee216a429ff465cf3bd53205ba894b2beaa2",
+        "600": "fae58a696473310aca1bd6d17ff8b077c2dacddb86bde1be2c2b43ef48ff18b4"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Samsung",
+      "model": "Galaxy A36 5G",
+      "model_slug": "samsung-galaxy-a36-5g",
+      "expected_original_filename": "samsung-galaxy-a36-5g.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 16 AI concept; commercial QA pending",
+      "qa_status": "qa_review",
+      "qa_note": "Verify camera module, screen notch, colour and Pakistan variant before publishing.",
+      "qa_state_from_source": "Model / colour accuracy requires review",
+      "catalog_colour_hint": "Awesome Lavender (rendered concept)",
+      "original_zip_path": "01_Individual_Renders/Batch_16/samsung-galaxy-a36-5g.png",
+      "source_png_sha256": "0d455a465bd0c25da90666b092003c64e0904e7cee1799968024d360c2daa88a",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/samsung-galaxy-a36-5g-1280.webp",
+        "600": "product-images/samsung-galaxy-a36-5g-600.webp"
+      },
+      "sha256": {
+        "1280": "27cb1633fa8ae749846c2e8d169644c7273f6551d57e58c003095cbf58920da5",
+        "600": "12087bd6d48308438fec50f00cdd9e114bc75858304bf37826dbc35687077977"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Samsung",
+      "model": "Galaxy S25 FE",
+      "model_slug": "samsung-galaxy-s25-fe",
+      "expected_original_filename": "samsung-galaxy-s25-fe.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 16 AI concept; commercial QA pending",
+      "qa_status": "qa_review",
+      "qa_note": "Verify camera module, screen notch, colour and Pakistan variant before publishing.",
+      "qa_state_from_source": "Model / colour accuracy requires review",
+      "catalog_colour_hint": "Navy (rendered concept)",
+      "original_zip_path": "01_Individual_Renders/Batch_16/samsung-galaxy-s25-fe.png",
+      "source_png_sha256": "2c1385afc57a5f0b328f93951442190ee2b3c7d547a710d60d18c8825a05ab51",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/samsung-galaxy-s25-fe-1280.webp",
+        "600": "product-images/samsung-galaxy-s25-fe-600.webp"
+      },
+      "sha256": {
+        "1280": "28d4a51a879709021664cb2f61c4ba1e1475d9219f4fa8472404d8e1a700d59b",
+        "600": "1ffb9fe8d064d0584cdb8f88995190e38218f0f2410351d75f70ff9bb191a6ef"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Samsung",
+      "model": "Galaxy S25 Ultra",
+      "model_slug": "samsung-galaxy-s25-ultra",
+      "expected_original_filename": "samsung-galaxy-s25-ultra.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Ready — AI concept; review before publishing",
+      "qa_status": "qa_review",
+      "qa_note": "Prior batch image — model details and colour not independently verified",
+      "qa_state_from_source": "Needs model/colour check",
+      "catalog_colour_hint": "Silver concept (catalog first colour: Black)",
+      "original_zip_path": "01_Individual_Renders/Previous_44/samsung-galaxy-s25-ultra.png",
+      "source_png_sha256": "b52b23491ecb6c620934e207f34e8db25e5ac5eb5fbb880c7d86932253071196",
+      "source_image_dimensions": [
+        1024,
+        1024
+      ],
+      "images": {
+        "1280": "product-images/samsung-galaxy-s25-ultra-1280.webp",
+        "600": "product-images/samsung-galaxy-s25-ultra-600.webp"
+      },
+      "sha256": {
+        "1280": "8520c86a8e251ef94109bdbe750f37d10739eec9573945ace5858f88ffff1db2",
+        "600": "46dfacffe8dae903582ed87ff8c0a254e05fe2aeed2804fa6859e2e791d1bd9f"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Samsung",
+      "model": "Galaxy Z Fold8 Ultra",
+      "model_slug": "samsung-galaxy-z-fold8-ultra",
+      "expected_original_filename": "samsung-galaxy-z-fold8-ultra.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 17 AI concept; commercial QA pending",
+      "qa_status": "qa_review",
+      "qa_note": "Verify rear camera module, hinge, fold orientation, exact colour, Pakistan SKU before publishing.",
+      "qa_state_from_source": "Model accuracy requires review",
+      "catalog_colour_hint": "Graphite (AI-rendered concept colour)",
+      "original_zip_path": "01_Individual_Renders/Batch_17/samsung-galaxy-z-fold8-ultra.png",
+      "source_png_sha256": "09005a5549cfdc30f28a1aaa33102028b635b277da06329ae0e2017249a83c11",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/samsung-galaxy-z-fold8-ultra-1280.webp",
+        "600": "product-images/samsung-galaxy-z-fold8-ultra-600.webp"
+      },
+      "sha256": {
+        "1280": "c1b69da957555d7c0a429e6168c8ba19fd75c520cf3efa69d035a2e8cdce68a7",
+        "600": "4ce4e1cb684b00ec94cf8fdc3fb96c404930767c67cb1d40436c8280f86cd7f3"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Samsung",
+      "model": "Galaxy Z Fold8",
+      "model_slug": "samsung-galaxy-z-fold8",
+      "expected_original_filename": "samsung-galaxy-z-fold8.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 17 AI concept; commercial QA pending",
+      "qa_status": "qa_review",
+      "qa_note": "Verify rear camera module, hinge, fold orientation, exact colour, Pakistan SKU before publishing.",
+      "qa_state_from_source": "Model accuracy requires review",
+      "catalog_colour_hint": "Graphite (AI-rendered concept colour)",
+      "original_zip_path": "01_Individual_Renders/Batch_17/samsung-galaxy-z-fold8.png",
+      "source_png_sha256": "a09d7d87e716325173b4b2efb8f4209a6a797ae8f7e170e75b0e5588e780bb5d",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/samsung-galaxy-z-fold8-1280.webp",
+        "600": "product-images/samsung-galaxy-z-fold8-600.webp"
+      },
+      "sha256": {
+        "1280": "5cea871e07f59a996e036f8a37ecce25d0a6ced8bfeb76df87b609675fe802a4",
+        "600": "e78a9e9075622542759ef94d7f9cff8b164e7e8c7f5ed11a4c66f80b8cbb487d"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Samsung",
+      "model": "Galaxy Z Fold7",
+      "model_slug": "samsung-galaxy-z-fold7",
+      "expected_original_filename": "samsung-galaxy-z-fold7.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 17 AI concept; commercial QA pending",
+      "qa_status": "qa_review",
+      "qa_note": "Verify rear camera module, hinge, fold orientation, exact colour, Pakistan SKU before publishing.",
+      "qa_state_from_source": "Model accuracy requires review",
+      "catalog_colour_hint": "Blue Shadow (AI-rendered concept colour)",
+      "original_zip_path": "01_Individual_Renders/Batch_17/samsung-galaxy-z-fold7.png",
+      "source_png_sha256": "0e709996c56ebb40810888874955a545a1461a5a791859447c01576b5af10378",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/samsung-galaxy-z-fold7-1280.webp",
+        "600": "product-images/samsung-galaxy-z-fold7-600.webp"
+      },
+      "sha256": {
+        "1280": "c1966ee270b69125bbc0296edb4a3ccf6a094d32b4b2f13cbc7a1153558c4805",
+        "600": "0f20a6e73d7ec9179bd376aac99a35ae610f36a16fcb2c48459f36aa5d2ea9ce"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Samsung",
+      "model": "Galaxy Z Fold6",
+      "model_slug": "samsung-galaxy-z-fold6",
+      "expected_original_filename": "samsung-galaxy-z-fold6.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 17 AI concept; commercial QA pending",
+      "qa_status": "qa_review",
+      "qa_note": "Verify rear camera module, hinge, fold orientation, exact colour, Pakistan SKU before publishing.",
+      "qa_state_from_source": "Model accuracy requires review",
+      "catalog_colour_hint": "Silver Shadow (AI-rendered concept colour)",
+      "original_zip_path": "01_Individual_Renders/Batch_17/samsung-galaxy-z-fold6.png",
+      "source_png_sha256": "51f76575b35910d0aa83e2f3ee23a8aca41faea8b654eed3ece668ef97dd976a",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/samsung-galaxy-z-fold6-1280.webp",
+        "600": "product-images/samsung-galaxy-z-fold6-600.webp"
+      },
+      "sha256": {
+        "1280": "75b1e4fb8c717f6e587173af4e5d0c0ac23130c5b06f5848636a4e5e11979ec9",
+        "600": "c9abd5aba11b062627d27908c2d3f5a89b1c1961d99bf939995ffd9c251b6972"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Samsung",
+      "model": "Galaxy Z Fold5",
+      "model_slug": "samsung-galaxy-z-fold5",
+      "expected_original_filename": "samsung-galaxy-z-fold5.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 18 AI concept; verify model accuracy before publishing",
+      "qa_status": "qa_review",
+      "qa_note": "Verify camera module and lens count, body finish, display, regional SKU, actual colour and availability before publishing.",
+      "qa_state_from_source": "Generated — QA pending",
+      "catalog_colour_hint": "Icy Blue (AI-rendered concept)",
+      "original_zip_path": "01_Individual_Renders/Batch_18/samsung-galaxy-z-fold5.png",
+      "source_png_sha256": "0bc32a43ca071cae004f6d7afd5a0873df8c48aa91fd92f35be7e4ad55e9381e",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/samsung-galaxy-z-fold5-1280.webp",
+        "600": "product-images/samsung-galaxy-z-fold5-600.webp"
+      },
+      "sha256": {
+        "1280": "1a3ad121a46863af8dc51a414396dc87372afe09a1a62215a94ac2c7ec1ee441",
+        "600": "bfb14137cb464aedf4e0dc48a1ef07ea853c924fdef4df23c879e657134a155e"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Samsung",
+      "model": "Galaxy Z Fold4",
+      "model_slug": "samsung-galaxy-z-fold4",
+      "expected_original_filename": "samsung-galaxy-z-fold4.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 18 AI concept; verify model accuracy before publishing",
+      "qa_status": "qa_review",
+      "qa_note": "Verify camera module and lens count, body finish, display, regional SKU, actual colour and availability before publishing.",
+      "qa_state_from_source": "Generated — QA pending",
+      "catalog_colour_hint": "Graygreen (AI-rendered concept)",
+      "original_zip_path": "01_Individual_Renders/Batch_18/samsung-galaxy-z-fold4.png",
+      "source_png_sha256": "1f3645b38413225978d59491e8660f078a03bf9e3e24e733c4b3eeb842692369",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/samsung-galaxy-z-fold4-1280.webp",
+        "600": "product-images/samsung-galaxy-z-fold4-600.webp"
+      },
+      "sha256": {
+        "1280": "c3e4779e0f4e8aa49d7e22efd403ce6c72fea9987cfa479befecf01de289db40",
+        "600": "674be87db5e0d7311d1d8bccfbe45c727d99a679115e4889962326694a907ffc"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "OPPO",
+      "model": "A6",
+      "model_slug": "oppo-a6",
+      "expected_original_filename": "oppo-a6.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 18 AI concept; verify model accuracy before publishing",
+      "qa_status": "qa_review",
+      "qa_note": "Verify camera module and lens count, body finish, display, regional SKU, actual colour and availability before publishing.",
+      "qa_state_from_source": "Generated — QA pending",
+      "catalog_colour_hint": "Sapphire Blue (AI-rendered concept)",
+      "original_zip_path": "01_Individual_Renders/Batch_18/oppo-a6.png",
+      "source_png_sha256": "33334fb826fec5bdca7f87e6089f8dec229bb0e3229eee44294eec113f799d55",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/oppo-a6-1280.webp",
+        "600": "product-images/oppo-a6-600.webp"
+      },
+      "sha256": {
+        "1280": "83caa0397583939f14e766b2ce993fdd24c8f075ba29cd58cddeebbaa9a91f42",
+        "600": "3691757cb85ae5e2cadd99171b8c1df69f912e2aaa5cf66d5b51608d833d639c"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "OPPO",
+      "model": "Reno 16F 5G",
+      "model_slug": "oppo-reno-16f-5g",
+      "expected_original_filename": "oppo-reno-16f-5g.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 18 AI concept; verify model accuracy before publishing",
+      "qa_status": "qa_review",
+      "qa_note": "Verify camera module and lens count, body finish, display, regional SKU, actual colour and availability before publishing.",
+      "qa_state_from_source": "Generated — QA pending",
+      "catalog_colour_hint": "Dream Purple (AI-rendered concept)",
+      "original_zip_path": "01_Individual_Renders/Batch_18/oppo-reno-16f-5g.png",
+      "source_png_sha256": "58c00595eeafd409af0c41afe380c9fcc116d70d258c2190fce869db6e8acd4f",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/oppo-reno-16f-5g-1280.webp",
+        "600": "product-images/oppo-reno-16f-5g-600.webp"
+      },
+      "sha256": {
+        "1280": "cc639a8654fb9bc85ecf023e4bf5139099de451ac8c643093af495f3869685ea",
+        "600": "e7b09f3c400306340c344f19d0397d2af32af1c5915ab98f2abfa3c4f5461004"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "OPPO",
+      "model": "Reno 16 5G",
+      "model_slug": "oppo-reno-16-5g",
+      "expected_original_filename": "oppo-reno-16-5g.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Ready — AI concept; review before publishing",
+      "qa_status": "qa_review",
+      "qa_note": "Prior batch image — model details and colour not independently verified",
+      "qa_state_from_source": "Needs model/colour check",
+      "catalog_colour_hint": "Lavender concept render",
+      "original_zip_path": "01_Individual_Renders/Previous_44/oppo-reno-16-5g.png",
+      "source_png_sha256": "27f60bd4908f8eb012b42c7626d186c96c080c30f7333f9163b75558921c8934",
+      "source_image_dimensions": [
+        620,
+        620
+      ],
+      "images": {
+        "1280": "product-images/oppo-reno-16-5g-1280.webp",
+        "600": "product-images/oppo-reno-16-5g-600.webp"
+      },
+      "sha256": {
+        "1280": "6b189f2963cf01dfa45a1550e128ed48376ce045979f3f34248fbb55e9d3448f",
+        "600": "66d7256111299c7522674e6b179bc2c776d6aff120dfe5dbcd8fc326527cc61c"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "OPPO",
+      "model": "A6C",
+      "model_slug": "oppo-a6c",
+      "expected_original_filename": "oppo-a6c.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 19 AI concept; model verification required",
+      "qa_status": "qa_review",
+      "qa_note": "Check number and shape of camera rings, flash, wallpaper, available colour, exact Pakistan SKU and sales availability.",
+      "qa_state_from_source": "Generated — QA pending",
+      "catalog_colour_hint": "Feather White (AI-rendered concept)",
+      "original_zip_path": "01_Individual_Renders/Batch_19/oppo-a6c.png",
+      "source_png_sha256": "b3430cacc567da3d66129c26348935c991aaabb471af5da9445e3d6091932764",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/oppo-a6c-1280.webp",
+        "600": "product-images/oppo-a6c-600.webp"
+      },
+      "sha256": {
+        "1280": "7b8b9dbeb109953626a49babdac92771a3f010f21f1fdf5ccd90f6d990e6c775",
+        "600": "3290ffa6331ef3d0ccf70e8b486d0ec5a071a1fffed7f93f252a988c862e196e"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "OPPO",
+      "model": "A6s Pro",
+      "model_slug": "oppo-a6s-pro",
+      "expected_original_filename": "oppo-a6s-pro.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 19 AI concept; model verification required",
+      "qa_status": "qa_review",
+      "qa_note": "Check number and shape of camera rings, flash, wallpaper, available colour, exact Pakistan SKU and sales availability.",
+      "qa_state_from_source": "Generated — QA pending",
+      "catalog_colour_hint": "Eclipse Blue (AI-rendered concept)",
+      "original_zip_path": "01_Individual_Renders/Batch_19/oppo-a6s-pro.png",
+      "source_png_sha256": "15e02332e9e779c2b57fc6a53bd92dce852b5f4c9205af7a0731bf6de05f71c4",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/oppo-a6s-pro-1280.webp",
+        "600": "product-images/oppo-a6s-pro-600.webp"
+      },
+      "sha256": {
+        "1280": "57e6156b7428bb3a0332f896429f3687ec8a7770b6fcf8f3e1207593ef00409b",
+        "600": "bcca2999c39e4cf08dab6729e39fd1d3465a45cb6013efe329b4147f330c92d2"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "OPPO",
+      "model": "A6K",
+      "model_slug": "oppo-a6k",
+      "expected_original_filename": "oppo-a6k.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 19 AI concept; model verification required",
+      "qa_status": "qa_review",
+      "qa_note": "Check number and shape of camera rings, flash, wallpaper, available colour, exact Pakistan SKU and sales availability.",
+      "qa_state_from_source": "Generated — QA pending",
+      "catalog_colour_hint": "Crystal Blue (AI-rendered concept)",
+      "original_zip_path": "01_Individual_Renders/Batch_19/oppo-a6k.png",
+      "source_png_sha256": "263817ba8dda9a43e1c74baefa1c331b4e136778234c49af180e2cfa297ddbce",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/oppo-a6k-1280.webp",
+        "600": "product-images/oppo-a6k-600.webp"
+      },
+      "sha256": {
+        "1280": "aa819542cf33a2b920b65542530be2273f9fc2ce5dd685e9268e4cb667e2a1b7",
+        "600": "6a1f117875432986e5eebce5a4d45d1606fa452661640dc92304aea236aa00c1"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "OPPO",
+      "model": "A6s",
+      "model_slug": "oppo-a6s",
+      "expected_original_filename": "oppo-a6s.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 19 AI concept; model verification required",
+      "qa_status": "qa_review",
+      "qa_note": "Check number and shape of camera rings, flash, wallpaper, available colour, exact Pakistan SKU and sales availability.",
+      "qa_state_from_source": "Generated — QA pending",
+      "catalog_colour_hint": "Ice White (AI-rendered concept)",
+      "original_zip_path": "01_Individual_Renders/Batch_19/oppo-a6s.png",
+      "source_png_sha256": "55919b0f4abfdf7504cd341eabf5ca6be03163a2b6545cdf874b62e009bb8a69",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/oppo-a6s-1280.webp",
+        "600": "product-images/oppo-a6s-600.webp"
+      },
+      "sha256": {
+        "1280": "bd38e5a99f023492f4fc7fe89e736513d346905b3bdd735cc848a6d9342a179d",
+        "600": "1a65760cda64b2c13fd36507bb4c2c041430ff16f8a746e3d37d205b9a2ce249"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "OPPO",
+      "model": "Reno 15 Pro",
+      "model_slug": "oppo-reno-15-pro",
+      "expected_original_filename": "oppo-reno-15-pro.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Ready — AI concept; review before publishing",
+      "qa_status": "qa_review",
+      "qa_note": "Prior batch image — model details and colour not independently verified",
+      "qa_state_from_source": "Needs model/colour check",
+      "catalog_colour_hint": "Mint concept (catalog first colour: Dusk Brown)",
+      "original_zip_path": "01_Individual_Renders/Previous_44/oppo-reno-15-pro.png",
+      "source_png_sha256": "e1bcd47882431e919481fcce519ce20fd31d5e8147798b313a0eff8dbf826196",
+      "source_image_dimensions": [
+        1024,
+        1024
+      ],
+      "images": {
+        "1280": "product-images/oppo-reno-15-pro-1280.webp",
+        "600": "product-images/oppo-reno-15-pro-600.webp"
+      },
+      "sha256": {
+        "1280": "22050f2c771b1f7423b50478ebab2a10fa8b2f976161f542dd4a7b95814eca48",
+        "600": "86e5ea74e13c4795418af359f3845b45d610b08fe8446089e18a46a24f63c2d4"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "OPPO",
+      "model": "Reno 15",
+      "model_slug": "oppo-reno-15",
+      "expected_original_filename": "oppo-reno-15.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 20 AI concept; verify camera and colour",
+      "qa_status": "qa_review",
+      "qa_note": "Verify camera count, module geometry, available finish, Pakistan SKU, box-pack supply and branding against manufacturer product page.",
+      "qa_state_from_source": "Generated — QA pending",
+      "catalog_colour_hint": "Aurora White (AI-rendered concept)",
+      "original_zip_path": "01_Individual_Renders/Batch_20/oppo-reno-15.png",
+      "source_png_sha256": "f0aa25f57af6c6e8e644051cd6090458db7001f910300632435746be37f4bbcb",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/oppo-reno-15-1280.webp",
+        "600": "product-images/oppo-reno-15-600.webp"
+      },
+      "sha256": {
+        "1280": "5613b50ff4fcd3437e0c3290d819aef1e9bcdd61087c6dccc4fa1ed226357416",
+        "600": "01e793f6e7a5021a01075a29142c871894c6d64632a45dc9e43a6222fc362d33"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "OPPO",
+      "model": "Reno 15F",
+      "model_slug": "oppo-reno-15f",
+      "expected_original_filename": "oppo-reno-15f.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 20 AI concept; verify camera and colour",
+      "qa_status": "qa_review",
+      "qa_note": "Verify camera count, module geometry, available finish, Pakistan SKU, box-pack supply and branding against manufacturer product page.",
+      "qa_state_from_source": "Generated — QA pending",
+      "catalog_colour_hint": "Aurora Blue (AI-rendered concept)",
+      "original_zip_path": "01_Individual_Renders/Batch_20/oppo-reno-15f.png",
+      "source_png_sha256": "b8e8a2e306c46e0ccaa790b53acbf24f2dfd2d3d552414ee90faadfedee23dec",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/oppo-reno-15f-1280.webp",
+        "600": "product-images/oppo-reno-15f-600.webp"
+      },
+      "sha256": {
+        "1280": "365ec0b02ebea80f6bd6334d4a2a8c2546f2c71637803359ad719b20ab908940",
+        "600": "805f2bafd609e96963dc82c200bc8299e10325bd3b5052f439b4c031902517bd"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "realme",
+      "model": "C100i",
+      "model_slug": "realme-c100i",
+      "expected_original_filename": "realme-c100i.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 20 AI concept; verify camera and colour",
+      "qa_status": "qa_review",
+      "qa_note": "Verify camera count, module geometry, available finish, Pakistan SKU, box-pack supply and branding against manufacturer product page.",
+      "qa_state_from_source": "Generated — QA pending",
+      "catalog_colour_hint": "Dawn Purple (AI-rendered concept)",
+      "original_zip_path": "01_Individual_Renders/Batch_20/realme-c100i.png",
+      "source_png_sha256": "b45293ab0c5549a9c6228176584f12da477e13a19be14368f98a04fbb2491bd1",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/realme-c100i-1280.webp",
+        "600": "product-images/realme-c100i-600.webp"
+      },
+      "sha256": {
+        "1280": "928374775181f57b90b7afa4b5636c17f0e0203f2bbe039a2f73c6cd1520cf29",
+        "600": "0c988f283629c2c4a5db8f94765524ee2a6e9a31549e027b6963526031608efd"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "realme",
+      "model": "16 5G",
+      "model_slug": "realme-16-5g",
+      "expected_original_filename": "realme-16-5g.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Ready — AI concept; review before publishing",
+      "qa_status": "qa_review",
+      "qa_note": "Prior batch image — model details and colour not independently verified",
+      "qa_state_from_source": "Needs model/colour check",
+      "catalog_colour_hint": "Yellow concept render",
+      "original_zip_path": "01_Individual_Renders/Previous_44/realme-16-5g.png",
+      "source_png_sha256": "cd87be6f0da7723690e74d126e71be4aafba9600c24c0022a88b0d2277be93af",
+      "source_image_dimensions": [
+        620,
+        620
+      ],
+      "images": {
+        "1280": "product-images/realme-16-5g-1280.webp",
+        "600": "product-images/realme-16-5g-600.webp"
+      },
+      "sha256": {
+        "1280": "52c2d3ae3637bde62d3577855ad3ef5e834b026a5af11cac03559c5657c34a40",
+        "600": "e84fae111ccd5a41a65ce6bb18332d67f6277dfac183645e28e869c22bdfbb72"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "realme",
+      "model": "15 Pro",
+      "model_slug": "realme-15-pro",
+      "expected_original_filename": "realme-15-pro.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 20 AI concept; verify camera and colour",
+      "qa_status": "qa_review",
+      "qa_note": "Verify camera count, module geometry, available finish, Pakistan SKU, box-pack supply and branding against manufacturer product page.",
+      "qa_state_from_source": "Generated — QA pending",
+      "catalog_colour_hint": "Silk Purple (AI-rendered concept)",
+      "original_zip_path": "01_Individual_Renders/Batch_20/realme-15-pro.png",
+      "source_png_sha256": "0854a0da8685818ec794586576222348efb648fd02e34ab360b3d9f9cbc0f3f9",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/realme-15-pro-1280.webp",
+        "600": "product-images/realme-15-pro-600.webp"
+      },
+      "sha256": {
+        "1280": "80f76c75ecd22d6f23c8bc00c197b575f496839f351697f508411edb5446ef15",
+        "600": "01982b42ac0090d2793fbf84cad0f1aa71fd32c696960718e9263c06329430c6"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "realme",
+      "model": "Note 70",
+      "model_slug": "realme-note-70",
+      "expected_original_filename": "realme-note-70.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 21 AI concept; verify exact model and colour",
+      "qa_status": "qa_review",
+      "qa_note": "Verify product existence and exact Pakistan SKU, camera modules, actual colour, manufacturer branding and regional release. C100 requires additional model validation.",
+      "qa_state_from_source": "Generated — QA pending",
+      "catalog_colour_hint": "Obsidian Black (AI-rendered concept)",
+      "original_zip_path": "01_Individual_Renders/Batch_21/realme-note-70.png",
+      "source_png_sha256": "2473136e4c114ac4394b72b76cec72cc12754bb894f995ac8d889c316da4ded3",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/realme-note-70-1280.webp",
+        "600": "product-images/realme-note-70-600.webp"
+      },
+      "sha256": {
+        "1280": "2afa00f26490dc7006a070710179569d7ac71c90ff905f4dcd281e2f07d0f03d",
+        "600": "40ad7b4f2c9b119043fe2240b5e7675ac387c01bc7c160da95e9dc35697dfc32"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "realme",
+      "model": "C75x",
+      "model_slug": "realme-c75x",
+      "expected_original_filename": "realme-c75x.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 21 AI concept; verify exact model and colour",
+      "qa_status": "qa_review",
+      "qa_note": "Verify product existence and exact Pakistan SKU, camera modules, actual colour, manufacturer branding and regional release. C100 requires additional model validation.",
+      "qa_state_from_source": "Generated — QA pending",
+      "catalog_colour_hint": "Coral Pink (AI-rendered concept)",
+      "original_zip_path": "01_Individual_Renders/Batch_21/realme-c75x.png",
+      "source_png_sha256": "7e7c970d2ccd546d0166133319638f45c024b59a07f2a4faa2a98007d0897d36",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/realme-c75x-1280.webp",
+        "600": "product-images/realme-c75x-600.webp"
+      },
+      "sha256": {
+        "1280": "7e77d2a31366c8949e6b13e6a93703155ef95e2b8eba5531813730f3dff3af52",
+        "600": "a7009ac1c2839b9386e2f07f212daaebc87ed4d589b5853ce91dcf9132aeb24a"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "realme",
+      "model": "Note 60x",
+      "model_slug": "realme-note-60x",
+      "expected_original_filename": "realme-note-60x.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 21 AI concept; verify exact model and colour",
+      "qa_status": "qa_review",
+      "qa_note": "Verify product existence and exact Pakistan SKU, camera modules, actual colour, manufacturer branding and regional release. C100 requires additional model validation.",
+      "qa_state_from_source": "Generated — QA pending",
+      "catalog_colour_hint": "Wilderness Green (AI-rendered concept)",
+      "original_zip_path": "01_Individual_Renders/Batch_21/realme-note-60x.png",
+      "source_png_sha256": "28db6d7b8be3f8328bf3f182b699bde3e6b4fe9e94f7b8bec56d49456e104fcb",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/realme-note-60x-1280.webp",
+        "600": "product-images/realme-note-60x-600.webp"
+      },
+      "sha256": {
+        "1280": "cedd6bcd54a135b6078e4bc363116216bf28c07279da0bacb42ddf1bb698ddee",
+        "600": "d2806e4f89c8ed54830c284485f4ab853481a1de8e6e80b255f7682feb9435f5"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "realme",
+      "model": "C100",
+      "model_slug": "realme-c100",
+      "expected_original_filename": "realme-c100.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 21 AI concept; verify exact model and colour",
+      "qa_status": "qa_review",
+      "qa_note": "Verify product existence and exact Pakistan SKU, camera modules, actual colour, manufacturer branding and regional release. C100 requires additional model validation.",
+      "qa_state_from_source": "Generated — QA pending",
+      "catalog_colour_hint": "Navy Blue (unverified concept) (AI-rendered concept)",
+      "original_zip_path": "01_Individual_Renders/Batch_21/realme-c100.png",
+      "source_png_sha256": "7c117ed72d0e17d336edc3dacdc275c70e618739368d03450a22608a49e513c1",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/realme-c100-1280.webp",
+        "600": "product-images/realme-c100-600.webp"
+      },
+      "sha256": {
+        "1280": "4f1b8618641dfbc8e4c90e9ceeb61950b7c727bdc99de4ce3f4d52041affd58b",
+        "600": "9fdee17036f41bc48d2793c0320743cd25534c98807db9e759fe586f45ebe119"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "realme",
+      "model": "C100X",
+      "model_slug": "realme-c100x",
+      "expected_original_filename": "realme-c100x.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 22 AI concept; exact hardware review required",
+      "qa_status": "qa_review",
+      "qa_note": "Verify lens count, camera module, regional colour, Pakistan SKU, seller supply, and phone specifications against official photography.",
+      "qa_state_from_source": "Generated — QA pending",
+      "catalog_colour_hint": "Deepblue Tides (AI render)",
+      "original_zip_path": "01_Individual_Renders/Batch_22/realme-c100x.png",
+      "source_png_sha256": "bbf9eac67523d0767c8a28328cfee21dcb457b44b51e883df76927dc246a9307",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/realme-c100x-1280.webp",
+        "600": "product-images/realme-c100x-600.webp"
+      },
+      "sha256": {
+        "1280": "515c657337d1e61b93b3edc0b174d097b66539f3ccb1f4b1407fc854e06c49a8",
+        "600": "2df0229c469240d70746d9d58077024877aba74056ca1d4b95a10ef72149d500"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "vivo",
+      "model": "Y05",
+      "model_slug": "vivo-y05",
+      "expected_original_filename": "vivo-y05.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 22 AI concept; exact hardware review required",
+      "qa_status": "qa_review",
+      "qa_note": "Verify lens count, camera module, regional colour, Pakistan SKU, seller supply, and phone specifications against official photography.",
+      "qa_state_from_source": "Generated — QA pending",
+      "catalog_colour_hint": "Voyage Black (AI render)",
+      "original_zip_path": "01_Individual_Renders/Batch_22/vivo-y05.png",
+      "source_png_sha256": "0e17f1eca89b6ef3524b2253db409a3bc8c3b169e303c3fc492ea9cba1694f62",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/vivo-y05-1280.webp",
+        "600": "product-images/vivo-y05-600.webp"
+      },
+      "sha256": {
+        "1280": "df4308e8bfabb273acf9f872d8b6451ca4dc486298f4e05fa4aeeb9003ab3cc0",
+        "600": "6221531b103979fdb803ea7627f667ee306564bb08504c2cb554fae3ab96ad54"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "vivo",
+      "model": "Y05e",
+      "model_slug": "vivo-y05e",
+      "expected_original_filename": "vivo-y05e.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 22 AI concept; exact hardware review required",
+      "qa_status": "qa_review",
+      "qa_note": "Verify lens count, camera module, regional colour, Pakistan SKU, seller supply, and phone specifications against official photography.",
+      "qa_state_from_source": "Generated — QA pending",
+      "catalog_colour_hint": "Teal (AI render)",
+      "original_zip_path": "01_Individual_Renders/Batch_22/vivo-y05e.png",
+      "source_png_sha256": "fcc89a0cc0d1230da211f9e91c3ce6c93d11173d1834b6bb86850e755c90968c",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/vivo-y05e-1280.webp",
+        "600": "product-images/vivo-y05e-600.webp"
+      },
+      "sha256": {
+        "1280": "0a47f0d57b84770a877cc429b3d54a86d20e9976a81f331aab16d25d7033f73a",
+        "600": "c2e939c443b82d78f1eb353928967742fbbe6a2a38d86c59e9720a17c21ea619"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "vivo",
+      "model": "X300 FE",
+      "model_slug": "vivo-x300-fe",
+      "expected_original_filename": "vivo-x300-fe.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 22 AI concept; exact hardware review required",
+      "qa_status": "qa_review",
+      "qa_note": "Verify lens count, camera module, regional colour, Pakistan SKU, seller supply, and phone specifications against official photography.",
+      "qa_state_from_source": "Generated — QA pending",
+      "catalog_colour_hint": "Green (AI render)",
+      "original_zip_path": "01_Individual_Renders/Batch_22/vivo-x300-fe.png",
+      "source_png_sha256": "522bf175d55662fa45da6069af354c38c39523a02a0425ab1147e470f000c1a8",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/vivo-x300-fe-1280.webp",
+        "600": "product-images/vivo-x300-fe-600.webp"
+      },
+      "sha256": {
+        "1280": "62702d767091b66ae772ab6623b5cc5ab13df2e5dff7bc55e60fd18dea862729",
+        "600": "24f0470d5b0eb0adf1a5ff73b9172ec6fccb4784fdcc3ab9cc801359223c3530"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "vivo",
+      "model": "Y500",
+      "model_slug": "vivo-y500",
+      "expected_original_filename": "vivo-y500.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 23 AI concept; QA pending",
+      "qa_status": "qa_review",
+      "qa_note": "AI concept, model camera geometry / colour / Pakistan SKU and branding require manufacturer-photo review. 1600x1600 upscaled from original panel, not native 4K.",
+      "qa_state_from_source": "Generated — QA pending",
+      "catalog_colour_hint": "Midnight Blue",
+      "original_zip_path": "01_Individual_Renders/Batch_23/vivo-y500.png",
+      "source_png_sha256": "0788a1249c478ce7adbb784801a4471a8bc0ec4b2e21460fe5c50c85f0225a0f",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/vivo-y500-1280.webp",
+        "600": "product-images/vivo-y500-600.webp"
+      },
+      "sha256": {
+        "1280": "fb2ffb5475ae02d608a4385affd6ce9e9edfba90ff0981482816fb91f7c2770c",
+        "600": "e99aecc4588bdf927b1247b2f6f5c9fffa5349f05d2c4cf86f6c3ead6e919978"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "vivo",
+      "model": "V70 FE",
+      "model_slug": "vivo-v70-fe",
+      "expected_original_filename": "vivo-v70-fe.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Ready — AI concept; review before publishing",
+      "qa_status": "qa_review",
+      "qa_note": "Prior batch image — model details and colour not independently verified",
+      "qa_state_from_source": "Needs model/colour check",
+      "catalog_colour_hint": "Colors verify",
+      "original_zip_path": "01_Individual_Renders/Previous_44/vivo-v70-fe.png",
+      "source_png_sha256": "71c90c88f31ee3a8b622ee332987efcd734d86eafed8c30aa278c1c17b8bc1c1",
+      "source_image_dimensions": [
+        1024,
+        1024
+      ],
+      "images": {
+        "1280": "product-images/vivo-v70-fe-1280.webp",
+        "600": "product-images/vivo-v70-fe-600.webp"
+      },
+      "sha256": {
+        "1280": "a1c4f264fae81a3ece3b8abd1dfdf33f69b8e3bac8fd49bbd20abae34a75b21a",
+        "600": "d5e2dc8e902571bcc124c21ae5922bb7f093863b3acf27f57c7bd7965739de71"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "vivo",
+      "model": "Y31d",
+      "model_slug": "vivo-y31d",
+      "expected_original_filename": "vivo-y31d.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 23 AI concept; QA pending",
+      "qa_status": "qa_review",
+      "qa_note": "AI concept, model camera geometry / colour / Pakistan SKU and branding require manufacturer-photo review. 1600x1600 upscaled from original panel, not native 4K.",
+      "qa_state_from_source": "Generated — QA pending",
+      "catalog_colour_hint": "Grey concept (silver/grey appearance)",
+      "original_zip_path": "01_Individual_Renders/Batch_23/vivo-y31d.png",
+      "source_png_sha256": "b66de6ad61e96833c7b4b9daeb01722f5ec4799e4dbbfb72a15372e7eecb49bf",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/vivo-y31d-1280.webp",
+        "600": "product-images/vivo-y31d-600.webp"
+      },
+      "sha256": {
+        "1280": "94295351cb5935865e1676a0dee96cf904d5cda896a3d8a50f1a35e85db84f17",
+        "600": "8f1915fc7e5d4619612d81f3ec80f485a55b9867010c5e9e7353b8e13a7e442b"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "vivo",
+      "model": "Y11d",
+      "model_slug": "vivo-y11d",
+      "expected_original_filename": "vivo-y11d.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 23 AI concept; QA pending",
+      "qa_status": "qa_review",
+      "qa_note": "AI concept, model camera geometry / colour / Pakistan SKU and branding require manufacturer-photo review. 1600x1600 upscaled from original panel, not native 4K.",
+      "qa_state_from_source": "Generated — QA pending",
+      "catalog_colour_hint": "Voyage Black",
+      "original_zip_path": "01_Individual_Renders/Batch_23/vivo-y11d.png",
+      "source_png_sha256": "0a22a36acecd05dfc711ed5bd5571027446b884e43a676fc23f0cfdd8c19af2c",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/vivo-y11d-1280.webp",
+        "600": "product-images/vivo-y11d-600.webp"
+      },
+      "sha256": {
+        "1280": "553c072fb3d5183798d6c97d0a9f20465e6c95a6cfd5215ecb5a2dd471d2b54f",
+        "600": "395a6aabad5c827def45cf9b2aa4734fab8cec0223cf4c592f16116d5ddf6714"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "vivo",
+      "model": "X300 Pro",
+      "model_slug": "vivo-x300-pro",
+      "expected_original_filename": "vivo-x300-pro.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Ready — AI concept; review before publishing",
+      "qa_status": "qa_review",
+      "qa_note": "Prior batch image — model details and colour not independently verified",
+      "qa_state_from_source": "Needs model/colour check",
+      "catalog_colour_hint": "Blue concept render",
+      "original_zip_path": "01_Individual_Renders/Previous_44/vivo-x300-pro.png",
+      "source_png_sha256": "cfb7ea7fd2df2d646f8c436961ccb0171c20dab720a9f73213beee1d85afc255",
+      "source_image_dimensions": [
+        620,
+        620
+      ],
+      "images": {
+        "1280": "product-images/vivo-x300-pro-1280.webp",
+        "600": "product-images/vivo-x300-pro-600.webp"
+      },
+      "sha256": {
+        "1280": "d4ae786478936a7321832bac14fbc3a96a11b43c7213fab0f29912cfcbc847e7",
+        "600": "72fe6081bf412d6cf78148ad46e169e23a2801905be46468e8651571f8bf2ab2"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "vivo",
+      "model": "X200 FE",
+      "model_slug": "vivo-x200-fe",
+      "expected_original_filename": "vivo-x200-fe.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 23 AI concept; QA pending",
+      "qa_status": "qa_review",
+      "qa_note": "AI concept, model camera geometry / colour / Pakistan SKU and branding require manufacturer-photo review. 1600x1600 upscaled from original panel, not native 4K.",
+      "qa_state_from_source": "Generated — QA pending",
+      "catalog_colour_hint": "Blue Breeze concept",
+      "original_zip_path": "01_Individual_Renders/Batch_23/vivo-x200-fe.png",
+      "source_png_sha256": "0637bdb7dba779b57dd546321fc71a128e52789e686dd346dd9f9dc780a94d6d",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/vivo-x200-fe-1280.webp",
+        "600": "product-images/vivo-x200-fe-600.webp"
+      },
+      "sha256": {
+        "1280": "c60e2563ec08165eb1b053abb3238ff0ad2fba99403630b31e668a91f66756cd",
+        "600": "6b83ce481017a778ab2ccce497ec4921b36911d67ae7a884035e470c32e5ba77"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Infinix",
+      "model": "Smart 20",
+      "model_slug": "infinix-smart-20",
+      "expected_original_filename": "infinix-smart-20.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 24 AI concept; QA pending",
+      "qa_status": "qa_review",
+      "qa_note": "Awaiting image generation",
+      "qa_state_from_source": "Pending",
+      "catalog_colour_hint": "Shadow Black",
+      "original_zip_path": "01_Individual_Renders/Batch_24/infinix-smart-20.png",
+      "source_png_sha256": "ebf1275bfb2c96bb36c13affa356e4642445b663410c2c8805760be4ded1c5af",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/infinix-smart-20-1280.webp",
+        "600": "product-images/infinix-smart-20-600.webp"
+      },
+      "sha256": {
+        "1280": "765129fa529c1c4d03824e497b61dc5742735be323f6ca74b67528c6b6e4824e",
+        "600": "d945251966f4bfe39029f1ea4d846a21fd917b065a65950c92ab63e6cb9ea063"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Infinix",
+      "model": "Note 60 Edge 5G",
+      "model_slug": "infinix-note-60-edge-5g",
+      "expected_original_filename": "infinix-note-60-edge-5g.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 24 AI concept; QA pending",
+      "qa_status": "qa_review",
+      "qa_note": "Awaiting image generation",
+      "qa_state_from_source": "Pending",
+      "catalog_colour_hint": "Colors verify",
+      "original_zip_path": "01_Individual_Renders/Batch_24/infinix-note-60-edge-5g.png",
+      "source_png_sha256": "71b451d3b15ebca6de359693d4ba4051ffbe3989f3fd7bebab81b40fd61366c9",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/infinix-note-60-edge-5g-1280.webp",
+        "600": "product-images/infinix-note-60-edge-5g-600.webp"
+      },
+      "sha256": {
+        "1280": "9ed5a6c5ea70a11c9039e5c2900da978b868b7c6412056274c643a328a9beaf8",
+        "600": "1aa468e9876fb0b83a34aec8937c547f4d2e6fc78ec21ab47cc7fd2011f43b9b"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Infinix",
+      "model": "Hot 70 Pro 5G",
+      "model_slug": "infinix-hot-70-pro-5g",
+      "expected_original_filename": "infinix-hot-70-pro-5g.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 24 AI concept; QA pending",
+      "qa_status": "qa_review",
+      "qa_note": "Awaiting image generation",
+      "qa_state_from_source": "Pending",
+      "catalog_colour_hint": "Colors verify",
+      "original_zip_path": "01_Individual_Renders/Batch_24/infinix-hot-70-pro-5g.png",
+      "source_png_sha256": "52e0539d964f440b6c6213bc79f96a792cf3b515fe7cc138d6e31fd33fe01982",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/infinix-hot-70-pro-5g-1280.webp",
+        "600": "product-images/infinix-hot-70-pro-5g-600.webp"
+      },
+      "sha256": {
+        "1280": "eba7d8a46da7f61f37d4c1224a592564c6d77fd2290982d5109a903a390ddd6f",
+        "600": "16f982ab0a1d2a42db0143c9324c3eaeb281d668245a94c7636cc8b809ef88d2"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Infinix",
+      "model": "Hot 70",
+      "model_slug": "infinix-hot-70",
+      "expected_original_filename": "infinix-hot-70.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 24 AI concept; QA pending",
+      "qa_status": "qa_review",
+      "qa_note": "Awaiting image generation",
+      "qa_state_from_source": "Pending",
+      "catalog_colour_hint": "Colors verify",
+      "original_zip_path": "01_Individual_Renders/Batch_24/infinix-hot-70.png",
+      "source_png_sha256": "b5ac8d537b933503fd4cd044f905607ed4bd9acd8cb4ef52dca9e66eb3892a22",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/infinix-hot-70-1280.webp",
+        "600": "product-images/infinix-hot-70-600.webp"
+      },
+      "sha256": {
+        "1280": "e5e7c53a94990b07c0ba1fd7c4ff1afdb5b2d86f86bb0abdf85ebf1159ffabee",
+        "600": "969386d3160ef1c565a0e408ad812b647e2b4955749eac1be4a918bd4cc0e48a"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Infinix",
+      "model": "GT 50 Pro",
+      "model_slug": "infinix-gt-50-pro",
+      "expected_original_filename": "infinix-gt-50-pro.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 25 AI concept; QA pending",
+      "qa_status": "qa_review",
+      "qa_note": "Verify exact camera count/layout, flash design, finish, official colors, and Pakistan SKU before publishing.",
+      "qa_state_from_source": "Generated — QA pending",
+      "catalog_colour_hint": "Gaming Black / Cyan (concept render)",
+      "original_zip_path": "01_Individual_Renders/Batch_25/infinix-gt-50-pro.png",
+      "source_png_sha256": "629cc77b2acfd906f927cbad457bce67f1a98996b60d388055122b3e7b9d0a86",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/infinix-gt-50-pro-1280.webp",
+        "600": "product-images/infinix-gt-50-pro-600.webp"
+      },
+      "sha256": {
+        "1280": "8691b50ab887f9218839538079c822d1046d3fee84fb431dd2d01a8783b2eb56",
+        "600": "46deddc5c48429803faa68f6fc09d1c7ad176759dcc8d29952781039465f1287"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Infinix",
+      "model": "Note 60",
+      "model_slug": "infinix-note-60",
+      "expected_original_filename": "infinix-note-60.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 25 AI concept; QA pending",
+      "qa_status": "qa_review",
+      "qa_note": "Verify exact camera count/layout, flash design, finish, official colors, and Pakistan SKU before publishing.",
+      "qa_state_from_source": "Generated — QA pending",
+      "catalog_colour_hint": "Metallic Blue (concept render)",
+      "original_zip_path": "01_Individual_Renders/Batch_25/infinix-note-60.png",
+      "source_png_sha256": "c19ee480d3d865d1afeda6b28d1fdf0ba4288e4cec5e9db18fe19ae7ffee74e9",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/infinix-note-60-1280.webp",
+        "600": "product-images/infinix-note-60-600.webp"
+      },
+      "sha256": {
+        "1280": "5d0c07b2fefb3a80a0a3f997bcd7f32b4deb1b27a4c6b020ff2849b18fced63b",
+        "600": "eb64f9d3889d66a2812340b158522e598ff43fe0031585341ea661e65eaf3094"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Infinix",
+      "model": "Hot 60 Pro",
+      "model_slug": "infinix-hot-60-pro",
+      "expected_original_filename": "infinix-hot-60-pro.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 25 AI concept; QA pending",
+      "qa_status": "qa_review",
+      "qa_note": "Verify exact camera count/layout, flash design, finish, official colors, and Pakistan SKU before publishing.",
+      "qa_state_from_source": "Generated — QA pending",
+      "catalog_colour_hint": "Titanium Silver (concept render)",
+      "original_zip_path": "01_Individual_Renders/Batch_25/infinix-hot-60-pro.png",
+      "source_png_sha256": "c4bc733ff001ae21ba7a46b66495f25c4341fc4f6db9c53c8e037bd5931a679d",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/infinix-hot-60-pro-1280.webp",
+        "600": "product-images/infinix-hot-60-pro-600.webp"
+      },
+      "sha256": {
+        "1280": "848ccd609f8ff143006a12bc797d1dd294d73a4cf3f51c9db72cfb094bfdb07a",
+        "600": "2d88450bb457cdfdea77b0a5e15be4b285641fe0997e25bec19aa389c85cc80c"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Infinix",
+      "model": "Hot 60i",
+      "model_slug": "infinix-hot-60i",
+      "expected_original_filename": "infinix-hot-60i.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 25 AI concept; QA pending",
+      "qa_status": "qa_review",
+      "qa_note": "Verify exact camera count/layout, flash design, finish, official colors, and Pakistan SKU before publishing.",
+      "qa_state_from_source": "Generated — QA pending",
+      "catalog_colour_hint": "Charcoal Black (concept render)",
+      "original_zip_path": "01_Individual_Renders/Batch_25/infinix-hot-60i.png",
+      "source_png_sha256": "faa66eaae42af82d906a1e6d44685343f26304fdf10a25dffd5572f4b2977a7d",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/infinix-hot-60i-1280.webp",
+        "600": "product-images/infinix-hot-60i-600.webp"
+      },
+      "sha256": {
+        "1280": "5468196d65e313ccd93e2ec5440e80f68df3d7cbfb48247dfc85bb3b8974f818",
+        "600": "4442dc6497cba85d07a047efc51466b0f9319bf012632124f68d0f89cfe3b334"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Infinix",
+      "model": "Note 60 Pro",
+      "model_slug": "infinix-note-60-pro",
+      "expected_original_filename": "infinix-note-60-pro.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 26 AI concept; QA pending",
+      "qa_status": "qa_review",
+      "qa_note": "Verify actual camera module layout, finish, official colours and Pakistan regional SKU before publishing.",
+      "qa_state_from_source": "Generated — QA pending",
+      "catalog_colour_hint": "Deep Ocean Blue (AI concept render)",
+      "original_zip_path": "01_Individual_Renders/Batch_26/infinix-note-60-pro.png",
+      "source_png_sha256": "5b188332a87037e73752c1f29afdafb2f64db55952ea703663bd101d507cd9b0",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/infinix-note-60-pro-1280.webp",
+        "600": "product-images/infinix-note-60-pro-600.webp"
+      },
+      "sha256": {
+        "1280": "c47d804c1285a3349294c78c737931381aa123bed7e65aa03937749faee7fc31",
+        "600": "8b656a7116a3520ce657ddc71a78b278ece4cfa4d8486e5bd847880efeb51952"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Tecno",
+      "model": "Spark 50",
+      "model_slug": "tecno-spark-50",
+      "expected_original_filename": "tecno-spark-50.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 26 AI concept; QA pending",
+      "qa_status": "qa_review",
+      "qa_note": "Verify actual camera module layout, finish, official colours and Pakistan regional SKU before publishing.",
+      "qa_state_from_source": "Generated — QA pending",
+      "catalog_colour_hint": "Halo Blue (AI concept render)",
+      "original_zip_path": "01_Individual_Renders/Batch_26/tecno-spark-50.png",
+      "source_png_sha256": "dd8f52268065605f67b6121fca68798f5061bee8efea44a10a7decffa9b4006e",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/tecno-spark-50-1280.webp",
+        "600": "product-images/tecno-spark-50-600.webp"
+      },
+      "sha256": {
+        "1280": "f4e8a311b642ef8ab0bd22b296ce5c9bc7355495473866c7b44ddeaa848c7efd",
+        "600": "d624bb31ffbb082c20d610b4a675483a12819044f4171c1a04553e48ec2da20d"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Tecno",
+      "model": "Pova Curve 2 5G",
+      "model_slug": "tecno-pova-curve-2-5g",
+      "expected_original_filename": "tecno-pova-curve-2-5g.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 26 AI concept; QA pending",
+      "qa_status": "qa_review",
+      "qa_note": "Verify actual camera module layout, finish, official colours and Pakistan regional SKU before publishing.",
+      "qa_state_from_source": "Generated — QA pending",
+      "catalog_colour_hint": "Mystic Purple (AI concept render)",
+      "original_zip_path": "01_Individual_Renders/Batch_26/tecno-pova-curve-2-5g.png",
+      "source_png_sha256": "983f6e407269fdad6cc2f78c72215485a6cd7cb248ef6835efaceea77e3024b8",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/tecno-pova-curve-2-5g-1280.webp",
+        "600": "product-images/tecno-pova-curve-2-5g-600.webp"
+      },
+      "sha256": {
+        "1280": "5a29c3de8dea2edc7a5ffe983191095dc425f7314fc68f3d668a0f6e752cd57b",
+        "600": "fa2896c44ba252cd2417ecc9541287168a98df4516a2debc01138b9eb1a5791f"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Tecno",
+      "model": "Spark 50 Pro",
+      "model_slug": "tecno-spark-50-pro",
+      "expected_original_filename": "tecno-spark-50-pro.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 26 AI concept; QA pending",
+      "qa_status": "qa_review",
+      "qa_note": "Verify actual camera module layout, finish, official colours and Pakistan regional SKU before publishing.",
+      "qa_state_from_source": "Generated — QA pending",
+      "catalog_colour_hint": "Titanium Grey (AI concept render)",
+      "original_zip_path": "01_Individual_Renders/Batch_26/tecno-spark-50-pro.png",
+      "source_png_sha256": "a779d5bf9b2efa917d48c0f82b9245e264c3f802f3c7c10ada462dbd4cecb755",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/tecno-spark-50-pro-1280.webp",
+        "600": "product-images/tecno-spark-50-pro-600.webp"
+      },
+      "sha256": {
+        "1280": "13ce8773184b8d32d78ef3448651e876e94a83919204bf1078cfb3d5d52d097d",
+        "600": "d34ff7f5cae857ef0778d4da36b6e986af099670194c21466cea220a7b93bba6"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Tecno",
+      "model": "Camon 50",
+      "model_slug": "tecno-camon-50",
+      "expected_original_filename": "tecno-camon-50.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 27 AI concept; QA pending",
+      "qa_status": "qa_review",
+      "qa_note": "AI render appears to show two large rear circles; compare against official model artwork before publishing. Verify official Pakistan SKU and colour options.",
+      "qa_state_from_source": "Generated — QA pending",
+      "catalog_colour_hint": "Malachite Green — AI concept",
+      "original_zip_path": "01_Individual_Renders/Batch_27/tecno-camon-50.png",
+      "source_png_sha256": "7c4e4ed41fd44736934f118afe9ef3e613131c9432f85b174b36d5481da915af",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/tecno-camon-50-1280.webp",
+        "600": "product-images/tecno-camon-50-600.webp"
+      },
+      "sha256": {
+        "1280": "fa6e94a4daf30480e516d393a33d4c71e47817f17c18fb366bf493dc8d0d35cb",
+        "600": "84754b4fb4992100e7f8d67128b35f1dde11b4a61a06fb36da02f12b118a8efd"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Tecno",
+      "model": "Camon 50 Pro",
+      "model_slug": "tecno-camon-50-pro",
+      "expected_original_filename": "tecno-camon-50-pro.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 27 AI concept; QA pending",
+      "qa_status": "qa_review",
+      "qa_note": "Camera optics and curved screen need retail design verification. Verify official Pakistan SKU and colour options.",
+      "qa_state_from_source": "Generated — QA pending",
+      "catalog_colour_hint": "Nebula Titanium — AI concept",
+      "original_zip_path": "01_Individual_Renders/Batch_27/tecno-camon-50-pro.png",
+      "source_png_sha256": "1ed1b8d49c8c80b0d6cc05aa1139c8edb33157423c5f16fed6758f3ed60b5a61",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/tecno-camon-50-pro-1280.webp",
+        "600": "product-images/tecno-camon-50-pro-600.webp"
+      },
+      "sha256": {
+        "1280": "e278e29c3f08540907a9c61b915372607e12467ce546cd0f9e5fd058768478da",
+        "600": "488f6ebe52d8eb97c05ff6bd68fda85b4eaefc508e16d1f7952578e6d91b7230"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Tecno",
+      "model": "Spark Go 3",
+      "model_slug": "tecno-spark-go-3",
+      "expected_original_filename": "tecno-spark-go-3.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 27 AI concept; QA pending",
+      "qa_status": "qa_review",
+      "qa_note": "Check regional colour and actual rear camera/flash arrangement. Verify official Pakistan SKU and colour options.",
+      "qa_state_from_source": "Generated — QA pending",
+      "catalog_colour_hint": "Aurora Purple — AI concept",
+      "original_zip_path": "01_Individual_Renders/Batch_27/tecno-spark-go-3.png",
+      "source_png_sha256": "25a0f27a7e2342ed550d1f4716bdb06dbfc814b330fa1b77b7dc2a2cadddf428",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/tecno-spark-go-3-1280.webp",
+        "600": "product-images/tecno-spark-go-3-600.webp"
+      },
+      "sha256": {
+        "1280": "412fce021bbe2715cf75cb8599e6dd4b900b93caa3f70b12cf8d1a094515b915",
+        "600": "d55a090c0e6327d583585921bab7f2d2781d678443421e52dc84456037f35097"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Tecno",
+      "model": "Spark 40 Pro Plus",
+      "model_slug": "tecno-spark-40-pro-plus",
+      "expected_original_filename": "tecno-spark-40-pro-plus.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 27 AI concept; QA pending",
+      "qa_status": "qa_review",
+      "qa_note": "Stylized camera island, verify against official manufacturer product imagery. Verify official Pakistan SKU and colour options.",
+      "qa_state_from_source": "Generated — QA pending",
+      "catalog_colour_hint": "Tundra Green — AI concept",
+      "original_zip_path": "01_Individual_Renders/Batch_27/tecno-spark-40-pro-plus.png",
+      "source_png_sha256": "23bc516dc9130fcc47d5c2ed2afe048c7b84d2041ae0adb4721ae380e015910e",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/tecno-spark-40-pro-plus-1280.webp",
+        "600": "product-images/tecno-spark-40-pro-plus-600.webp"
+      },
+      "sha256": {
+        "1280": "8ea8e855c36c9cbc052f3a66dc82ab6142d1bb816c4a0da2797c4089b02dcd4a",
+        "600": "5ee7302bbb3ec5fadad2b0021c2c7ca45164bcfe8722080e43a515301f6e0543"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Tecno",
+      "model": "Camon 50 Ultra 5G",
+      "model_slug": "tecno-camon-50-ultra-5g",
+      "expected_original_filename": "tecno-camon-50-ultra-5g.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — AI concept; QA HOLD / REVIEW before publication",
+      "qa_status": "qa_hold",
+      "qa_note": "QA HOLD — inaccurate circular rear camera module; official CAMON 50 Ultra 5G has vertically stacked camera cluster with adjacent lens. Do not publish until replacement.",
+      "qa_state_from_source": "Pending",
+      "catalog_colour_hint": "Nebula Titanium (silver concept)",
+      "original_zip_path": "01_Individual_Renders/Batch_28/tecno-camon-50-ultra-5g.png",
+      "source_png_sha256": "8c29cc78728a056d0900cfbda957d80a9622a85c25a1a98aec6375548806c8dc",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/tecno-camon-50-ultra-5g-1280.webp",
+        "600": "product-images/tecno-camon-50-ultra-5g-600.webp"
+      },
+      "sha256": {
+        "1280": "ea5ff0329a84575071f7d3e5e4aac25715e5f94ffbb9140948ec7a20a9261299",
+        "600": "b7ac95b44e5d21c3452d5b8ba6424bf6d18ad364fb5c2f554124613a59294141"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Xiaomi",
+      "model": "17 Ultra",
+      "model_slug": "xiaomi-17-ultra",
+      "expected_original_filename": "xiaomi-17-ultra.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — AI concept; QA HOLD / REVIEW before publication",
+      "qa_status": "qa_hold",
+      "qa_note": "QA REVIEW — round Leica camera design recognizable but exact lens placement and branding may differ. Compare against official Xiaomi 17 Ultra reference.",
+      "qa_state_from_source": "Pending",
+      "catalog_colour_hint": "Black concept",
+      "original_zip_path": "01_Individual_Renders/Batch_28/xiaomi-17-ultra.png",
+      "source_png_sha256": "03a779ff0f46b5b1d4152d37285441b497423c9faeb7d17c8daca920120bc18b",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/xiaomi-17-ultra-1280.webp",
+        "600": "product-images/xiaomi-17-ultra-600.webp"
+      },
+      "sha256": {
+        "1280": "2e36f7821707c316e3fcecc1efee303613897636889ac97ad29c393e02fe2074",
+        "600": "36d1c9805f6e030cde1ebbf4894b4838a04a4b19f2c52263f92b8300ff57ef0c"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Xiaomi",
+      "model": "Redmi 15C",
+      "model_slug": "xiaomi-redmi-15c",
+      "expected_original_filename": "xiaomi-redmi-15c.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — AI concept; QA HOLD / REVIEW before publication",
+      "qa_status": "qa_hold",
+      "qa_note": "QA HOLD — lavender is not an official Pakistan color listed by Xiaomi (Moonlight Blue, Midnight Black, Mint Green, Twilight Orange). Correct colour and verify rear camera before publishing.",
+      "qa_state_from_source": "Pending",
+      "catalog_colour_hint": "Lavender concept — NOT verified official Pakistan color",
+      "original_zip_path": "01_Individual_Renders/Batch_28/xiaomi-redmi-15c.png",
+      "source_png_sha256": "5f5d027d29779a94ed20763d02423e8776d1684c1951770face9f99f83e9c1cf",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/xiaomi-redmi-15c-1280.webp",
+        "600": "product-images/xiaomi-redmi-15c-600.webp"
+      },
+      "sha256": {
+        "1280": "57b0d5b30c014242e536a13ad18610559d4cac65b0f400785d5b2a6cc6d6b4ae",
+        "600": "aed43660c9f5027ac223dde6b0c2c7a56ca8f10b572440c5327f397dc8512f19"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Honor",
+      "model": "X8d",
+      "model_slug": "honor-x8d",
+      "expected_original_filename": "honor-x8d.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — AI concept; QA HOLD / REVIEW before publication",
+      "qa_status": "qa_hold",
+      "qa_note": "QA HOLD — generated four-lens camera island is inaccurate: official X8d has two rear lenses and one flash. Rendered green also requires colour correction.",
+      "qa_state_from_source": "Pending",
+      "catalog_colour_hint": "Mint green concept — NOT verified official Pakistan color",
+      "original_zip_path": "01_Individual_Renders/Batch_28/honor-x8d.png",
+      "source_png_sha256": "f90575984022791b777cbf2b90c2f0e3a3249527f70a4e7b771b4f2cec27cad1",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/honor-x8d-1280.webp",
+        "600": "product-images/honor-x8d-600.webp"
+      },
+      "sha256": {
+        "1280": "40e137ca10d5649417f6fe9f6b15f5d29a6130795dcf94645ae66f7015951db2",
+        "600": "63f25a1bc5fde9ca9175b22a4df14db7c05c92d49583e555ad2a366d16d6c4e4"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Honor",
+      "model": "X9d",
+      "model_slug": "honor-x9d",
+      "expected_original_filename": "honor-x9d.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 29 AI concept; QA review required",
+      "qa_status": "qa_hold",
+      "qa_note": "QA HOLD — AI image shows additional camera circles; actual HONOR X9d has a different circular camera design. Verify against manufacturer photograph before selling.",
+      "qa_state_from_source": "QA HOLD",
+      "catalog_colour_hint": "Reddish Brown (AI concept)",
+      "original_zip_path": "01_Individual_Renders/Batch_29/honor-x9d.png",
+      "source_png_sha256": "13d944060b04d1c7f77a3ee3b2b86b35eda070eec73ef30659c3e3de37f34040",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/honor-x9d-1280.webp",
+        "600": "product-images/honor-x9d-600.webp"
+      },
+      "sha256": {
+        "1280": "19810458f856388afad145d6ff661c943db556e37246c44276960aac6f26a32d",
+        "600": "abf9a217fb6d8624ed9a38791606b82718aafe9d5cdeafe3cdd8a0962d0ea2fa"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Honor",
+      "model": "X6c",
+      "model_slug": "honor-x6c",
+      "expected_original_filename": "honor-x6c.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 29 AI concept; QA review required",
+      "qa_status": "qa_review",
+      "qa_note": "QA REVIEW — Compare camera island, front hole-punch and cyan shade against HONOR product photos before publishing.",
+      "qa_state_from_source": "QA REVIEW",
+      "catalog_colour_hint": "Ocean Cyan (AI concept)",
+      "original_zip_path": "01_Individual_Renders/Batch_29/honor-x6c.png",
+      "source_png_sha256": "a3487e31e4c0fa12ff3d1072a5300b5d700f612d70ea91c75f7f07a8ef85ebda",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/honor-x6c-1280.webp",
+        "600": "product-images/honor-x6c-600.webp"
+      },
+      "sha256": {
+        "1280": "3eb27b09c65706ccbac231bad3062cb7ae6db941d20068ef9a916f5edba7572e",
+        "600": "a11b87eac9404756cd914aeeb5ebdf21f8d142c5416c429776dfeb04f862d099"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "itel",
+      "model": "A200",
+      "model_slug": "itel-a200",
+      "expected_original_filename": "itel-a200.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 29 AI concept; QA review required",
+      "qa_status": "qa_review",
+      "qa_note": "QA REVIEW — itel lists a 13MP main camera; extra rear circles in render may be decorative or inaccurate. Compare with official A200 photographs.",
+      "qa_state_from_source": "QA REVIEW",
+      "catalog_colour_hint": "Meteor Titanium (AI concept)",
+      "original_zip_path": "01_Individual_Renders/Batch_29/itel-a200.png",
+      "source_png_sha256": "478e862fc4fd35d2f5155d3320b7207e8cb1da9d4335ef7019204e280870e28b",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/itel-a200-1280.webp",
+        "600": "product-images/itel-a200-600.webp"
+      },
+      "sha256": {
+        "1280": "450d4f9ea8a45612b9e2ff6e2f8be5d26d97deb7bbf4531e39fbe75743c9e7a4",
+        "600": "05b806bc0b54661e15faf2fc76a32c4c76a0427e10e6130fdacf1ff11afe4826"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "itel",
+      "model": "Power 80",
+      "model_slug": "itel-power-80",
+      "expected_original_filename": "itel-power-80.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 29 AI concept; QA review required",
+      "qa_status": "qa_hold",
+      "qa_note": "QA HOLD — light blue colour and vertical triple-camera layout do not match verified Pakistan variants (Tundra Green, Rock Black). Replace artwork before publishing.",
+      "qa_state_from_source": "QA HOLD",
+      "catalog_colour_hint": "Icy Blue (non-official concept)",
+      "original_zip_path": "01_Individual_Renders/Batch_29/itel-power-80.png",
+      "source_png_sha256": "a5659f30a57f8891a2c1ac511901d3593517ebb09f65ba90878bba3bc3198b3a",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/itel-power-80-1280.webp",
+        "600": "product-images/itel-power-80-600.webp"
+      },
+      "sha256": {
+        "1280": "03c6e3863fa8d1ba9a831875fbca9e96dd165e1b89aac6a7be0674896d2a9751",
+        "600": "3ceb402d0fad16f90a199f9273aa8ed32f85e4de5e9bcad4321794ced268f96f"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "itel",
+      "model": "A100C",
+      "model_slug": "itel-a100c",
+      "expected_original_filename": "itel-a100c.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 30 AI concept; QA required",
+      "qa_status": "qa_hold",
+      "qa_note": "QA HOLD — Generated lavender is not among the official A100C colours listed on itel product page. Camera-module rendering may also differ. Replace with accurate official-colour image before publishing.",
+      "qa_state_from_source": "QA HOLD",
+      "catalog_colour_hint": "Lavender/Purple AI concept (official colour NOT verified)",
+      "original_zip_path": "01_Individual_Renders/Batch_30/itel-a100c.png",
+      "source_png_sha256": "e27c3fc2936a8527bcf9003a9a5e10fe530ef23faf332618e6859464650bd99a",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/itel-a100c-1280.webp",
+        "600": "product-images/itel-a100c-600.webp"
+      },
+      "sha256": {
+        "1280": "c0a83244ede57137470829f8aaf4475d02f272c1cadfd1af8ce9536b7a4c7181",
+        "600": "3b1b58b33f85516055335b020e5d090d49d26ba4127b7c2ebe97e671a18db8ff"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Nothing",
+      "model": "CMF Phone 1 5G",
+      "model_slug": "nothing-cmf-phone-1-5g",
+      "expected_original_filename": "nothing-cmf-phone-1-5g.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 30 AI concept; QA required",
+      "qa_status": "qa_review",
+      "qa_note": "QA REVIEW — Render colour is Orange, while source catalog selected Black. CMF Phone 1 is marketed with interchangeable back covers; verify exact local device/colour and screw/dial details.",
+      "qa_state_from_source": "QA REVIEW",
+      "catalog_colour_hint": "Orange AI concept (previous catalog specified Black)",
+      "original_zip_path": "01_Individual_Renders/Batch_30/nothing-cmf-phone-1-5g.png",
+      "source_png_sha256": "8ad2026f22e480c21ff0f4ca3ae8c43bfb2f655c4bb7a93b5cfdfe72a2146073",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/nothing-cmf-phone-1-5g-1280.webp",
+        "600": "product-images/nothing-cmf-phone-1-5g-600.webp"
+      },
+      "sha256": {
+        "1280": "88a4b2dbdabb8e5158b0f74823a87bbf66b9eb2c2a9344c9dcd3b4d34be239de",
+        "600": "2070d16475a800ff997bd6bce26a5da0f34a12e2339d543a0312ca58a2c7227e"
+      },
+      "approved_for_publishing": false
+    },
+    {
+      "brand": "Motorola",
+      "model": "Edge 70 Fusion",
+      "model_slug": "motorola-edge-70-fusion",
+      "expected_original_filename": "motorola-edge-70-fusion.png",
+      "source_type": "ai_generated_concept",
+      "image_status": "Generated — Batch 30 AI concept; QA required",
+      "qa_status": "qa_review",
+      "qa_note": "QA REVIEW — Compare rear 2-camera plus sensor/light design and phone colour with Motorola official imagery; local SKU availability needs confirmation.",
+      "qa_state_from_source": "QA REVIEW",
+      "catalog_colour_hint": "Sky Blue AI concept (official colourway to verify)",
+      "original_zip_path": "01_Individual_Renders/Batch_30/motorola-edge-70-fusion.png",
+      "source_png_sha256": "8e1ca9b4b463122d32e5be46dfb5af5128373b62b659a6a68ae38f0803a7ed43",
+      "source_image_dimensions": [
+        1600,
+        1600
+      ],
+      "images": {
+        "1280": "product-images/motorola-edge-70-fusion-1280.webp",
+        "600": "product-images/motorola-edge-70-fusion-600.webp"
+      },
+      "sha256": {
+        "1280": "fcef61bd7de77581f5c53706f95f603853f0d96c3bb07b0a4db5669aabc0def2",
+        "600": "58d163c219fd7baaf9ae56e7691786078eb7b0f503408f614184a0814ebcea51"
+      },
+      "approved_for_publishing": false
+    }
+  ]
+}

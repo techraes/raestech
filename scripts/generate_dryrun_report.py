@@ -1,7 +1,11 @@
 import json, os
 from collections import Counter
 
-mp = json.load(open('data/image-import-live/manifests/model_image_mapping.json', encoding='utf8'))
+MAPPING_PATH = 'data/image-master/manifests/model_image_mapping.json'
+CONCEPTS_DIR = 'public/images/concepts'
+if not os.path.exists(MAPPING_PATH):
+    raise SystemExit('Missing authoritative mapping source: %s' % MAPPING_PATH)
+mp = json.load(open(MAPPING_PATH, encoding='utf8'))
 models = mp['models']
 cat = json.load(open('src/data/catalog_seed.json', encoding='utf8'))
 products = cat['products']
@@ -19,9 +23,9 @@ for m in models:
     brand = m.get('brand')
     model = m.get('model')
     qa = m.get('qa_status')
-    imgs = m.get('images') or {}
-    has1280 = ('1280' in imgs)
-    has600 = ('600' in imgs)
+    # Verify the actual staged .webp files exist — do not trust manifest keys alone.
+    has1280 = bool(slug) and os.path.exists(os.path.join(CONCEPTS_DIR, '%s-1280.webp' % slug))
+    has600 = bool(slug) and os.path.exists(os.path.join(CONCEPTS_DIR, '%s-600.webp' % slug))
     is_matched = slug in prod_slugs
     entry = {
         'slug': slug, 'brand': brand, 'model': model,
