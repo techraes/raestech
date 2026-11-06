@@ -243,11 +243,11 @@ export function ProductDetailPage() {
 
           {/* Buy / instalment CTAs */}
           <div className="space-y-3">
-            <div className="grid grid-cols-2 gap-3">
-              <Button size="lg" className="rounded-full bg-neutral-950 text-white hover:bg-neutral-800" onClick={() => { if (!requireColor()) return; addItem(product, variant, 1, color); navigate("/checkout"); }}>
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+              <Button size="lg" className="w-full rounded-full bg-neutral-950 text-white hover:bg-neutral-800" onClick={() => { if (!requireColor()) return; addItem(product, variant, 1, color); navigate("/checkout"); }}>
                 Buy Now
               </Button>
-              <Button size="lg" variant="outline" className="rounded-full" onClick={() => { if (!requireColor()) return; addItem(product, variant, 1, color); }}>
+              <Button size="lg" variant="outline" className="w-full rounded-full" onClick={() => { if (!requireColor()) return; addItem(product, variant, 1, color); }}>
                 Add to Cart
               </Button>
             </div>
