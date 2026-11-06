@@ -41,8 +41,22 @@ export function BrandTheme({ settings }: { settings: SiteSettings }) {
     const set = (name: string, value: string) => root.style.setProperty(name, value);
     const dark = resolvedTheme === "dark";
 
-    // Light-only surface tokens come from the admin theme tokens.
-    if (!dark) {
+    // Surface tokens come from admin branding in light mode, and from the
+    // `.dark` stylesheet in dark mode. When dark, we must REMOVE any previously
+    // applied inline surface tokens — otherwise stale light overrides persist
+    // and force a white background / low-contrast text in dark (the bug).
+    const SURFACE_TOKENS = [
+      "--background", "--foreground",
+      "--secondary", "--secondary-foreground",
+      "--muted", "--muted-foreground",
+      "--border", "--input",
+      "--card", "--card-foreground",
+      "--popover", "--popover-foreground",
+      "--accent", "--accent-foreground",
+    ];
+    if (dark) {
+      for (const k of SURFACE_TOKENS) root.style.removeProperty(k);
+    } else {
       set("--background", hexToHsl(t.backgroundColor));
       set("--foreground", hexToHsl(t.textColor));
       set("--secondary", hexToHsl(settings.secondaryColor));
