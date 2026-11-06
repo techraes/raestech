@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import type { Product, ProductVariant } from "@/types";
+import { useApprovedConceptSrc } from "@/lib/image-resolve";
 
 interface ProductImageProps {
   product: Product;
@@ -28,9 +29,12 @@ export function ProductImage({ product, variant, className, photoUrl, color }: P
 
   const baseSrc = product.image ? `/images/products/${product.image}` : undefined;
   const colorSrc = baseSrc && color ? baseSrc.replace(/\.(jpe?g|png|webp)$/i, `-${slugifyColor(color)}.$1`) : undefined;
-  // Use the colour-specific image, otherwise the base image.
-  const primarySrc = photoUrl ?? colorSrc ?? baseSrc;
+  // Prefer an admin-approved concept image; otherwise the colour/base image.
+  // Hook subscribes to approval changes so the displayed image updates immediately.
+  const approvedSrc = useApprovedConceptSrc(product);
+  const [triedApproved, setTriedApproved] = useState(false);
   const [triedColor, setTriedColor] = useState(false);
+  const primarySrc = photoUrl ?? (triedApproved ? undefined : approvedSrc) ?? colorSrc ?? baseSrc;
   const src = triedColor ? baseSrc : primarySrc;
   const showImg = Boolean(src) && !imgFailed;
 
@@ -46,7 +50,9 @@ export function ProductImage({ product, variant, className, photoUrl, color }: P
         loading="lazy"
         decoding="async"
         onError={() => {
-          if (!triedColor && colorSrc && colorSrc !== baseSrc) {
+          if (!triedApproved && approvedSrc) {
+            setTriedApproved(true);
+          } else if (!triedColor && colorSrc && colorSrc !== baseSrc) {
             setTriedColor(true);
           } else {
             setImgFailed(true);

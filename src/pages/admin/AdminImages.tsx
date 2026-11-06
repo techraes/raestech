@@ -15,6 +15,7 @@ import { useImageAssetsStore, resolveAssetPreviewUrls } from "@/store/imageAsset
 import { useCan } from "@/features/auth/permissions";
 import type { ImageAsset, ImageAssetStatus } from "@/types";
 import matchManifest from "@/data/image-matching-manifest.json";
+import { ImageImportReview } from "@/components/image-import-review";
 
 interface ManifestModel {
   slug: string; brand: string; model: string; matched: boolean;
@@ -153,6 +154,7 @@ export function AdminImages() {
 
   return (
     <div className="space-y-6">
+      <ImageImportReview />
       <PageHeader
         title="Image Manager"
         subtitle="Stage, review and approve product imagery. Concepts stay preview-only; nothing replaces live images until approved."

@@ -18,6 +18,11 @@ additional_redirect_urls = ["http://localhost:5173", "https://raestech-raes3.ver
 [auth.email]
 enable_signup = true
 otp_length = 6
+# OTP expiry in seconds (10 minutes). This matches the app's "code expires
+# shortly" messaging and the recommended 5-10 minute window. Apply the same
+# value to the hosted project under Authentication -> Email OTP expiry (the
+# config.toml value only governs local/self-hosted runs).
+otp_expiry = 600
 
 # OTP login/registration must deliver a 6-digit CODE, not a magic link. The
 # default Supabase templates render {{ .ConfirmationURL }}, which (a) sends a

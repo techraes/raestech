@@ -1,0 +1,1138 @@
+{
+  "package": "RAES TECH Mercury 3 live image import",
+  "generated_at_utc": "2026-11-06T21:20:45Z",
+  "totalModels": 125,
+  "statusCounts": {
+    "review": 116,
+    "hold": 7,
+    "reference_only": 2
+  },
+  "assetsStaged": true,
+  "entries": [
+    {
+      "slug": "apple-iphone-12-mini",
+      "brand": "Apple",
+      "model": "iPhone 12 mini",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/apple-iphone-12-mini-1280.webp",
+      "asset600": "/images/concepts/apple-iphone-12-mini-600.webp",
+      "productImageBasename": "apple-iphone-12-mini"
+    },
+    {
+      "slug": "apple-iphone-12",
+      "brand": "Apple",
+      "model": "iPhone 12",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/apple-iphone-12-1280.webp",
+      "asset600": "/images/concepts/apple-iphone-12-600.webp",
+      "productImageBasename": "apple-iphone-12"
+    },
+    {
+      "slug": "apple-iphone-12-pro",
+      "brand": "Apple",
+      "model": "iPhone 12 Pro",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/apple-iphone-12-pro-1280.webp",
+      "asset600": "/images/concepts/apple-iphone-12-pro-600.webp",
+      "productImageBasename": "apple-iphone-12-pro"
+    },
+    {
+      "slug": "apple-iphone-12-pro-max",
+      "brand": "Apple",
+      "model": "iPhone 12 Pro Max",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/apple-iphone-12-pro-max-1280.webp",
+      "asset600": "/images/concepts/apple-iphone-12-pro-max-600.webp",
+      "productImageBasename": "apple-iphone-12-pro-max"
+    },
+    {
+      "slug": "apple-iphone-13-mini",
+      "brand": "Apple",
+      "model": "iPhone 13 mini",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/apple-iphone-13-mini-1280.webp",
+      "asset600": "/images/concepts/apple-iphone-13-mini-600.webp",
+      "productImageBasename": "apple-iphone-13-mini"
+    },
+    {
+      "slug": "apple-iphone-13",
+      "brand": "Apple",
+      "model": "iPhone 13",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/apple-iphone-13-1280.webp",
+      "asset600": "/images/concepts/apple-iphone-13-600.webp",
+      "productImageBasename": "apple-iphone-13"
+    },
+    {
+      "slug": "apple-iphone-13-pro",
+      "brand": "Apple",
+      "model": "iPhone 13 Pro",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/apple-iphone-13-pro-1280.webp",
+      "asset600": "/images/concepts/apple-iphone-13-pro-600.webp",
+      "productImageBasename": "apple-iphone-13-pro"
+    },
+    {
+      "slug": "apple-iphone-13-pro-max",
+      "brand": "Apple",
+      "model": "iPhone 13 Pro Max",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/apple-iphone-13-pro-max-1280.webp",
+      "asset600": "/images/concepts/apple-iphone-13-pro-max-600.webp",
+      "productImageBasename": "apple-iphone-13-pro-max"
+    },
+    {
+      "slug": "apple-iphone-14",
+      "brand": "Apple",
+      "model": "iPhone 14",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/apple-iphone-14-1280.webp",
+      "asset600": "/images/concepts/apple-iphone-14-600.webp",
+      "productImageBasename": "apple-iphone-14"
+    },
+    {
+      "slug": "apple-iphone-14-plus",
+      "brand": "Apple",
+      "model": "iPhone 14 Plus",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/apple-iphone-14-plus-1280.webp",
+      "asset600": "/images/concepts/apple-iphone-14-plus-600.webp",
+      "productImageBasename": "apple-iphone-14-plus"
+    },
+    {
+      "slug": "apple-iphone-14-pro",
+      "brand": "Apple",
+      "model": "iPhone 14 Pro",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/apple-iphone-14-pro-1280.webp",
+      "asset600": "/images/concepts/apple-iphone-14-pro-600.webp",
+      "productImageBasename": "apple-iphone-14-pro"
+    },
+    {
+      "slug": "apple-iphone-14-pro-max",
+      "brand": "Apple",
+      "model": "iPhone 14 Pro Max",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/apple-iphone-14-pro-max-1280.webp",
+      "asset600": "/images/concepts/apple-iphone-14-pro-max-600.webp",
+      "productImageBasename": "apple-iphone-14-pro-max"
+    },
+    {
+      "slug": "apple-iphone-15",
+      "brand": "Apple",
+      "model": "iPhone 15",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/apple-iphone-15-1280.webp",
+      "asset600": "/images/concepts/apple-iphone-15-600.webp",
+      "productImageBasename": "apple-iphone-15"
+    },
+    {
+      "slug": "apple-iphone-15-plus",
+      "brand": "Apple",
+      "model": "iPhone 15 Plus",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/apple-iphone-15-plus-1280.webp",
+      "asset600": "/images/concepts/apple-iphone-15-plus-600.webp",
+      "productImageBasename": "apple-iphone-15-plus"
+    },
+    {
+      "slug": "apple-iphone-15-pro",
+      "brand": "Apple",
+      "model": "iPhone 15 Pro",
+      "qaStatus": "reference_only",
+      "asset1280": null,
+      "asset600": null,
+      "productImageBasename": "apple-iphone-15-pro"
+    },
+    {
+      "slug": "apple-iphone-15-pro-max",
+      "brand": "Apple",
+      "model": "iPhone 15 Pro Max",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/apple-iphone-15-pro-max-1280.webp",
+      "asset600": "/images/concepts/apple-iphone-15-pro-max-600.webp",
+      "productImageBasename": "apple-iphone-15-pro-max"
+    },
+    {
+      "slug": "apple-iphone-16e",
+      "brand": "Apple",
+      "model": "iPhone 16e",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/apple-iphone-16e-1280.webp",
+      "asset600": "/images/concepts/apple-iphone-16e-600.webp",
+      "productImageBasename": "apple-iphone-16e"
+    },
+    {
+      "slug": "apple-iphone-16",
+      "brand": "Apple",
+      "model": "iPhone 16",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/apple-iphone-16-1280.webp",
+      "asset600": "/images/concepts/apple-iphone-16-600.webp",
+      "productImageBasename": "apple-iphone-16"
+    },
+    {
+      "slug": "apple-iphone-16-plus",
+      "brand": "Apple",
+      "model": "iPhone 16 Plus",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/apple-iphone-16-plus-1280.webp",
+      "asset600": "/images/concepts/apple-iphone-16-plus-600.webp",
+      "productImageBasename": "apple-iphone-16-plus"
+    },
+    {
+      "slug": "apple-iphone-16-pro",
+      "brand": "Apple",
+      "model": "iPhone 16 Pro",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/apple-iphone-16-pro-1280.webp",
+      "asset600": "/images/concepts/apple-iphone-16-pro-600.webp",
+      "productImageBasename": "apple-iphone-16-pro"
+    },
+    {
+      "slug": "apple-iphone-16-pro-max",
+      "brand": "Apple",
+      "model": "iPhone 16 Pro Max",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/apple-iphone-16-pro-max-1280.webp",
+      "asset600": "/images/concepts/apple-iphone-16-pro-max-600.webp",
+      "productImageBasename": "apple-iphone-16-pro-max"
+    },
+    {
+      "slug": "apple-iphone-17e",
+      "brand": "Apple",
+      "model": "iPhone 17e",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/apple-iphone-17e-1280.webp",
+      "asset600": "/images/concepts/apple-iphone-17e-600.webp",
+      "productImageBasename": "apple-iphone-17e"
+    },
+    {
+      "slug": "apple-iphone-17",
+      "brand": "Apple",
+      "model": "iPhone 17",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/apple-iphone-17-1280.webp",
+      "asset600": "/images/concepts/apple-iphone-17-600.webp",
+      "productImageBasename": "apple-iphone-17"
+    },
+    {
+      "slug": "apple-iphone-17-air",
+      "brand": "Apple",
+      "model": "iPhone 17 Air",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/apple-iphone-17-air-1280.webp",
+      "asset600": "/images/concepts/apple-iphone-17-air-600.webp",
+      "productImageBasename": "apple-iphone-17-air"
+    },
+    {
+      "slug": "apple-iphone-17-pro",
+      "brand": "Apple",
+      "model": "iPhone 17 Pro",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/apple-iphone-17-pro-1280.webp",
+      "asset600": "/images/concepts/apple-iphone-17-pro-600.webp",
+      "productImageBasename": "apple-iphone-17-pro"
+    },
+    {
+      "slug": "apple-iphone-17-pro-max",
+      "brand": "Apple",
+      "model": "iPhone 17 Pro Max",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/apple-iphone-17-pro-max-1280.webp",
+      "asset600": "/images/concepts/apple-iphone-17-pro-max-600.webp",
+      "productImageBasename": "apple-iphone-17-pro-max"
+    },
+    {
+      "slug": "apple-iphone-18",
+      "brand": "Apple",
+      "model": "iPhone 18",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/apple-iphone-18-1280.webp",
+      "asset600": "/images/concepts/apple-iphone-18-600.webp",
+      "productImageBasename": "apple-iphone-18"
+    },
+    {
+      "slug": "apple-iphone-18-pro",
+      "brand": "Apple",
+      "model": "iPhone 18 Pro",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/apple-iphone-18-pro-1280.webp",
+      "asset600": "/images/concepts/apple-iphone-18-pro-600.webp",
+      "productImageBasename": "apple-iphone-18-pro"
+    },
+    {
+      "slug": "apple-iphone-18-pro-max",
+      "brand": "Apple",
+      "model": "iPhone 18 Pro Max",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/apple-iphone-18-pro-max-1280.webp",
+      "asset600": "/images/concepts/apple-iphone-18-pro-max-600.webp",
+      "productImageBasename": "apple-iphone-18-pro-max"
+    },
+    {
+      "slug": "google-pixel-6",
+      "brand": "Google",
+      "model": "Pixel 6",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/google-pixel-6-1280.webp",
+      "asset600": "/images/concepts/google-pixel-6-600.webp",
+      "productImageBasename": "google-pixel-6"
+    },
+    {
+      "slug": "google-pixel-6-pro",
+      "brand": "Google",
+      "model": "Pixel 6 Pro",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/google-pixel-6-pro-1280.webp",
+      "asset600": "/images/concepts/google-pixel-6-pro-600.webp",
+      "productImageBasename": "google-pixel-6-pro"
+    },
+    {
+      "slug": "google-pixel-6a",
+      "brand": "Google",
+      "model": "Pixel 6a",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/google-pixel-6a-1280.webp",
+      "asset600": "/images/concepts/google-pixel-6a-600.webp",
+      "productImageBasename": "google-pixel-6a"
+    },
+    {
+      "slug": "google-pixel-7",
+      "brand": "Google",
+      "model": "Pixel 7",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/google-pixel-7-1280.webp",
+      "asset600": "/images/concepts/google-pixel-7-600.webp",
+      "productImageBasename": "google-pixel-7"
+    },
+    {
+      "slug": "google-pixel-7-pro",
+      "brand": "Google",
+      "model": "Pixel 7 Pro",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/google-pixel-7-pro-1280.webp",
+      "asset600": "/images/concepts/google-pixel-7-pro-600.webp",
+      "productImageBasename": "google-pixel-7-pro"
+    },
+    {
+      "slug": "google-pixel-7a",
+      "brand": "Google",
+      "model": "Pixel 7a",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/google-pixel-7a-1280.webp",
+      "asset600": "/images/concepts/google-pixel-7a-600.webp",
+      "productImageBasename": "google-pixel-7a"
+    },
+    {
+      "slug": "google-pixel-8",
+      "brand": "Google",
+      "model": "Pixel 8",
+      "qaStatus": "reference_only",
+      "asset1280": null,
+      "asset600": null,
+      "productImageBasename": "google-pixel-8"
+    },
+    {
+      "slug": "google-pixel-8-pro",
+      "brand": "Google",
+      "model": "Pixel 8 Pro",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/google-pixel-8-pro-1280.webp",
+      "asset600": "/images/concepts/google-pixel-8-pro-600.webp",
+      "productImageBasename": "google-pixel-8-pro"
+    },
+    {
+      "slug": "google-pixel-8a",
+      "brand": "Google",
+      "model": "Pixel 8a",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/google-pixel-8a-1280.webp",
+      "asset600": "/images/concepts/google-pixel-8a-600.webp",
+      "productImageBasename": "google-pixel-8a"
+    },
+    {
+      "slug": "google-pixel-9",
+      "brand": "Google",
+      "model": "Pixel 9",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/google-pixel-9-1280.webp",
+      "asset600": "/images/concepts/google-pixel-9-600.webp",
+      "productImageBasename": "google-pixel-9"
+    },
+    {
+      "slug": "google-pixel-9-pro",
+      "brand": "Google",
+      "model": "Pixel 9 Pro",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/google-pixel-9-pro-1280.webp",
+      "asset600": "/images/concepts/google-pixel-9-pro-600.webp",
+      "productImageBasename": "google-pixel-9-pro"
+    },
+    {
+      "slug": "google-pixel-9-pro-xl",
+      "brand": "Google",
+      "model": "Pixel 9 Pro XL",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/google-pixel-9-pro-xl-1280.webp",
+      "asset600": "/images/concepts/google-pixel-9-pro-xl-600.webp",
+      "productImageBasename": "google-pixel-9-pro-xl"
+    },
+    {
+      "slug": "google-pixel-9a",
+      "brand": "Google",
+      "model": "Pixel 9a",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/google-pixel-9a-1280.webp",
+      "asset600": "/images/concepts/google-pixel-9a-600.webp",
+      "productImageBasename": "google-pixel-9a"
+    },
+    {
+      "slug": "google-pixel-10",
+      "brand": "Google",
+      "model": "Pixel 10",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/google-pixel-10-1280.webp",
+      "asset600": "/images/concepts/google-pixel-10-600.webp",
+      "productImageBasename": "google-pixel-10"
+    },
+    {
+      "slug": "google-pixel-10-pro",
+      "brand": "Google",
+      "model": "Pixel 10 Pro",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/google-pixel-10-pro-1280.webp",
+      "asset600": "/images/concepts/google-pixel-10-pro-600.webp",
+      "productImageBasename": "google-pixel-10-pro"
+    },
+    {
+      "slug": "google-pixel-10-pro-xl",
+      "brand": "Google",
+      "model": "Pixel 10 Pro XL",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/google-pixel-10-pro-xl-1280.webp",
+      "asset600": "/images/concepts/google-pixel-10-pro-xl-600.webp",
+      "productImageBasename": "google-pixel-10-pro-xl"
+    },
+    {
+      "slug": "google-pixel-10-pro-fold",
+      "brand": "Google",
+      "model": "Pixel 10 Pro Fold",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/google-pixel-10-pro-fold-1280.webp",
+      "asset600": "/images/concepts/google-pixel-10-pro-fold-600.webp",
+      "productImageBasename": "google-pixel-10-pro-fold"
+    },
+    {
+      "slug": "google-pixel-10a",
+      "brand": "Google",
+      "model": "Pixel 10a",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/google-pixel-10a-1280.webp",
+      "asset600": "/images/concepts/google-pixel-10a-600.webp",
+      "productImageBasename": "google-pixel-10a"
+    },
+    {
+      "slug": "google-pixel-11",
+      "brand": "Google",
+      "model": "Pixel 11",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/google-pixel-11-1280.webp",
+      "asset600": "/images/concepts/google-pixel-11-600.webp",
+      "productImageBasename": "google-pixel-11"
+    },
+    {
+      "slug": "google-pixel-11-pro",
+      "brand": "Google",
+      "model": "Pixel 11 Pro",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/google-pixel-11-pro-1280.webp",
+      "asset600": "/images/concepts/google-pixel-11-pro-600.webp",
+      "productImageBasename": "google-pixel-11-pro"
+    },
+    {
+      "slug": "google-pixel-11-pro-xl",
+      "brand": "Google",
+      "model": "Pixel 11 Pro XL",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/google-pixel-11-pro-xl-1280.webp",
+      "asset600": "/images/concepts/google-pixel-11-pro-xl-600.webp",
+      "productImageBasename": "google-pixel-11-pro-xl"
+    },
+    {
+      "slug": "google-pixel-11-pro-fold",
+      "brand": "Google",
+      "model": "Pixel 11 Pro Fold",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/google-pixel-11-pro-fold-1280.webp",
+      "asset600": "/images/concepts/google-pixel-11-pro-fold-600.webp",
+      "productImageBasename": "google-pixel-11-pro-fold"
+    },
+    {
+      "slug": "samsung-galaxy-s26-ultra",
+      "brand": "Samsung",
+      "model": "Galaxy S26 Ultra",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/samsung-galaxy-s26-ultra-1280.webp",
+      "asset600": "/images/concepts/samsung-galaxy-s26-ultra-600.webp",
+      "productImageBasename": "samsung-galaxy-s26-ultra"
+    },
+    {
+      "slug": "samsung-galaxy-s26-plus",
+      "brand": "Samsung",
+      "model": "Galaxy S26 Plus",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/samsung-galaxy-s26-plus-1280.webp",
+      "asset600": "/images/concepts/samsung-galaxy-s26-plus-600.webp",
+      "productImageBasename": "samsung-galaxy-s26-plus"
+    },
+    {
+      "slug": "samsung-galaxy-s26",
+      "brand": "Samsung",
+      "model": "Galaxy S26",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/samsung-galaxy-s26-1280.webp",
+      "asset600": "/images/concepts/samsung-galaxy-s26-600.webp",
+      "productImageBasename": "samsung-galaxy-s26"
+    },
+    {
+      "slug": "samsung-galaxy-s26-fe",
+      "brand": "Samsung",
+      "model": "Galaxy S26 FE",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/samsung-galaxy-s26-fe-1280.webp",
+      "asset600": "/images/concepts/samsung-galaxy-s26-fe-600.webp",
+      "productImageBasename": "samsung-galaxy-s26-fe"
+    },
+    {
+      "slug": "samsung-galaxy-a57-5g",
+      "brand": "Samsung",
+      "model": "Galaxy A57 5G",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/samsung-galaxy-a57-5g-1280.webp",
+      "asset600": "/images/concepts/samsung-galaxy-a57-5g-600.webp",
+      "productImageBasename": "samsung-galaxy-a57-5g"
+    },
+    {
+      "slug": "samsung-galaxy-a37-5g",
+      "brand": "Samsung",
+      "model": "Galaxy A37 5G",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/samsung-galaxy-a37-5g-1280.webp",
+      "asset600": "/images/concepts/samsung-galaxy-a37-5g-600.webp",
+      "productImageBasename": "samsung-galaxy-a37-5g"
+    },
+    {
+      "slug": "samsung-galaxy-a27-5g",
+      "brand": "Samsung",
+      "model": "Galaxy A27 5G",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/samsung-galaxy-a27-5g-1280.webp",
+      "asset600": "/images/concepts/samsung-galaxy-a27-5g-600.webp",
+      "productImageBasename": "samsung-galaxy-a27-5g"
+    },
+    {
+      "slug": "samsung-galaxy-a17-5g",
+      "brand": "Samsung",
+      "model": "Galaxy A17 5G",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/samsung-galaxy-a17-5g-1280.webp",
+      "asset600": "/images/concepts/samsung-galaxy-a17-5g-600.webp",
+      "productImageBasename": "samsung-galaxy-a17-5g"
+    },
+    {
+      "slug": "samsung-galaxy-a17-4g",
+      "brand": "Samsung",
+      "model": "Galaxy A17 4G",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/samsung-galaxy-a17-4g-1280.webp",
+      "asset600": "/images/concepts/samsung-galaxy-a17-4g-600.webp",
+      "productImageBasename": "samsung-galaxy-a17-4g"
+    },
+    {
+      "slug": "samsung-galaxy-a07",
+      "brand": "Samsung",
+      "model": "Galaxy A07",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/samsung-galaxy-a07-1280.webp",
+      "asset600": "/images/concepts/samsung-galaxy-a07-600.webp",
+      "productImageBasename": "samsung-galaxy-a07"
+    },
+    {
+      "slug": "samsung-galaxy-a56-5g",
+      "brand": "Samsung",
+      "model": "Galaxy A56 5G",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/samsung-galaxy-a56-5g-1280.webp",
+      "asset600": "/images/concepts/samsung-galaxy-a56-5g-600.webp",
+      "productImageBasename": "samsung-galaxy-a56-5g"
+    },
+    {
+      "slug": "samsung-galaxy-a36-5g",
+      "brand": "Samsung",
+      "model": "Galaxy A36 5G",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/samsung-galaxy-a36-5g-1280.webp",
+      "asset600": "/images/concepts/samsung-galaxy-a36-5g-600.webp",
+      "productImageBasename": "samsung-galaxy-a36-5g"
+    },
+    {
+      "slug": "samsung-galaxy-s25-fe",
+      "brand": "Samsung",
+      "model": "Galaxy S25 FE",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/samsung-galaxy-s25-fe-1280.webp",
+      "asset600": "/images/concepts/samsung-galaxy-s25-fe-600.webp",
+      "productImageBasename": "samsung-galaxy-s25-fe"
+    },
+    {
+      "slug": "samsung-galaxy-s25-ultra",
+      "brand": "Samsung",
+      "model": "Galaxy S25 Ultra",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/samsung-galaxy-s25-ultra-1280.webp",
+      "asset600": "/images/concepts/samsung-galaxy-s25-ultra-600.webp",
+      "productImageBasename": "samsung-galaxy-s25-ultra"
+    },
+    {
+      "slug": "samsung-galaxy-z-fold8-ultra",
+      "brand": "Samsung",
+      "model": "Galaxy Z Fold8 Ultra",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/samsung-galaxy-z-fold8-ultra-1280.webp",
+      "asset600": "/images/concepts/samsung-galaxy-z-fold8-ultra-600.webp",
+      "productImageBasename": "samsung-galaxy-z-fold8-ultra"
+    },
+    {
+      "slug": "samsung-galaxy-z-fold8",
+      "brand": "Samsung",
+      "model": "Galaxy Z Fold8",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/samsung-galaxy-z-fold8-1280.webp",
+      "asset600": "/images/concepts/samsung-galaxy-z-fold8-600.webp",
+      "productImageBasename": "samsung-galaxy-z-fold8"
+    },
+    {
+      "slug": "samsung-galaxy-z-fold7",
+      "brand": "Samsung",
+      "model": "Galaxy Z Fold7",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/samsung-galaxy-z-fold7-1280.webp",
+      "asset600": "/images/concepts/samsung-galaxy-z-fold7-600.webp",
+      "productImageBasename": "samsung-galaxy-z-fold7"
+    },
+    {
+      "slug": "samsung-galaxy-z-fold6",
+      "brand": "Samsung",
+      "model": "Galaxy Z Fold6",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/samsung-galaxy-z-fold6-1280.webp",
+      "asset600": "/images/concepts/samsung-galaxy-z-fold6-600.webp",
+      "productImageBasename": "samsung-galaxy-z-fold6"
+    },
+    {
+      "slug": "samsung-galaxy-z-fold5",
+      "brand": "Samsung",
+      "model": "Galaxy Z Fold5",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/samsung-galaxy-z-fold5-1280.webp",
+      "asset600": "/images/concepts/samsung-galaxy-z-fold5-600.webp",
+      "productImageBasename": "samsung-galaxy-z-fold5"
+    },
+    {
+      "slug": "samsung-galaxy-z-fold4",
+      "brand": "Samsung",
+      "model": "Galaxy Z Fold4",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/samsung-galaxy-z-fold4-1280.webp",
+      "asset600": "/images/concepts/samsung-galaxy-z-fold4-600.webp",
+      "productImageBasename": "samsung-galaxy-z-fold4"
+    },
+    {
+      "slug": "oppo-a6",
+      "brand": "OPPO",
+      "model": "A6",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/oppo-a6-1280.webp",
+      "asset600": "/images/concepts/oppo-a6-600.webp",
+      "productImageBasename": "oppo-a6"
+    },
+    {
+      "slug": "oppo-reno-16f-5g",
+      "brand": "OPPO",
+      "model": "Reno 16F 5G",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/oppo-reno-16f-5g-1280.webp",
+      "asset600": "/images/concepts/oppo-reno-16f-5g-600.webp",
+      "productImageBasename": "oppo-reno-16f-5g"
+    },
+    {
+      "slug": "oppo-reno-16-5g",
+      "brand": "OPPO",
+      "model": "Reno 16 5G",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/oppo-reno-16-5g-1280.webp",
+      "asset600": "/images/concepts/oppo-reno-16-5g-600.webp",
+      "productImageBasename": "oppo-reno-16-5g"
+    },
+    {
+      "slug": "oppo-a6c",
+      "brand": "OPPO",
+      "model": "A6C",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/oppo-a6c-1280.webp",
+      "asset600": "/images/concepts/oppo-a6c-600.webp",
+      "productImageBasename": "oppo-a6c"
+    },
+    {
+      "slug": "oppo-a6s-pro",
+      "brand": "OPPO",
+      "model": "A6s Pro",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/oppo-a6s-pro-1280.webp",
+      "asset600": "/images/concepts/oppo-a6s-pro-600.webp",
+      "productImageBasename": "oppo-a6s-pro"
+    },
+    {
+      "slug": "oppo-a6k",
+      "brand": "OPPO",
+      "model": "A6K",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/oppo-a6k-1280.webp",
+      "asset600": "/images/concepts/oppo-a6k-600.webp",
+      "productImageBasename": "oppo-a6k"
+    },
+    {
+      "slug": "oppo-a6s",
+      "brand": "OPPO",
+      "model": "A6s",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/oppo-a6s-1280.webp",
+      "asset600": "/images/concepts/oppo-a6s-600.webp",
+      "productImageBasename": "oppo-a6s"
+    },
+    {
+      "slug": "oppo-reno-15-pro",
+      "brand": "OPPO",
+      "model": "Reno 15 Pro",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/oppo-reno-15-pro-1280.webp",
+      "asset600": "/images/concepts/oppo-reno-15-pro-600.webp",
+      "productImageBasename": "oppo-reno-15-pro"
+    },
+    {
+      "slug": "oppo-reno-15",
+      "brand": "OPPO",
+      "model": "Reno 15",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/oppo-reno-15-1280.webp",
+      "asset600": "/images/concepts/oppo-reno-15-600.webp",
+      "productImageBasename": "oppo-reno-15"
+    },
+    {
+      "slug": "oppo-reno-15f",
+      "brand": "OPPO",
+      "model": "Reno 15F",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/oppo-reno-15f-1280.webp",
+      "asset600": "/images/concepts/oppo-reno-15f-600.webp",
+      "productImageBasename": "oppo-reno-15f"
+    },
+    {
+      "slug": "realme-c100i",
+      "brand": "realme",
+      "model": "C100i",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/realme-c100i-1280.webp",
+      "asset600": "/images/concepts/realme-c100i-600.webp",
+      "productImageBasename": "realme-c100i"
+    },
+    {
+      "slug": "realme-16-5g",
+      "brand": "realme",
+      "model": "16 5G",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/realme-16-5g-1280.webp",
+      "asset600": "/images/concepts/realme-16-5g-600.webp",
+      "productImageBasename": "realme-16-5g"
+    },
+    {
+      "slug": "realme-15-pro",
+      "brand": "realme",
+      "model": "15 Pro",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/realme-15-pro-1280.webp",
+      "asset600": "/images/concepts/realme-15-pro-600.webp",
+      "productImageBasename": "realme-15-pro"
+    },
+    {
+      "slug": "realme-note-70",
+      "brand": "realme",
+      "model": "Note 70",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/realme-note-70-1280.webp",
+      "asset600": "/images/concepts/realme-note-70-600.webp",
+      "productImageBasename": "realme-note-70"
+    },
+    {
+      "slug": "realme-c75x",
+      "brand": "realme",
+      "model": "C75x",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/realme-c75x-1280.webp",
+      "asset600": "/images/concepts/realme-c75x-600.webp",
+      "productImageBasename": "realme-c75x"
+    },
+    {
+      "slug": "realme-note-60x",
+      "brand": "realme",
+      "model": "Note 60x",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/realme-note-60x-1280.webp",
+      "asset600": "/images/concepts/realme-note-60x-600.webp",
+      "productImageBasename": "realme-note-60x"
+    },
+    {
+      "slug": "realme-c100",
+      "brand": "realme",
+      "model": "C100",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/realme-c100-1280.webp",
+      "asset600": "/images/concepts/realme-c100-600.webp",
+      "productImageBasename": "realme-c100"
+    },
+    {
+      "slug": "realme-c100x",
+      "brand": "realme",
+      "model": "C100X",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/realme-c100x-1280.webp",
+      "asset600": "/images/concepts/realme-c100x-600.webp",
+      "productImageBasename": "realme-c100x"
+    },
+    {
+      "slug": "vivo-y05",
+      "brand": "vivo",
+      "model": "Y05",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/vivo-y05-1280.webp",
+      "asset600": "/images/concepts/vivo-y05-600.webp",
+      "productImageBasename": "vivo-y05"
+    },
+    {
+      "slug": "vivo-y05e",
+      "brand": "vivo",
+      "model": "Y05e",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/vivo-y05e-1280.webp",
+      "asset600": "/images/concepts/vivo-y05e-600.webp",
+      "productImageBasename": "vivo-y05e"
+    },
+    {
+      "slug": "vivo-x300-fe",
+      "brand": "vivo",
+      "model": "X300 FE",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/vivo-x300-fe-1280.webp",
+      "asset600": "/images/concepts/vivo-x300-fe-600.webp",
+      "productImageBasename": "vivo-x300-fe"
+    },
+    {
+      "slug": "vivo-y500",
+      "brand": "vivo",
+      "model": "Y500",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/vivo-y500-1280.webp",
+      "asset600": "/images/concepts/vivo-y500-600.webp",
+      "productImageBasename": "vivo-y500"
+    },
+    {
+      "slug": "vivo-v70-fe",
+      "brand": "vivo",
+      "model": "V70 FE",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/vivo-v70-fe-1280.webp",
+      "asset600": "/images/concepts/vivo-v70-fe-600.webp",
+      "productImageBasename": "vivo-v70-fe"
+    },
+    {
+      "slug": "vivo-y31d",
+      "brand": "vivo",
+      "model": "Y31d",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/vivo-y31d-1280.webp",
+      "asset600": "/images/concepts/vivo-y31d-600.webp",
+      "productImageBasename": "vivo-y31d"
+    },
+    {
+      "slug": "vivo-y11d",
+      "brand": "vivo",
+      "model": "Y11d",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/vivo-y11d-1280.webp",
+      "asset600": "/images/concepts/vivo-y11d-600.webp",
+      "productImageBasename": "vivo-y11d"
+    },
+    {
+      "slug": "vivo-x300-pro",
+      "brand": "vivo",
+      "model": "X300 Pro",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/vivo-x300-pro-1280.webp",
+      "asset600": "/images/concepts/vivo-x300-pro-600.webp",
+      "productImageBasename": "vivo-x300-pro"
+    },
+    {
+      "slug": "vivo-x200-fe",
+      "brand": "vivo",
+      "model": "X200 FE",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/vivo-x200-fe-1280.webp",
+      "asset600": "/images/concepts/vivo-x200-fe-600.webp",
+      "productImageBasename": "vivo-x200-fe"
+    },
+    {
+      "slug": "infinix-smart-20",
+      "brand": "Infinix",
+      "model": "Smart 20",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/infinix-smart-20-1280.webp",
+      "asset600": "/images/concepts/infinix-smart-20-600.webp",
+      "productImageBasename": "infinix-smart-20"
+    },
+    {
+      "slug": "infinix-note-60-edge-5g",
+      "brand": "Infinix",
+      "model": "Note 60 Edge 5G",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/infinix-note-60-edge-5g-1280.webp",
+      "asset600": "/images/concepts/infinix-note-60-edge-5g-600.webp",
+      "productImageBasename": "infinix-note-60-edge-5g"
+    },
+    {
+      "slug": "infinix-hot-70-pro-5g",
+      "brand": "Infinix",
+      "model": "Hot 70 Pro 5G",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/infinix-hot-70-pro-5g-1280.webp",
+      "asset600": "/images/concepts/infinix-hot-70-pro-5g-600.webp",
+      "productImageBasename": "infinix-hot-70-pro-5g"
+    },
+    {
+      "slug": "infinix-hot-70",
+      "brand": "Infinix",
+      "model": "Hot 70",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/infinix-hot-70-1280.webp",
+      "asset600": "/images/concepts/infinix-hot-70-600.webp",
+      "productImageBasename": "infinix-hot-70"
+    },
+    {
+      "slug": "infinix-gt-50-pro",
+      "brand": "Infinix",
+      "model": "GT 50 Pro",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/infinix-gt-50-pro-1280.webp",
+      "asset600": "/images/concepts/infinix-gt-50-pro-600.webp",
+      "productImageBasename": "infinix-gt-50-pro"
+    },
+    {
+      "slug": "infinix-note-60",
+      "brand": "Infinix",
+      "model": "Note 60",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/infinix-note-60-1280.webp",
+      "asset600": "/images/concepts/infinix-note-60-600.webp",
+      "productImageBasename": "infinix-note-60"
+    },
+    {
+      "slug": "infinix-hot-60-pro",
+      "brand": "Infinix",
+      "model": "Hot 60 Pro",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/infinix-hot-60-pro-1280.webp",
+      "asset600": "/images/concepts/infinix-hot-60-pro-600.webp",
+      "productImageBasename": "infinix-hot-60-pro"
+    },
+    {
+      "slug": "infinix-hot-60i",
+      "brand": "Infinix",
+      "model": "Hot 60i",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/infinix-hot-60i-1280.webp",
+      "asset600": "/images/concepts/infinix-hot-60i-600.webp",
+      "productImageBasename": "infinix-hot-60i"
+    },
+    {
+      "slug": "infinix-note-60-pro",
+      "brand": "Infinix",
+      "model": "Note 60 Pro",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/infinix-note-60-pro-1280.webp",
+      "asset600": "/images/concepts/infinix-note-60-pro-600.webp",
+      "productImageBasename": "infinix-note-60-pro"
+    },
+    {
+      "slug": "tecno-spark-50",
+      "brand": "Tecno",
+      "model": "Spark 50",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/tecno-spark-50-1280.webp",
+      "asset600": "/images/concepts/tecno-spark-50-600.webp",
+      "productImageBasename": "tecno-spark-50"
+    },
+    {
+      "slug": "tecno-pova-curve-2-5g",
+      "brand": "Tecno",
+      "model": "Pova Curve 2 5G",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/tecno-pova-curve-2-5g-1280.webp",
+      "asset600": "/images/concepts/tecno-pova-curve-2-5g-600.webp",
+      "productImageBasename": "tecno-pova-curve-2-5g"
+    },
+    {
+      "slug": "tecno-spark-50-pro",
+      "brand": "Tecno",
+      "model": "Spark 50 Pro",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/tecno-spark-50-pro-1280.webp",
+      "asset600": "/images/concepts/tecno-spark-50-pro-600.webp",
+      "productImageBasename": "tecno-spark-50-pro"
+    },
+    {
+      "slug": "tecno-camon-50",
+      "brand": "Tecno",
+      "model": "Camon 50",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/tecno-camon-50-1280.webp",
+      "asset600": "/images/concepts/tecno-camon-50-600.webp",
+      "productImageBasename": "tecno-camon-50"
+    },
+    {
+      "slug": "tecno-camon-50-pro",
+      "brand": "Tecno",
+      "model": "Camon 50 Pro",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/tecno-camon-50-pro-1280.webp",
+      "asset600": "/images/concepts/tecno-camon-50-pro-600.webp",
+      "productImageBasename": "tecno-camon-50-pro"
+    },
+    {
+      "slug": "tecno-spark-go-3",
+      "brand": "Tecno",
+      "model": "Spark Go 3",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/tecno-spark-go-3-1280.webp",
+      "asset600": "/images/concepts/tecno-spark-go-3-600.webp",
+      "productImageBasename": "tecno-spark-go-3"
+    },
+    {
+      "slug": "tecno-spark-40-pro-plus",
+      "brand": "Tecno",
+      "model": "Spark 40 Pro Plus",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/tecno-spark-40-pro-plus-1280.webp",
+      "asset600": "/images/concepts/tecno-spark-40-pro-plus-600.webp",
+      "productImageBasename": "tecno-spark-40-pro-plus"
+    },
+    {
+      "slug": "tecno-camon-50-ultra-5g",
+      "brand": "Tecno",
+      "model": "Camon 50 Ultra 5G",
+      "qaStatus": "hold",
+      "asset1280": "/images/concepts/tecno-camon-50-ultra-5g-1280.webp",
+      "asset600": "/images/concepts/tecno-camon-50-ultra-5g-600.webp",
+      "productImageBasename": "tecno-camon-50-ultra-5g"
+    },
+    {
+      "slug": "xiaomi-17-ultra",
+      "brand": "Xiaomi",
+      "model": "17 Ultra",
+      "qaStatus": "hold",
+      "asset1280": "/images/concepts/xiaomi-17-ultra-1280.webp",
+      "asset600": "/images/concepts/xiaomi-17-ultra-600.webp",
+      "productImageBasename": "xiaomi-17-ultra"
+    },
+    {
+      "slug": "xiaomi-redmi-15c",
+      "brand": "Xiaomi",
+      "model": "Redmi 15C",
+      "qaStatus": "hold",
+      "asset1280": "/images/concepts/xiaomi-redmi-15c-1280.webp",
+      "asset600": "/images/concepts/xiaomi-redmi-15c-600.webp",
+      "productImageBasename": "xiaomi-redmi-15c"
+    },
+    {
+      "slug": "honor-x8d",
+      "brand": "Honor",
+      "model": "X8d",
+      "qaStatus": "hold",
+      "asset1280": "/images/concepts/honor-x8d-1280.webp",
+      "asset600": "/images/concepts/honor-x8d-600.webp",
+      "productImageBasename": "honor-x8d"
+    },
+    {
+      "slug": "honor-x9d",
+      "brand": "Honor",
+      "model": "X9d",
+      "qaStatus": "hold",
+      "asset1280": "/images/concepts/honor-x9d-1280.webp",
+      "asset600": "/images/concepts/honor-x9d-600.webp",
+      "productImageBasename": "honor-x9d"
+    },
+    {
+      "slug": "honor-x6c",
+      "brand": "Honor",
+      "model": "X6c",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/honor-x6c-1280.webp",
+      "asset600": "/images/concepts/honor-x6c-600.webp",
+      "productImageBasename": "honor-x6c"
+    },
+    {
+      "slug": "itel-a200",
+      "brand": "itel",
+      "model": "A200",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/itel-a200-1280.webp",
+      "asset600": "/images/concepts/itel-a200-600.webp",
+      "productImageBasename": "itel-a200"
+    },
+    {
+      "slug": "itel-power-80",
+      "brand": "itel",
+      "model": "Power 80",
+      "qaStatus": "hold",
+      "asset1280": "/images/concepts/itel-power-80-1280.webp",
+      "asset600": "/images/concepts/itel-power-80-600.webp",
+      "productImageBasename": "itel-power-80"
+    },
+    {
+      "slug": "itel-a100c",
+      "brand": "itel",
+      "model": "A100C",
+      "qaStatus": "hold",
+      "asset1280": "/images/concepts/itel-a100c-1280.webp",
+      "asset600": "/images/concepts/itel-a100c-600.webp",
+      "productImageBasename": "itel-a100c"
+    },
+    {
+      "slug": "nothing-cmf-phone-1-5g",
+      "brand": "Nothing",
+      "model": "CMF Phone 1 5G",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/nothing-cmf-phone-1-5g-1280.webp",
+      "asset600": "/images/concepts/nothing-cmf-phone-1-5g-600.webp",
+      "productImageBasename": "nothing-cmf-phone-1-5g"
+    },
+    {
+      "slug": "motorola-edge-70-fusion",
+      "brand": "Motorola",
+      "model": "Edge 70 Fusion",
+      "qaStatus": "review",
+      "asset1280": "/images/concepts/motorola-edge-70-fusion-1280.webp",
+      "asset600": "/images/concepts/motorola-edge-70-fusion-600.webp",
+      "productImageBasename": "motorola-edge-70-fusion"
+    }
+  ]
+}

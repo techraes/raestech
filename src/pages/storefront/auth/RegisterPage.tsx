@@ -72,7 +72,7 @@ function passwordStrength(pw: string): { label: string; ok: boolean } {
 }
 
 export function RegisterPage() {
-  const { signUp, requestOtp, confirmOtp, user, loading: authLoading } = useAuth();
+  const { signUp, requestOtp, confirmOtp, googleSignIn, user, loading: authLoading } = useAuth();
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -88,6 +88,31 @@ export function RegisterPage() {
   const [cooldown, setCooldown] = useState(0);
   const [otpBusy, setOtpBusy] = useState(false);
   const [verified, setVerified] = useState(false);
+
+  const [pendingGoogle, setPendingGoogle] = useState(false);
+  const mountedRef = useRef(true);
+  const googleTimeoutRef = useRef<number | undefined>(undefined);
+
+  // Component-lifetime guard so async handlers never touch state after unmount.
+  useEffect(() => {
+    mountedRef.current = true;
+    return () => {
+      mountedRef.current = false;
+      if (googleTimeoutRef.current) window.clearTimeout(googleTimeoutRef.current);
+    };
+  }, []);
+
+  // If an OAuth redirect returns while we're still mounted and a Google attempt
+  // is in flight, populate the form from the now-authenticated user and go to
+  // the account page instead of leaving an empty email/name form behind.
+  useEffect(() => {
+    if (!pendingGoogle || !user) return;
+    if (user.fullName) setName(user.fullName);
+    if (user.email) setEmail(user.email);
+    setPendingGoogle(false);
+    setBusy(false);
+    navigate("/account");
+  }, [pendingGoogle, user, navigate]);
 
   const userRef = useRef(user);
   userRef.current = user;
@@ -168,6 +193,39 @@ export function RegisterPage() {
     setOtp("");
   }
 
+  async function handleGoogle() {
+    setError("");
+    setInfo("");
+    setBusy(true);
+    setPendingGoogle(true);
+    const result = await googleSignIn();
+    if (!mountedRef.current) return;
+    if (result.error) {
+      setPendingGoogle(false);
+      setBusy(false);
+      setError(result.error);
+      return;
+    }
+    if (result.user) {
+      // Session already established without a redirect: populate the form and
+      // continue to the account area.
+      if (result.user.fullName) setName(result.user.fullName);
+      if (result.user.email) setEmail(result.user.email);
+      setPendingGoogle(false);
+      setBusy(false);
+      navigate("/account");
+      return;
+    }
+    // Redirect to Google is underway. Keep the button busy; reset after a grace
+    // period in case the redirect is aborted and we remain mounted.
+    googleTimeoutRef.current = window.setTimeout(() => {
+      if (mountedRef.current) {
+        setPendingGoogle(false);
+        setBusy(false);
+      }
+    }, 20000);
+  }
+
   return (
     <div className="mx-auto max-w-md">
       <Card>
@@ -194,6 +252,22 @@ export function RegisterPage() {
                 {error && <p className="text-sm text-red-600 dark:text-red-400">{error}</p>}
                 <Button type="submit" className="w-full" disabled={busy}>{busy ? "Sending code…" : "Continue"}</Button>
               </form>
+
+              <div className="my-6 flex items-center gap-3 text-xs text-muted-foreground">
+                <div className="h-px flex-1 bg-border" />
+                <span>or</span>
+                <div className="h-px flex-1 bg-border" />
+              </div>
+
+              <Button
+                type="button"
+                variant="outline"
+                className="w-full"
+                disabled={busy || otpBusy}
+                onClick={handleGoogle}
+              >
+                {busy ? "Redirecting to Google…" : "Continue with Google"}
+              </Button>
             </>
           ) : verified ? (
             <div className="mt-6 text-center">

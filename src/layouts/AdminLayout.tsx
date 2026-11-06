@@ -79,18 +79,18 @@ export function AdminLayout() {
   return (
     <div className="flex min-h-screen bg-muted/30">
       {/* Sidebar */}
-      <aside className="hidden w-64 shrink-0 flex-col border-r bg-white lg:flex">
+      <aside className="hidden w-64 shrink-0 flex-col border-r border-sidebar-border bg-sidebar text-sidebar-foreground lg:flex">
         <div className="flex items-center gap-2 border-b px-5 py-4">
           <Store className="h-5 w-5" />
           <div>
             <p className="text-sm font-bold leading-tight">{settings.storeName}</p>
-            <p className="text-[11px] text-muted-foreground">Admin Control Centre</p>
+            <p className="text-[11px] text-sidebar-foreground/70">Admin Control Centre</p>
           </div>
         </div>
 
         <div className="border-b p-3">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-sidebar-foreground/50" />
             <input
               value={q}
               onChange={(e) => setQ(e.target.value)}
@@ -104,7 +104,7 @@ export function AdminLayout() {
         <nav className="flex-1 overflow-y-auto p-3">
           {filteredGroups.map((group) => (
             <div key={group.title} className="mb-4">
-              <p className="px-3 pb-1.5 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
+              <p className="px-3 pb-1.5 text-[11px] font-semibold uppercase tracking-wide text-sidebar-foreground/70">
                 {group.title}
               </p>
               <div className="space-y-0.5">
@@ -116,7 +116,7 @@ export function AdminLayout() {
                     className={({ isActive }) =>
                       cn(
                         "flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors",
-                        isActive ? "bg-neutral-900 text-white" : "text-foreground hover:bg-accent"
+                        isActive ? "bg-primary/20 text-primary-foreground" : "text-sidebar-foreground hover:bg-sidebar-foreground/10 hover:text-sidebar-foreground"
                       )
                     }
                   >
@@ -136,10 +136,10 @@ export function AdminLayout() {
             </div>
             <div className="min-w-0">
               <p className="truncate text-sm font-medium">{user?.fullName || "Admin"}</p>
-              <p className="truncate text-[11px] text-muted-foreground">{user?.role}</p>
+              <p className="truncate text-[11px] text-sidebar-foreground/60">{user?.role}</p>
             </div>
           </div>
-          <Link to="/" className="flex items-center gap-2 rounded-md px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground">
+          <Link to="/" className="flex items-center gap-2 rounded-md px-2 py-1.5 text-sm text-sidebar-foreground/70 hover:text-sidebar-foreground">
             <ArrowLeft className="h-4 w-4" /> Back to store
           </Link>
           <button
@@ -153,7 +153,7 @@ export function AdminLayout() {
 
       {/* Mobile top bar + content */}
       <div className="flex flex-1 flex-col">
-        <header className="flex items-center justify-between border-b bg-white px-4 py-3 lg:hidden">
+        <header className="flex items-center justify-between border-b border-border bg-sidebar px-4 py-3 text-sidebar-foreground lg:hidden">
           <Link to="/admin" className="flex items-center gap-2">
             <ShieldCheck className="h-5 w-5" />
             <span className="text-sm font-bold">Admin</span>

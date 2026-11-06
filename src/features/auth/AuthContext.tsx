@@ -34,7 +34,7 @@ interface AuthContextValue {
   /** Verify an email OTP to complete auto-registration / sign-in. */
   confirmOtp: (email: string, token: string) => Promise<{ error?: string }>;
   /** Google OAuth sign-in (requires the Google provider enabled in Supabase). */
-  googleSignIn: () => Promise<{ error?: string }>;
+  googleSignIn: () => Promise<{ error?: string; user?: AuthUser }>;
   /** Development-only: sign in to the local sample account. */
   devSignIn: () => Promise<{ error?: string }>;
 }
@@ -156,7 +156,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   async function signUp(email: string, password: string, fullName: string) {
     if (isSupabaseConfigured) {
       const { error } = await supabase!.auth.signUp({ email, password, options: { data: { full_name: fullName } } });
-      return { error: error?.message };
+      return { error: error ? friendlySendError(error.message) : undefined };
     }
     if (isDevMode()) {
       const dev: AuthUser = { id: "dev-user", email, fullName, role: "customer" };
@@ -172,16 +172,61 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   function friendlySendError(raw: string): string {
     const t = (raw || "").toLowerCase();
+    // Rate-limit / abuse signals (Supabase auth error codes and human wording).
+    if (
+      t.includes("over_email_send_rate_limit") ||
+      t.includes("rate") ||
+      t.includes("too many") ||
+      t.includes("exceed")
+    ) {
+      return "You've requested too many codes. Please wait a few minutes and try again.";
+    }
+    // Configuration / provider failures: map specific known Supabase error tokens
+    // so we never swallow unrelated errors (timeouts, invalid email, duplicates).
+    if (
+      t.includes("smtp") ||
+      t.includes("not allowed") ||
+      t.includes("disabled") ||
+      t.includes("error sending confirmation email") ||
+      t.includes("validation_failed") ||
+      t.includes("email_provider_not_configured") ||
+      t.includes("mailer") ||
+      t.includes("provider error")
+    ) {
+      return "We couldn't send the verification email. Email sending may not be configured for this site yet; please contact support or try again shortly.";
+    }
+    // Default: surface the original error so a distinct failure is never hidden.
+    return raw || "We couldn't send your verification code. Please try again.";
+  }
+
+  /** Map a Supabase Google OAuth error to safe, user-facing copy. Never leak
+   *  raw provider/upstream messages (e.g. a misconfigured client_id) to end
+   *  users — they may contain internal/verbose detail. */
+  function googleOAuthError(raw: string): string {
+    const t = (raw || "").toLowerCase();
+    // Provider misconfiguration / not-enabled signals from Supabase/Gotrue.
+    if (
+      t.includes("provider is not enabled") ||
+      t.includes("provider not enabled") ||
+      t.includes("not allowed") ||
+      t.includes("disabled") ||
+      t.includes("email_provider_not_configured") ||
+      t.includes("client_id") ||
+      t.includes("invalid_client") ||
+      t.includes("redirect_uri") ||
+      t.includes("configuration") ||
+      t.includes("oauth")
+    ) {
+      return "Google sign-in isn't fully configured on this site yet. Please contact support or try again shortly.";
+    }
     if (t.includes("rate") || t.includes("too many") || t.includes("exceed")) {
-      return "You've requested too many codes. Please wait a few minutes and try again.";
+      return "You've tried Google sign-in too many times. Please wait a few minutes and try again.";
     }
-    if (t.includes("over_email_send_rate_limit")) {
-      return "You've requested too many codes. Please wait a few minutes and try again.";
+    if (t.includes("cancel") || t.includes("dismissed") || t.includes("closed")) {
+      return "Google sign-in was cancelled. You can try again when you're ready.";
     }
-    if (t.includes("not allowed") || t.includes("disabled") || t.includes("smtp")) {
-      return "Email sending is not configured yet. Please contact support or try again later.";
-    }
-    return "We couldn't send your verification code. Please try again.";
+    // Default: keep it generic; do not surface the raw upstream message.
+    return "We couldn't complete Google sign-in. Please try again.";
   }
 
   async function requestOtp(email: string, fullName?: string) {
@@ -251,18 +296,24 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return { error: "Demo login is only available in development." };
   }
 
-  async function googleSignIn() {
-    if (isSupabaseConfigured) {
-      const { error } = await supabase!.auth.signInWithOAuth({
-        provider: "google",
-        options: { redirectTo: window.location.origin },
-      });
-      if (error) return { error: error?.message };
-      // signInWithOAuth redirects away to Google; on return Supabase Auth
-      // creates the session and onAuthStateChange updates `user`.
-      return {};
+  async function googleSignIn(): Promise<{ error?: string; user?: AuthUser }> {
+    if (!isSupabaseConfigured) {
+      return { error: "Google sign-in is not configured on this deployment." };
     }
-    return { error: "Google sign-in is not configured on this deployment." };
+    const { error } = await supabase!.auth.signInWithOAuth({
+      provider: "google",
+      options: { redirectTo: window.location.origin },
+    });
+    if (error) return { error: googleOAuthError(error.message) };
+    // signInWithOAuth redirects the browser to Google. We deliberately do NOT
+    // probe getUser() here: the OAuth flow completes across a redirect, and a
+    // direct probe right now would read a stale/null session and make the UI
+    // briefly drop back to "Continue with Google". Instead we treat a resolved
+    // non-error as "redirect underway". When Google sends the user back,
+    // onAuthStateChange fires with the new session and updates `user`, which
+    // callers (e.g. RegisterPage's pendingGoogle effect) observe to land on
+    // /account.
+    return {};
   }
 
   const value = useMemo<AuthContextValue>(
