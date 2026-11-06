@@ -41,6 +41,5 @@ data/image-import-live/
 data/image-import-pack/
 data/image-master-extracted/
 data/image-master-pack.zip
-data/reports/imageAssets_store.txt
-data/reports/mapping_report.txt
-data/reports/zip_manifest.txt
+# Generated diagnostic reports (contain image SHA-256 hashes / long strings) — not source.
+data/reports/
