@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
 import { GoogleSignInButton } from "@/components/google-sign-in-button";
 import { Eye, EyeOff, Mail } from "lucide-react";
+import { validatePassword } from "@/lib/password";
 
 const OTP_LENGTH = 6;
 const RESEND_COOLDOWN_SEC = 60;
@@ -63,17 +64,8 @@ function OtpInput({ value, onChange, disabled }: { value: string; onChange: (v: 
   );
 }
 
-function passwordStrength(pw: string): { label: string; ok: boolean } {
-  if (!pw) return { label: "", ok: false };
-  const lenOk = pw.length >= 8;
-  const varietyOk = /[a-z]/.test(pw) && /[A-Z]/.test(pw) && /[0-9]/.test(pw);
-  if (lenOk && varietyOk) return { label: "Strong", ok: true };
-  if (lenOk || varietyOk) return { label: "Medium", ok: false };
-  return { label: "Weak — use 8+ chars with upper, lower & number", ok: false };
-}
-
 export function RegisterPage() {
-  const { setOtpPassword, requestOtp, confirmOtp, googleSignIn, user, loading: authLoading } = useAuth();
+  const { signUp, confirmSignUp, googleSignIn, user, loading: authLoading } = useAuth();
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -132,22 +124,30 @@ export function RegisterPage() {
     setBusy(true);
     setError("");
     setInfo("");
-    const strength = passwordStrength(password);
-    if (!strength.ok && password) {
-      setError(strength.label || "Password is too weak.");
+    const check = validatePassword(password);
+    if (password && !check.ok) {
+      setError(check.label || "Password is too short.");
       setBusy(false);
       return;
     }
-    const { error: err } = await requestOtp(email, name);
+    // Email + password signup. One tap submits signup exactly once — no
+    // passwordless sign-in and no second email request.
+    const { error: err } = await signUp(email, password, name);
     setBusy(false);
     if (err) {
       setError(err);
       return;
     }
-    // Identity created and verification email requested. Move to the OTP screen.
+    // In dev mode signUp signs the user in immediately — no verification step.
+    if (userRef.current) {
+      navigate("/account");
+      return;
+    }
+    // Account created. A 6-digit confirmation code has been emailed; the user
+    // enters it on the verification screen to activate the account.
     setPhase("otp");
     setCooldown(RESEND_COOLDOWN_SEC);
-    setInfo("Verification code requested. Please check your inbox and spam folder.");
+    setInfo("We've emailed you a 6-digit verification code. Enter it below to activate your account.");
   }
 
   async function verify() {
@@ -159,7 +159,7 @@ export function RegisterPage() {
       setOtpBusy(false);
       return;
     }
-    const { error: err, authenticated } = await confirmOtp(email, otp);
+    const { error: err, authenticated } = await confirmSignUp(email, otp);
     setOtpBusy(false);
     if (err) {
       setAttempts((a) => a + 1);
@@ -177,10 +177,6 @@ export function RegisterPage() {
       setOtp("");
       return;
     }
-    const pwdErr = await setOtpPassword(password);
-    if (pwdErr.error) {
-      setInfo("You are signed in. The password could not be set yet - use Forgot password to choose one later.");
-    }
     setVerified(true);
     const deadline = Date.now() + 4000;
     while (Date.now() < deadline && authLoadingRef.current) {
@@ -195,12 +191,14 @@ export function RegisterPage() {
     setError("");
     setInfo("");
     setAttempts(0);
-    const { error: err, info } = await requestOtp(email);
+    // Re-invoking signup for a still-unconfirmed account resends the
+    // confirmation code (same email + password).
+    const { error: err } = await signUp(email, password, name);
     if (err) {
       setError(err);
       return;
     }
-    if (info) setInfo(info);
+    setInfo("We've resent your verification code. Check your inbox and spam folder.");
     setCooldown(RESEND_COOLDOWN_SEC);
     setOtp("");
   }
@@ -258,7 +256,7 @@ export function RegisterPage() {
                       {showPw ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                     </button>
                   </div>
-                  {password && <p className="text-xs text-muted-foreground">{passwordStrength(password).label}</p>}
+                  {password && <p className="text-xs text-muted-foreground">{validatePassword(password).label}</p>}
                 </div>
                 {info && <p className="text-sm text-blue-600 dark:text-blue-400">{info}</p>}
                 {error && <p className="text-sm text-red-600 dark:text-red-400">{error}</p>}

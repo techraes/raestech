@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
 import { CheckCircle2, AlertCircle } from "lucide-react";
+import { MIN_PASSWORD_LENGTH, validatePassword } from "@/lib/password";
 
 export function ResetPasswordPage() {
   const navigate = useNavigate();
@@ -29,8 +30,8 @@ export function ResetPasswordPage() {
   async function submit(e: React.FormEvent) {
     e.preventDefault();
     setError("");
-    if (password.length < 6) {
-      setError("Password must be at least 6 characters.");
+    if (!validatePassword(password).ok) {
+      setError(`Password must be at least ${MIN_PASSWORD_LENGTH} characters.`);
       return;
     }
     if (password !== confirm) {

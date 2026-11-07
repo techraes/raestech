@@ -5,61 +5,12 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { BankTransferDetails } from "@/components/bank-transfer-details";
-import { FileUploadField } from "@/components/file-upload-field";
+import { PaymentProofUpload } from "@/components/payment-proof-upload";
 import { useOrders } from "@/features/orders/store";
-import { submitReceipt } from "@/lib/receipts";
 import { formatPKR } from "@/lib/utils";
-
-function OrderReceiptUpload({ orderId, amount, onDone }: { orderId: string; amount: number; onDone: () => void }) {
-  const [receipt, setReceipt] = useState<File | null>(null);
-  const [submitting, setSubmitting] = useState(false);
-  const [error, setError] = useState("");
-  const [done, setDone] = useState(false);
-
-  async function submit(e: React.FormEvent) {
-    e.preventDefault();
-    setError("");
-    if (!receipt) {
-      setError("Please attach your receipt first.");
-      return;
-    }
-    setSubmitting(true);
-    const result = await submitReceipt(orderId, amount, receipt);
-    setSubmitting(false);
-    if (!result.ok) {
-      setError(result.error);
-      return;
-    }
-    setDone(true);
-    onDone();
-  }
-
-  if (done) {
-    return <p className="text-sm text-emerald-700">✓ Receipt submitted — payment pending verification.</p>;
-  }
-
-  return (
-    <form onSubmit={submit} className="mt-4 space-y-3 rounded-xl border border-dashed p-4">
-      <p className="text-sm font-medium">Upload your bank transfer receipt</p>
-      <FileUploadField
-        id={`receipt-${orderId}`}
-        label="Payment receipt"
-        accept=".jpg,.jpeg,.png,.pdf"
-        required
-        value={receipt}
-        onChange={setReceipt}
-      />
-      {error && <p className="text-sm text-red-600">{error}</p>}
-      <Button type="submit" size="sm" variant="outline" disabled={submitting || !receipt}>
-        {submitting ? "Uploading…" : "Submit receipt"}
-      </Button>
-    </form>
-  );
-}
 
 export function AccountOrders() {
   const orders = useOrders((s) => s.orders);
-  const [refresh, setRefresh] = useState(0);
 
   if (!orders.length) {
     return (
@@ -125,10 +76,11 @@ export function AccountOrders() {
                   <div className="mt-4">
                     <BankTransferDetails orderNumber={`Order: ${o.orderNumber}`} amountText={formatPKR(o.total)} />
                   </div>
-                  <OrderReceiptUpload
+                  <PaymentProofUpload
+                    kind="buy_now"
                     orderId={o.id}
-                    amount={o.total}
-                    onDone={() => setRefresh((r) => r + 1)}
+                    amountDue={o.total}
+                    context={`Order: ${o.orderNumber}`}
                   />
                 </>
               )}

@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import {
   ShoppingCart, Heart, ShieldCheck, Lock, Truck, Check, ChevronRight,
-  Smartphone, Battery, Cpu, Wifi, Camera, Zap,
+  Smartphone, Battery, Cpu, Wifi, Camera, Zap, X,
 } from "lucide-react";
 import { getProductBySlug, relatedProducts } from "@/data/catalog";
 import { useSettings } from "@/features/settings/store";
@@ -20,6 +20,7 @@ import { ProductImage } from "@/components/product-image";
 import { useCart } from "@/store/cart";
 import { ptaInfo } from "@/lib/pta";
 import { NotFoundPage } from "./NotFoundPage";
+import { HeroInstalmentCalculator } from "@/components/hero-instalment-calculator";
 
 /** Map a colour name to a representative swatch background. */
 function swatchColor(c: string): string {
@@ -53,6 +54,8 @@ export function ProductDetailPage() {
     return defaultColor(product.variants[idx]);
   });
   const [colorError, setColorError] = useState<string>("");
+  const [calcOpen, setCalcOpen] = useState(false);
+  const [calcListed, setCalcListed] = useState(0);
 
   function requireColor(): boolean {
     if (variant.colors.length > 0 && !color) {
@@ -292,6 +295,15 @@ export function ProductDetailPage() {
 
           {/* Buy / instalment CTAs */}
           <div className="space-y-3">
+            <Button
+              type="button"
+              variant="outline"
+              size="lg"
+              className="w-full rounded-full"
+              onClick={() => { setCalcListed(variant.listedPrice > 0 ? variant.listedPrice : 0); setCalcOpen(true); }}
+            >
+              Estimate monthly payment
+            </Button>
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               <Button size="lg" className="w-full rounded-full bg-neutral-950 text-white hover:bg-neutral-800" onClick={() => { if (!requireColor()) return; addItem(product, variant, 1, color); navigate("/checkout"); }}>
                 Buy Now
@@ -353,6 +365,37 @@ export function ProductDetailPage() {
         <h2 className="mb-5 text-xl font-bold">Related phones</h2>
         <ProductGrid products={relatedProducts(product)} />
       </section>
+
+      {/* Instalment estimator modal (uses the same pricing engine as the homepage) */}
+      {calcOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Estimate monthly payment"
+        >
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm animate-fade-in" onClick={() => setCalcOpen(false)} />
+          <div className="relative w-full max-w-md animate-pop rounded-3xl border border-white/15 bg-neutral-900 p-5 shadow-2xl">
+            <div className="mb-3 flex items-center justify-between gap-2">
+              <span className="text-sm font-bold text-white">
+                {product ? `${product.model} — instalments` : "Estimate monthly payment"}
+              </span>
+              <button
+                type="button"
+                onClick={() => setCalcOpen(false)}
+                className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-white/70 transition-colors hover:bg-white/10 hover:text-white"
+                aria-label="Close instalment calculator"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+            <p className="mb-4 text-xs text-white/60">
+              Enter the listed price — the {settings.instalmentDiscountPercent}% instalment discount is applied automatically.
+            </p>
+            <HeroInstalmentCalculator key={calcListed} initialPrice={calcListed} />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

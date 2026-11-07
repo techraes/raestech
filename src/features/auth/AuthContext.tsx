@@ -34,6 +34,8 @@ interface AuthContextValue {
   requestOtp: (email: string, fullName?: string) => Promise<{ error?: string; info?: string }>;
   /** Verify an email OTP to complete auto-registration / sign-in. */
   confirmOtp: (email: string, token: string) => Promise<{ error?: string; authenticated?: boolean }>;
+  /** Verify a sign-up confirmation code for an email + password signup. */
+  confirmSignUp: (email: string, token: string) => Promise<{ error?: string; authenticated?: boolean }>;
   /** Google OAuth sign-in (requires the Google provider enabled in Supabase). */
   googleSignIn: () => Promise<{ error?: string; user?: AuthUser }>;
   /** Development-only: sign in to the local sample account. */
@@ -52,6 +54,7 @@ const AuthContext = createContext<AuthContextValue>({
   signOut: async () => {},
   requestOtp: async () => ({}),
   confirmOtp: async () => ({}),
+  confirmSignUp: async () => ({}),
   googleSignIn: async () => ({}),
   devSignIn: async () => ({}),
 });
@@ -179,6 +182,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const dev: AuthUser = { id: "dev-user", email, fullName, role: "customer" };
       localStorage.setItem(DEV_USER_KEY, JSON.stringify(dev));
       setUser(dev);
+      // Record the pending email so the dev OTP verification step can complete.
+      setPendingOtpEmail(email.toLowerCase());
+      setPendingOtpName(fullName);
       return {};
     }
     return {
@@ -308,6 +314,39 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
     return { error: "Email verification is not configured on this deployment." };
   }
+
+  /** Verify a sign-up confirmation code sent after an email + password signup. */
+  async function confirmSignUp(email: string, token: string) {
+    if (isSupabaseConfigured) {
+      const { error } = await supabase!.auth.verifyOtp({ email: email.trim(), token, type: "signup" });
+      if (error) {
+        const t = (error.message || "").toLowerCase();
+        if (/rate|too many|exceed/.test(t)) return { error: "RateLimited" };
+        if (/expired|invalid|token|otp|verification failed/.test(t)) return { error: "InvalidOtp" };
+        return { error: error.message };
+      }
+      // A verified sign-up returns a session for the new account (the password
+      // was already set at sign-up time).
+      const { data: sess } = await supabase!.auth.getSession();
+      if (!sess.session?.user) {
+        return { error: "Your email was verified. Please sign in with your email and password." };
+      }
+      return { authenticated: true };
+    }
+    if (isDevMode()) {
+      if (!pendingOtpEmail || email.toLowerCase() !== pendingOtpEmail) {
+        return { error: "That email has not been sent a code." };
+      }
+      if (token !== DEV_OTP_CODE) {
+        return { error: "Incorrect verification code. Use the demo code shown on screen." };
+      }
+      const dev: AuthUser = { id: "dev-" + email.replace(/[^a-z0-9]/gi, ""), email, fullName: pendingOtpName || "Customer", role: "customer" };
+      localStorage.setItem(DEV_USER_KEY, JSON.stringify(dev));
+      setUser(dev);
+      return { authenticated: true };
+    }
+    return { error: "Email verification is not configured on this deployment." };
+  }
   async function signOut() {
     if (isSupabaseConfigured) {
       await supabase!.auth.signOut();
@@ -359,6 +398,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       signOut,
       requestOtp,
       confirmOtp,
+      confirmSignUp,
       setOtpPassword,
       devSignIn,
       googleSignIn,

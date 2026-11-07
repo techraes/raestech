@@ -43,6 +43,7 @@ const GROUPS: NavGroup[] = [
     items: [
       { to: "/admin/orders", label: "Orders", icon: ShoppingBag, perm: "orders" },
       { to: "/admin/payments", label: "Payments", icon: CreditCard, perm: "payments" },
+      { to: "/admin/payments/review", label: "Payment Review", icon: CreditCard, perm: "payments" },
     ],
   },
   {
@@ -63,6 +64,7 @@ const GROUPS: NavGroup[] = [
   {
     title: "Access & Activity",
     items: [
+      { to: "/admin/users", label: "Users", icon: ShieldCheck, perm: "roles" },
       { to: "/admin/roles", label: "Roles & Permissions", icon: ShieldCheck, perm: "roles" },
       { to: "/admin/audit", label: "Audit Log", icon: History, perm: "audit" },
     ],

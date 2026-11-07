@@ -43,6 +43,8 @@ import { AdminPayments } from "@/pages/admin/AdminPayments";
 import { AdminRoles } from "@/pages/admin/AdminRoles";
 import { AdminSystem } from "@/pages/admin/AdminSystem";
 import { AdminAudit } from "@/pages/admin/AdminAudit";
+import { AdminUsers } from "@/pages/admin/AdminUsers";
+import { AdminPaymentReview } from "@/pages/admin/AdminPaymentReview";
 import { AdminImages } from "@/pages/admin/AdminImages";
 import { AdminDiscounts } from "@/pages/admin/AdminDiscounts";
 import { useSettings } from "@/features/settings/store";
@@ -131,7 +133,9 @@ export default function App() {
         <Route path="appearance" element={<AdminAppearance />} />
         <Route path="homepage" element={<AdminHomepage />} />
         <Route path="payments" element={<AdminPayments />} />
+        <Route path="payments/review" element={<AdminPaymentReview />} />
         <Route path="roles" element={<AdminRoles />} />
+        <Route path="users" element={<AdminUsers />} />
         <Route path="system" element={<AdminSystem />} />
         <Route path="audit" element={<AdminAudit />} />
       </Route>

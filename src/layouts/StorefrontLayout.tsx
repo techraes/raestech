@@ -2,8 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import {
   Search, ShoppingCart, User, Menu, X, MessageCircle, ChevronDown, Heart,
-  Truck, Facebook, Instagram, Youtube, MapPin, Mail, Phone, ArrowRight,
-  LayoutGrid, Check, ShieldCheck,
+  Facebook, Instagram, Youtube, MapPin, Mail, Phone, LayoutGrid, ShieldCheck,
 } from "lucide-react";
 import { useSettings } from "@/features/settings/store";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -20,9 +19,6 @@ import type { Product } from "@/types";
 const NAV = [
   { label: "Home", to: "/" },
   { label: "Shop", to: "/phones" },
-  { label: "iPhone", to: "/brand/apple" },
-  { label: "Samsung", to: "/brand/samsung" },
-  { label: "Android Phones", to: "/phones" },
   { label: "Instalments", to: "/instalments" },
   { label: "About Us", to: "/about" },
   { label: "Contact Us", to: "/contact" },
@@ -43,7 +39,7 @@ export function StorefrontLayout() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState(false);
-  const [catOpen, setCatOpen] = useState(false);
+  const [brandOpen, setBrandOpen] = useState(false);
   const navigate = useNavigate();
   const brands = getBrands();
   const products = useProducts();
@@ -88,59 +84,39 @@ export function StorefrontLayout() {
     navigate(`/product/${p.slug}`);
   }
 
+  const suggestionPanel = suggestions.length > 0 ? (
+    <div className="absolute left-0 right-0 top-full z-50 mt-2 rounded-2xl border bg-white p-2 shadow-xl">
+      {suggestions.map((p) => (
+        <button key={p.id} type="button" onMouseDown={() => goToProduct(p)} className="flex w-full items-center gap-3 rounded-xl px-2 py-2 text-left transition-colors hover:bg-muted">
+          <span className="h-10 w-10 shrink-0 overflow-hidden rounded-lg border-border border bg-muted">
+            <ProductImage product={p} className="h-full w-full object-cover" />
+          </span>
+          <span className="min-w-0">
+            <span className="block truncate text-sm font-medium">{p.name}</span>
+            <span className="block text-xs text-muted-foreground">{p.brand} · {p.model}</span>
+          </span>
+        </button>
+      ))}
+    </div>
+  ) : null;
+
   return (
     <div className="flex min-h-screen flex-col bg-background text-foreground">
-      {/* ---- 11.11 Sale announcement (very top) ---- */}
-      <Link
-        to="/phones"
-        className="block bg-gradient-to-r from-red-700 via-red-600 to-orange-500 text-white"
-      >
-        <div className="mx-auto max-w-7xl px-4 py-1.5 text-center">
-          <p className="text-xs font-extrabold uppercase tracking-[0.08em] sm:text-sm">Highest 11.11 Sale</p>
-          <p className="mt-0.5 text-[11px] font-medium leading-snug text-white/95 sm:text-xs">
-            22% OFF on Buy Now • 11% OFF on Instalments
-          </p>
-        </div>
-      </Link>
-
-      {/* ---- Announcement bar ---- */}
+      {/* ---- Slim sale strip (active offer settings) ---- */}
       {settings.announcementEnabled && (
-        <div className="bg-neutral-950 text-white">
-          <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-1.5 text-[11px] font-medium sm:text-xs">
-            <div className="flex items-center gap-3">
-              <span className="inline-flex items-center gap-1.5">
-                <Truck className="h-3.5 w-3.5" />
-                <span className="hidden sm:inline">Free Nationwide Shipping Across Pakistan</span>
-                <span className="sm:hidden">Free Nationwide Shipping</span>
-              </span>
-              <span className="h-3 w-px bg-white/30" />
-              <span className="hidden items-center gap-1.5 lg:inline-flex">
-                <Check className="h-3.5 w-3.5" />
-                Easy Instalments Available (3, 6, 9, 12 Months)
-              </span>
-              <span className="inline-flex items-center gap-1.5 lg:hidden">
-                <Check className="h-3.5 w-3.5" />
-                Easy Instalments
-              </span>
-            </div>
-            <div className="hidden items-center gap-2 sm:flex">
-              <span className="text-white/70">Follow Us:</span>
-              {SOCIALS.map((s) => {
-                const url = (settings.socialLinks as unknown as Record<string, unknown>)?.[s.key] as string | undefined;
-                if (!url || !s.icon) return null;
-                const Icon = s.icon;
-                return (
-                  <a key={s.key} href={url} target="_blank" rel="noreferrer" aria-label={s.label} className="text-white/80 transition-colors hover:text-white">
-                    <Icon className="h-3.5 w-3.5" />
-                  </a>
-                );
-              })}
-            </div>
+        <Link
+          to="/phones"
+          className="block bg-gradient-to-r from-red-700 via-red-600 to-orange-500 text-white"
+        >
+          <div className="mx-auto max-w-7xl px-4 py-1.5 text-center">
+            <p className="text-xs font-extrabold uppercase tracking-[0.08em] sm:text-sm">
+              {settings.buyNowDiscountPercent}% OFF on Buy Now · {settings.instalmentDiscountPercent}% OFF on Instalments
+            </p>
           </div>
-        </div>
+        </Link>
       )}
 
-      {/* ---- Main header ---- */}
+      {/* ---- Sticky compact header row (menu / logo / search / actions) ---- */}
       <header className={cn("sticky top-0 z-40 bg-background/90 backdrop-blur-md transition-all duration-300", scrolled ? "border-b border-border shadow-sm" : "border-b border-transparent")}>
         <div className="h-0.5 w-full bg-gradient-to-r from-neutral-900 via-neutral-400 to-neutral-900" />
         <div className="mx-auto flex max-w-7xl items-center gap-3 px-4 py-3">
@@ -171,21 +147,7 @@ export function StorefrontLayout() {
                 <Search className="h-4 w-4" />
               </button>
             </div>
-            {showSuggestions && suggestions.length > 0 && (
-              <div className="absolute left-0 right-0 top-full z-50 mt-2 rounded-2xl border bg-white p-2 shadow-xl">
-                {suggestions.map((p) => (
-                  <button key={p.id} type="button" onMouseDown={() => goToProduct(p)} className="flex w-full items-center gap-3 rounded-xl px-2 py-2 text-left transition-colors hover:bg-muted">
-                    <span className="h-10 w-10 shrink-0 overflow-hidden rounded-lg border-border border bg-muted">
-                      <ProductImage product={p} className="h-full w-full object-cover" />
-                    </span>
-                    <span className="min-w-0">
-                      <span className="block truncate text-sm font-medium">{p.name}</span>
-                      <span className="block text-xs text-muted-foreground">{p.brand} · {p.model}</span>
-                    </span>
-                  </button>
-                ))}
-              </div>
-            )}
+            {showSuggestions && suggestionPanel}
           </form>
 
           {/* Right actions */}
@@ -208,9 +170,6 @@ export function StorefrontLayout() {
               </Link>
             ) : (
               <>
-                {/* Login always visible (compact on mobile) so there is an auth
-                    entry point with the menu closed; Register moves into the
-                    mobile drawer on small screens to avoid crowding. */}
                 <Button asChild variant="outline" size="sm" className="h-9 rounded-full px-3.5 sm:px-4">
                   <Link to="/login">Login</Link>
                 </Button>
@@ -226,40 +185,39 @@ export function StorefrontLayout() {
             )}
           </div>
         </div>
-
-        {/* Mobile search */}
-        <form onSubmit={submitSearch} className="px-4 pb-3 md:hidden">
-          <div className="relative">
-            <Input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search for smartphones…" className="h-10 rounded-full border-border bg-muted pl-4 pr-11 text-sm" />
-            <button type="submit" className="absolute right-1.5 top-1/2 inline-flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full bg-primary text-primary-foreground" aria-label="Search">
-              <Search className="h-3.5 w-3.5" />
-            </button>
-          </div>
-        </form>
       </header>
+
+      {/* Mobile full-width search (below the sticky compact row) */}
+      <form onSubmit={submitSearch} className="bg-background px-4 pb-3 pt-2 md:hidden">
+        <div className="relative">
+          <Input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search for smartphones…" className="h-10 rounded-full border-border bg-muted pl-4 pr-11 text-sm" />
+          <button type="submit" className="absolute right-1.5 top-1/2 inline-flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full bg-primary text-primary-foreground" aria-label="Search">
+            <Search className="h-3.5 w-3.5" />
+          </button>
+        </div>
+      </form>
 
       {/* ---- Desktop navigation row ---- */}
       <nav className="hidden border-b border-border bg-background lg:block">
         <div className="mx-auto flex max-w-7xl items-center gap-1 px-4">
-          {/* All Categories */}
-          <div className="relative mr-2" onMouseEnter={() => setCatOpen(true)} onMouseLeave={() => setCatOpen(false)}>
-            <button className="inline-flex h-11 items-center gap-2 rounded-full bg-primary px-5 text-sm font-semibold text-primary-foreground transition-transform hover:scale-[1.02]">
-              <LayoutGrid className="h-4 w-4" /> All Categories <ChevronDown className="h-3.5 w-3.5" />
+          {/* Brands grouped under a dropdown */}
+          <div className="relative mr-2" onMouseEnter={() => setBrandOpen(true)} onMouseLeave={() => setBrandOpen(false)}>
+            <button className="inline-flex h-11 items-center gap-2 rounded-full border border-border bg-muted px-5 text-sm font-semibold text-foreground transition-colors hover:bg-secondary">
+              <LayoutGrid className="h-4 w-4" /> Brands <ChevronDown className="h-3.5 w-3.5" />
             </button>
-            {catOpen && (
+            {brandOpen && (
               <div className="absolute left-0 top-full z-50 mt-2 w-64 rounded-2xl border-border border bg-popover p-2 shadow-xl animate-fade-in">
-                <p className="px-3 pb-1 pt-2 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">Smartphones</p>
                 {brands.map((b) => (
-                  <Link key={b.slug} to={`/brand/${b.slug}`} className="flex items-center gap-2 rounded-xl px-3 py-2 text-sm text-foreground transition-colors hover:bg-muted">
-                    <BrandLogo brand={b} />
+                  <Link
+                    key={b.slug}
+                    to={`/brand/${b.slug}`}
+                    onClick={() => setBrandOpen(false)}
+                    className="flex items-center gap-2 rounded-xl px-3 py-2 text-sm text-foreground transition-colors hover:bg-muted"
+                  >
+                    <BrandLogo brand={b} showFallbackName={false} />
                     <span>{b.name}</span>
                   </Link>
                 ))}
-                <div className="mt-1 border-t pt-1">
-                  <Link to="/brand/apple" className="block rounded-xl px-3 py-2 text-sm font-medium text-foreground transition-colors hover:bg-muted">
-                    JV / SIM-Locked iPhones
-                  </Link>
-                </div>
               </div>
             )}
           </div>
@@ -307,13 +265,10 @@ export function StorefrontLayout() {
               <p className="px-3 pb-1 pt-3 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">Brands</p>
               {brands.map((b) => (
                 <Link key={b.slug} to={`/brand/${b.slug}`} onClick={() => setMobileOpen(false)} className="flex items-center gap-2 rounded-xl px-3 py-2 text-sm text-muted-foreground hover:bg-muted">
-                  <BrandLogo brand={b} />
+                  <BrandLogo brand={b} showFallbackName={false} />
                   <span>{b.name}</span>
                 </Link>
               ))}
-              <Link to="/brand/apple" onClick={() => setMobileOpen(false)} className="block rounded-xl px-3 py-2 text-sm font-medium text-foreground hover:bg-muted">
-                JV / SIM-Locked iPhones
-              </Link>
 
               <div className="mt-3 border-t pt-3">
                 {user ? (
@@ -367,36 +322,36 @@ export function StorefrontLayout() {
             </div>
           </div>
 
-          <div className="space-y-2 text-sm">
-            <p className="font-semibold text-white">Shop</p>
-            <Link to="/phones" className="block text-neutral-400 hover:text-white">All Smartphones</Link>
-            <Link to="/best-sellers" className="block text-neutral-400 hover:text-white">Best Sellers</Link>
-            <Link to="/new-arrivals" className="block text-neutral-400 hover:text-white">New Arrivals</Link>
-            <Link to="/instalments" className="block text-neutral-400 hover:text-white">Instalments</Link>
-            <Link to="/compare" className="block text-neutral-400 hover:text-white">Compare</Link>
+          <div>
+            <p className="mb-3 text-sm font-semibold text-white">Shop</p>
+            <ul className="space-y-2 text-sm">
+              <li><Link to="/phones" className="text-neutral-400 transition-colors hover:text-white">All Phones</Link></li>
+              <li><Link to="/instalments" className="text-neutral-400 transition-colors hover:text-white">Instalments</Link></li>
+              <li><Link to="/best-sellers" className="text-neutral-400 transition-colors hover:text-white">Best Sellers</Link></li>
+              <li><Link to="/new-arrivals" className="text-neutral-400 transition-colors hover:text-white">New Arrivals</Link></li>
+            </ul>
           </div>
 
-          <div className="space-y-2 text-sm">
-            <p className="font-semibold text-white">Support</p>
-            <Link to="/about" className="block text-neutral-400 hover:text-white">About Us</Link>
-            <Link to="/contact" className="block text-neutral-400 hover:text-white">Contact Us</Link>
-            <Link to="/payment-instructions" className="block text-neutral-400 hover:text-white">Payment Instructions</Link>
-            <Link to="/instalments" className="block text-neutral-400 hover:text-white">Instalment Info</Link>
-            <Link to="/shipping" className="block text-neutral-400 hover:text-white">Shipping Policy</Link>
+          <div>
+            <p className="mb-3 text-sm font-semibold text-white">Brands</p>
+            <ul className="space-y-2 text-sm">
+              {brands.slice(0, 6).map((b) => (
+                <li key={b.slug}><Link to={`/brand/${b.slug}`} className="text-neutral-400 transition-colors hover:text-white">{b.name}</Link></li>
+              ))}
+            </ul>
           </div>
 
-          <div className="space-y-2 text-sm">
-            <p className="font-semibold text-white">Policies</p>
-            <Link to="/returns" className="block text-neutral-400 hover:text-white">Returns & Refunds</Link>
-            <Link to="/warranty" className="block text-neutral-400 hover:text-white">Warranty Policy</Link>
-            <Link to="/privacy" className="block text-neutral-400 hover:text-white">Privacy Policy</Link>
-            <Link to="/terms" className="block text-neutral-400 hover:text-white">Terms & Conditions</Link>
+          <div>
+            <p className="mb-3 text-sm font-semibold text-white">Company</p>
+            <ul className="space-y-2 text-sm">
+              <li><Link to="/about" className="text-neutral-400 transition-colors hover:text-white">About Us</Link></li>
+              <li><Link to="/contact" className="text-neutral-400 transition-colors hover:text-white">Contact Us</Link></li>
+            </ul>
           </div>
         </div>
-
         <div className="border-t border-white/10">
-          <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-4 py-5 text-xs text-neutral-500 sm:flex-row">
-            <p>{settings.copyrightText.replace("{year}", String(new Date().getFullYear()))}</p>
+          <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-4 py-4 text-xs text-neutral-500 sm:flex-row">
+            <span>{settings.copyrightText.replace("{year}", String(new Date().getFullYear()))}</span>
             <div className="flex items-center gap-3">
               {SOCIALS.map((s) => {
                 const url = (settings.socialLinks as unknown as Record<string, unknown>)?.[s.key] as string | undefined;
@@ -410,10 +365,6 @@ export function StorefrontLayout() {
               })}
             </div>
           </div>
-        </div>
-        <div className="flex items-center justify-center gap-2 border-t border-white/10 px-4 py-4">
-          <span className="text-xs text-neutral-400">Theme</span>
-          <ThemeToggle />
         </div>
       </footer>
 

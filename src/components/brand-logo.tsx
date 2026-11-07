@@ -19,21 +19,30 @@ const BRAND_LOGO_URLS: Record<string, string> = {
   motorola: "https://upload.wikimedia.org/wikipedia/commons/3/39/Motorola_logo.svg",
 };
 
+interface BrandLogoProps {
+  brand: BrandRef;
+  className?: string;
+  /**
+   * Show the brand name when the logo asset is missing or fails to load.
+   * Set to `false` when the caller renders the name itself so the name is
+   * never duplicated, and the identity appears exactly once.
+   */
+  showFallbackName?: boolean;
+}
+
 /**
  * Brand logo shown beside the brand name. The logo sits in a light rounded
  * container so dark logos stay visible in dark mode, and `object-contain`
  * preserves each logo's proportions. If the asset can't load, we retain the
  * brand name and report the missing logo.
  */
-export function BrandLogo({ brand, className }: { brand: BrandRef; className?: string }) {
+export function BrandLogo({ brand, className, showFallbackName = true }: BrandLogoProps) {
   const url = BRAND_LOGO_URLS[brand.slug.toLowerCase()];
   const [failed, setFailed] = useState(false);
   const showLogo = !!url && !failed;
 
   if (!showLogo) {
-    if (url && !failed) {
-      // only warn once via the render path when it actually fails
-    }
+    if (!showFallbackName) return null;
     return (
       <span className={cn("text-xs font-bold text-foreground", className)}>{brand.name}</span>
     );
@@ -43,7 +52,8 @@ export function BrandLogo({ brand, className }: { brand: BrandRef; className?: s
     <span className={cn("inline-flex h-6 min-w-10 items-center justify-center rounded-md bg-white px-1.5", className)}>
       <img
         src={url}
-        alt={brand.name}
+        alt=""
+        aria-hidden="true"
         className="max-h-4 w-auto max-w-20 object-contain"
         onError={() => {
           console.warn(`[BrandLogo] logo unavailable for "${brand.slug}" — showing brand name`);
