@@ -24,6 +24,7 @@ interface AuthContextValue {
   isSuperAdmin: boolean;
   signIn: (email: string, password: string) => Promise<{ error?: string }>;
   signUp: (email: string, password: string, fullName: string) => Promise<{ error?: string }>;
+  setOtpPassword: (password: string) => Promise<{ error?: string }>;
   signOut: () => Promise<void>;
   /**
    * Send an email OTP to auto-register a guest during checkout. When Supabase is
@@ -32,7 +33,7 @@ interface AuthContextValue {
    */
   requestOtp: (email: string, fullName?: string) => Promise<{ error?: string; info?: string }>;
   /** Verify an email OTP to complete auto-registration / sign-in. */
-  confirmOtp: (email: string, token: string) => Promise<{ error?: string }>;
+  confirmOtp: (email: string, token: string) => Promise<{ error?: string; authenticated?: boolean }>;
   /** Google OAuth sign-in (requires the Google provider enabled in Supabase). */
   googleSignIn: () => Promise<{ error?: string; user?: AuthUser }>;
   /** Development-only: sign in to the local sample account. */
@@ -47,6 +48,7 @@ const AuthContext = createContext<AuthContextValue>({
   isSuperAdmin: false,
   signIn: async () => ({}),
   signUp: async () => ({}),
+  setOtpPassword: async () => ({}),
   signOut: async () => {},
   requestOtp: async () => ({}),
   confirmOtp: async () => ({}),
@@ -128,8 +130,23 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   async function signIn(email: string, password: string) {
     if (isSupabaseConfigured) {
-      const { error } = await supabase!.auth.signInWithPassword({ email, password });
-      return { error: error?.message };
+      const { error } = await supabase!.auth.signInWithPassword({ email: email.trim(), password });
+      if (!error) return {};
+      const t = (error.message || "").toLowerCase();
+      const code = (error as { code?: string }).code;
+      if (/network|fetch|failed to fetch|timed? out|unavailable/.test(t)) {
+        return { error: "NetworkError" };
+      }
+      if (code === "email_not_confirmed" || /email not confirmed|not verified/.test(t)) {
+        return { error: "EmailNotConfirmed" };
+      }
+      if (code === "invalid_credentials" || /invalid login|incorrect|not found|credentials/.test(t)) {
+        return { error: "InvalidCredentials" };
+      }
+      if (/rate|too many|exceed/.test(t)) {
+        return { error: "RateLimited" };
+      }
+      return { error: error.message };
     }
     // Local/dev demo only — never active in production builds.
     if (isDevMode()) {
@@ -229,6 +246,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return "We couldn't complete Google sign-in. Please try again.";
   }
 
+  async function setOtpPassword(password: string) {
+    if (isSupabaseConfigured) {
+      const { error } = await supabase!.auth.updateUser({ password });
+      if (error) return { error: error.message };
+      return {};
+    }
+    return { error: "Setting a password is unavailable because authentication is not configured on this deployment." };
+  }
+
   async function requestOtp(email: string, fullName?: string) {
     if (isSupabaseConfigured) {
       const { error } = await supabase!.auth.signInWithOtp({
@@ -253,30 +279,35 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return { error: "Email verification is not configured on this deployment." };
   }
 
-  async function confirmOtp(email: string, token: string) {
+    async function confirmOtp(email: string, token: string) {
     if (isSupabaseConfigured) {
-      const { error } = await supabase!.auth.verifyOtp({ email, token, type: "email" });
-      if (error) return { error: error?.message };
-      // Session is now established; onAuthStateChange updates `user`.
-      return {};
+      const { error } = await supabase!.auth.verifyOtp({ email: email.trim(), token, type: "email" });
+      if (error) {
+        const t = (error.message || "").toLowerCase();
+        if (/rate|too many|exceed/.test(t)) return { error: "RateLimited" };
+        if (/expired|invalid|token|otp|verification failed/.test(t)) return { error: "InvalidOtp" };
+        return { error: error.message };
+      }
+      const { data: sess } = await supabase!.auth.getSession();
+      if (!sess.session?.user) {
+        return { error: "Verification succeeded but no session was established. Please request a new code and try again." };
+      }
+      return { authenticated: true };
     }
     if (isDevMode()) {
       if (!pendingOtpEmail || email.toLowerCase() !== pendingOtpEmail) {
         return { error: "That email has not been sent a code." };
       }
-      // Dev mode only ever accepts the fixed simulated code. Any other token is
-      // rejected so the flow behaves like a real OTP and cannot be spoofed.
       if (token !== DEV_OTP_CODE) {
         return { error: "Incorrect verification code. Use the demo code shown on screen." };
       }
       const dev: AuthUser = { id: "dev-" + email.replace(/[^a-z0-9]/gi, ""), email, fullName: pendingOtpName || "Customer", role: "customer" };
       localStorage.setItem(DEV_USER_KEY, JSON.stringify(dev));
       setUser(dev);
-      return {};
+      return { authenticated: true };
     }
     return { error: "Email verification is not configured on this deployment." };
   }
-
   async function signOut() {
     if (isSupabaseConfigured) {
       await supabase!.auth.signOut();
@@ -328,6 +359,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       signOut,
       requestOtp,
       confirmOtp,
+      setOtpPassword,
       devSignIn,
       googleSignIn,
     }),

@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
+import { GoogleSignInButton } from "@/components/google-sign-in-button";
 import { Eye, EyeOff, Mail } from "lucide-react";
 
 const OTP_LENGTH = 6;
@@ -72,7 +73,7 @@ function passwordStrength(pw: string): { label: string; ok: boolean } {
 }
 
 export function RegisterPage() {
-  const { signUp, requestOtp, confirmOtp, googleSignIn, user, loading: authLoading } = useAuth();
+  const { setOtpPassword, requestOtp, confirmOtp, googleSignIn, user, loading: authLoading } = useAuth();
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -137,7 +138,7 @@ export function RegisterPage() {
       setBusy(false);
       return;
     }
-    const { error: err } = await signUp(email, password, name);
+    const { error: err } = await requestOtp(email, name);
     setBusy(false);
     if (err) {
       setError(err);
@@ -158,16 +159,27 @@ export function RegisterPage() {
       setOtpBusy(false);
       return;
     }
-    const { error: err } = await confirmOtp(email, otp);
+    const { error: err, authenticated } = await confirmOtp(email, otp);
     setOtpBusy(false);
     if (err) {
       setAttempts((a) => a + 1);
-      setError(err);
+      if (err === "InvalidOtp") setError("That code is incorrect or has expired. Please request a new one.");
+      else if (err === "RateLimited") setError("Too many incorrect attempts. Please wait a few minutes and try again.");
+      else setError(err);
       if (attempts + 1 >= MAX_ATTEMPTS) {
         setError("Too many incorrect attempts. Please request a new code.");
       }
       setOtp("");
       return;
+    }
+    if (!authenticated) {
+      setError("We could not establish your session. Please request a new code and try again.");
+      setOtp("");
+      return;
+    }
+    const pwdErr = await setOtpPassword(password);
+    if (pwdErr.error) {
+      setInfo("You are signed in. The password could not be set yet - use Forgot password to choose one later.");
     }
     setVerified(true);
     const deadline = Date.now() + 4000;
@@ -259,15 +271,10 @@ export function RegisterPage() {
                 <div className="h-px flex-1 bg-border" />
               </div>
 
-              <Button
-                type="button"
-                variant="outline"
-                className="w-full"
-                disabled={busy || otpBusy}
+              <GoogleSignInButton
+                busy={busy}
                 onClick={handleGoogle}
-              >
-                {busy ? "Redirecting to Google…" : "Continue with Google"}
-              </Button>
+              />
             </>
           ) : verified ? (
             <div className="mt-6 text-center">

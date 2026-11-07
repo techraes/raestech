@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Trash2, Plus, Minus, ShoppingBag, ArrowRight } from "lucide-react";
 import { useCart } from "@/store/cart";
 import { useSettings } from "@/features/settings/store";
-import { buyNowPrice } from "@/lib/pricing";
+import { buyNowPrice, discountedPrice } from "@/lib/pricing";
 import { formatPKR } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -12,8 +12,8 @@ export function CartPage() {
   const { items, updateQuantity, removeItem, subtotal } = useCart();
   const { settings } = useSettings();
 
-  const buyNowSubtotal = subtotal("buyNow");
-  const listedSubtotal = subtotal("listed");
+  const buyNowSubtotal = items.reduce((s, i) => s + discountedPrice(i.variant.listedPrice, settings.buyNowDiscountPercent) * i.quantity, 0);
+  const listedSubtotal = items.reduce((s, i) => s + i.variant.listedPrice * i.quantity, 0);
   const shipping = buyNowSubtotal >= settings.freeShippingThreshold || buyNowSubtotal === 0 ? 0 : settings.shippingCharge;
   const total = buyNowSubtotal + shipping;
 

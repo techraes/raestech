@@ -3,7 +3,7 @@ import { NavLink, Outlet, Link } from "react-router-dom";
 import {
   LayoutDashboard, Package, ShoppingBag, Settings, LogOut, Store,
   CreditCard, ShieldCheck, ArrowLeft, FileUp, Palette, LayoutTemplate,
-  Wrench, History, Search, Images,
+  Wrench, History, Search, Images, Percent,
 } from "lucide-react";
 import { useAuth } from "@/features/auth/AuthContext";
 import { useSettings } from "@/features/settings/store";
@@ -46,11 +46,18 @@ const GROUPS: NavGroup[] = [
     ],
   },
   {
+    title: "Pricing & Discounts",
+    items: [
+      { to: "/admin/discounts", label: "Discount Management", icon: Percent, perm: "discounts" },
+    ],
+  },
+  {
     title: "Design & Content",
     items: [
       { to: "/admin/appearance", label: "Branding & Appearance", icon: Palette, perm: "appearance" },
       { to: "/admin/homepage", label: "Homepage Builder", icon: LayoutTemplate, perm: "homepage" },
       { to: "/admin/settings", label: "Website Settings", icon: Settings, perm: "settings" },
+      { to: "/admin/seo", label: "SEO Management", icon: Search, perm: "seo" },
     ],
   },
   {

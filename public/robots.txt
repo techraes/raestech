@@ -1,7 +1,23 @@
+# RAES TECH — robots.txt
+# Public storefront content (homepage, catalogue, brands, product pages, and
+# public information/policy pages) is fully allowed for crawling and indexing.
+# Private / authenticated workflows are excluded from crawling. robots.txt is
+# not an access-control mechanism; those routes are additionally protected by
+# server-side auth and do not return indexable content.
+
 User-agent: *
 Allow: /
+
+# Private / non-indexable workflows
 Disallow: /admin
 Disallow: /account
 Disallow: /checkout
+Disallow: /login
+Disallow: /register
+Disallow: /forgot-password
+Disallow: /reset-password
+Disallow: /payment-instructions
+Disallow: /instalments/apply
+Disallow: /installments
 
 Sitemap: https://raestech.store/sitemap.xml

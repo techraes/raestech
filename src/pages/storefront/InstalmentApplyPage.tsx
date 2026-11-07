@@ -242,7 +242,7 @@ export function InstalmentApplyPage() {
                         onClick={() => { setVIndex(i); setColor(defaultColor(v)); }}
                         className={cn(
                           "rounded-xl border p-3 text-left text-sm transition-all",
-                          i === vIndex ? "border-primary bg-primary text-primary-foreground" : "bg-card hover:border-primary"
+                          i === vIndex ? "variant-option-selected" : "bg-card hover:border-primary"
                         )}
                       >
                         <span className="block font-bold">{v.storage} / {v.ram}</span>
@@ -264,7 +264,7 @@ export function InstalmentApplyPage() {
                         onClick={() => setColor(c)}
                         className={cn(
                           "rounded-full border px-4 py-1.5 text-sm font-medium transition-colors",
-                          color === c ? "border-primary bg-primary text-primary-foreground" : "bg-card hover:border-primary"
+                          color === c ? "variant-option-selected" : "bg-card hover:border-primary"
                         )}
                       >
                         {c}

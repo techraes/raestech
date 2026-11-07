@@ -3,6 +3,7 @@ import { Banknote, Percent, ShieldCheck, Clock, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useSettings } from "@/features/settings/store";
+import { Seo } from "@/lib/seo";
 import { instalmentPlan } from "@/lib/pricing";
 import { formatPKR } from "@/lib/utils";
 
@@ -13,6 +14,11 @@ export function InstalmentInfoPage() {
 
   return (
     <div className="mx-auto max-w-3xl space-y-8">
+      <Seo
+        title="Buy Phones on Instalments in Pakistan | 0% Markup | RAES TECH"
+        description="Split the cost of a phone with RAES TECH instalments — full listed price, 0% markup, 20% advance and 3–12 month tenures. No guarantor required in Pakistan."
+        canonicalPath="/instalments"
+      />
       <div>
         <h1 className="text-3xl font-bold">Instalment purchases</h1>
         <p className="mt-2 text-muted-foreground">

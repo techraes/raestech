@@ -1,4 +1,5 @@
 import { useParams, Link } from "react-router-dom";
+import { Seo } from "@/lib/seo";
 import { NotFoundPage } from "./NotFoundPage";
 
 interface ContentDoc {
@@ -16,7 +17,7 @@ const CONTENT: Record<string, ContentDoc> = {
     title: "Terms & Conditions",
     sections: [
       { heading: "Agreement", body: "These terms govern your use of RAES TECH. By placing an order you agree to them." },
-      { heading: "Orders & pricing", body: "Displayed prices are in PKR. Buy Now prices reflect a 10% discount on the listed price. Instalment purchases use the full listed price with a 0% markup." },
+      { heading: "Orders & pricing", body: "Displayed prices are in PKR. During the 11.11 sale, Buy Now prices reflect a 22% discount on the listed price. Instalment purchases get 11% off the listed price with a default 20% advance and 0% markup." },
       { heading: "Payment", body: "Cash on Delivery is not available. Payment is by manual transfer to the Faysal Bank account provided at checkout. Orders dispatch only after payment is verified." },
       { heading: "Returns & refunds", body: "Returns and refunds follow our Return & Refund Policy. Refund requests must be raised within the stated return period." },
     ],
@@ -58,8 +59,8 @@ const CONTENT: Record<string, ContentDoc> = {
   faqs: {
     title: "Frequently Asked Questions",
     sections: [
-      { heading: "How does Buy Now work?", body: "Pay the full amount in one go and you get 10% off the listed price." },
-      { heading: "How do instalments work?", body: "Pay a 20% advance (default), then the balance in equal monthly payments over 3, 6, 9 or 12 months at 0% markup." },
+      { heading: "How does Buy Now work?", body: "Pay the full amount in one go and you get 22% off the listed price during the 11.11 sale." },
+      { heading: "How do instalments work?", body: "During the 11.11 sale you get 11% off the listed price, then pay a 20% advance on the discounted price and the balance in equal monthly payments over 3, 6, 9 or 12 months at 0% markup." },
       { heading: "Do you offer Cash on Delivery?", body: "No. Payment is by manual bank transfer, verified before dispatch." },
       { heading: "How do I pay?", body: "Transfer the amount to the Faysal Bank account shown on your order, then upload your receipt from My Orders." },
       { heading: "Are JV phones unlocked?", body: "No. JV / SIM-locked phones are clearly labelled and work only with an interposer or while SIM-time lasts." },
@@ -68,7 +69,7 @@ const CONTENT: Record<string, ContentDoc> = {
   "instalment-agreement": {
     title: "Instalment Agreement",
     sections: [
-      { heading: "Overview", body: "Instalment purchases use the full listed price with a default 20% advance and 0% markup. No guarantor is required." },
+      { heading: "Overview", body: "During the 11.11 sale, instalment purchases get 11% off the listed price, with a default 20% advance on the discounted price and a 0% markup. No guarantor is required." },
       { heading: "Approval & activation", body: "Your application must be approved and you must accept the agreement before the account is activated and the phone dispatched." },
       { heading: "Payments", body: "Each instalment is due by its scheduled date. Payments are verified manually." },
       { heading: "Late payment", body: "Missed payments may make your account overdue. Repeated non-payment may affect your ability to order on instalments." },
@@ -85,6 +86,7 @@ export function ContentPage() {
 
   return (
     <div className="mx-auto max-w-3xl space-y-6">
+      <Seo title={`${doc.title} | RAES TECH`} canonicalPath={`/${slug}`} />
       <h1 className="text-3xl font-bold">{doc.title}</h1>
       <div className="space-y-6">
         {doc.sections.map((s) => (

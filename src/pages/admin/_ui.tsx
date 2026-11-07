@@ -61,16 +61,16 @@ export function Toggle({ checked, onChange, label, disabled }: {
   );
 }
 
-export function TextInput({ value, onChange, placeholder, className }: {
-  value: string; onChange: (v: string) => void; placeholder?: string; className?: string;
+export function TextInput({ value, onChange, placeholder, className, disabled }: {
+  value: string; onChange: (v: string) => void; placeholder?: string; className?: string; disabled?: boolean;
 }) {
   return (
-    <Input value={value} onChange={(e) => onChange(e.target.value)} placeholder={placeholder} className={className} />
+    <Input value={value} onChange={(e) => onChange(e.target.value)} placeholder={placeholder} className={className} disabled={disabled} />
   );
 }
 
-export function NumberInput({ value, onChange, className }: {
-  value: number; onChange: (v: number) => void; className?: string;
+export function NumberInput({ value, onChange, className, disabled }: {
+  value: number; onChange: (v: number) => void; className?: string; disabled?: boolean;
 }) {
   return (
     <Input
@@ -78,6 +78,7 @@ export function NumberInput({ value, onChange, className }: {
       value={Number.isFinite(value) ? value : ""}
       onChange={(e) => onChange(e.target.value === "" ? 0 : Number(e.target.value))}
       className={className}
+      disabled={disabled}
     />
   );
 }

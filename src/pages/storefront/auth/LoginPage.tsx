@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
+import { GoogleSignInButton } from "@/components/google-sign-in-button";
 
 export function LoginPage() {
   const { signIn, googleSignIn } = useAuth();
@@ -22,11 +23,19 @@ export function LoginPage() {
     const { error: err } = await signIn(email, password);
     setBusy(false);
     if (err) {
-      const lower = err.toLowerCase();
-      if (/invalid login|incorrect|not found|credentials/i.test(lower)) {
+      if (err === "EmailNotConfirmed") {
         return setError(
-          "We couldn't sign you in with those credentials. Double-check your email and password. If you are an administrator, make sure your admin account has been provisioned (see the deployment guide)."
+          "Your email isn't verified yet. Check your inbox for the six-digit verification code, or use “Forgot password?” to resend a reset link."
         );
+      }
+      if (err === "RateLimited") {
+        return setError("Too many sign-in attempts. Please wait a few minutes and try again.");
+      }
+      if (err === "NetworkError") {
+        return setError("We could not reach the server. Check your internet connection and try again.");
+      }
+      if (err === "InvalidCredentials") {
+        return setError("Email or password is incorrect.");
       }
       return setError(err);
     }
@@ -52,11 +61,8 @@ export function LoginPage() {
             <div className="h-px flex-1 bg-border" />
           </div>
 
-          <Button
-            type="button"
-            variant="outline"
-            className="w-full"
-            disabled={busy}
+          <GoogleSignInButton
+            busy={busy}
             onClick={async () => {
               setBusy(true);
               setError("");
@@ -64,9 +70,7 @@ export function LoginPage() {
               setBusy(false);
               if (err) setError(err);
             }}
-          >
-            {busy ? "Redirecting to Google…" : "Continue with Google"}
-          </Button>
+          />
 
           <div className="mt-4 flex items-center justify-between text-sm">
             <Link to="/forgot-password" className="text-muted-foreground hover:underline">Forgot password?</Link>

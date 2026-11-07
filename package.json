@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "prebuild": "node scripts/check-pricing-sync.mjs && node scripts/generate-sitemap.mjs",
     "build": "tsc -b && vite build",
+    "sitemap": "node scripts/generate-sitemap.mjs",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "provision:admin": "node scripts/provision-admin.mjs",

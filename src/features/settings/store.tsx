@@ -1,6 +1,8 @@
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
-import type { SiteSettings, HomepageSection, PaymentMethod, SocialLinks, SeoAnalytics, ThemeTokens } from "@/types";
+import type { SiteSettings, HomepageSection, PaymentMethod, SocialLinks, SeoAnalytics, ThemeTokens, UserRole } from "@/types";
 import { supabase } from "@/lib/supabase";
+import { useAuth } from "@/features/auth/AuthContext";
+import { ADMIN_ROLES } from "@/features/auth/permissions";
 
 export const DEFAULT_THEME: ThemeTokens = {
   accentColor: "#efeff1",
@@ -45,7 +47,9 @@ export const DEFAULT_SEO_ANALYTICS: SeoAnalytics = {
   googleSearchConsoleVerification: "",
   analyticsEnabled: false,
   canonicalBase: "",
-  robotsTxt: "User-agent: *\nAllow: /\nDisallow: /admin\nDisallow: /cart\nDisallow: /checkout",
+  robotsTxt: "User-agent: *\nAllow: /\nDisallow: /admin\nDisallow: /account\nDisallow: /checkout",
+  socialImage: "",
+  ogType: "website",
 };
 
 export const DEFAULT_SETTINGS: SiteSettings = {
@@ -61,7 +65,8 @@ export const DEFAULT_SETTINGS: SiteSettings = {
   currency: "PKR",
   currencySymbol: "Rs.",
   codEnabled: false,
-  buyNowDiscountPercent: 10,
+  buyNowDiscountPercent: 22,
+  instalmentDiscountPercent: 11,
   instalmentAdvancePercent: 20,
   instalmentMarkupPercent: 0,
   instalmentTenures: [3, 6, 9, 12],
@@ -124,12 +129,30 @@ const SCALAR_KEYS: (keyof SiteSettings)[] = [
 
 const BOOLEAN_KEYS: (keyof SiteSettings)[] = ["codEnabled", "announcementEnabled", "maintenanceMode"];
 const NUMBER_KEYS: (keyof SiteSettings)[] = [
-  "buyNowDiscountPercent", "instalmentAdvancePercent", "instalmentMarkupPercent",
+  "buyNowDiscountPercent", "instalmentDiscountPercent", "instalmentAdvancePercent", "instalmentMarkupPercent",
   "shippingCharge", "freeShippingThreshold",
 ];
 const JSON_KEYS: (keyof SiteSettings)[] = [
   "instalmentTenures", "theme", "homepageSections", "paymentMethods", "socialLinks", "seoAnalytics",
 ];
+
+/**
+ * Pricing / discount configuration keys. These mirror the server-side
+ * `discount_setting_keys()` whitelist (migration 00020) and may only be
+ * changed by a Super Admin. The client-side guard below mirrors the RLS
+ * policies ("settings_admin_all" → any admin, "discount_settings_superadmin"
+ * → Super Admin only) as defense-in-depth; the DB policies remain the real
+ * enforcement.
+ */
+const SENSITIVE_KEYS: ReadonlySet<string> = new Set([
+  "buyNowDiscountPercent",
+  "instalmentDiscountPercent",
+  "instalmentAdvancePercent",
+  "instalmentMarkupPercent",
+  "instalmentTenures",
+  "shippingCharge",
+  "freeShippingThreshold",
+]);
 
 function snakeToCamel(s: string): string {
   return s.replace(/_([a-z])/g, (_, c: string) => c.toUpperCase());
@@ -156,6 +179,16 @@ function writeLocalSettings(settings: SiteSettings) {
 export function SettingsProvider({ children }: { children: ReactNode }) {
   const [settings, setSettings] = useState<SiteSettings>(DEFAULT_SETTINGS);
   const [ready, setReady] = useState(false);
+
+  // Authorization guard (mirrors server-side RLS):
+  //  - sensitive pricing/discount keys require the Super Admin;
+  //  - all other settings require any admin role;
+  //  - non-admins (customers/guests) can never mutate settings here.
+  const { user, isSuperAdmin } = useAuth();
+  const role: UserRole | undefined = isSuperAdmin ? "super_admin" : (user?.role as UserRole | undefined);
+  const isAdmin = (): boolean => role === "super_admin" || (Boolean(role) && ADMIN_ROLES.includes(role as UserRole));
+  const canWriteKey = (key: keyof SiteSettings): boolean =>
+    SENSITIVE_KEYS.has(key) ? isSuperAdmin : isAdmin();
 
   useEffect(() => {
     if (!supabase) {
@@ -192,6 +225,10 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
   }, []);
 
   function persist(key: keyof SiteSettings, value: unknown) {
+    if (!canWriteKey(key)) {
+      console.warn(`[settings] blocked write to "${key}": caller lacks permission`);
+      return;
+    }
     if (!supabase) {
       // local persistence mirror
       setSettings((prev) => {
@@ -215,17 +252,28 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
   }
 
   function patchSettings(patch: Partial<SiteSettings>) {
+    const keys = Object.keys(patch) as (keyof SiteSettings)[];
+    // Validate every key up front so an unauthorized patch never partially
+    // mutates local state or the DB.
+    if (keys.some((k) => !canWriteKey(k))) {
+      console.warn("[settings] blocked patch (missing permission):", keys);
+      return;
+    }
     setSettings((prev) => {
       const next = { ...prev, ...patch };
       if (!supabase) writeLocalSettings(next);
       return next;
     });
     if (supabase) {
-      (Object.keys(patch) as (keyof SiteSettings)[]).forEach((k) => persist(k, patch[k]));
+      keys.forEach((k) => persist(k, patch[k]));
     }
   }
 
   function resetSettings() {
+    if (!isSuperAdmin) {
+      console.warn("[settings] blocked reset: Super Admin required");
+      return;
+    }
     setSettings(DEFAULT_SETTINGS);
     if (supabase) {
       const client = supabase;

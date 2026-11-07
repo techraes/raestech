@@ -18,6 +18,7 @@ export type AdminPermission =
   | "content"
   | "menus"
   | "coupons"
+  | "discounts"
   | "social"
   | "seo"
   | "roles"
@@ -32,7 +33,7 @@ export type AdminPermission =
 
 export const ALL_PERMISSIONS: AdminPermission[] = [
   "dashboard", "settings", "appearance", "homepage", "payments", "shipping",
-  "warranty", "content", "menus", "coupons", "social", "seo", "roles",
+  "warranty", "content", "menus", "coupons", "discounts", "social", "seo", "roles",
   "system", "audit", "products", "images", "orders", "customers", "instalments", "communications",
 ];
 

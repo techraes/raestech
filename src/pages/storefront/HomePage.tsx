@@ -3,12 +3,14 @@ import { Link } from "react-router-dom";
 import { ArrowRight, ShieldCheck, Truck, Percent, RotateCcw, SlidersHorizontal, Lock, Headphones, BadgeCheck } from "lucide-react";
 
 import { useSettings } from "@/features/settings/store";
+import { Seo } from "@/lib/seo";
 import { useProducts, newArrivals, getBrands } from "@/data/catalog";
 import { ProductGrid } from "@/components/product-card";
 import { HeroInstalmentCalculator } from "@/components/hero-instalment-calculator";
 import { Reveal } from "@/components/reveal";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { BrandLogo } from "@/components/brand-logo";
 import { buyNowPrice } from "@/lib/pricing";
 import { formatPKR } from "@/lib/utils";
 import type { Product } from "@/types";
@@ -53,6 +55,25 @@ export function HomePage() {
 
   return (
     <div className="space-y-12">
+      <Seo
+        title="RAES TECH | Buy Smartphones Online in Pakistan"
+        description="Shop smartphones in Pakistan at RAES TECH. Explore Apple iPhone, Samsung Galaxy, Google Pixel and more with easy instalment options and nationwide delivery."
+        canonicalPath="/"
+        jsonLd={[
+          {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            name: settings.storeName || "RAES TECH",
+            url: settings.seoAnalytics.canonicalBase || settings.domain,
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            name: settings.storeName || "RAES TECH",
+            url: settings.seoAnalytics.canonicalBase || settings.domain,
+          },
+        ]}
+      />
       {/* Cinematic hero */}
       <section className="relative overflow-hidden bg-neutral-950 text-white">
         <div className="pointer-events-none absolute -right-32 -top-24 h-96 w-96 rounded-full bg-[radial-gradient(circle,rgba(183,166,217,0.35),transparent_60%)] animate-drift" />
@@ -121,7 +142,8 @@ export function HomePage() {
                   to={`/brand/${b.slug}`}
                   className="flex min-w-[104px] flex-col items-center justify-center rounded-2xl bg-muted px-4 py-4 text-sm font-bold text-foreground transition-all duration-300 hover:-translate-y-1 hover:bg-secondary hover:shadow-md"
                 >
-                  {b.name}
+                  <BrandLogo brand={b} />
+                  <span className="mt-1">{b.name}</span>
                 </Link>
               ))}
               <Link
@@ -138,7 +160,7 @@ export function HomePage() {
       {/* Trust strip */}
       <section className="grid grid-cols-2 gap-4 sm:grid-cols-4">
         {[
-          { icon: Percent, title: "10% Buy-Now OFF", sub: "Pay in full, pay less" },
+          { icon: Percent, title: "22% Buy-Now OFF", sub: "Pay in full, pay less" },
           { icon: Truck, title: "Nationwide Delivery", sub: "Across Pakistan" },
           { icon: ShieldCheck, title: "PTA Status Disclosed", sub: "Verified honestly" },
           { icon: RotateCcw, title: "0% Markup Instalments", sub: "3–12 months" },
@@ -265,7 +287,7 @@ export function HomePage() {
         <Reveal>
           <h2 className="text-2xl font-bold sm:text-3xl">Not sure how to pay?</h2>
           <p className="mx-auto mt-2 max-w-lg text-muted-foreground">
-            Pay in full with a 10% discount, or apply for an instalment plan with a 20% advance and 0% markup. No guarantor needed.
+            Pay in full with a 22% discount (11.11 sale), or apply for an instalment plan with 11% off, a 20% advance and 0% markup. No guarantor needed.
           </p>
           <Button asChild size="lg" className="mt-6">
             <Link to="/instalments">View Instalment Information</Link>

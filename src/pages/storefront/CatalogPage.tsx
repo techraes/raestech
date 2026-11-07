@@ -10,6 +10,7 @@ import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from "@/components/ui/select";
 import { useSettings } from "@/features/settings/store";
+import { Seo } from "@/lib/seo";
 import { buyNowPrice } from "@/lib/pricing";
 import { formatPKR } from "@/lib/utils";
 import type { Product } from "@/types";
@@ -82,6 +83,11 @@ export function CatalogPage() {
 
   return (
     <div className="space-y-6">
+      <Seo
+        title="Smartphones in Pakistan | Prices & Instalments | RAES TECH"
+        description="Browse the RAES TECH smartphone catalogue: Apple iPhone, Samsung Galaxy, Google Pixel and more. Transparent PKR prices, Buy Now discounts and 0% markup instalments with nationwide delivery in Pakistan."
+        canonicalPath="/phones"
+      />
       <div className="flex items-end justify-between gap-3">
         <div>
           <h1 className="text-2xl font-bold sm:text-3xl">All Smartphones</h1>

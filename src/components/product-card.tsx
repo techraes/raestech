@@ -6,7 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useSettings } from "@/features/settings/store";
-import { buyNowPrice } from "@/lib/pricing";
+import { buyNowPrice, discountedPrice, SALE_INSTALMENT_DISCOUNT_PERCENT } from "@/lib/pricing";
 import { formatPKR, displayCondition } from "@/lib/utils";
 import { useCart } from "@/store/cart";
 import { ProductImage } from "@/components/product-image";
@@ -34,6 +34,12 @@ export function ProductCard({ product }: { product: Product }) {
   const minBn = bnPrices.length ? Math.min(...bnPrices) : 0;
   const maxBn = bnPrices.length ? Math.max(...bnPrices) : 0;
   const hasRange = maxBn > minBn;
+
+  // Instalment (11% off) prices — 11.11 sale, consistent with the shared rule.
+  const instPrices = product.variants
+    .map((v) => discountedPrice(v.listedPrice, SALE_INSTALMENT_DISCOUNT_PERCENT))
+    .filter((n) => Number.isFinite(n));
+  const minInst = instPrices.length ? Math.min(...instPrices) : 0;
 
   // Anchor all discount references on the variant priced at the Buy-Now minimum
   // so the badge, the "From" line, and the range always describe the same variant.
@@ -126,13 +132,18 @@ export function ProductCard({ product }: { product: Product }) {
               </>
             )}
           </div>
-          <p className="text-[11px] font-medium text-emerald-700">
-            {hasRange ? (
-              <>From {formatPKR(minBn)} with Buy Now ({pctOff}% off)</>
-            ) : (
-              <>Save {formatPKR(savings)} with Buy Now</>
-            )}
-          </p>
+          <div className="space-y-0.5 pt-0.5">
+            <p className="text-[11px] font-medium text-emerald-700">
+              {hasRange ? (
+                <>From {formatPKR(minBn)} with Buy Now (22% off)</>
+              ) : (
+                <>Save {formatPKR(savings)} with Buy Now (22% off)</>
+              )}
+            </p>
+            <p className="text-[11px] text-muted-foreground">
+              Instalments: 11% off · from {formatPKR(minInst)}
+            </p>
+          </div>
         </CardContent>
       </Link>
 

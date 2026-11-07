@@ -6,7 +6,9 @@ import {
 } from "lucide-react";
 import { getProductBySlug, relatedProducts } from "@/data/catalog";
 import { useSettings } from "@/features/settings/store";
+import { Seo, type SeoJsonLd } from "@/lib/seo";
 import { buyNowPrice, instalmentPlan } from "@/lib/pricing";
+import { getApprovedConceptSrcStatic } from "@/lib/image-resolve";
 import { defaultVariantIndex, defaultColor } from "@/lib/variant-select";
 import { formatPKR, cn, displayCondition } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -85,8 +87,50 @@ export function ProductDetailPage() {
     { icon: Zap, label: "Storage / RAM", value: `${variant.storage} / ${variant.ram}` },
   ];
 
+  const baseUrl = (settings.seoAnalytics.canonicalBase || settings.domain).replace(/\/$/, "");
+  const canonicalProduct = `${baseUrl}/product/${product.slug}`;
+  const seoImage = getApprovedConceptSrcStatic(product) ?? undefined;
+  const productJsonLd: SeoJsonLd[] = [
+    {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      name: product.name,
+      description: product.description || `${product.name} available at ${settings.storeName || "RAES TECH"} in Pakistan.`,
+      brand: { "@type": "Brand", name: product.brand },
+      sku: variant.sku,
+      image: seoImage ? baseUrl + seoImage : undefined,
+      offers: {
+        "@type": "Offer",
+        url: canonicalProduct,
+        priceCurrency: "PKR",
+        price: bn,
+        availability: variant.stock > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+        itemCondition: "https://schema.org/NewCondition",
+        seller: { "@type": "Organization", name: settings.storeName || "RAES TECH" },
+      },
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: baseUrl + "/" },
+        { "@type": "ListItem", position: 2, name: product.brand, item: `${baseUrl}/brand/${product.brand.toLowerCase()}` },
+        { "@type": "ListItem", position: 3, name: product.name, item: canonicalProduct },
+      ],
+    },
+  ];
+
   return (
     <div className="space-y-10">
+      <Seo
+        title={`${product.name} Price in Pakistan | RAES TECH`}
+        description={product.seo_description || `${product.name} in Pakistan — transparent price with PTA/JV status disclosed, plus Buy Now discount and 0% markup instalments from RAES TECH.`}
+        canonicalPath={`/product/${product.slug}`}
+        image={seoImage}
+        type="product"
+        noindex={product.indexable === false}
+        jsonLd={productJsonLd}
+      />
       {/* Breadcrumb */}
       <nav className="flex items-center gap-1 text-sm text-muted-foreground">
         <Link to="/" className="hover:text-foreground">Home</Link>
@@ -155,7 +199,7 @@ export function ProductDetailPage() {
               <span className="text-lg text-muted-foreground line-through">{formatPKR(variant.listedPrice)}</span>
             </div>
             <p className="mt-1 text-sm font-medium text-emerald-700">
-              You save {formatPKR(savings)} with Buy Now (10% off)
+              You save {formatPKR(savings)} with Buy Now (22% off)
             </p>
           </div>
 
@@ -174,14 +218,19 @@ export function ProductDetailPage() {
                       key={v.sku}
                       onClick={() => { setVIndex(i); setColor(defaultColor(variants[i])); }}
                       className={cn(
-                        "rounded-xl border p-3 text-left transition-all",
+                        "relative rounded-xl border p-3 text-left transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
                         selected
-                          ? "border-primary bg-primary text-primary-foreground shadow-lg"
+                          ? "variant-option-selected shadow-lg"
                           : "bg-card hover:border-primary hover:shadow-sm"
                       )}
                     >
+                      {selected && (
+                        <span className="absolute right-2 top-2 inline-flex h-4 w-4 items-center justify-center rounded-full bg-primary text-primary-foreground">
+                          <Check className="h-3 w-3" strokeWidth={3} />
+                        </span>
+                      )}
                       <span className="block text-sm font-bold">
-                        {v.storage} <span className={cn("font-medium", selected ? "text-white/70" : "text-muted-foreground")}>/ {v.ram}</span>
+                        {v.storage} <span className={cn("font-medium", selected ? "opacity-80" : "text-muted-foreground")}>/ {v.ram}</span>
                       </span>
                       <span
                         className={cn(
@@ -191,18 +240,18 @@ export function ProductDetailPage() {
                               ? "bg-amber-400 text-black"
                               : vPta.tone === "success"
                               ? "bg-emerald-400 text-black"
-                              : "bg-white/20 text-white"
+                              : "bg-neutral-200 text-neutral-900 dark:bg-white/25 dark:text-white"
                             : vPta.tone === "warning"
-                            ? "bg-amber-100 text-amber-800"
+                            ? "bg-amber-100 text-amber-800 dark:bg-amber-400/20 dark:text-amber-300"
                             : vPta.tone === "success"
-                            ? "bg-emerald-100 text-emerald-800"
-                            : "bg-muted text-muted-foreground"
+                            ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-400/20 dark:text-emerald-300"
+                            : "bg-muted text-muted-foreground dark:bg-white/10 dark:text-slate-300"
                         )}
                       >
                         <span className="h-1.5 w-1.5 rounded-full bg-current" />
                         {vPta.label}
                       </span>
-                      <span className={cn("mt-2 block text-[13px] font-extrabold tracking-tight", selected ? "text-white" : "text-foreground")}>
+                      <span className={cn("mt-2 block text-[13px] font-extrabold tracking-tight", !selected && "text-foreground")}>
                         {formatPKR(buyNowPrice(v.listedPrice, settings.buyNowDiscountPercent))}
                       </span>
                     </button>
@@ -260,13 +309,13 @@ export function ProductDetailPage() {
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               <Card className="p-4">
                 <p className="text-sm font-bold">Buy Now</p>
-                <p className="mt-1 text-xs text-muted-foreground">Pay in full — save 10%.</p>
+                <p className="mt-1 text-xs text-muted-foreground">Pay in full — save 22%.</p>
                 <p className="mt-2 text-lg font-bold">{formatPKR(bn)}</p>
               </Card>
               <Card className="p-4">
                 <p className="text-sm font-bold">Buy on Instalments</p>
-                <p className="mt-1 text-xs text-muted-foreground">Full price · 0% markup.</p>
-                <p className="mt-2 text-lg font-bold">{formatPKR(variant.listedPrice)}</p>
+                <p className="mt-1 text-xs text-muted-foreground">11% off · 0% markup.</p>
+                <p className="mt-2 text-lg font-bold">{formatPKR(plan?.total ?? variant.listedPrice)}</p>
               </Card>
             </div>
             {plan && (

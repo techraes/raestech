@@ -1,5 +1,6 @@
 import { Mail, Phone, MessageCircle } from "lucide-react";
 import { useSettings } from "@/features/settings/store";
+import { Seo } from "@/lib/seo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -37,6 +38,7 @@ export function ContactPage() {
 
   return (
     <div className="mx-auto max-w-5xl space-y-8">
+      <Seo title="Contact RAES TECH | RAES TECH" canonicalPath="/contact" />
       <div>
         <h1 className="text-3xl font-bold">Contact us</h1>
         <p className="mt-2 text-muted-foreground">We're here to help with your order, a product question, or an instalment enquiry.</p>

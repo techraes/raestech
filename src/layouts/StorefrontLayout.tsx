@@ -12,6 +12,7 @@ import { useCart } from "@/store/cart";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ProductImage } from "@/components/product-image";
+import { BrandLogo } from "@/components/brand-logo";
 import { getBrands, useProducts } from "@/data/catalog";
 import { cn } from "@/lib/utils";
 import type { Product } from "@/types";
@@ -89,6 +90,19 @@ export function StorefrontLayout() {
 
   return (
     <div className="flex min-h-screen flex-col bg-background text-foreground">
+      {/* ---- 11.11 Sale announcement (very top) ---- */}
+      <Link
+        to="/phones"
+        className="block bg-gradient-to-r from-red-700 via-red-600 to-orange-500 text-white"
+      >
+        <div className="mx-auto max-w-7xl px-4 py-1.5 text-center">
+          <p className="text-xs font-extrabold uppercase tracking-[0.08em] sm:text-sm">Highest 11.11 Sale</p>
+          <p className="mt-0.5 text-[11px] font-medium leading-snug text-white/95 sm:text-xs">
+            22% OFF on Buy Now • 11% OFF on Instalments
+          </p>
+        </div>
+      </Link>
+
       {/* ---- Announcement bar ---- */}
       {settings.announcementEnabled && (
         <div className="bg-neutral-950 text-white">
@@ -236,8 +250,9 @@ export function StorefrontLayout() {
               <div className="absolute left-0 top-full z-50 mt-2 w-64 rounded-2xl border-border border bg-popover p-2 shadow-xl animate-fade-in">
                 <p className="px-3 pb-1 pt-2 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">Smartphones</p>
                 {brands.map((b) => (
-                  <Link key={b.slug} to={`/brand/${b.slug}`} className="block rounded-xl px-3 py-2 text-sm text-foreground transition-colors hover:bg-muted">
-                    {b.name}
+                  <Link key={b.slug} to={`/brand/${b.slug}`} className="flex items-center gap-2 rounded-xl px-3 py-2 text-sm text-foreground transition-colors hover:bg-muted">
+                    <BrandLogo brand={b} />
+                    <span>{b.name}</span>
                   </Link>
                 ))}
                 <div className="mt-1 border-t pt-1">
@@ -291,8 +306,9 @@ export function StorefrontLayout() {
               ))}
               <p className="px-3 pb-1 pt-3 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">Brands</p>
               {brands.map((b) => (
-                <Link key={b.slug} to={`/brand/${b.slug}`} onClick={() => setMobileOpen(false)} className="block rounded-xl px-3 py-2 text-sm text-muted-foreground hover:bg-muted">
-                  {b.name}
+                <Link key={b.slug} to={`/brand/${b.slug}`} onClick={() => setMobileOpen(false)} className="flex items-center gap-2 rounded-xl px-3 py-2 text-sm text-muted-foreground hover:bg-muted">
+                  <BrandLogo brand={b} />
+                  <span>{b.name}</span>
                 </Link>
               ))}
               <Link to="/brand/apple" onClick={() => setMobileOpen(false)} className="block rounded-xl px-3 py-2 text-sm font-medium text-foreground hover:bg-muted">

@@ -5,7 +5,7 @@ import { useCart } from "@/store/cart";
 import { useOrders } from "@/features/orders/store";
 import { useSettings } from "@/features/settings/store";
 import { useAuth } from "@/features/auth/AuthContext";
-import { buyNowPrice } from "@/lib/pricing";
+import { discountedPrice } from "@/lib/pricing";
 import { formatPKR } from "@/lib/utils";
 import type { CartItem } from "@/types";
 import { Button } from "@/components/ui/button";
@@ -60,9 +60,14 @@ export function CheckoutPage() {
   const [placed, setPlaced] = useState(false);
   const [selectedMethodId, setSelectedMethodId] = useState("");
 
-  const buyNowSubtotal = subtotal("buyNow");
-  const shipping = buyNowSubtotal >= settings.freeShippingThreshold || buyNowSubtotal === 0 ? 0 : settings.shippingCharge;
-  const total = buyNowSubtotal + shipping;
+  // ---- 11.11 Sale pricing: one shared rule for the Buy Now (prepaid) flow.
+  // Instalments (11% off) are handled on the instalment pages. COD is disabled.
+  const effectiveDiscountPercent = settings.buyNowDiscountPercent;
+  const subtotalAmount = items.reduce((s, i) => s + discountedPrice(i.variant.listedPrice, effectiveDiscountPercent) * i.quantity, 0);
+  const listedAmount = items.reduce((s, i) => s + i.variant.listedPrice * i.quantity, 0);
+  const discountAmount = Math.max(0, listedAmount - subtotalAmount);
+  const shipping = subtotalAmount >= settings.freeShippingThreshold || subtotalAmount === 0 ? 0 : settings.shippingCharge;
+  const total = subtotalAmount + shipping;
 
   // All payment methods enabled by the admin (bank, mobile wallet, crypto, card).
   const enabledMethods = settings.paymentMethods?.filter((m) => m.enabled) ?? [];
@@ -174,9 +179,9 @@ export function CheckoutPage() {
           address: form.address,
           notes: form.notes,
           items,
-          subtotal: buyNowSubtotal,
+          subtotal: subtotalAmount,
           shipping,
-          discountPercent: settings.buyNowDiscountPercent,
+          discountPercent: effectiveDiscountPercent,
           paymentMethod: selectedMethod?.code ?? "manual_bank_transfer",
         },
         userId
@@ -315,7 +320,11 @@ export function CheckoutPage() {
 
           <SummaryCard
             items={items}
-            buyNowSubtotal={buyNowSubtotal}
+            subtotal={subtotalAmount}
+            listedTotal={listedAmount}
+            discount={discountAmount}
+            discountPercent={effectiveDiscountPercent}
+            methodLabel="Buy Now (22% off)"
             shipping={shipping}
             total={total}
             cta="Continue to payment"
@@ -486,7 +495,11 @@ export function CheckoutPage() {
 
           <SummaryCard
             items={items}
-            buyNowSubtotal={buyNowSubtotal}
+            subtotal={subtotalAmount}
+            listedTotal={listedAmount}
+            discount={discountAmount}
+            discountPercent={effectiveDiscountPercent}
+            methodLabel="Buy Now (22% off)"
             shipping={shipping}
             total={total}
             cta=""
@@ -508,14 +521,22 @@ function cn(...parts: Array<string | false | undefined>) {
 
 function SummaryCard({
   items,
-  buyNowSubtotal,
+  subtotal,
+  listedTotal,
+  discount,
+  discountPercent,
+  methodLabel = "Buy Now (22% off)",
   shipping,
   total,
   cta,
   submitting,
 }: {
   items: CartItem[];
-  buyNowSubtotal: number;
+  subtotal: number;
+  listedTotal: number;
+  discount: number;
+  discountPercent: number;
+  methodLabel?: string;
   shipping: number;
   total: number;
   cta: string;
@@ -536,7 +557,7 @@ function SummaryCard({
                   <span className="block text-xs text-muted-foreground/80">× {i.quantity}</span>
                 )}
               </span>
-              <span className="shrink-0 font-medium">{formatPKR(i.variant.buyNowPrice * i.quantity)}</span>
+              <span className="shrink-0 font-medium">{formatPKR(discountedPrice(i.variant.listedPrice, discountPercent) * i.quantity)}</span>
             </div>
           ))}
         </div>
@@ -544,7 +565,11 @@ function SummaryCard({
         <Separator className="my-4" />
 
         <div className="space-y-1.5 text-sm">
-          <div className="flex justify-between"><span className="text-muted-foreground">Subtotal (Buy Now)</span><span>{formatPKR(buyNowSubtotal)}</span></div>
+          {discount > 0 && (
+            <div className="flex justify-between"><span className="text-muted-foreground">Listed price</span><span className="line-through">{formatPKR(listedTotal)}</span></div>
+          )}
+          <div className="flex justify-between"><span className="text-muted-foreground">Subtotal ({methodLabel})</span><span>{formatPKR(subtotal)}</span></div>
+          <div className="flex justify-between"><span className="text-muted-foreground">Discount</span><span className="font-medium text-emerald-700">−{formatPKR(discount)}</span></div>
           <div className="flex justify-between"><span className="text-muted-foreground">Shipping</span><span>{shipping === 0 ? "Free" : formatPKR(shipping)}</span></div>
           <div className="flex justify-between text-base font-bold"><span>Total payable</span><span>{formatPKR(total)}</span></div>
         </div>

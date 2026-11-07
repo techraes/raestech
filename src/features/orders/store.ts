@@ -94,6 +94,9 @@ export const useOrders = create<OrdersState>()(
         // client cart, so tampered totals / overselling are rejected.
         const items: CustomerOrderItem[] = [];
         let computedSubtotal = 0;
+        let computedListedSubtotal = 0;
+        const paymentMethod = (draft.paymentMethod as CustomerOrderPaymentMethod) || "manual_bank_transfer";
+        const isCOD = paymentMethod === "cod";
 
         for (const cartItem of draft.items) {
           const variant = variantBySku(cartItem.variant.sku);
@@ -113,15 +116,16 @@ export const useOrders = create<OrdersState>()(
           const unitPrice = buyNowPrice(variant.listedPrice, discount);
           items.push({ sku: variant.sku, name: cartItem.product.name, quantity, unitPrice, color: cartItem.color });
           computedSubtotal += unitPrice * quantity;
+          computedListedSubtotal += variant.listedPrice * quantity;
         }
 
         const order: CustomerOrder = {
           id: makeId(),
           orderNumber: makeOrderNumber(),
           createdAt: new Date().toISOString(),
-          status: "pending",
+          status: isCOD ? "payment_pending" : "pending",
           paymentStatus: "unpaid",
-          paymentMethod: (draft.paymentMethod as CustomerOrderPaymentMethod) || "manual_bank_transfer",
+          paymentMethod,
           customerName: draft.fullName,
           email: draft.email,
           phone: draft.phone,
@@ -131,7 +135,7 @@ export const useOrders = create<OrdersState>()(
           notes: draft.notes,
           items,
           subtotal: computedSubtotal,
-          discountAmount: Math.round(computedSubtotal * (discount / 100)),
+          discountAmount: Math.round(computedListedSubtotal * (discount / 100)),
           shipping: draft.shipping,
           total: computedSubtotal + draft.shipping,
         };

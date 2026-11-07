@@ -92,6 +92,8 @@ export interface Product {
   bestseller: boolean;
   /** Representative product image file in /images/products/ (e.g. apple-iphone-15-pro.jpg). */
   image?: string;
+  /** SEO control: when explicitly false the product page is noindex and excluded from the sitemap. Default true. */
+  indexable?: boolean;
   variants: ProductVariant[];
 }
 
@@ -159,6 +161,7 @@ export interface SiteSettings {
   currencySymbol: string;
   codEnabled: boolean;
   buyNowDiscountPercent: number;
+  instalmentDiscountPercent: number;
   instalmentAdvancePercent: number;
   instalmentMarkupPercent: number;
   instalmentTenures: number[];
@@ -365,6 +368,10 @@ export interface SeoAnalytics {
   analyticsEnabled: boolean;
   canonicalBase: string;
   robotsTxt: string;
+  /** Default social sharing image (site-relative or absolute URL). */
+  socialImage?: string;
+  /** Default Open Graph type used for public pages. */
+  ogType?: string;
 }
 
 export interface SystemStatus {

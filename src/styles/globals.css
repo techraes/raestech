@@ -49,6 +49,16 @@
     text-wrap: balance;
   }
 
+  /*
+   * Shared selected state for customer-facing variant option buttons (storage /
+   * RAM / PTA / colour). Uses the primary accent border and a surface that stays
+   * dark in dark mode so child labels remain readable. The global :focus-visible
+   * ring stays visually distinct from selection.
+   */
+  .variant-option-selected {
+    @apply border-primary bg-primary text-primary-foreground shadow-sm dark:bg-secondary dark:text-secondary-foreground;
+  }
+
   /* iOS safe-area helpers (notch / home indicator). */
   .pt-safe {
     padding-top: env(safe-area-inset-top);

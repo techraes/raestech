@@ -36,6 +36,7 @@ import { AdminProductEditor } from "@/pages/admin/AdminProductEditor";
 import { AdminImport } from "@/pages/admin/AdminImport";
 import { AdminOrders } from "@/pages/admin/AdminOrders";
 import { AdminSettings } from "@/pages/admin/AdminSettings";
+import { AdminSeo } from "@/pages/admin/AdminSeo";
 import { AdminAppearance } from "@/pages/admin/AdminAppearance";
 import { AdminHomepage } from "@/pages/admin/AdminHomepage";
 import { AdminPayments } from "@/pages/admin/AdminPayments";
@@ -43,13 +44,16 @@ import { AdminRoles } from "@/pages/admin/AdminRoles";
 import { AdminSystem } from "@/pages/admin/AdminSystem";
 import { AdminAudit } from "@/pages/admin/AdminAudit";
 import { AdminImages } from "@/pages/admin/AdminImages";
+import { AdminDiscounts } from "@/pages/admin/AdminDiscounts";
 import { useSettings } from "@/features/settings/store";
 import { BrandTheme } from "@/components/brand-theme";
 import { ScrollToTop } from "@/components/scroll-to-top";
+import { useSitewideSeo } from "@/lib/seo";
 
 export default function App() {
   const { loading } = useAuth();
   const { settings } = useSettings();
+  useSitewideSeo();
   if (loading) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-background text-foreground">
@@ -122,6 +126,8 @@ export default function App() {
         <Route path="images" element={<AdminImages />} />
         <Route path="orders" element={<AdminOrders />} />
         <Route path="settings" element={<AdminSettings />} />
+        <Route path="discounts" element={<AdminDiscounts />} />
+        <Route path="seo" element={<AdminSeo />} />
         <Route path="appearance" element={<AdminAppearance />} />
         <Route path="homepage" element={<AdminHomepage />} />
         <Route path="payments" element={<AdminPayments />} />

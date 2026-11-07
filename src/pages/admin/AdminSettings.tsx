@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Save, Check } from "lucide-react";
 import { useSettings } from "@/features/settings/store";
+import { useAuth } from "@/features/auth/AuthContext";
 import { useAudit } from "@/features/audit/useAudit";
 import { Button } from "@/components/ui/button";
 import { SectionCard, Field, TextInput, NumberInput, TextArea, Toggle, PageHeader } from "./_ui";
@@ -8,6 +9,7 @@ import type { SiteSettings } from "@/types";
 
 export function AdminSettings() {
   const { settings, patchSettings } = useSettings();
+  const { isSuperAdmin } = useAuth();
   const { log } = useAudit();
   const [draft, setDraft] = useState<SiteSettings>(settings);
   const [saved, setSaved] = useState(false);
@@ -75,12 +77,14 @@ export function AdminSettings() {
         <Field label="Announcement text"><TextArea value={draft.announcementText} onChange={(v) => set("announcementText", v)} rows={2} /></Field>
       </SectionCard>
 
-      <SectionCard title="Shipping" description="Flat-rate delivery rules.">
-        <div className="grid gap-4 sm:grid-cols-2">
-          <Field label="Shipping charge (PKR)"><NumberInput value={draft.shippingCharge} onChange={(v) => set("shippingCharge", v)} /></Field>
-          <Field label="Free shipping threshold (PKR)"><NumberInput value={draft.freeShippingThreshold} onChange={(v) => set("freeShippingThreshold", v)} /></Field>
-        </div>
-      </SectionCard>
+      {isSuperAdmin && (
+        <SectionCard title="Shipping" description="Flat-rate delivery rules. Managed by the Super Admin (Discount Management).">
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Field label="Shipping charge (PKR)"><NumberInput value={draft.shippingCharge} onChange={(v) => set("shippingCharge", v)} /></Field>
+            <Field label="Free shipping threshold (PKR)"><NumberInput value={draft.freeShippingThreshold} onChange={(v) => set("freeShippingThreshold", v)} /></Field>
+          </div>
+        </SectionCard>
+      )}
 
       <SectionCard title="SEO & footer" description="Browser title, meta description and copyright.">
         <Field label="Browser title"><TextInput value={draft.browserTitle} onChange={(v) => set("browserTitle", v)} /></Field>
