@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 import type { SiteSettings, HomepageSection, PaymentMethod, SocialLinks, SeoAnalytics, ThemeTokens, UserRole } from "@/types";
 import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/features/auth/AuthContext";
@@ -104,16 +104,22 @@ export const DEFAULT_SETTINGS: SiteSettings = {
 
 interface SettingsContextValue {
   settings: SiteSettings;
+  ready: boolean;
+  loadError: string;
   saveSetting: (key: keyof SiteSettings, value: unknown) => void;
   patchSettings: (patch: Partial<SiteSettings>) => void;
   resetSettings: () => void;
+  refreshSettings: () => void;
 }
 
 const SettingsContext = createContext<SettingsContextValue>({
   settings: DEFAULT_SETTINGS,
+  ready: false,
+  loadError: "",
   saveSetting: () => {},
   patchSettings: () => {},
   resetSettings: () => {},
+  refreshSettings: () => {},
 });
 
 const STORAGE_KEY = "raes.settings.v1";
@@ -179,6 +185,7 @@ function writeLocalSettings(settings: SiteSettings) {
 export function SettingsProvider({ children }: { children: ReactNode }) {
   const [settings, setSettings] = useState<SiteSettings>(DEFAULT_SETTINGS);
   const [ready, setReady] = useState(false);
+  const [loadError, setLoadError] = useState("");
 
   // Authorization guard (mirrors server-side RLS):
   //  - sensitive pricing/discount keys require the Super Admin;
@@ -190,18 +197,20 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
   const canWriteKey = (key: keyof SiteSettings): boolean =>
     SENSITIVE_KEYS.has(key) ? isSuperAdmin : isAdmin();
 
-  useEffect(() => {
+  const hydrate = useCallback(() => {
     if (!supabase) {
       // Dev/local mode: hydrate from the persistent local mirror (or defaults).
       const local = readLocalSettings();
       setSettings({ ...DEFAULT_SETTINGS, ...local });
+      setLoadError("");
       setReady(true);
       return;
     }
-    supabase
-      .from("public_settings")
-      .select("key,value,value_kind")
-      .then(({ data, error }) => {
+    (async () => {
+      try {
+        const { data, error } = await supabase
+          .from("public_settings")
+          .select("key,value,value_kind");
         if (!error && data) {
           const next = { ...DEFAULT_SETTINGS };
           for (const row of data as { key: string; value: string; value_kind: string }[]) {
@@ -219,10 +228,21 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
             }
           }
           setSettings(next);
+          setLoadError("");
+        } else {
+          setLoadError(error?.message ?? "Could not load settings.");
         }
+      } catch {
+        setLoadError("Could not load settings.");
+      } finally {
         setReady(true);
-      });
+      }
+    })();
   }, []);
+
+  useEffect(() => {
+    hydrate();
+  }, [hydrate]);
 
   function persist(key: keyof SiteSettings, value: unknown) {
     if (!canWriteKey(key)) {
@@ -287,7 +307,10 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
     }
   }
 
-  const value = useMemo(() => ({ settings, saveSetting, patchSettings, resetSettings }), [settings]);
+  const value = useMemo(
+    () => ({ settings, ready, loadError, saveSetting, patchSettings, resetSettings, refreshSettings: hydrate }),
+    [settings, ready, loadError, saveSetting, patchSettings, resetSettings, hydrate]
+  );
 
   if (!ready) {
     return <div className="sr-only">Loading settings…</div>;

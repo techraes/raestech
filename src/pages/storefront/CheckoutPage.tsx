@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { CheckCircle2, MailCheck } from "lucide-react";
+import { CheckCircle2, Loader2, MailCheck, RefreshCw } from "lucide-react";
 import { useCart } from "@/store/cart";
 import { useOrders } from "@/features/orders/store";
 import { useSettings } from "@/features/settings/store";
@@ -27,7 +27,7 @@ const EMAIL_OTP_NOTE =
 
 export function CheckoutPage() {
   const { items, subtotal, clear } = useCart();
-  const { settings } = useSettings();
+  const { settings, ready, loadError, refreshSettings } = useSettings();
   const { user, isAuthenticated, loading: authLoading, requestOtp, confirmOtp } = useAuth();
   const navigate = useNavigate();
   const placeOrderToStore = useOrders((s) => s.placeOrder);
@@ -83,6 +83,13 @@ export function CheckoutPage() {
         instructions: selectedMethod.instructions ?? "",
       }
     : undefined;
+
+  // Payment-option states used to render loading / load-failure / no-enabled
+  // / ready UI. Progress is preserved across a Retry by keeping the step state.
+  const payLoading = !ready;
+  const payLoadFailed = !!loadError;
+  const canPay = enabledMethods.length > 0;
+  const isManualSelected = !!selectedMethod && selectedMethod.type === "manual";
 
   function setField(key: keyof typeof form, value: string) {
     setForm((prev) => ({ ...prev, [key]: value }));
@@ -145,6 +152,16 @@ export function CheckoutPage() {
   async function placeOrder(e: React.FormEvent) {
     e.preventDefault();
     setError("");
+    // Block submission unless an enabled payment method is available (and, for
+    // manual transfer, the receipt upload is present). Never submit blind.
+    if (!canPay) {
+      setError("Payments are temporarily unavailable. Please contact us to complete your order.");
+      return;
+    }
+    if (isManualSelected && !receipt) {
+      setError("Please upload your payment receipt before generating the order.");
+      return;
+    }
     if (placingRef.current) return;
     placingRef.current = true;
     setSubmitting(true);
@@ -394,9 +411,20 @@ export function CheckoutPage() {
       {step === "payment" && (
         <div className="grid gap-8 lg:grid-cols-[1fr_360px]">
           <div className="space-y-6">
-            {enabledMethods.length === 0 ? (
+            {payLoading ? (
+              <div className="flex items-center gap-2 rounded-xl border p-4 text-sm text-muted-foreground">
+                <Loader2 className="h-4 w-4 animate-spin" /> Loading payment options…
+              </div>
+            ) : payLoadFailed ? (
+              <div className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-800">
+                <p>We couldn’t load payment options. Try again.</p>
+                <Button type="button" variant="outline" size="sm" className="mt-3" onClick={refreshSettings}>
+                  <RefreshCw className="mr-1.5 h-3.5 w-3.5" /> Retry
+                </Button>
+              </div>
+            ) : !canPay ? (
               <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800">
-                No payment methods are enabled yet. Please contact us to complete your order.
+                Payments are temporarily unavailable. Please contact us to complete your order.
               </div>
             ) : (
               <>
@@ -473,29 +501,33 @@ export function CheckoutPage() {
               </>
             )}
 
-            <Card className="p-5">
-              <h2 className="mb-3 text-lg font-bold">Upload payment receipt</h2>
-              <p className="mb-3 text-sm text-muted-foreground">
-                After transferring, upload your payment screenshot/confirmation below. Our team verifies it before the order is generated.
-              </p>
-              <FileUploadField
-                id="receipt"
-                label="Payment screenshot / receipt"
-                accept=".jpg,.jpeg,.png,.pdf"
-                maxSize={5 * 1024 * 1024}
-                value={receipt}
-                onChange={(f) => setReceipt(f)}
-                helperText="JPG, PNG or PDF, up to 5 MB."
-              />
-            </Card>
+            {canPay && isManualSelected ? (
+              <>
+                <Card className="p-5">
+                  <h2 className="mb-3 text-lg font-bold">Upload payment receipt</h2>
+                  <p className="mb-3 text-sm text-muted-foreground">
+                    After transferring, upload your payment screenshot/confirmation below. Our team verifies it before the order is generated.
+                  </p>
+                  <FileUploadField
+                    id="receipt"
+                    label="Payment screenshot / receipt"
+                    accept=".jpg,.jpeg,.png,.pdf"
+                    maxSize={5 * 1024 * 1024}
+                    value={receipt}
+                    onChange={(f) => setReceipt(f)}
+                    helperText="JPG, PNG or PDF, up to 5 MB."
+                  />
+                </Card>
+
+                <Button size="lg" className="w-full" onClick={placeOrder} disabled={submitting || !receipt}>
+                  {submitting ? "Placing order…" : "Generate order after uploading receipt"}
+                </Button>
+              </>
+            ) : null}
 
             {error && (
               <div className="rounded-xl border border-destructive/40 bg-destructive/10 px-4 py-3 text-sm text-destructive">{error}</div>
             )}
-
-            <Button size="lg" className="w-full" onClick={placeOrder} disabled={submitting || !receipt}>
-              {submitting ? "Placing order…" : "Generate order after uploading receipt"}
-            </Button>
           </div>
 
           <SummaryCard

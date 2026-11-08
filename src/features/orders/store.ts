@@ -98,6 +98,20 @@ export const useOrders = create<OrdersState>()(
         const paymentMethod = (draft.paymentMethod as CustomerOrderPaymentMethod) || "manual_bank_transfer";
         const isCOD = paymentMethod === "cod";
 
+        // Server-side payment-method validation. COD is disabled on this store,
+        // and the method must map to a known, accepted DB enum value.
+        if (isCOD) {
+          return { ok: false, error: "Cash on Delivery is not available." };
+        }
+        const KNOWN_PAYMENT_METHODS = new Set([
+          "manual_bank_transfer", "bank_transfer", "instalments",
+          "jazzcash", "easypaisa", "faysal_bank", "crypto_usdt", "card",
+        ]);
+        const dbMethod = toDbPaymentMethod(paymentMethod);
+        if (!KNOWN_PAYMENT_METHODS.has(dbMethod)) {
+          return { ok: false, error: "The selected payment method could not be verified. Please choose another method." };
+        }
+
         for (const cartItem of draft.items) {
           const variant = variantBySku(cartItem.variant.sku);
           if (!variant) {
@@ -117,6 +131,12 @@ export const useOrders = create<OrdersState>()(
           items.push({ sku: variant.sku, name: cartItem.product.name, quantity, unitPrice, color: cartItem.color });
           computedSubtotal += unitPrice * quantity;
           computedListedSubtotal += variant.listedPrice * quantity;
+        }
+
+        // Reconcile the payable subtotal against what was recomputed from the
+        // canonical catalogue. A tampered amount is rejected here, never trusted.
+        if (Math.abs(computedSubtotal - Number(draft.subtotal)) > 0.01) {
+          return { ok: false, error: "Your order total changed. Please review and try again." };
         }
 
         const order: CustomerOrder = {

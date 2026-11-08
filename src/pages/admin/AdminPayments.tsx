@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Save, Info, ImagePlus, AlertTriangle } from "lucide-react";
+import { useEffect, useState } from "react";
+import { AlertTriangle, CheckCircle2, ImagePlus, Info, Save } from "lucide-react";
 import { useSettings } from "@/features/settings/store";
 import { useAudit } from "@/features/audit/useAudit";
 import { supabase, isSupabaseConfigured } from "@/lib/supabase";
@@ -17,12 +17,54 @@ function readFileAsDataURL(file: File): Promise<string> {
   });
 }
 
+/**
+ * Reference defaults for the Faysal Bank manual transfer method. These are the
+ * owner-supplied values used when initialising an unconfigured method. A method
+ * is only "published" toward customers when it is enabled AND its required
+ * details are complete.
+ */
+const REFERENCE_FAYSAL = {
+  bankName: "Faysal Bank Limited",
+  accountTitle: "MUBASHAR IQBAL",
+  accountNumber: "3280525000007626",
+  iban: "PK24FAYS3280525000007626",
+};
+
 function isManualConfigured(m: PaymentMethod): boolean {
+  if (m.type === "online") return false;
   if (m.kind === "crypto") return Boolean((m.walletAddress ?? "").trim() && (m.coinSymbol ?? "").trim());
   if (m.kind === "card") return Boolean((m.cardProcessor ?? "").trim() || (m.instructions ?? "").trim());
-  if (m.type === "online") return false;
+  // Manual bank transfer requires complete bank details before it can be enabled
+  // (online-provider credentials/webhook checks do not apply to bank transfer).
+  if (m.kind === "bank") {
+    return Boolean(
+      (m.name ?? "").trim() &&
+        (m.bankName ?? "").trim() &&
+        (m.accountTitle ?? "").trim() &&
+        (m.accountNumber ?? "").trim() &&
+        (m.iban ?? "").trim()
+    );
+  }
   const required = [m.name, m.instructions];
   return required.every((v) => (v ?? "").trim() !== "");
+}
+
+/** Canonical, key-sorted JSON identity for a method (stable id first). */
+function canonicalPaymentMethod(m: PaymentMethod): string {
+  const copy: Record<string, unknown> = {};
+  Object.keys(m)
+    .sort()
+    .forEach((k) => {
+      copy[k] = (m as unknown as Record<string, unknown>)[k];
+    });
+  return JSON.stringify(copy);
+}
+
+/** Semantic equality of two payment-method lists (order- and key-order-insensitive). */
+function methodsEqual(a: PaymentMethod[], b: PaymentMethod[]): boolean {
+  if (a.length !== b.length) return false;
+  const mapA = new Map(a.map((m) => [m.id, canonicalPaymentMethod(m)]));
+  return b.every((m) => mapA.get(m.id) === canonicalPaymentMethod(m));
 }
 
 export function AdminPayments() {
@@ -32,10 +74,26 @@ export function AdminPayments() {
   const [saved, setSaved] = useState(false);
   const [saving, setSaving] = useState(false);
   const [saveError, setSaveError] = useState("");
+  const [verifyFailed, setVerifyFailed] = useState(false);
+
+  // Re-sync the local draft whenever persisted settings change externally (e.g.
+  // after a hard refresh / hydrate), without ever overwriting unsaved edits.
+  useEffect(() => {
+    setMethods((current) => {
+      const unchanged =
+        current.length === settings.paymentMethods.length &&
+        settings.paymentMethods.every((p) =>
+          current.some((c) => c.id === p.id && canonicalPaymentMethod(c) === canonicalPaymentMethod(p))
+        );
+      return unchanged ? current : settings.paymentMethods.map((m) => ({ ...m }));
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [settings.paymentMethods]);
 
   const set = (id: string, partial: Partial<PaymentMethod>) => {
     setMethods((list) => list.map((m) => (m.id === id ? { ...m, ...partial } : m)));
     setSaved(false);
+    setVerifyFailed(false);
   };
 
   function toggleEnabled(id: string, next: boolean) {
@@ -52,62 +110,134 @@ export function AdminPayments() {
       .catch(() => {});
   }
 
+  /** Re-read the persisted payment_methods row and compare against the draft. */
+  async function verifyAgainstServer(): Promise<boolean> {
+    if (!isSupabaseConfigured || !supabase) return true;
+    const { data, error } = await supabase
+      .from("website_settings")
+      .select("value")
+      .eq("key", "payment_methods")
+      .single();
+    if (error || !data?.value) return false;
+    try {
+      const parsed = JSON.parse(String(data.value));
+      if (!Array.isArray(parsed)) return false;
+      return methodsEqual(parsed as PaymentMethod[], methods);
+    } catch {
+      return false;
+    }
+  }
+
   async function save() {
     if (saving) return;
+    // Do not publish a method whose required details are incomplete.
+    const incomplete = methods.filter((m) => m.enabled && !isManualConfigured(m));
+    if (incomplete.length > 0) {
+      setSaveError(
+        `Cannot enable "${incomplete[0].name}" until all required details are complete. Your changes have been kept but not saved.`
+      );
+      return;
+    }
     setSaving(true);
     setSaveError("");
     setSaved(false);
+    setVerifyFailed(false);
+
+    // Keep the unsaved draft visible during the request, and update the local
+    // mirror so the rest of the app reflects the intended configuration.
     patchSettings({ paymentMethods: methods });
     await log({ action: "payments.publish", entity: "payment_methods", newValue: methods });
 
-    // Success is only shown after the DB confirms the write and the saved value
-    // reads back equal to what the admin entered. The draft is always retained
-    // so a failed/partial save never blanks the form.
-    if (isSupabaseConfigured && supabase) {
-      try {
-        const { data, error } = await supabase
-          .from("website_settings")
-          .select("value")
-          .eq("key", "payment_methods")
-          .single();
-        let persisted: PaymentMethod[] | null = null;
-        if (!error && data?.value) {
-          try {
-            const parsed = JSON.parse(String(data.value));
-            if (Array.isArray(parsed)) persisted = parsed as PaymentMethod[];
-          } catch {
-            /* unparseable — treated as mismatch */
-          }
-        }
-        const normalized = methods.map((m) => ({ ...m }));
-        const match = !!persisted && JSON.stringify(persisted) === JSON.stringify(normalized);
-        if (match) {
-          setSaved(true);
-        } else {
-          setSaveError("Your details were submitted but could not be verified on the server yet. Please retry, or refresh to see the saved values.");
-        }
-      } catch {
-        setSaveError("There was a problem saving your payment details. Please try again.");
-      }
-    } else {
-      // Local/dev mode: mirror is written synchronously by the settings store.
+    if (!isSupabaseConfigured || !supabase) {
       setSaved(true);
+      setSaving(false);
+      return;
+    }
+
+    try {
+      const write = await supabase
+        .from("website_settings")
+        .upsert({ key: "payment_methods", value: JSON.stringify(methods), value_kind: "json" });
+      if (write.error) throw write.error;
+
+      if (await verifyAgainstServer()) {
+        setSaved(true);
+      } else {
+        // The write may have landed, but verification could not confirm it.
+        setVerifyFailed(true);
+        setSaveError(
+          "Your details were submitted but could not be verified on the server yet. Use “Check saved settings” to re-read your saved values."
+        );
+      }
+    } catch {
+      setSaveError("There was a problem saving your payment details. Please try again. Your unsaved changes have been kept.");
     }
     setSaving(false);
   }
+
+  async function checkSaved() {
+    if (saving) return;
+    setSaving(true);
+    setSaveError("");
+    try {
+      if (await verifyAgainstServer()) {
+        setSaved(true);
+        setVerifyFailed(false);
+      } else {
+        setVerifyFailed(true);
+        setSaveError("The server still does not show your latest values. They may not have been saved — please save again.");
+      }
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  const faysal = methods.find((m) => m.code === "faysal_bank" || m.kind === "bank");
+  const bankConflict =
+    !!faysal &&
+    (faysal.kind === "bank" || faysal.code === "faysal_bank") &&
+    ((faysal.accountNumber ?? "").trim() !== REFERENCE_FAYSAL.accountNumber ||
+      (faysal.iban ?? "").trim() !== REFERENCE_FAYSAL.iban ||
+      (faysal.accountTitle ?? "").trim() !== REFERENCE_FAYSAL.accountTitle ||
+      (faysal.bankName ?? "").trim() !== REFERENCE_FAYSAL.bankName);
 
   return (
     <div className="space-y-6">
       <PageHeader
         title="Payment Gateway Management"
         subtitle="Configure and enable payment methods. A method cannot be turned on until its details are complete."
-        actions={<Button onClick={save} disabled={saved || saving}>{saving ? "Saving…" : saved ? "Saved" : <><Save className="h-4 w-4" /> Save</>}</Button>}
+        actions={
+          <Button onClick={save} disabled={saved || saving}>
+            {saving ? "Saving…" : saved ? "Saved" : (
+              <>
+                <Save className="h-4 w-4" /> Save
+              </>
+            )}
+          </Button>
+        }
       />
 
       {saveError && (
         <div className="flex items-start gap-2 rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-800">
           <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" />
-          <p>{saveError}</p>
+          <div className="min-w-0 flex-1 space-y-2">
+            <p>{saveError}</p>
+            {verifyFailed && (
+              <Button type="button" variant="outline" size="sm" onClick={checkSaved} disabled={saving}>
+                <CheckCircle2 className="mr-1.5 h-3.5 w-3.5" /> Check saved settings
+              </Button>
+            )}
+          </div>
+        </div>
+      )}
+
+      {bankConflict && (
+        <div className="flex items-start gap-2 rounded-xl border border-amber-200 bg-amber-50 p-3 text-sm text-amber-800">
+          <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" />
+          <p>
+            The Faysal Bank account details on file differ from the reference account. Please review the account title, account
+            number and IBAN before publishing this payment destination to customers.
+          </p>
         </div>
       )}
 
@@ -140,6 +270,12 @@ export function AdminPayments() {
                 />
               </div>
 
+              {isBank && (
+                <p className="text-xs text-muted-foreground">
+                  Faysal Bank manual transfer — customers see these details at checkout. The method can only be enabled once the
+                  bank name, account title, account number and IBAN are all filled in.
+                </p>
+              )}
               {isCard && (
                 <p className="text-xs text-muted-foreground">
                   Card gateway — configure your provider. Live transactions require verified server-side credentials and webhooks;
@@ -158,10 +294,10 @@ export function AdminPayments() {
               {isBank && (
                 <div className="grid gap-4 rounded-lg border p-4 sm:grid-cols-2">
                   <p className="text-sm font-semibold sm:col-span-2">Faysal Bank account details</p>
-                  <Field label="Bank name"><TextInput value={m.bankName ?? ""} onChange={(v) => set(m.id, { bankName: v })} /></Field>
-                  <Field label="Account title"><TextInput value={m.accountTitle ?? ""} onChange={(v) => set(m.id, { accountTitle: v })} /></Field>
-                  <Field label="Account number"><TextInput value={m.accountNumber ?? ""} onChange={(v) => set(m.id, { accountNumber: v })} /></Field>
-                  <Field label="IBAN"><TextInput value={m.iban ?? ""} onChange={(v) => set(m.id, { iban: v })} /></Field>
+                  <Field label="Bank name"><TextInput value={m.bankName ?? ""} onChange={(v) => set(m.id, { bankName: v })} placeholder={REFERENCE_FAYSAL.bankName} /></Field>
+                  <Field label="Account title"><TextInput value={m.accountTitle ?? ""} onChange={(v) => set(m.id, { accountTitle: v })} placeholder={REFERENCE_FAYSAL.accountTitle} /></Field>
+                  <Field label="Account number"><TextInput value={m.accountNumber ?? ""} onChange={(v) => set(m.id, { accountNumber: v })} placeholder={REFERENCE_FAYSAL.accountNumber} /></Field>
+                  <Field label="IBAN"><TextInput value={m.iban ?? ""} onChange={(v) => set(m.id, { iban: v })} placeholder={REFERENCE_FAYSAL.iban} /></Field>
                   <Field label="Branch details"><TextInput value={m.branch ?? ""} onChange={(v) => set(m.id, { branch: v })} /></Field>
                   <div className="sm:col-span-2">
                     <Field label="Payment instructions"><TextArea value={m.instructions ?? ""} onChange={(v) => set(m.id, { instructions: v })} rows={3} /></Field>

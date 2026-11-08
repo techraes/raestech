@@ -140,6 +140,14 @@ export async function confirmOfferOnBackend(ctx: OfferContext): Promise<OfferRes
     } | null;
 
     if (!row || row.found === false || row.ok === false) {
+      // Distinguish a genuine stock/spec rejection from a server lookup gap. If
+      // the storefront catalogue proves this exact SKU + colour still exists and
+      // has stock, the backend failure is a failed lookup — surface Retry so the
+      // customer keeps their selection instead of a dead-end "no longer available".
+      const local = resolveOfferLocally(ctx);
+      if (local.status === "ok") {
+        return { status: "retry", code: "server_lookup", error: "We couldn't confirm this offer right now. Please try again." };
+      }
       return { status: "unavailable", error: "This option is no longer available." };
     }
 

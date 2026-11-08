@@ -1,5 +1,5 @@
 import { supabase, isSupabaseConfigured } from "@/lib/supabase";
-import { uploadPrivateFile, RECEIPT_BUCKET } from "@/lib/uploads";
+import { uploadPrivateFile, RECEIPT_BUCKET, MAX_UPLOAD_BYTES } from "@/lib/uploads";
 import { toDbPaymentMethod } from "@/lib/payment-method";
 
 export type ReceiptResult = { ok: true; message: string } | { ok: false; error: string };
@@ -11,9 +11,30 @@ export type ReceiptUploadResult = { ok: true; path: string } | { ok: false; erro
  * the upload succeeded BEFORE an order is generated. The returned path is later
  * attached to the order via `attachReceiptToOrder`.
  */
+const RECEIPT_TYPES = new Set(["image/jpeg", "image/png", "application/pdf"]);
+const RECEIPT_EXTS = ["jpg", "jpeg", "png", "pdf"];
+
+/** Validate a receipt upload (type + size) before it is sent to storage. */
+function validateReceiptFile(file: File): string | null {
+  if (file.size > MAX_UPLOAD_BYTES) {
+    return "Receipt must be under 5 MB.";
+  }
+  const type = (file.type || "").toLowerCase();
+  const ext = file.name.split(".").pop()?.toLowerCase() || "";
+  if (!RECEIPT_TYPES.has(type) && !RECEIPT_EXTS.includes(ext)) {
+    return "Receipt must be a JPG, JPEG, PNG or PDF file.";
+  }
+  return null;
+}
+
 export async function uploadReceipt(file: File): Promise<ReceiptUploadResult> {
   if (!isSupabaseConfigured) {
     return { ok: false, error: "Receipt upload storage is not configured on this deployment." };
+  }
+
+  const typeErr = validateReceiptFile(file);
+  if (typeErr) {
+    return { ok: false, error: typeErr };
   }
 
   const { data: authData } = await supabase!.auth.getUser();
