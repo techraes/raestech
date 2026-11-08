@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { CheckCircle2, ChevronLeft, ChevronRight, RefreshCw, ShieldCheck, UploadCloud } from "lucide-react";
 import { getProductBySlug } from "@/data/catalog";
@@ -7,7 +7,7 @@ import { useAuth } from "@/features/auth/AuthContext";
 import { instalmentPlan } from "@/lib/pricing";
 import { formatPKR, cn } from "@/lib/utils";
 import { submitInstalmentApplication } from "@/lib/instalments";
-import { getVariantBySku, isColorOfVariant } from "@/lib/variant-select";
+import { getVariantBySku, canonicalColor } from "@/lib/variant-select";
 import { ptaInfo } from "@/lib/pta";
 import { confirmOfferOnBackend } from "@/lib/instalment-offer";
 import type { InstalmentPlan } from "@/types";
@@ -43,11 +43,12 @@ export function InstalmentApplyPage() {
     () => (product ? getVariantBySku(product.variants, skuParam) : undefined),
     [product, skuParam]
   );
-  // Colour is only accepted when the variant actually lists it.
+  // Colour is only accepted when the variant actually lists it; the canonical
+  // stored label is used (case-insensitive) so the backend always receives the
+  // exact colour from the DB row.
   const offeredColor = useMemo(() => {
-    if (!variant) return "";
-    if (!colorParam) return "";
-    return isColorOfVariant(variant, colorParam) ? colorParam : "";
+    if (!variant || !colorParam) return "";
+    return canonicalColor(variant, colorParam);
   }, [variant, colorParam]);
 
   const hasColors = !!variant && variant.colors.length > 0;
@@ -68,6 +69,8 @@ export function InstalmentApplyPage() {
   const [unavailable, setUnavailable] = useState(false);
   const [needRetry, setNeedRetry] = useState(false);
   const [confirmBusy, setConfirmBusy] = useState(false);
+  // Guard against duplicate submissions (double-click / rapid re-trigger).
+  const submittingLock = useRef(false);
   const [pendingServerPlan, setPendingServerPlan] = useState<InstalmentPlan | null>(null);
 
   const plan = useMemo(
@@ -231,35 +234,41 @@ export function InstalmentApplyPage() {
     }
 
     // Revalidate availability and recalculate the payable amount on the backend
-    // BEFORE advancing to payment.
-    setConfirmBusy(true);
-    const confirmRes = await confirmOfferOnBackend({
-      slug: productSlug,
-      sku: variant.sku,
-      color: offeredColor,
-      tenure,
-    });
-    setConfirmBusy(false);
+    // BEFORE advancing to payment. The lock prevents duplicate submissions.
+    if (submittingLock.current) return;
+    submittingLock.current = true;
+    try {
+      setConfirmBusy(true);
+      const confirmRes = await confirmOfferOnBackend({
+        slug: productSlug,
+        sku: variant.sku,
+        color: offeredColor,
+        tenure,
+      });
 
-    if (confirmRes.status === "unavailable") {
-      setUnavailable(true);
-      return;
-    }
-    if (confirmRes.status !== "ok") {
-      setSubmitError(confirmRes.error ?? "We couldn't confirm this offer right now. Please try again.");
-      setNeedRetry(true);
-      return;
-    }
+      if (confirmRes.status === "unavailable") {
+        setUnavailable(true);
+        return;
+      }
+      if (confirmRes.status !== "ok") {
+        setSubmitError(confirmRes.error ?? "We couldn't confirm this offer right now. Please try again.");
+        setNeedRetry(true);
+        return;
+      }
 
-    // If the server-side price differs from what the customer reviewed, surface
-    // the updated breakdown and ask them to confirm before proceeding.
-    const serverTotal = confirmRes.plan?.total ?? plan.total;
-    if (Math.abs(serverTotal - plan.total) > 0.01) {
-      setPendingServerPlan(confirmRes.plan!);
-      return;
-    }
+      // If the server-side price differs from what the customer reviewed, surface
+      // the updated breakdown and ask them to confirm before proceeding.
+      const serverTotal = confirmRes.plan?.total ?? plan.total;
+      if (Math.abs(serverTotal - plan.total) > 0.01) {
+        setPendingServerPlan(confirmRes.plan!);
+        return;
+      }
 
-    await doSubmit();
+      await doSubmit();
+    } finally {
+      setConfirmBusy(false);
+      submittingLock.current = false;
+    }
   }
 
   if (!product || !variant) {

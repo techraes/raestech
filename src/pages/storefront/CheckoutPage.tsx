@@ -59,6 +59,8 @@ export function CheckoutPage() {
   const [submitting, setSubmitting] = useState(false);
   const [placed, setPlaced] = useState(false);
   const [selectedMethodId, setSelectedMethodId] = useState("");
+  // Guard against duplicate order submissions (double-click / rapid re-trigger).
+  const placingRef = useRef(false);
 
   // ---- 11.11 Sale pricing: one shared rule for the Buy Now (prepaid) flow.
   // Instalments (11% off) are handled on the instalment pages. COD is disabled.
@@ -143,6 +145,8 @@ export function CheckoutPage() {
   async function placeOrder(e: React.FormEvent) {
     e.preventDefault();
     setError("");
+    if (placingRef.current) return;
+    placingRef.current = true;
     setSubmitting(true);
     try {
       const userId = user?.id ?? null;
@@ -204,6 +208,7 @@ export function CheckoutPage() {
       if (receiptError) setError(receiptError);
     } finally {
       setSubmitting(false);
+      placingRef.current = false;
     }
   }
 

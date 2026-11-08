@@ -61,10 +61,17 @@ export function getVariantBySku(
   return matches.length === 1 ? matches[0] : undefined;
 }
 
+/** Normalise a colour label for comparison (trim + lowercase). */
+function normColor(value: string | null | undefined): string {
+  return (value ?? "").trim().toLowerCase();
+}
+
 /**
  * True when `color` is a legitimate colour for `variant`. A variant with no
- * colours accepts any colour (callers pass ""). A colour that is not listed is
- * never assumed to be available.
+ * colours accepts any colour (callers pass ""). Matching is case-insensitive
+ * and whitespace-tolerant so DB/seed casing differences never cause a genuine
+ * selection to be rejected; a colour that is not listed is never assumed to be
+ * available.
  */
 export function isColorOfVariant(
   variant: Pick<ProductVariant, "colors"> | undefined,
@@ -74,5 +81,22 @@ export function isColorOfVariant(
   const colors = variant.colors ?? [];
   if (colors.length === 0) return true;
   if (!color) return false;
-  return colors.includes(color);
+  const wanted = normColor(color);
+  return colors.some((c) => normColor(c) === wanted);
+}
+
+/**
+ * Return the canonical stored colour label whose normalised form matches
+ * `color`, or "" when no stored colour matches. Callers should send this
+ * canonical label to the backend so the saved application matches the DB row.
+ */
+export function canonicalColor(
+  variant: Pick<ProductVariant, "colors"> | undefined,
+  color: string | null | undefined
+): string {
+  if (!variant) return "";
+  const colors = variant.colors ?? [];
+  const wanted = normColor(color);
+  if (!wanted) return "";
+  return colors.find((c) => normColor(c) === wanted) ?? "";
 }
