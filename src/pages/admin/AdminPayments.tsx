@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Save, Info, ImagePlus } from "lucide-react";
+import { Save, Info, ImagePlus, AlertTriangle } from "lucide-react";
 import { useSettings } from "@/features/settings/store";
 import { useAudit } from "@/features/audit/useAudit";
+import { supabase, isSupabaseConfigured } from "@/lib/supabase";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { SectionCard, Field, TextInput, NumberInput, TextArea, Toggle, PageHeader } from "./_ui";
@@ -29,6 +30,8 @@ export function AdminPayments() {
   const { log } = useAudit();
   const [methods, setMethods] = useState<PaymentMethod[]>(settings.paymentMethods);
   const [saved, setSaved] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [saveError, setSaveError] = useState("");
 
   const set = (id: string, partial: Partial<PaymentMethod>) => {
     setMethods((list) => list.map((m) => (m.id === id ? { ...m, ...partial } : m)));
@@ -50,9 +53,47 @@ export function AdminPayments() {
   }
 
   async function save() {
+    if (saving) return;
+    setSaving(true);
+    setSaveError("");
+    setSaved(false);
     patchSettings({ paymentMethods: methods });
     await log({ action: "payments.publish", entity: "payment_methods", newValue: methods });
-    setSaved(true);
+
+    // Success is only shown after the DB confirms the write and the saved value
+    // reads back equal to what the admin entered. The draft is always retained
+    // so a failed/partial save never blanks the form.
+    if (isSupabaseConfigured && supabase) {
+      try {
+        const { data, error } = await supabase
+          .from("website_settings")
+          .select("value")
+          .eq("key", "payment_methods")
+          .single();
+        let persisted: PaymentMethod[] | null = null;
+        if (!error && data?.value) {
+          try {
+            const parsed = JSON.parse(String(data.value));
+            if (Array.isArray(parsed)) persisted = parsed as PaymentMethod[];
+          } catch {
+            /* unparseable — treated as mismatch */
+          }
+        }
+        const normalized = methods.map((m) => ({ ...m }));
+        const match = !!persisted && JSON.stringify(persisted) === JSON.stringify(normalized);
+        if (match) {
+          setSaved(true);
+        } else {
+          setSaveError("Your details were submitted but could not be verified on the server yet. Please retry, or refresh to see the saved values.");
+        }
+      } catch {
+        setSaveError("There was a problem saving your payment details. Please try again.");
+      }
+    } else {
+      // Local/dev mode: mirror is written synchronously by the settings store.
+      setSaved(true);
+    }
+    setSaving(false);
   }
 
   return (
@@ -60,8 +101,15 @@ export function AdminPayments() {
       <PageHeader
         title="Payment Gateway Management"
         subtitle="Configure and enable payment methods. A method cannot be turned on until its details are complete."
-        actions={<Button onClick={save} disabled={saved}>{saved ? "Saved" : <><Save className="h-4 w-4" /> Save</>}</Button>}
+        actions={<Button onClick={save} disabled={saved || saving}>{saving ? "Saving…" : saved ? "Saved" : <><Save className="h-4 w-4" /> Save</>}</Button>}
       />
+
+      {saveError && (
+        <div className="flex items-start gap-2 rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-800">
+          <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" />
+          <p>{saveError}</p>
+        </div>
+      )}
 
       <div className="flex items-start gap-2 rounded-xl border border-amber-200 bg-amber-50 p-3 text-sm text-amber-800">
         <Info className="mt-0.5 h-4 w-4 shrink-0" />

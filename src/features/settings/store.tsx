@@ -30,7 +30,7 @@ export const DEFAULT_HOMEPAGE_SECTIONS: HomepageSection[] = [
 ];
 
 export const DEFAULT_PAYMENT_METHODS: PaymentMethod[] = [
-  { id: "pm-faysal", code: "faysal_bank", name: "Faysal Bank Manual Transfer", enabled: false, customerDescription: "Manual bank transfer to our Faysal account.", displayOrder: 0, type: "manual", kind: "bank", testMode: false, liveMode: false, verified: false, bankName: "", accountTitle: "", accountNumber: "", iban: "", branch: "", instructions: "" },
+  { id: "pm-faysal", code: "faysal_bank", name: "Faysal Bank Manual Transfer", enabled: false, customerDescription: "Manual bank transfer to our Faysal account.", displayOrder: 0, type: "manual", kind: "bank", testMode: false, liveMode: false, verified: false, bankName: "Faysal Bank Limited", accountTitle: "MUBASHAR IQBAL", accountNumber: "3280525000007626", iban: "PK24FAYS3280525000007626", branch: "", instructions: "Please transfer the payment to the bank account provided above. After completing your transaction, upload your payment receipt and submit your payment confirmation for verification." },
   { id: "pm-jazzcash", code: "jazzcash", name: "JazzCash", enabled: false, displayOrder: 1, type: "manual", kind: "mobile_wallet", testMode: false, liveMode: false, verified: false },
   { id: "pm-easypaisa", code: "easypaisa", name: "Easypaisa", enabled: false, displayOrder: 2, type: "manual", kind: "mobile_wallet", testMode: false, liveMode: false, verified: false },
   { id: "pm-bank", code: "bank_transfer", name: "Bank Transfer", enabled: false, displayOrder: 3, type: "manual", kind: "bank", testMode: false, liveMode: false, verified: false },

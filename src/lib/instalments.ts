@@ -5,6 +5,8 @@ import { confirmOfferOnBackend } from "@/lib/instalment-offer";
 export type InstalmentSubmitInput = {
   /** Canonical product variant SKU used to resolve the real `product_variants.id`. */
   variantSku: string;
+  /** Optional pre-resolved DB variant id from the Review step (cross-checked). */
+  variantId?: string;
   /** Colour identifier carried alongside the variant; validated against the offer. */
   color: string;
   fullName: string;
@@ -64,6 +66,13 @@ export async function submitInstalmentApplication(
   }
   if (confirmed.status !== "ok") {
     return { ok: false, code: "retry", error: confirmed.error ?? "We couldn't confirm this offer right now. Please try again." };
+  }
+
+  // Cross-check the identity carried from the Review step against the
+  // server-confirmed variant so the application always matches what the customer
+  // actually reviewed (never silently substituted).
+  if (input.variantId && confirmed.variantId && String(input.variantId) !== String(confirmed.variantId)) {
+    return { ok: false, code: "retry", error: "This phone's configuration changed since you reviewed it — please check the details again." };
   }
 
   const variantId = confirmed.variantId;

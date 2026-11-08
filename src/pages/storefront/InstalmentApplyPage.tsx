@@ -1,16 +1,17 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
-import { CheckCircle2, ChevronLeft, ChevronRight, RefreshCw, ShieldCheck, UploadCloud } from "lucide-react";
+import { CheckCircle2, ChevronLeft, ChevronRight, Loader2, RefreshCw, ShieldCheck, UploadCloud } from "lucide-react";
 import { getProductBySlug } from "@/data/catalog";
+import { getAllProducts } from "@/store/products";
 import { useSettings } from "@/features/settings/store";
 import { useAuth } from "@/features/auth/AuthContext";
 import { instalmentPlan } from "@/lib/pricing";
 import { formatPKR, cn } from "@/lib/utils";
 import { submitInstalmentApplication } from "@/lib/instalments";
-import { getVariantBySku, canonicalColor } from "@/lib/variant-select";
+import { getVariantBySku, canonicalColor, displayRamLabel } from "@/lib/variant-select";
 import { ptaInfo } from "@/lib/pta";
 import { confirmOfferOnBackend } from "@/lib/instalment-offer";
-import type { InstalmentPlan } from "@/types";
+import type { InstalmentPlan, Product, ProductVariant } from "@/types";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -25,6 +26,12 @@ import {
 
 const STEPS = ["Product & Plan", "Personal Info", "CNIC & Verification", "Delivery", "Review"];
 const SELECTION_STORAGE_KEY = "raestech:instalment-selection";
+const FORM_STORAGE_KEY = "raestech:instalment-form-draft";
+
+type InstalmentFormFields = {
+  fullName: string; mobile: string; email: string; cnic: string;
+  address: string; city: string; province: string; postalCode: string; employment: string; income: string;
+};
 
 export function InstalmentApplyPage() {
   const [params] = useSearchParams();
@@ -55,12 +62,45 @@ export function InstalmentApplyPage() {
   const selectionComplete = !!variant && (!hasColors || !!offeredColor);
   const localUnavailable = !!variant && hasColors && !offeredColor;
 
+  // Ambiguous SKU in a legacy link (more than one product/variant matches). We
+  // ask the customer to pick BEFORE collecting personal details — never a silent
+  // substitution based on display text.
+  const skuCandidates = useMemo(() => {
+    const out: { product: Product; variant: ProductVariant }[] = [];
+    if (!skuParam) return out;
+    for (const p of getAllProducts()) {
+      for (const v of p.variants) {
+        if (v.sku === skuParam) out.push({ product: p, variant: v });
+      }
+    }
+    return out;
+  }, [skuParam]);
+  const needClarification = skuCandidates.length > 1;
+
   const [step, setStep] = useState(0);
-  const [tenure, setTenure] = useState<number>(settings.instalmentTenures?.[0] ?? 12);
+  const [tenure, setTenure] = useState<number>(() => {
+    const allowed = settings.instalmentTenures?.length ? settings.instalmentTenures : [3, 6, 9, 12];
+    const raw = Number(params.get("tenure"));
+    return allowed.includes(raw) ? raw : (allowed[0] ?? 12);
+  });
   const [consent, setConsent] = useState(false);
-  const [form, setForm] = useState({
-    fullName: "", mobile: "", email: "", cnic: "",
-    address: "", city: "", province: "", postalCode: "", employment: "", income: "",
+  const [form, setForm] = useState<InstalmentFormFields>(() => {
+    const empty: InstalmentFormFields = {
+      fullName: "", mobile: "", email: "", cnic: "",
+      address: "", city: "", province: "", postalCode: "", employment: "", income: "",
+    };
+    try {
+      const raw = sessionStorage.getItem(FORM_STORAGE_KEY);
+      if (raw) {
+        const saved = JSON.parse(raw);
+        if (saved && typeof saved === "object" && saved.fields) {
+          return { ...empty, ...saved.fields };
+        }
+      }
+    } catch {
+      /* ignore quota / parse errors */
+    }
+    return empty;
   });
   const [documents, setDocuments] = useState<{ cnic?: File | null; incomeProof?: File | null }>({});
   const [submitBusy, setSubmitBusy] = useState(false);
@@ -73,6 +113,15 @@ export function InstalmentApplyPage() {
   const submittingLock = useRef(false);
   const [pendingServerPlan, setPendingServerPlan] = useState<InstalmentPlan | null>(null);
 
+  // Availability state — distinguishes loading / network failure / genuinely
+  // unavailable stock so a failed query is never shown as "no longer available".
+  const [availStatus, setAvailStatus] = useState<"idle" | "checking" | "ok" | "retry" | "unavailable">("idle");
+  const [availError, setAvailError] = useState("");
+  // The DB variant id resolved by a successful backend confirm — carried through
+  // the steps so submission uses the same identity the customer reviewed.
+  const [resolvedVariantId, setResolvedVariantId] = useState<string | null>(null);
+  const availCheckedFor = useRef("");
+
   const plan = useMemo(
     () => (variant ? instalmentPlan(variant.listedPrice, tenure, settings.instalmentAdvancePercent, settings.instalmentMarkupPercent, settings.instalmentDiscountPercent) : null),
     [variant, tenure, settings.instalmentAdvancePercent, settings.instalmentMarkupPercent, settings.instalmentDiscountPercent]
@@ -84,11 +133,12 @@ export function InstalmentApplyPage() {
   // Incomplete / unresolvable selection must never proceed — send the customer to
   // the product page so they choose the required options exactly once.
   useEffect(() => {
+    if (needClarification) return;
     if (selectionComplete) return;
     const target = productSlug ? `/product/${productSlug}` : "/catalog";
     navigate(target, { replace: true });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectionComplete, productSlug]);
+  }, [selectionComplete, productSlug, needClarification]);
 
   // Persist the confirmed selection so refresh / back / sign-in return keeps it.
   useEffect(() => {
@@ -103,6 +153,16 @@ export function InstalmentApplyPage() {
       }
     }
   }, [selectionComplete, variant, offeredColor, productSlug]);
+
+  // Persist entered form + plan selections so choosing another variant (or a
+  // refresh) retains safely held progress.
+  useEffect(() => {
+    try {
+      sessionStorage.setItem(FORM_STORAGE_KEY, JSON.stringify({ fields: form, tenure, consent }));
+    } catch {
+      /* ignore quota errors */
+    }
+  }, [form, tenure, consent]);
 
   function setField(key: keyof typeof form, value: string) {
     setForm((prev) => ({ ...prev, [key]: value }));
@@ -129,6 +189,44 @@ export function InstalmentApplyPage() {
     return "";
   }
 
+  function goBack() {
+    setStepError("");
+    setStep((s) => Math.max(s - 1, 0));
+  }
+
+  /**
+   * Authoritative availability check against the same backend rule used at
+   * submission. "unavailable" is a genuine stock/colour/catalogue rejection;
+   * "retry" is a network/RPC failure and must never be shown as unavailability.
+   */
+  const checkAvailability = async (): Promise<"ok" | "unavailable" | "retry"> => {
+    if (!variant || !selectionComplete) return "retry";
+    setAvailStatus("checking");
+    setAvailError("");
+    const res = await confirmOfferOnBackend({
+      slug: productSlug,
+      sku: variant.sku,
+      color: offeredColor,
+      tenure,
+    });
+    if (res.status === "ok") {
+      setResolvedVariantId(res.variantId ?? null);
+      setAvailStatus("ok");
+      setUnavailable(false);
+      return "ok";
+    }
+    if (res.status === "unavailable") {
+      setAvailStatus("unavailable");
+      setAvailError(res.error ?? "");
+      setUnavailable(true);
+      return "unavailable";
+    }
+    setAvailStatus("retry");
+    setAvailError(res.error ?? "We couldn't check availability right now. Please try again.");
+    setUnavailable(false);
+    return "retry";
+  };
+
   function goNext() {
     const err = validateStep(step);
     if (err) {
@@ -136,12 +234,19 @@ export function InstalmentApplyPage() {
       return;
     }
     setStepError("");
+    // Validate availability before CNIC & verification. Genuine unavailability
+    // blocks; a network failure (retry) surfaces a notice but does not
+    // hard-block progress (the final submit rechecks server-side).
+    if (step === 1) {
+      void (async () => {
+        const status = await checkAvailability();
+        if (status !== "unavailable") {
+          setStep((s) => Math.min(s + 1, STEPS.length - 1));
+        }
+      })();
+      return;
+    }
     setStep((s) => Math.min(s + 1, STEPS.length - 1));
-  }
-
-  function goBack() {
-    setStepError("");
-    setStep((s) => Math.max(s - 1, 0));
   }
 
   async function doSubmit() {
@@ -155,6 +260,7 @@ export function InstalmentApplyPage() {
     const fullAddress = [form.address, form.city, form.province, form.postalCode].filter(Boolean).join(", ");
     const result = await submitInstalmentApplication({
       variantSku: variant.sku,
+      variantId: resolvedVariantId ?? undefined,
       color: offeredColor,
       fullName: form.fullName,
       mobile: form.mobile,
@@ -178,6 +284,7 @@ export function InstalmentApplyPage() {
     const summaryPayload = {
       productName: product?.name ?? variant.sku,
       sku: variant.sku,
+      variantId: resolvedVariantId,
       storage: variant.storage,
       color: offeredColor,
       ptaStatus: variant.pta_status,
@@ -256,6 +363,10 @@ export function InstalmentApplyPage() {
         return;
       }
 
+      // Carry the resolved DB variant id through to submission so the saved
+      // application uses the same identity the customer reviewed.
+      setResolvedVariantId(confirmRes.variantId ?? null);
+
       // If the server-side price differs from what the customer reviewed, surface
       // the updated breakdown and ask them to confirm before proceeding.
       const serverTotal = confirmRes.plan?.total ?? plan.total;
@@ -269,6 +380,28 @@ export function InstalmentApplyPage() {
       setConfirmBusy(false);
       submittingLock.current = false;
     }
+  }
+
+  if (needClarification && skuCandidates.length > 1) {
+    return (
+      <div className="mx-auto max-w-2xl px-4 py-16">
+        <h1 className="text-2xl font-bold">Choose the exact phone</h1>
+        <p className="mt-1 text-sm text-muted-foreground">
+          This link matches more than one phone. Please pick the exact one before continuing.
+        </p>
+        <ul className="mt-6 space-y-3">
+          {skuCandidates.map((c) => (
+            <li key={`${c.product.slug}-${c.variant.sku}`}>
+              <Button asChild variant="outline" className="w-full justify-start">
+                <Link to={`/product/${c.product.slug}?sku=${encodeURIComponent(c.variant.sku)}&color=${encodeURIComponent(offeredColor)}`}>
+                  {c.product.name} — {c.variant.storage}{displayRamLabel(c.variant.ram) ? ` / ${displayRamLabel(c.variant.ram)}` : ""} · {c.variant.sku}
+                </Link>
+              </Button>
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
   }
 
   if (!product || !variant) {
@@ -287,6 +420,11 @@ export function InstalmentApplyPage() {
   if (!plan) return null;
 
   const changeHref = `/product/${product.slug}?sku=${encodeURIComponent(variant.sku)}&color=${encodeURIComponent(offeredColor)}`;
+
+  // Customer-facing spec label: storage + RAM, omitting internal/unresolved notes
+  // that may be stored in the `ram` field (e.g. "Model-dependent; verify exact RAM").
+  const ramLabel = displayRamLabel(variant.ram);
+  const specLabel = `${variant.storage}${ramLabel ? ` / ${ramLabel}` : ""}`;
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-8">
@@ -314,12 +452,29 @@ export function InstalmentApplyPage() {
 
       <Card>
         <CardContent className="space-y-6 p-6 sm:p-8">
+          {/* Loading / network status — never shown as unavailability */}
+          {availStatus === "checking" && (
+            <div className="flex items-center gap-2 rounded-xl border border-border bg-card px-4 py-3 text-sm text-muted-foreground">
+              <Loader2 className="h-4 w-4 animate-spin" /> Checking availability…
+            </div>
+          )}
+          {availStatus === "retry" && (
+            <div className="rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-800 dark:border-amber-500/30 dark:bg-amber-500/10">
+              <div className="flex items-center justify-between gap-3">
+                <span>{availError || "We couldn't check availability right now."}</span>
+                <Button type="button" variant="outline" size="sm" onClick={() => void checkAvailability()}>
+                  <RefreshCw className="mr-1.5 h-3.5 w-3.5" /> Retry
+                </Button>
+              </div>
+            </div>
+          )}
+
           {/* Unavailable block — a rejected/unresolved selection must never advance */}
           {unavailable ? (
             <div className="rounded-2xl border border-red-200 bg-red-50 p-6 text-center dark:border-red-500/30 dark:bg-red-500/10">
               <p className="text-lg font-semibold text-red-800 dark:text-red-300">This option is no longer available</p>
               <p className="mt-1 text-sm text-red-700/80 dark:text-red-300/80">
-                The {variant.storage} / {variant.ram} · {offeredColor || "selected colour"} offer for {product.name} can't be ordered right now.
+                The {specLabel} · {offeredColor || "selected colour"} offer for {product.name} can't be ordered right now.
               </p>
               <Button asChild className="mt-5" variant="outline">
                 <Link to={changeHref}>Choose another option</Link>
@@ -351,7 +506,7 @@ export function InstalmentApplyPage() {
                       <div className="min-w-0">
                         <p className="truncate font-bold">{product.name}</p>
                         <p className="text-sm text-muted-foreground">
-                          {variant.storage} / {variant.ram} · {offeredColor || (hasColors ? "Colour required" : "—")}
+                          {specLabel} · {offeredColor || (hasColors ? "Colour required" : "—")}
                         </p>
                       </div>
                     </div>
@@ -483,7 +638,7 @@ export function InstalmentApplyPage() {
                       </div>
                       <p className="mt-1 font-semibold">{product.name}</p>
                       <p className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted-foreground">
-                        <span>{variant.storage} / {variant.ram} · {offeredColor || "—"}</span>
+                        <span>{specLabel} · {offeredColor || "—"}</span>
                         {pta && (
                           <span className={cn("inline-flex items-center gap-1 font-medium", pta.tone === "success" ? "text-emerald-700 dark:text-emerald-400" : pta.tone === "warning" ? "text-amber-700 dark:text-amber-400" : "text-muted-foreground")}>
                             <ShieldCheck className="h-4 w-4" /> {pta.label}

@@ -151,7 +151,7 @@ export function HomePage() {
                 type="button"
                 variant="outline"
                 size="lg"
-                onClick={() => openCalculator(0)}
+                onClick={() => document.getElementById("instalment-calculator")?.scrollIntoView({ behavior: "smooth", block: "start" })}
                 className="rounded-full border-white/30 bg-transparent text-white hover:bg-white/10"
               >
                 Calculate Instalments
@@ -162,12 +162,10 @@ export function HomePage() {
             </div>
           </div>
 
-          {/* Right: subtle decorative brand artwork (non-dominant support visual) */}
-          <div className="relative hidden items-center justify-center lg:flex">
-            <div className="relative flex h-72 w-72 items-center justify-center rounded-full border border-white/10 bg-white/[0.04]">
-              <span className="pointer-events-none absolute -inset-10 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.12),transparent_65%)]" />
-              <Sparkles className="h-10 w-10 text-white/40" />
-            </div>
+          {/* Right: live instalment calculator — visible on every screen (below the
+              headline on mobile, side-by-side on desktop). */}
+          <div className="relative">
+            <HeroInstalmentCalculator enableSelect />
           </div>
         </div>
       </section>

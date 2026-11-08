@@ -100,3 +100,18 @@ export function canonicalColor(
   if (!wanted) return "";
   return colors.find((c) => normColor(c) === wanted) ?? "";
 }
+
+/**
+ * Return a customer-facing RAM label, dropping internal/unresolved notes that
+ * are sometimes stored in the `ram` field (e.g. "Model-dependent; verify exact
+ * RAM", "reported", "see note"). Returns "" when the value is not a real spec,
+ * so callers can omit RAM rather than showing internal audit text to customers.
+ */
+export function displayRamLabel(ram?: string | null): string {
+  const value = (ram ?? "").trim();
+  if (!value) return "";
+  if (/model-dependent|verify|reported|see note|confirm|tbd|n\/a|unverified|\bnote\b/i.test(value)) {
+    return "";
+  }
+  return value;
+}
