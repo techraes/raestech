@@ -1,9 +1,12 @@
 import { supabase, isSupabaseConfigured } from "@/lib/supabase";
 import { uploadPrivateFile, IDENTITY_BUCKET } from "@/lib/uploads";
+import { confirmOfferOnBackend } from "@/lib/instalment-offer";
 
 export type InstalmentSubmitInput = {
-  /** Product variant SKU, used to resolve the real `product_variants.id`. */
+  /** Canonical product variant SKU used to resolve the real `product_variants.id`. */
   variantSku: string;
+  /** Colour identifier carried alongside the variant; validated against the offer. */
+  color: string;
   fullName: string;
   mobile: string;
   email?: string;
@@ -26,34 +29,56 @@ export type InstalmentSubmitResult =
   | { ok: true; id: string }
   // applicationId is populated when the application row was created but
   // document attachment failed afterwards, so the UI can still recover.
-  | { ok: false; error: string; applicationId?: string };
+  | { ok: false; error: string; applicationId?: string; code?: "unavailable" | "retry" };
 
-/**
- * Persist an instalment application for the signed-in customer. Identity
- * documents (CNIC / proof of income) are uploaded to private storage and
- * linked to the application. Returns the new application id.
- */
-export async function submitInstalmentApplication(input: InstalmentSubmitInput): Promise<InstalmentSubmitResult> {
+export async function submitInstalmentApplication(
+  input: InstalmentSubmitInput
+): Promise<InstalmentSubmitResult> {
   if (!isSupabaseConfigured) {
     return { ok: false, error: "Instalment applications are not available on this deployment." };
   }
+  if (!supabase) {
+    return { ok: false, error: "Instalment applications are not available on this deployment." };
+  }
 
-  const { data: authData } = await supabase!.auth.getUser();
-  const userId = authData.user?.id;
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  const userId = user?.id;
   if (!userId) {
     return { ok: false, error: "Please sign in to submit an instalment application." };
   }
 
-  // Resolve the real product_variants.id from the variant SKU. The frontend
-  // catalogue is static and does not carry DB ids, so we look it up here.
-  const { data: variantRow, error: variantErr } = await supabase!
-    .from("product_variants")
-    .select("id")
-    .eq("sku", input.variantSku)
-    .maybeSingle();
-  if (variantErr || !variantRow) {
+  // Authoritative backend resolution of the offer by canonical SKU + colour.
+  // This re-validates availability and recomputes the payable amount server-side
+  // on the customer advances to payment. An unavailable or unresolved offer must
+  // never create an application.
+  const confirmed = await confirmOfferOnBackend({
+    slug: "",
+    sku: input.variantSku,
+    color: input.color,
+    tenure: input.tenureMonths,
+  });
+  if (confirmed.status === "unavailable") {
+    return { ok: false, code: "unavailable", error: "This option is no longer available." };
+  }
+  if (confirmed.status !== "ok") {
+    return { ok: false, code: "retry", error: confirmed.error ?? "We couldn't confirm this offer right now. Please try again." };
+  }
+
+  const variantId = confirmed.variantId;
+  if (!variantId) {
     return { ok: false, error: "We couldn't match this product variant in our catalogue. Please contact support." };
   }
+
+  // Use the server-confirmed amounts so the saved application always reflects the
+  // backend's authoritative calculation, even if the client price was stale.
+  const plan = confirmed.plan!;
+  const listedPrice = confirmed.listed ?? input.listedPrice;
+  const advancePayment = plan.advance;
+  const remainingBalance = plan.remaining;
+  const monthlyPayment = plan.monthly;
+  const totalPayable = plan.total;
 
   // 1) Upload identity documents BEFORE creating the application so a failed
   //    upload never leaves an application missing its required legal documents.
@@ -86,12 +111,13 @@ export async function submitInstalmentApplication(input: InstalmentSubmitInput):
   // 2) Create the application only once all documents are stored.
   const applicationNumber = `IP-${Date.now()}`;
 
-  const { data: inserted, error: appErr } = await supabase!
+  const { data: inserted, error: appErr } = await supabase
     .from("instalment_applications")
     .insert({
       application_number: applicationNumber,
       user_id: userId,
-      variant_id: variantRow.id as string,
+      variant_id: variantId,
+      colour: input.color || null,
       full_name: input.fullName,
       mobile: input.mobile,
       email: input.email || null,
@@ -100,11 +126,11 @@ export async function submitInstalmentApplication(input: InstalmentSubmitInput):
       employment_status: input.employmentStatus || null,
       monthly_income: input.monthlyIncome || null,
       tenure_months: input.tenureMonths,
-      listed_price: input.listedPrice,
-      advance_payment: input.advancePayment,
-      remaining_balance: input.remainingBalance,
-      monthly_payment: input.monthlyPayment,
-      total_payable: input.totalPayable,
+      listed_price: listedPrice,
+      advance_payment: advancePayment,
+      remaining_balance: remainingBalance,
+      monthly_payment: monthlyPayment,
+      total_payable: totalPayable,
       consent_given: input.consent,
       status: "submitted",
     })
@@ -117,22 +143,22 @@ export async function submitInstalmentApplication(input: InstalmentSubmitInput):
 
   const applicationId = inserted.id as string;
 
-  // 3) Link the uploaded documents to the application. Failures here are
-  //    surfaced rather than swallowed (RLS allows owners to insert these rows).
-  for (const row of uploadedDocs) {
-    const { error: docErr } = await supabase!.from("instalment_documents").insert({
-      application_id: applicationId,
-      uploaded_by: userId,
-      ...row,
-    });
-    if (docErr) {
-      // The application row and file uploads already exist; surface the id so
-      // the caller can still show the submitted state and recover.
-      return {
-        ok: false,
-        applicationId,
-        error: "Your application was submitted, but we couldn't attach some documents. Please contact support.",
-      };
+  if (uploadedDocs.length) {
+    for (const row of uploadedDocs) {
+      const { error: docErr } = await supabase.from("instalment_documents").insert({
+        application_id: applicationId,
+        uploaded_by: userId,
+        ...row,
+      });
+      if (docErr) {
+        // The application row and file uploads already exist; surface the id so
+        // the caller can still show the submitted state and recover.
+        return {
+          ok: false,
+          applicationId,
+          error: "Your application was submitted, but we couldn't attach some documents. Please contact support.",
+        };
+      }
     }
   }
 

@@ -45,3 +45,34 @@ export function defaultColor(variant: ProductVariant | undefined): string {
   }
   return variant.colors[0];
 }
+
+/**
+ * Resolve a variant by its canonical SKU. This is the ONLY way an offer should
+ * be selected for a purchase/instalment flow. We deliberately return undefined
+ * when zero OR more than one variant matches so the caller never guesses from a
+ * display label, price, array position or "first matching row".
+ */
+export function getVariantBySku(
+  variants: ProductVariant[],
+  sku: string | null | undefined
+): ProductVariant | undefined {
+  if (!sku) return undefined;
+  const matches = variants.filter((v) => v.sku === sku);
+  return matches.length === 1 ? matches[0] : undefined;
+}
+
+/**
+ * True when `color` is a legitimate colour for `variant`. A variant with no
+ * colours accepts any colour (callers pass ""). A colour that is not listed is
+ * never assumed to be available.
+ */
+export function isColorOfVariant(
+  variant: Pick<ProductVariant, "colors"> | undefined,
+  color: string | null | undefined
+): boolean {
+  if (!variant) return false;
+  const colors = variant.colors ?? [];
+  if (colors.length === 0) return true;
+  if (!color) return false;
+  return colors.includes(color);
+}

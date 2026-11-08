@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "@/features/auth/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -67,6 +67,9 @@ function OtpInput({ value, onChange, disabled }: { value: string; onChange: (v: 
 export function RegisterPage() {
   const { signUp, confirmSignUp, googleSignIn, user, loading: authLoading } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const [searchParams] = useSearchParams();
+  const dest = (location.state as { from?: string } | null)?.from || searchParams.get("redirect") || "/account";
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -132,15 +135,17 @@ export function RegisterPage() {
     }
     // Email + password signup. One tap submits signup exactly once — no
     // passwordless sign-in and no second email request.
-    const { error: err } = await signUp(email, password, name);
+    const { error: err, authenticated } = await signUp(email, password, name);
     setBusy(false);
     if (err) {
       setError(err);
       return;
     }
-    // In dev mode signUp signs the user in immediately — no verification step.
-    if (userRef.current) {
-      navigate("/account");
+    // When signup OTP is OFF, Supabase returns a session immediately — the
+    // customer is in and we send them back to where they came from. When OTP is
+    // ON, no session exists until they verify the emailed code below.
+    if (authenticated) {
+      navigate(dest, { replace: true });
       return;
     }
     // Account created. A 6-digit confirmation code has been emailed; the user

@@ -100,6 +100,32 @@ redirect) instead of a code. Two fixes:
    **SSO / Deployment Protection** enabled — unless all projects use it, turn
    that off (or exempt these URLs) so auth links don't get intercepted.
 
+### "OTP not received" — confirmed failure mode (HTTP 500)
+
+If a user requests a code and it never arrives, run:
+
+```bash
+node scripts/check-otp-email.mjs
+```
+
+If it prints **HTTP 500 `"Error sending confirmation email"`**, the app code is
+fine — the OTP request is reaching Supabase Auth, but **Supabase's mailer
+cannot deliver email**. OTP emails are sent by Supabase Auth's own mailer, NOT
+by the `send-email` edge function (that function only handles transactional
+emails). Fix in the Supabase Dashboard:
+
+- **Authentication → SMTP Settings** → enable Custom SMTP with valid provider
+  credentials (e.g. Resend: host `smtp.resend.com`, port `587`, username
+  `resend`, password = your Resend API key).
+- Use a **verified sender domain** (e.g. `no-reply@raestech.store`). The Resend
+  test sender `@resend.dev` is commonly rejected — verify your domain and add
+  the **SPF/DKIM** DNS records in your domain provider.
+- Save, then re-run `node scripts/check-otp-email.mjs` — it should return
+  **HTTP 200**.
+
+If you rely on Supabase's default (hosted) mailer instead, confirm it is enabled
+and not rate-limited for this project.
+
 ### Storage buckets
 
 - Bucket `product-images` — **public** read, admin write (product photos).

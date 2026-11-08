@@ -23,7 +23,7 @@ interface AuthContextValue {
   isAdmin: boolean;
   isSuperAdmin: boolean;
   signIn: (email: string, password: string) => Promise<{ error?: string }>;
-  signUp: (email: string, password: string, fullName: string) => Promise<{ error?: string }>;
+  signUp: (email: string, password: string, fullName: string) => Promise<{ error?: string; authenticated?: boolean }>;
   setOtpPassword: (password: string) => Promise<{ error?: string }>;
   signOut: () => Promise<void>;
   /**
@@ -175,8 +175,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   async function signUp(email: string, password: string, fullName: string) {
     if (isSupabaseConfigured) {
-      const { error } = await supabase!.auth.signUp({ email, password, options: { data: { full_name: fullName } } });
-      return { error: error ? friendlySendError(error.message) : undefined };
+      const { data, error } = await supabase!.auth.signUp({ email, password, options: { data: { full_name: fullName } } });
+      if (error) return { error: friendlySendError(error.message) };
+      // A session is granted immediately only when email confirmation is disabled
+      // (signup OTP OFF). When OTP is ON, no session exists until verification.
+      return { authenticated: Boolean(data.session) };
     }
     if (isDevMode()) {
       const dev: AuthUser = { id: "dev-user", email, fullName, role: "customer" };
@@ -185,7 +188,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       // Record the pending email so the dev OTP verification step can complete.
       setPendingOtpEmail(email.toLowerCase());
       setPendingOtpName(fullName);
-      return {};
+      return { authenticated: false };
     }
     return {
       error:
@@ -270,7 +273,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           data: fullName ? { full_name: fullName } : undefined,
         },
       });
-      if (error) return { error: friendlySendError(error.message) };
+      if (error) {
+        // Log the raw Auth error for support diagnostics (Supabase returns the
+        // error_code / error_id in the error payload). The UI stays friendly.
+        console.error("[otp] signInWithOtp failed", {
+          email: email.toLowerCase(),
+          message: error.message,
+          code: (error as { code?: string }).code,
+          errorCode: (error as { error_code?: string }).error_code,
+          errorId: (error as { error_id?: string }).error_id,
+          status: (error as { status?: number }).status,
+        });
+        return { error: friendlySendError(error.message) };
+      }
       // A successful response only means the provider accepted the request — it
       // does NOT guarantee inbox delivery. Never claim delivery here.
       return { info: "Verification code requested. Please check your inbox and spam folder." };

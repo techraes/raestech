@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { Link, useParams, useNavigate, useSearchParams } from "react-router-dom";
 import {
   ShoppingCart, Heart, ShieldCheck, Lock, Truck, Check, ChevronRight,
   Smartphone, Battery, Cpu, Wifi, Camera, Zap, X,
@@ -9,7 +9,7 @@ import { useSettings } from "@/features/settings/store";
 import { Seo, type SeoJsonLd } from "@/lib/seo";
 import { buyNowPrice, instalmentPlan } from "@/lib/pricing";
 import { getApprovedConceptSrcStatic } from "@/lib/image-resolve";
-import { defaultVariantIndex, defaultColor } from "@/lib/variant-select";
+import { defaultVariantIndex, defaultColor, getVariantBySku } from "@/lib/variant-select";
 import { formatPKR, cn, displayCondition } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -46,12 +46,27 @@ export function ProductDetailPage() {
   const navigate = useNavigate();
 
   const variants = product?.variants ?? [];
-  const [vIndex, setVIndex] = useState(() => (product ? defaultVariantIndex(product.variants) : 0));
+  const [searchParams] = useSearchParams();
+  const requestedSku = searchParams.get("sku");
+  const requestedColor = searchParams.get("color");
+
+  // Preselect from ?sku&color (e.g. returning via "Change selection" from the
+  // instalment flow). Fall back to the default only when nothing is requested.
+  const initialVIndex = (() => {
+    let idx = -1;
+    if (product && requestedSku) {
+      const matched = getVariantBySku(product.variants, requestedSku);
+      if (matched) idx = product.variants.indexOf(matched);
+    }
+    if (idx < 0) idx = product ? defaultVariantIndex(product.variants) : 0;
+    return idx;
+  })();
+  const [vIndex, setVIndex] = useState<number>(initialVIndex);
   const variant = variants[vIndex];
   const [color, setColor] = useState<string>(() => {
-    if (!product) return "";
-    const idx = defaultVariantIndex(product.variants);
-    return defaultColor(product.variants[idx]);
+    if (!variant) return "";
+    if (requestedColor && variant.colors.includes(requestedColor)) return requestedColor;
+    return defaultColor(variant);
   });
   const [colorError, setColorError] = useState<string>("");
   const [calcOpen, setCalcOpen] = useState(false);
@@ -64,6 +79,11 @@ export function ProductDetailPage() {
     }
     setColorError("");
     return true;
+  }
+
+  function goInstalment() {
+    if (!requireColor() || !product) return;
+    navigate(`/instalments/apply?product=${product.slug}&sku=${encodeURIComponent(variant.sku)}&color=${encodeURIComponent(color || "")}`);
   }
 
   const plan = useMemo(
@@ -315,8 +335,8 @@ export function ProductDetailPage() {
             {colorError && (
               <p className="rounded-lg bg-amber-50 px-3 py-2 text-xs text-amber-800">{colorError}</p>
             )}
-            <Button asChild size="lg" variant="outline" className="w-full rounded-full">
-              <Link to={`/instalments/apply?product=${product.slug}&sku=${encodeURIComponent(variant.sku)}&color=${encodeURIComponent(color || "")}`}>Apply Instalment</Link>
+            <Button size="lg" variant="outline" className="w-full rounded-full" onClick={goInstalment}>
+              Apply Instalment
             </Button>
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               <Card className="p-4">
@@ -335,8 +355,8 @@ export function ProductDetailPage() {
                 <div className="flex justify-between"><span className="text-muted-foreground">Advance ({settings.instalmentAdvancePercent}%)</span><span className="font-semibold">{formatPKR(plan.advance)}</span></div>
                 <div className="mt-1 flex justify-between"><span className="text-muted-foreground">Remaining balance</span><span className="font-semibold">{formatPKR(plan.remaining)}</span></div>
                 <div className="mt-1 flex justify-between"><span className="text-muted-foreground">Monthly (12 months)</span><span className="font-semibold">{formatPKR(plan.monthly)}</span></div>
-                <Button asChild variant="outline" className="mt-3 w-full">
-                  <Link to={`/instalments/apply?product=${product.slug}&sku=${encodeURIComponent(variant.sku)}&color=${encodeURIComponent(color || "")}`}>Apply for Instalments</Link>
+                <Button variant="outline" className="mt-3 w-full" onClick={goInstalment}>
+                  Apply for Instalments
                 </Button>
               </div>
             )}

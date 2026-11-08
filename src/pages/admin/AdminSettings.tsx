@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { Save, Check } from "lucide-react";
+import { Save, Check, Loader2 } from "lucide-react";
 import { useSettings } from "@/features/settings/store";
 import { useAuth } from "@/features/auth/AuthContext";
 import { useAudit } from "@/features/audit/useAudit";
+import { getSignupOtpRequired, setSignupOtpRequired } from "@/lib/auth-config";
 import { Button } from "@/components/ui/button";
 import { SectionCard, Field, TextInput, NumberInput, TextArea, Toggle, PageHeader } from "./_ui";
 import type { SiteSettings } from "@/types";
@@ -13,6 +14,43 @@ export function AdminSettings() {
   const { log } = useAudit();
   const [draft, setDraft] = useState<SiteSettings>(settings);
   const [saved, setSaved] = useState(false);
+
+  // ---- Authentication: signup OTP switch (Super Admin only) ----
+  const [authLoading, setAuthLoading] = useState(true);
+  const [authError, setAuthError] = useState("");
+  const [requireOtp, setRequireOtp] = useState(true);
+  const [authSaved, setAuthSaved] = useState(false);
+  const [authSaving, setAuthSaving] = useState(false);
+
+  useEffect(() => {
+    let mounted = true;
+    (async () => {
+      const v = await getSignupOtpRequired();
+      if (mounted) {
+        setRequireOtp(v);
+        setAuthLoading(false);
+      }
+    })();
+    return () => { mounted = false; };
+  }, []);
+
+  async function toggleRequireOtp(next: boolean) {
+    setAuthSaving(true);
+    setAuthError("");
+    setAuthSaved(false);
+    const res = await setSignupOtpRequired(next);
+    setAuthSaving(false);
+    if (res.ok) {
+      // Read back the effective state before reporting Saved.
+      const effective = await getSignupOtpRequired();
+      setRequireOtp(effective);
+      setAuthSaved(true);
+      await log({ action: "auth.email_verification.update", entity: "auth_email_config", newValue: { require_signup_otp: effective }, reason: "Super Admin changed signup email verification" });
+    } else {
+      if (typeof res.effective === "boolean") setRequireOtp(res.effective);
+      setAuthError(res.error ?? "Could not update the verification setting.");
+    }
+  }
 
   useEffect(() => setDraft(settings), [settings]);
 
@@ -52,6 +90,39 @@ export function AdminSettings() {
           <Field label="Currency code"><TextInput value={draft.currency} onChange={(v) => set("currency", v)} /></Field>
           <Field label="Currency symbol"><TextInput value={draft.currencySymbol} onChange={(v) => set("currencySymbol", v)} /></Field>
           <Field label="Currency format"><TextInput value={draft.currencyFormat} onChange={(v) => set("currencyFormat", v)} /></Field>
+        </div>
+      </SectionCard>
+
+      <SectionCard title="Authentication" description="Control whether new signups must verify their email with an OTP. Super Admin only.">
+        <div className="space-y-4">
+          <div className="flex items-center justify-between gap-4 rounded-2xl border p-4">
+            <div className="min-w-0">
+              <p className="text-sm font-semibold">Require email OTP for new signups</p>
+              <p className="mt-1 text-xs text-muted-foreground">
+                When off, new customers can sign up and sign in immediately. Order confirmation emails are always enabled.
+              </p>
+              <p className="mt-2 text-xs font-medium text-muted-foreground">
+                Current state: <span className="font-semibold text-foreground">{authLoading ? "loading…" : requireOtp ? "On" : "Off"}</span>
+                {authSaved && <span className="ml-2 text-emerald-600 dark:text-emerald-400">Saved</span>}
+              </p>
+              {authError && <p className="mt-2 text-xs text-red-600 dark:text-red-400">{authError}</p>}
+            </div>
+            <div className="shrink-0">
+              {authLoading ? (
+                <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+              ) : (
+                <Toggle
+                  label=""
+                  checked={requireOtp}
+                  disabled={!isSuperAdmin || authSaving}
+                  onChange={(v) => void toggleRequireOtp(v)}
+                />
+              )}
+            </div>
+          </div>
+          {!isSuperAdmin && (
+            <p className="text-xs text-amber-600 dark:text-amber-400">Only a Super Admin can change this setting.</p>
+          )}
         </div>
       </SectionCard>
 
