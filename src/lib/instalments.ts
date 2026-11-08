@@ -14,6 +14,13 @@ export type InstalmentSubmitInput = {
   email?: string;
   cnic?: string;
   currentAddress?: string;
+  deliveryFullName?: string;
+  deliveryPhone?: string;
+  deliveryAddress?: string;
+  deliveryArea?: string;
+  deliveryCity?: string;
+  deliveryProvince?: string;
+  deliveryPostalCode?: string;
   employmentStatus?: string;
   monthlyIncome?: string;
   tenureMonths: number;
@@ -132,6 +139,13 @@ export async function submitInstalmentApplication(
       email: input.email || null,
       cnic: input.cnic || null,
       current_address: input.currentAddress || null,
+      delivery_full_name: input.deliveryFullName || null,
+      delivery_phone: input.deliveryPhone || null,
+      delivery_address: input.deliveryAddress || null,
+      delivery_area: input.deliveryArea || null,
+      delivery_city: input.deliveryCity || null,
+      delivery_province: input.deliveryProvince || null,
+      delivery_postal_code: input.deliveryPostalCode || null,
       employment_status: input.employmentStatus || null,
       monthly_income: input.monthlyIncome || null,
       tenure_months: input.tenureMonths,

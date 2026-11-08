@@ -24,12 +24,32 @@ const NAV = [
   { label: "Contact Us", to: "/contact" },
 ];
 
+/** Simple TikTok glyph (not in lucide). */
+function TikTokIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="1em" height="1em" {...props}>
+      <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" />
+    </svg>
+  );
+}
+
 const SOCIALS = [
   { key: "facebook", icon: Facebook, label: "Facebook" },
   { key: "instagram", icon: Instagram, label: "Instagram" },
-  { key: "tiktok", icon: null, label: "TikTok" },
+  { key: "tiktok", icon: TikTokIcon, label: "TikTok" },
   { key: "youtube", icon: Youtube, label: "YouTube" },
 ] as const;
+
+/** Only render an icon when a valid HTTPS profile URL is configured. */
+function validHttpsUrl(url?: unknown): url is string {
+  if (typeof url !== "string" || !url.trim()) return false;
+  try {
+    const u = new URL(url.trim());
+    return u.protocol === "https:";
+  } catch {
+    return false;
+  }
+}
 
 export function StorefrontLayout() {
   const { settings } = useSettings();
@@ -352,17 +372,20 @@ export function StorefrontLayout() {
         <div className="border-t border-white/10">
           <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-4 py-4 text-xs text-neutral-500 sm:flex-row">
             <span>{settings.copyrightText.replace("{year}", String(new Date().getFullYear()))}</span>
-            <div className="flex items-center gap-3">
-              {SOCIALS.map((s) => {
-                const url = (settings.socialLinks as unknown as Record<string, unknown>)?.[s.key] as string | undefined;
-                if (!url || !s.icon) return null;
-                const Icon = s.icon;
-                return (
-                  <a key={s.key} href={url} target="_blank" rel="noreferrer" aria-label={s.label} className="text-neutral-400 transition-colors hover:text-white">
-                    <Icon className="h-4 w-4" />
-                  </a>
-                );
-              })}
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              <span className="font-medium text-neutral-300">@Raestech.Store</span>
+              <div className="flex items-center gap-3">
+                {SOCIALS.map((s) => {
+                  const url = (settings.socialLinks as unknown as Record<string, unknown>)?.[s.key];
+                  if (!validHttpsUrl(url)) return null;
+                  const Icon = s.icon;
+                  return (
+                    <a key={s.key} href={url} target="_blank" rel="noreferrer" aria-label={`${s.label} profile`} className="text-neutral-400 transition-colors hover:text-white">
+                      <Icon className="h-4 w-4" />
+                    </a>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </div>

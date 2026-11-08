@@ -244,6 +244,8 @@ export interface CustomerOrder {
   city: string;
   province: string;
   address: string;
+  area?: string;
+  postalCode?: string;
   notes: string;
   items: CustomerOrderItem[];
   subtotal: number;

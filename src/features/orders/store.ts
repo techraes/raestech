@@ -14,6 +14,8 @@ export interface OrderDraft {
   city: string;
   province: string;
   address: string;
+  area?: string;
+  postalCode?: string;
   notes: string;
   items: CartItem[];
   subtotal: number;
@@ -152,6 +154,8 @@ export const useOrders = create<OrdersState>()(
           city: draft.city,
           province: draft.province,
           address: draft.address,
+          area: draft.area,
+          postalCode: draft.postalCode,
           notes: draft.notes,
           items,
           subtotal: computedSubtotal,
@@ -179,6 +183,12 @@ export const useOrders = create<OrdersState>()(
               discount_percent: discount,
               shipping_charge: draft.shipping,
               customer_notes: draft.notes || null,
+              shipping_full_name: order.customerName,
+              shipping_city: draft.city,
+              shipping_province: draft.province || null,
+              shipping_address: draft.address || null,
+              shipping_area: draft.area || null,
+              shipping_postal: draft.postalCode || null,
               payment_method: toDbPaymentMethod(order.paymentMethod),
               items: items.map((item) => ({
                 sku: item.sku,
@@ -217,6 +227,9 @@ export const useOrders = create<OrdersState>()(
               shipping_phone: order.phone,
               shipping_city: order.city,
               shipping_province: order.province || null,
+              shipping_address: order.address || null,
+              shipping_area: order.area || null,
+              shipping_postal: order.postalCode || null,
               subtotal: order.subtotal,
               discount_amount: order.discountAmount,
               shipping_charge: order.shipping,

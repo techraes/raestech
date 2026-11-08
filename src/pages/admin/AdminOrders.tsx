@@ -57,6 +57,9 @@ interface OrderRow {
   city?: string;
   province?: string;
   address?: string;
+  area?: string;
+  postal?: string;
+  deliveryPhone?: string;
   method?: string;
   payment?: PaymentInfo | null;
   rejection_reason?: string;
@@ -81,6 +84,13 @@ interface AppRow {
   payment?: PaymentInfo | null;
   docs: DocInfo[];
   rejection_reason?: string;
+  deliveryFullName?: string;
+  deliveryPhone?: string;
+  deliveryAddress?: string;
+  deliveryArea?: string;
+  deliveryCity?: string;
+  deliveryProvince?: string;
+  deliveryPostalCode?: string;
 }
 
 type Row = OrderRow | AppRow;
@@ -180,12 +190,12 @@ export function AdminOrders() {
     setError("");
     try {
       const oRes = await supabase.from("orders")
-        .select("id,order_number,email,phone,status,payment_status,total,subtotal,discount_amount,shipping_charge,placed_at,shipping_full_name,shipping_city,shipping_province,shipping_postal,payment_method,customer_notes,rejection_reason,reviewed_at")
+        .select("id,order_number,email,phone,status,payment_status,total,subtotal,discount_amount,shipping_charge,placed_at,shipping_full_name,shipping_phone,shipping_address,shipping_area,shipping_city,shipping_province,shipping_postal,payment_method,customer_notes,rejection_reason,reviewed_at")
         .order("placed_at", { ascending: false })
         .limit(300);
 
       const aRes = await supabase.from("instalment_applications")
-        .select("id,application_number,full_name,mobile,email,cnic,status,advance_payment,advance_received,remaining_balance,monthly_payment,total_payable,tenure_months,created_at,reviewed_by,reviewed_at,rejection_reason")
+        .select("id,application_number,full_name,mobile,email,cnic,status,advance_payment,advance_received,remaining_balance,monthly_payment,total_payable,tenure_months,created_at,reviewed_by,reviewed_at,rejection_reason,delivery_full_name,delivery_phone,delivery_address,delivery_area,delivery_city,delivery_province,delivery_postal_code")
         .order("created_at", { ascending: false })
         .limit(300);
 
@@ -272,7 +282,10 @@ export function AdminOrders() {
           phone: o.phone,
           city: o.shipping_city,
           province: o.shipping_province,
-          address: o.shipping_postal,
+          address: o.shipping_address || o.shipping_postal,
+          area: o.shipping_area,
+          postal: o.shipping_postal,
+          deliveryPhone: o.shipping_phone || o.phone,
           method: pay?.method ?? o.payment_method,
           rejection_reason: o.rejection_reason,
           payment: pay
@@ -309,6 +322,13 @@ export function AdminOrders() {
           tenure: Number(a.tenure_months ?? 0),
           created_at: a.created_at,
           rejection_reason: a.rejection_reason,
+          deliveryFullName: a.delivery_full_name || a.full_name,
+          deliveryPhone: a.delivery_phone || a.mobile,
+          deliveryAddress: a.delivery_address,
+          deliveryArea: a.delivery_area,
+          deliveryCity: a.delivery_city,
+          deliveryProvince: a.delivery_province,
+          deliveryPostalCode: a.delivery_postal_code,
           payment: pay
             ? {
                 id: pay.id,
@@ -742,9 +762,12 @@ function DetailView(props: {
             <Field label="Order reference" value={row.reference} />
             <Field label="Purchase type" value="Buy Now" />
             <Field label="Customer" value={(row as OrderRow).name || "—"} />
-            <Field label="Contact" value={(row as OrderRow).phone || "—"} />
+            <Field label="Contact" value={(row as OrderRow).deliveryPhone || (row as OrderRow).phone || "—"} />
             <Field label="Email" value={(row as OrderRow).email || "—"} />
-            <Field label="Delivery" value={[(row as OrderRow).city, (row as OrderRow).province].filter(Boolean).join(", ") || "—"} />
+            <Field label="Street address" value={(row as OrderRow).address || "—"} />
+            <Field label="Area" value={(row as OrderRow).area || "—"} />
+            <Field label="City / Province" value={[(row as OrderRow).city, (row as OrderRow).province].filter(Boolean).join(", ") || "—"} />
+            <Field label="Postal code" value={(row as OrderRow).postal || "—"} />
             <Field label="Listed subtotal" value={formatPKR((row as OrderRow).subtotal)} />
             <Field label="Discount" value={`−${formatPKR((row as OrderRow).discount)}`} />
             <Field label="Shipping" value={(row as OrderRow).shipping === 0 ? "Free" : formatPKR((row as OrderRow).shipping)} />
@@ -764,6 +787,11 @@ function DetailView(props: {
             <Field label="Mobile" value={(row as AppRow).mobile || "—"} />
             <Field label="Email" value={(row as AppRow).email || "—"} />
             <Field label="CNIC" value={maskCnic((row as AppRow).cnic)} />
+            <Field label="Delivery contact" value={(row as AppRow).deliveryPhone || (row as AppRow).mobile || "—"} />
+            <Field label="Delivery street" value={(row as AppRow).deliveryAddress || "—"} />
+            <Field label="Delivery area" value={(row as AppRow).deliveryArea || "—"} />
+            <Field label="Delivery city / province" value={[(row as AppRow).deliveryCity, (row as AppRow).deliveryProvince].filter(Boolean).join(", ") || "—"} />
+            <Field label="Delivery postal code" value={(row as AppRow).deliveryPostalCode || "—"} />
             <Field label="Advance due" value={formatPKR((row as AppRow).advance ?? 0)} />
             <Field label="Advance received" value={formatPKR((row as AppRow).advanceReceived ?? 0)} />
             <Field label="Balance" value={formatPKR((row as AppRow).balance ?? 0)} />

@@ -30,7 +30,7 @@ const FORM_STORAGE_KEY = "raestech:instalment-form-draft";
 
 type InstalmentFormFields = {
   fullName: string; mobile: string; email: string; cnic: string;
-  address: string; city: string; province: string; postalCode: string; employment: string; income: string;
+  address: string; city: string; province: string; postalCode: string; area: string; employment: string; income: string;
 };
 
 /** Mask a CNIC for Review display (never show the full number). */
@@ -94,7 +94,7 @@ export function InstalmentApplyPage() {
   const [form, setForm] = useState<InstalmentFormFields>(() => {
     const empty: InstalmentFormFields = {
       fullName: "", mobile: "", email: "", cnic: "",
-      address: "", city: "", province: "", postalCode: "", employment: "", income: "",
+      address: "", city: "", province: "", postalCode: "", area: "", employment: "", income: "",
     };
     try {
       const raw = sessionStorage.getItem(FORM_STORAGE_KEY);
@@ -274,6 +274,13 @@ export function InstalmentApplyPage() {
       email: form.email || undefined,
       cnic: form.cnic || undefined,
       currentAddress: fullAddress || undefined,
+      deliveryFullName: form.fullName,
+      deliveryPhone: form.mobile,
+      deliveryAddress: form.address || undefined,
+      deliveryArea: form.area || undefined,
+      deliveryCity: form.city || undefined,
+      deliveryProvince: form.province || undefined,
+      deliveryPostalCode: form.postalCode || undefined,
       employmentStatus: form.employment || undefined,
       monthlyIncome: form.income || undefined,
       tenureMonths: tenure,
@@ -621,7 +628,8 @@ export function InstalmentApplyPage() {
                     <p className="mt-1 text-sm text-muted-foreground">We deliver nationwide across Pakistan.</p>
                   </div>
                   <div className="grid gap-4 sm:grid-cols-2">
-                    <div className="sm:col-span-2"><Label htmlFor="address">Street address</Label><Textarea id="address" value={form.address} onChange={(e) => setField("address", e.target.value)} placeholder="House / street / area" rows={2} /></div>
+                    <div className="sm:col-span-2"><Label htmlFor="address">Street address</Label><Textarea id="address" value={form.address} onChange={(e) => setField("address", e.target.value)} placeholder="House / street" rows={2} /></div>
+                    <div><Label htmlFor="area">Area</Label><Input id="area" value={form.area} onChange={(e) => setField("area", e.target.value)} placeholder="Area / neighbourhood" /></div>
                     <div><Label htmlFor="city">City</Label><Input id="city" value={form.city} onChange={(e) => setField("city", e.target.value)} placeholder="e.g. Lahore" /></div>
                     <div><Label htmlFor="province">Province</Label><Select value={form.province} onValueChange={(v) => setField("province", v)}><SelectTrigger id="province"><SelectValue placeholder="Select" /></SelectTrigger><SelectContent>{["Punjab","Sindh","Khyber Pakhtunkhwa","Balochistan","Islamabad Capital Territory"].map((o) => <SelectItem key={o} value={o}>{o}</SelectItem>)}</SelectContent></Select></div>
                     <div><Label htmlFor="postal">Postal code (optional)</Label><Input id="postal" value={form.postalCode} onChange={(e) => setField("postalCode", e.target.value)} placeholder="e.g. 54000" /></div>

@@ -46,6 +46,8 @@ export function CheckoutPage() {
     city: "",
     province: "",
     address: "",
+    area: "",
+    postalCode: "",
     notes: "",
   });
   const [step, setStep] = useState<CheckoutStep>("details");
@@ -216,6 +218,8 @@ export function CheckoutPage() {
           city: form.city,
           province: form.province,
           address: form.address,
+          area: form.area,
+          postalCode: form.postalCode,
           notes: form.notes,
           items,
           subtotal: subtotalAmount,
@@ -373,7 +377,15 @@ export function CheckoutPage() {
                 </div>
                 <div className="space-y-1.5 sm:col-span-2">
                   <Label>Street address</Label>
-                  <Input required value={form.address} onChange={(e) => setField("address", e.target.value)} />
+                  <Input required value={form.address} onChange={(e) => setField("address", e.target.value)} placeholder="House / street address" />
+                </div>
+                <div className="space-y-1.5">
+                  <Label>Area</Label>
+                  <Input value={form.area} onChange={(e) => setField("area", e.target.value)} placeholder="Area / neighbourhood" />
+                </div>
+                <div className="space-y-1.5">
+                  <Label>Postal code</Label>
+                  <Input value={form.postalCode} onChange={(e) => setField("postalCode", e.target.value)} />
                 </div>
                 <div className="space-y-1.5 sm:col-span-2">
                   <Label>Order notes (optional)</Label>
