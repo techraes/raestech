@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { AlertTriangle, CheckCircle2, ImagePlus, Info, Save } from "lucide-react";
-import { useSettings } from "@/features/settings/store";
+import { useSettings, DEFAULT_PAYMENT_METHODS } from "@/features/settings/store";
 import { useAudit } from "@/features/audit/useAudit";
 import { supabase, isSupabaseConfigured } from "@/lib/supabase";
 import { Button } from "@/components/ui/button";
@@ -18,16 +18,16 @@ function readFileAsDataURL(file: File): Promise<string> {
 }
 
 /**
- * Reference defaults for the Faysal Bank manual transfer method. These are the
- * owner-supplied values used when initialising an unconfigured method. A method
- * is only "published" toward customers when it is enabled AND its required
- * details are complete.
+ * The Faysal Bank manual-transfer method is seeded in application defaults
+ * (DEFAULT_PAYMENT_METHODS). The reference account used for conflict detection is
+ * derived from that single source rather than re-hardcoded here.
  */
+const faysalDefault = DEFAULT_PAYMENT_METHODS.find((m) => m.code === "faysal_bank");
 const REFERENCE_FAYSAL = {
-  bankName: "Faysal Bank Limited",
-  accountTitle: "MUBASHAR IQBAL",
-  accountNumber: "3280525000007626",
-  iban: "PK24FAYS3280525000007626",
+  bankName: faysalDefault?.bankName ?? "",
+  accountTitle: faysalDefault?.accountTitle ?? "",
+  accountNumber: faysalDefault?.accountNumber ?? "",
+  iban: faysalDefault?.iban ?? "",
 };
 
 function isManualConfigured(m: PaymentMethod): boolean {
