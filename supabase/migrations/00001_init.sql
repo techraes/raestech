@@ -150,7 +150,7 @@ create table product_variants (
   is_active boolean not null default true,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
-  check (listed_price <= buy_now_price or buy_now_price = 0)
+  check (buy_now_price <= listed_price or buy_now_price = 0)
 );
 create index variants_product_idx on product_variants(product_id);
 

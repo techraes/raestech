@@ -4,12 +4,13 @@ import { CheckCircle2, ShieldCheck, UploadCloud } from "lucide-react";
 import { useSettings } from "@/features/settings/store";
 import { useAuth } from "@/features/auth/AuthContext";
 import { formatPKR } from "@/lib/utils";
-import { submitInstalmentReceipt } from "@/lib/receipts";
+import { uploadReceipt, attachReceiptToInstalment } from "@/lib/receipts";
 import { supabase } from "@/lib/supabase";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { FileUploadField } from "@/components/file-upload-field";
+import { PaymentQr } from "@/components/payment-qr";
 
 interface PaymentSummary {
   productName: string;
@@ -48,6 +49,9 @@ export function InstalmentPaymentPage() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [done, setDone] = useState(false);
+  // Path of the advance receipt already uploaded to storage, kept so a retry
+  // after a payment-record failure reuses the same file.
+  const [receiptPath, setReceiptPath] = useState<string | null>(null);
   const [loaded, setLoaded] = useState(!summary);
   const [notFound, setNotFound] = useState(false);
 
@@ -97,6 +101,11 @@ export function InstalmentPaymentPage() {
         instructions: manualMethod.instructions ?? "",
       }
     : undefined;
+  // Merchant QR configured by the admin for the bank method (data URL) or the
+  // text payload used to render a scannable QR. Passed to the same PaymentQr
+  // component used on Buy Now checkout.
+  const merchantQrImageUrl = manualMethod?.qrImageUrl ?? "";
+  const merchantQrPayload = manualMethod?.qrPayload ?? "";
 
   async function handleSubmitReceipt(e: React.FormEvent) {
     e.preventDefault();
@@ -110,7 +119,20 @@ export function InstalmentPaymentPage() {
       return;
     }
     setSubmitting(true);
-    const result = await submitInstalmentReceipt(applicationId, advance, receipt);
+    // Reuse a previously uploaded path on retry so the customer is never asked
+    // to transfer again or re-upload after a payment-record failure.
+    let effectivePath = receiptPath;
+    if (!effectivePath) {
+      const uploaded = await uploadReceipt(receipt);
+      if (!uploaded.ok) {
+        setSubmitting(false);
+        setError(uploaded.error);
+        return;
+      }
+      effectivePath = uploaded.path;
+      setReceiptPath(effectivePath);
+    }
+    const result = await attachReceiptToInstalment(applicationId, advance, effectivePath, receipt);
     setSubmitting(false);
     if (!result.ok) {
       setError(result.error);
@@ -212,6 +234,16 @@ export function InstalmentPaymentPage() {
                   <p className="mt-2 flex items-center gap-1.5 text-xs text-muted-foreground">
                     <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" /> Use your application reference {referenceFromId(applicationId)} in the payment description.
                   </p>
+                  {/* Merchant QR configured by the admin (or generated from the
+                      bank payload). Only the advance due is requested. */}
+                  <PaymentQr
+                    amount={advance}
+                    orderNumber={referenceFromId(applicationId)}
+                    bank={bankDetails}
+                    payload={merchantQrPayload}
+                    imageUrl={merchantQrImageUrl}
+                    className="mt-4"
+                  />
                 </div>
               ) : (
                 <p className="mt-3 text-sm text-muted-foreground">
@@ -238,7 +270,7 @@ export function InstalmentPaymentPage() {
                   accept=".jpg,.jpeg,.png,.pdf"
                   required
                   value={receipt}
-                  onChange={setReceipt}
+                  onChange={(f) => { setReceipt(f); setReceiptPath(null); }}
                   helperText="JPG, PNG or PDF, max 5 MB. Paste the transfer confirmation / screenshot."
                 />
                 {error && <p className="rounded-lg bg-red-50 px-3 py-2 text-xs text-red-700 dark:bg-red-500/10 dark:text-red-300">{error}</p>}

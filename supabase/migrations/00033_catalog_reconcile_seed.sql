@@ -17,8 +17,8 @@ INSERT INTO brands (name, slug) VALUES ('itel', 'itel') ON CONFLICT (slug) DO NO
 INSERT INTO brands (name, slug) VALUES ('Nothing', 'nothing') ON CONFLICT (slug) DO NOTHING;
 INSERT INTO brands (name, slug) VALUES ('Motorola', 'motorola') ON CONFLICT (slug) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('apple-iphone-12-mini', (SELECT id FROM brands WHERE slug='apple'), 'Apple iPhone 12 mini', 'iPhone 12 mini', 'Apple iPhone 12 mini — 5G, 5.4 OLED 60Hz, A14 Bionic. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Apple iPhone 12 mini Price in Pakistan | RAES TECH', 'Apple iPhone 12 mini from Rs 40,950. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('apple-iphone-12-mini', (SELECT id FROM brands WHERE slug='apple'), 'Apple iPhone 12 mini', 'iPhone 12 mini', 'Apple iPhone 12 mini — 5G, 5.4 OLED 60Hz, A14 Bionic. Pricing shown includes PTA / SIM-lock variants where available.', 'Apple iPhone 12 mini Price in Pakistan | RAES TECH', 'Apple iPhone 12 mini from Rs 40,950. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -58,8 +58,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='apple-iphone-12-mini'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('apple-iphone-12', (SELECT id FROM brands WHERE slug='apple'), 'Apple iPhone 12', 'iPhone 12', 'Apple iPhone 12 — 5G, 6.1 OLED 60Hz, A14 Bionic. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Apple iPhone 12 Price in Pakistan | RAES TECH', 'Apple iPhone 12 from Rs 41,850. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('apple-iphone-12', (SELECT id FROM brands WHERE slug='apple'), 'Apple iPhone 12', 'iPhone 12', 'Apple iPhone 12 — 5G, 6.1 OLED 60Hz, A14 Bionic. Pricing shown includes PTA / SIM-lock variants where available.', 'Apple iPhone 12 Price in Pakistan | RAES TECH', 'Apple iPhone 12 from Rs 41,850. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -99,8 +99,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='apple-iphone-12'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('apple-iphone-12-pro', (SELECT id FROM brands WHERE slug='apple'), 'Apple iPhone 12 Pro', 'iPhone 12 Pro', 'Apple iPhone 12 Pro — 5G, 6.1 OLED 60Hz, A14 Bionic. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Apple iPhone 12 Pro Price in Pakistan | RAES TECH', 'Apple iPhone 12 Pro from Rs 64,800. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('apple-iphone-12-pro', (SELECT id FROM brands WHERE slug='apple'), 'Apple iPhone 12 Pro', 'iPhone 12 Pro', 'Apple iPhone 12 Pro — 5G, 6.1 OLED 60Hz, A14 Bionic. Pricing shown includes PTA / SIM-lock variants where available.', 'Apple iPhone 12 Pro Price in Pakistan | RAES TECH', 'Apple iPhone 12 Pro from Rs 64,800. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -140,8 +140,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='apple-iphone-12-pro'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('apple-iphone-12-pro-max', (SELECT id FROM brands WHERE slug='apple'), 'Apple iPhone 12 Pro Max', 'iPhone 12 Pro Max', 'Apple iPhone 12 Pro Max — 5G, 6.7 OLED 60Hz, A14 Bionic. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Apple iPhone 12 Pro Max Price in Pakistan | RAES TECH', 'Apple iPhone 12 Pro Max from Rs 77,400. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('apple-iphone-12-pro-max', (SELECT id FROM brands WHERE slug='apple'), 'Apple iPhone 12 Pro Max', 'iPhone 12 Pro Max', 'Apple iPhone 12 Pro Max — 5G, 6.7 OLED 60Hz, A14 Bionic. Pricing shown includes PTA / SIM-lock variants where available.', 'Apple iPhone 12 Pro Max Price in Pakistan | RAES TECH', 'Apple iPhone 12 Pro Max from Rs 77,400. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -181,8 +181,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='apple-iphone-12-pro-max'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('apple-iphone-13-mini', (SELECT id FROM brands WHERE slug='apple'), 'Apple iPhone 13 mini', 'iPhone 13 mini', 'Apple iPhone 13 mini — 5G, 5.4 OLED 60Hz, A15 Bionic. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Apple iPhone 13 mini Price in Pakistan | RAES TECH', 'Apple iPhone 13 mini from Rs 46,800. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('apple-iphone-13-mini', (SELECT id FROM brands WHERE slug='apple'), 'Apple iPhone 13 mini', 'iPhone 13 mini', 'Apple iPhone 13 mini — 5G, 5.4 OLED 60Hz, A15 Bionic. Pricing shown includes PTA / SIM-lock variants where available.', 'Apple iPhone 13 mini Price in Pakistan | RAES TECH', 'Apple iPhone 13 mini from Rs 46,800. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -222,8 +222,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='apple-iphone-13-mini'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('apple-iphone-13', (SELECT id FROM brands WHERE slug='apple'), 'Apple iPhone 13', 'iPhone 13', 'Apple iPhone 13 — 5G, 6.1 OLED 60Hz, A15 Bionic. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Apple iPhone 13 Price in Pakistan | RAES TECH', 'Apple iPhone 13 from Rs 53,550. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('apple-iphone-13', (SELECT id FROM brands WHERE slug='apple'), 'Apple iPhone 13', 'iPhone 13', 'Apple iPhone 13 — 5G, 6.1 OLED 60Hz, A15 Bionic. Pricing shown includes PTA / SIM-lock variants where available.', 'Apple iPhone 13 Price in Pakistan | RAES TECH', 'Apple iPhone 13 from Rs 53,550. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -263,8 +263,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='apple-iphone-13'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('apple-iphone-13-pro', (SELECT id FROM brands WHERE slug='apple'), 'Apple iPhone 13 Pro', 'iPhone 13 Pro', 'Apple iPhone 13 Pro — 5G, 6.1 OLED 120Hz, A15 Bionic. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Apple iPhone 13 Pro Price in Pakistan | RAES TECH', 'Apple iPhone 13 Pro from Rs 85,500. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('apple-iphone-13-pro', (SELECT id FROM brands WHERE slug='apple'), 'Apple iPhone 13 Pro', 'iPhone 13 Pro', 'Apple iPhone 13 Pro — 5G, 6.1 OLED 120Hz, A15 Bionic. Pricing shown includes PTA / SIM-lock variants where available.', 'Apple iPhone 13 Pro Price in Pakistan | RAES TECH', 'Apple iPhone 13 Pro from Rs 85,500. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -316,8 +316,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='apple-iphone-13-pro'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('apple-iphone-13-pro-max', (SELECT id FROM brands WHERE slug='apple'), 'Apple iPhone 13 Pro Max', 'iPhone 13 Pro Max', 'Apple iPhone 13 Pro Max — 5G, 6.7 OLED 120Hz, A15 Bionic. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Apple iPhone 13 Pro Max Price in Pakistan | RAES TECH', 'Apple iPhone 13 Pro Max from Rs 107,100. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('apple-iphone-13-pro-max', (SELECT id FROM brands WHERE slug='apple'), 'Apple iPhone 13 Pro Max', 'iPhone 13 Pro Max', 'Apple iPhone 13 Pro Max — 5G, 6.7 OLED 120Hz, A15 Bionic. Pricing shown includes PTA / SIM-lock variants where available.', 'Apple iPhone 13 Pro Max Price in Pakistan | RAES TECH', 'Apple iPhone 13 Pro Max from Rs 107,100. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -369,8 +369,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='apple-iphone-13-pro-max'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('apple-iphone-14', (SELECT id FROM brands WHERE slug='apple'), 'Apple iPhone 14', 'iPhone 14', 'Apple iPhone 14 — 5G, 6.1 OLED 60Hz, A15 Bionic. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Apple iPhone 14 Price in Pakistan | RAES TECH', 'Apple iPhone 14 from Rs 77,400. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('apple-iphone-14', (SELECT id FROM brands WHERE slug='apple'), 'Apple iPhone 14', 'iPhone 14', 'Apple iPhone 14 — 5G, 6.1 OLED 60Hz, A15 Bionic. Pricing shown includes PTA / SIM-lock variants where available.', 'Apple iPhone 14 Price in Pakistan | RAES TECH', 'Apple iPhone 14 from Rs 77,400. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -410,8 +410,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='apple-iphone-14'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('apple-iphone-14-plus', (SELECT id FROM brands WHERE slug='apple'), 'Apple iPhone 14 Plus', 'iPhone 14 Plus', 'Apple iPhone 14 Plus — 5G, 6.7 OLED 60Hz, A15 Bionic. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Apple iPhone 14 Plus Price in Pakistan | RAES TECH', 'Apple iPhone 14 Plus from Rs 64,800. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('apple-iphone-14-plus', (SELECT id FROM brands WHERE slug='apple'), 'Apple iPhone 14 Plus', 'iPhone 14 Plus', 'Apple iPhone 14 Plus — 5G, 6.7 OLED 60Hz, A15 Bionic. Pricing shown includes PTA / SIM-lock variants where available.', 'Apple iPhone 14 Plus Price in Pakistan | RAES TECH', 'Apple iPhone 14 Plus from Rs 64,800. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -451,8 +451,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='apple-iphone-14-plus'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('apple-iphone-14-pro', (SELECT id FROM brands WHERE slug='apple'), 'Apple iPhone 14 Pro', 'iPhone 14 Pro', 'Apple iPhone 14 Pro — 5G, 6.1 OLED 120Hz, A16 Bionic. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Apple iPhone 14 Pro Price in Pakistan | RAES TECH', 'Apple iPhone 14 Pro from Rs 89,100. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('apple-iphone-14-pro', (SELECT id FROM brands WHERE slug='apple'), 'Apple iPhone 14 Pro', 'iPhone 14 Pro', 'Apple iPhone 14 Pro — 5G, 6.1 OLED 120Hz, A16 Bionic. Pricing shown includes PTA / SIM-lock variants where available.', 'Apple iPhone 14 Pro Price in Pakistan | RAES TECH', 'Apple iPhone 14 Pro from Rs 89,100. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -504,8 +504,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='apple-iphone-14-pro'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('apple-iphone-14-pro-max', (SELECT id FROM brands WHERE slug='apple'), 'Apple iPhone 14 Pro Max', 'iPhone 14 Pro Max', 'Apple iPhone 14 Pro Max — 5G, 6.7 OLED 120Hz, A16 Bionic. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Apple iPhone 14 Pro Max Price in Pakistan | RAES TECH', 'Apple iPhone 14 Pro Max from Rs 116,550. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('apple-iphone-14-pro-max', (SELECT id FROM brands WHERE slug='apple'), 'Apple iPhone 14 Pro Max', 'iPhone 14 Pro Max', 'Apple iPhone 14 Pro Max — 5G, 6.7 OLED 120Hz, A16 Bionic. Pricing shown includes PTA / SIM-lock variants where available.', 'Apple iPhone 14 Pro Max Price in Pakistan | RAES TECH', 'Apple iPhone 14 Pro Max from Rs 116,550. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -557,8 +557,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='apple-iphone-14-pro-max'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('apple-iphone-15', (SELECT id FROM brands WHERE slug='apple'), 'Apple iPhone 15', 'iPhone 15', 'Apple iPhone 15 — 5G, 6.1 OLED 60Hz Dynamic Island, A16 Bionic. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Apple iPhone 15 Price in Pakistan | RAES TECH', 'Apple iPhone 15 from Rs 99,450. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('apple-iphone-15', (SELECT id FROM brands WHERE slug='apple'), 'Apple iPhone 15', 'iPhone 15', 'Apple iPhone 15 — 5G, 6.1 OLED 60Hz Dynamic Island, A16 Bionic. Pricing shown includes PTA / SIM-lock variants where available.', 'Apple iPhone 15 Price in Pakistan | RAES TECH', 'Apple iPhone 15 from Rs 99,450. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -598,8 +598,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='apple-iphone-15'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('apple-iphone-15-plus', (SELECT id FROM brands WHERE slug='apple'), 'Apple iPhone 15 Plus', 'iPhone 15 Plus', 'Apple iPhone 15 Plus — 5G, 6.7 OLED 60Hz Dynamic Island, A16 Bionic. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Apple iPhone 15 Plus Price in Pakistan | RAES TECH', 'Apple iPhone 15 Plus from Rs 93,600. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('apple-iphone-15-plus', (SELECT id FROM brands WHERE slug='apple'), 'Apple iPhone 15 Plus', 'iPhone 15 Plus', 'Apple iPhone 15 Plus — 5G, 6.7 OLED 60Hz Dynamic Island, A16 Bionic. Pricing shown includes PTA / SIM-lock variants where available.', 'Apple iPhone 15 Plus Price in Pakistan | RAES TECH', 'Apple iPhone 15 Plus from Rs 93,600. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -639,8 +639,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='apple-iphone-15-plus'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('apple-iphone-15-pro', (SELECT id FROM brands WHERE slug='apple'), 'Apple iPhone 15 Pro', 'iPhone 15 Pro', 'Apple iPhone 15 Pro — 5G, 6.1 OLED 120Hz, A17 Pro. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Apple iPhone 15 Pro Price in Pakistan | RAES TECH', 'Apple iPhone 15 Pro from Rs 119,700. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('apple-iphone-15-pro', (SELECT id FROM brands WHERE slug='apple'), 'Apple iPhone 15 Pro', 'iPhone 15 Pro', 'Apple iPhone 15 Pro — 5G, 6.1 OLED 120Hz, A17 Pro. Pricing shown includes PTA / SIM-lock variants where available.', 'Apple iPhone 15 Pro Price in Pakistan | RAES TECH', 'Apple iPhone 15 Pro from Rs 119,700. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -692,8 +692,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='apple-iphone-15-pro'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('apple-iphone-15-pro-max', (SELECT id FROM brands WHERE slug='apple'), 'Apple iPhone 15 Pro Max', 'iPhone 15 Pro Max', 'Apple iPhone 15 Pro Max — 5G, 6.7 OLED 120Hz, A17 Pro. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Apple iPhone 15 Pro Max Price in Pakistan | RAES TECH', 'Apple iPhone 15 Pro Max from Rs 142,200. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('apple-iphone-15-pro-max', (SELECT id FROM brands WHERE slug='apple'), 'Apple iPhone 15 Pro Max', 'iPhone 15 Pro Max', 'Apple iPhone 15 Pro Max — 5G, 6.7 OLED 120Hz, A17 Pro. Pricing shown includes PTA / SIM-lock variants where available.', 'Apple iPhone 15 Pro Max Price in Pakistan | RAES TECH', 'Apple iPhone 15 Pro Max from Rs 142,200. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -733,8 +733,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='apple-iphone-15-pro-max'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('apple-iphone-16e', (SELECT id FROM brands WHERE slug='apple'), 'Apple iPhone 16e', 'iPhone 16e', 'Apple iPhone 16e — 5G, 6.1 OLED 60Hz, A18. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Apple iPhone 16e Price in Pakistan | RAES TECH', 'Apple iPhone 16e from Rs 93,600. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('apple-iphone-16e', (SELECT id FROM brands WHERE slug='apple'), 'Apple iPhone 16e', 'iPhone 16e', 'Apple iPhone 16e — 5G, 6.1 OLED 60Hz, A18. Pricing shown includes PTA / SIM-lock variants where available.', 'Apple iPhone 16e Price in Pakistan | RAES TECH', 'Apple iPhone 16e from Rs 93,600. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -774,8 +774,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='apple-iphone-16e'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('apple-iphone-16', (SELECT id FROM brands WHERE slug='apple'), 'Apple iPhone 16', 'iPhone 16', 'Apple iPhone 16 — 5G, 6.1 OLED 60Hz, A18. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Apple iPhone 16 Price in Pakistan | RAES TECH', 'Apple iPhone 16 from Rs 110,250. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('apple-iphone-16', (SELECT id FROM brands WHERE slug='apple'), 'Apple iPhone 16', 'iPhone 16', 'Apple iPhone 16 — 5G, 6.1 OLED 60Hz, A18. Pricing shown includes PTA / SIM-lock variants where available.', 'Apple iPhone 16 Price in Pakistan | RAES TECH', 'Apple iPhone 16 from Rs 110,250. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -815,8 +815,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='apple-iphone-16'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('apple-iphone-16-plus', (SELECT id FROM brands WHERE slug='apple'), 'Apple iPhone 16 Plus', 'iPhone 16 Plus', 'Apple iPhone 16 Plus — 5G, 6.7 OLED 60Hz, A18. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Apple iPhone 16 Plus Price in Pakistan | RAES TECH', 'Apple iPhone 16 Plus from Rs 137,700. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('apple-iphone-16-plus', (SELECT id FROM brands WHERE slug='apple'), 'Apple iPhone 16 Plus', 'iPhone 16 Plus', 'Apple iPhone 16 Plus — 5G, 6.7 OLED 60Hz, A18. Pricing shown includes PTA / SIM-lock variants where available.', 'Apple iPhone 16 Plus Price in Pakistan | RAES TECH', 'Apple iPhone 16 Plus from Rs 137,700. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -856,8 +856,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='apple-iphone-16-plus'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('apple-iphone-16-pro', (SELECT id FROM brands WHERE slug='apple'), 'Apple iPhone 16 Pro', 'iPhone 16 Pro', 'Apple iPhone 16 Pro — 5G, 6.3 OLED 120Hz, A18 Pro. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Apple iPhone 16 Pro Price in Pakistan | RAES TECH', 'Apple iPhone 16 Pro from Rs 141,300. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('apple-iphone-16-pro', (SELECT id FROM brands WHERE slug='apple'), 'Apple iPhone 16 Pro', 'iPhone 16 Pro', 'Apple iPhone 16 Pro — 5G, 6.3 OLED 120Hz, A18 Pro. Pricing shown includes PTA / SIM-lock variants where available.', 'Apple iPhone 16 Pro Price in Pakistan | RAES TECH', 'Apple iPhone 16 Pro from Rs 141,300. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -909,8 +909,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='apple-iphone-16-pro'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('apple-iphone-16-pro-max', (SELECT id FROM brands WHERE slug='apple'), 'Apple iPhone 16 Pro Max', 'iPhone 16 Pro Max', 'Apple iPhone 16 Pro Max — 5G, 6.9 OLED 120Hz, A18 Pro. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Apple iPhone 16 Pro Max Price in Pakistan | RAES TECH', 'Apple iPhone 16 Pro Max from Rs 223,200. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('apple-iphone-16-pro-max', (SELECT id FROM brands WHERE slug='apple'), 'Apple iPhone 16 Pro Max', 'iPhone 16 Pro Max', 'Apple iPhone 16 Pro Max — 5G, 6.9 OLED 120Hz, A18 Pro. Pricing shown includes PTA / SIM-lock variants where available.', 'Apple iPhone 16 Pro Max Price in Pakistan | RAES TECH', 'Apple iPhone 16 Pro Max from Rs 223,200. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -950,8 +950,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='apple-iphone-16-pro-max'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('apple-iphone-17e', (SELECT id FROM brands WHERE slug='apple'), 'Apple iPhone 17e', 'iPhone 17e', 'Apple iPhone 17e — 5G, Specs and colors require exact manufacturer SKU verification, A19 family (reported). Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Apple iPhone 17e Price in Pakistan | RAES TECH', 'Apple iPhone 17e from Rs 199,800. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('apple-iphone-17e', (SELECT id FROM brands WHERE slug='apple'), 'Apple iPhone 17e', 'iPhone 17e', 'Apple iPhone 17e — 5G, Specs and colors require exact manufacturer SKU verification, A19 family (reported). Pricing shown includes PTA / SIM-lock variants where available.', 'Apple iPhone 17e Price in Pakistan | RAES TECH', 'Apple iPhone 17e from Rs 199,800. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -971,8 +971,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='apple-iphone-17e'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('apple-iphone-17', (SELECT id FROM brands WHERE slug='apple'), 'Apple iPhone 17', 'iPhone 17', 'Apple iPhone 17 — 5G, 6.3 OLED 120Hz (reported), A19. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Apple iPhone 17 Price in Pakistan | RAES TECH', 'Apple iPhone 17 from Rs 265,500. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('apple-iphone-17', (SELECT id FROM brands WHERE slug='apple'), 'Apple iPhone 17', 'iPhone 17', 'Apple iPhone 17 — 5G, 6.3 OLED 120Hz (reported), A19. Pricing shown includes PTA / SIM-lock variants where available.', 'Apple iPhone 17 Price in Pakistan | RAES TECH', 'Apple iPhone 17 from Rs 265,500. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -992,8 +992,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='apple-iphone-17'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('apple-iphone-17-air', (SELECT id FROM brands WHERE slug='apple'), 'Apple iPhone 17 Air', 'iPhone 17 Air', 'Apple iPhone 17 Air — 5G, 6.5 OLED 120Hz (reported), A19 Pro family (reported). Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Apple iPhone 17 Air Price in Pakistan | RAES TECH', 'Apple iPhone 17 Air from Rs 310,500. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('apple-iphone-17-air', (SELECT id FROM brands WHERE slug='apple'), 'Apple iPhone 17 Air', 'iPhone 17 Air', 'Apple iPhone 17 Air — 5G, 6.5 OLED 120Hz (reported), A19 Pro family (reported). Pricing shown includes PTA / SIM-lock variants where available.', 'Apple iPhone 17 Air Price in Pakistan | RAES TECH', 'Apple iPhone 17 Air from Rs 310,500. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -1021,8 +1021,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='apple-iphone-17-air'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('apple-iphone-17-pro', (SELECT id FROM brands WHERE slug='apple'), 'Apple iPhone 17 Pro', 'iPhone 17 Pro', 'Apple iPhone 17 Pro — 5G, 6.3 OLED 120Hz, A19 Pro. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Apple iPhone 17 Pro Price in Pakistan | RAES TECH', 'Apple iPhone 17 Pro from Rs 337,500. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('apple-iphone-17-pro', (SELECT id FROM brands WHERE slug='apple'), 'Apple iPhone 17 Pro', 'iPhone 17 Pro', 'Apple iPhone 17 Pro — 5G, 6.3 OLED 120Hz, A19 Pro. Pricing shown includes PTA / SIM-lock variants where available.', 'Apple iPhone 17 Pro Price in Pakistan | RAES TECH', 'Apple iPhone 17 Pro from Rs 337,500. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -1050,8 +1050,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='apple-iphone-17-pro'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('apple-iphone-17-pro-max', (SELECT id FROM brands WHERE slug='apple'), 'Apple iPhone 17 Pro Max', 'iPhone 17 Pro Max', 'Apple iPhone 17 Pro Max — 5G, 6.9 OLED 120Hz, A19 Pro. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Apple iPhone 17 Pro Max Price in Pakistan | RAES TECH', 'Apple iPhone 17 Pro Max from Rs 221,400. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('apple-iphone-17-pro-max', (SELECT id FROM brands WHERE slug='apple'), 'Apple iPhone 17 Pro Max', 'iPhone 17 Pro Max', 'Apple iPhone 17 Pro Max — 5G, 6.9 OLED 120Hz, A19 Pro. Pricing shown includes PTA / SIM-lock variants where available.', 'Apple iPhone 17 Pro Max Price in Pakistan | RAES TECH', 'Apple iPhone 17 Pro Max from Rs 221,400. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -1087,8 +1087,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='apple-iphone-17-pro-max'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('apple-iphone-18', (SELECT id FROM brands WHERE slug='apple'), 'Apple iPhone 18', 'iPhone 18', 'Apple iPhone 18 — 5G, Official Pakistan specifications not independently verified, Verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Apple iPhone 18 Price in Pakistan | RAES TECH', 'Apple iPhone 18 from Rs 301,500. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('apple-iphone-18', (SELECT id FROM brands WHERE slug='apple'), 'Apple iPhone 18', 'iPhone 18', 'Apple iPhone 18 — 5G, Official Pakistan specifications not independently verified, Verify. Pricing shown includes PTA / SIM-lock variants where available.', 'Apple iPhone 18 Price in Pakistan | RAES TECH', 'Apple iPhone 18 from Rs 301,500. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -1108,8 +1108,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='apple-iphone-18'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('apple-iphone-18-pro', (SELECT id FROM brands WHERE slug='apple'), 'Apple iPhone 18 Pro', 'iPhone 18 Pro', 'Apple iPhone 18 Pro — 5G, Retailer-reported OLED 120Hz; verify, A-series Pro chipset; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Apple iPhone 18 Pro Price in Pakistan | RAES TECH', 'Apple iPhone 18 Pro from Rs 423,000. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('apple-iphone-18-pro', (SELECT id FROM brands WHERE slug='apple'), 'Apple iPhone 18 Pro', 'iPhone 18 Pro', 'Apple iPhone 18 Pro — 5G, Retailer-reported OLED 120Hz; verify, A-series Pro chipset; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'Apple iPhone 18 Pro Price in Pakistan | RAES TECH', 'Apple iPhone 18 Pro from Rs 423,000. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -1145,8 +1145,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='apple-iphone-18-pro'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('apple-iphone-18-pro-max', (SELECT id FROM brands WHERE slug='apple'), 'Apple iPhone 18 Pro Max', 'iPhone 18 Pro Max', 'Apple iPhone 18 Pro Max — 5G, Retailer-reported OLED 120Hz; verify, A-series Pro chipset; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Apple iPhone 18 Pro Max Price in Pakistan | RAES TECH', 'Apple iPhone 18 Pro Max from Rs 459,000. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('apple-iphone-18-pro-max', (SELECT id FROM brands WHERE slug='apple'), 'Apple iPhone 18 Pro Max', 'iPhone 18 Pro Max', 'Apple iPhone 18 Pro Max — 5G, Retailer-reported OLED 120Hz; verify, A-series Pro chipset; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'Apple iPhone 18 Pro Max Price in Pakistan | RAES TECH', 'Apple iPhone 18 Pro Max from Rs 459,000. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -1182,8 +1182,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='apple-iphone-18-pro-max'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('google-pixel-6', (SELECT id FROM brands WHERE slug='google'), 'Google Pixel 6', 'Pixel 6', 'Google Pixel 6 — 5G on supported models, 6.4 AMOLED 90Hz, Tensor G1. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Google Pixel 6 Price in Pakistan | RAES TECH', 'Google Pixel 6 from Rs 45,000. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('google-pixel-6', (SELECT id FROM brands WHERE slug='google'), 'Google Pixel 6', 'Pixel 6', 'Google Pixel 6 — 5G on supported models, 6.4 AMOLED 90Hz, Tensor G1. Pricing shown includes PTA / SIM-lock variants where available.', 'Google Pixel 6 Price in Pakistan | RAES TECH', 'Google Pixel 6 from Rs 45,000. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -1203,8 +1203,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='google-pixel-6'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('google-pixel-6-pro', (SELECT id FROM brands WHERE slug='google'), 'Google Pixel 6 Pro', 'Pixel 6 Pro', 'Google Pixel 6 Pro — 5G on supported models, 6.7 LTPO OLED 120Hz, Tensor G1. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Google Pixel 6 Pro Price in Pakistan | RAES TECH', 'Google Pixel 6 Pro from Rs 129,600. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('google-pixel-6-pro', (SELECT id FROM brands WHERE slug='google'), 'Google Pixel 6 Pro', 'Pixel 6 Pro', 'Google Pixel 6 Pro — 5G on supported models, 6.7 LTPO OLED 120Hz, Tensor G1. Pricing shown includes PTA / SIM-lock variants where available.', 'Google Pixel 6 Pro Price in Pakistan | RAES TECH', 'Google Pixel 6 Pro from Rs 129,600. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -1232,8 +1232,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='google-pixel-6-pro'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('google-pixel-6a', (SELECT id FROM brands WHERE slug='google'), 'Google Pixel 6a', 'Pixel 6a', 'Google Pixel 6a — 5G on supported models, 6.1 OLED 60Hz, Tensor G1. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Google Pixel 6a Price in Pakistan | RAES TECH', 'Google Pixel 6a from Rs 35,100. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('google-pixel-6a', (SELECT id FROM brands WHERE slug='google'), 'Google Pixel 6a', 'Pixel 6a', 'Google Pixel 6a — 5G on supported models, 6.1 OLED 60Hz, Tensor G1. Pricing shown includes PTA / SIM-lock variants where available.', 'Google Pixel 6a Price in Pakistan | RAES TECH', 'Google Pixel 6a from Rs 35,100. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -1245,8 +1245,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='google-pixel-6a'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('google-pixel-7', (SELECT id FROM brands WHERE slug='google'), 'Google Pixel 7', 'Pixel 7', 'Google Pixel 7 — 5G on supported models, 6.3 OLED 90Hz, Tensor G2. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Google Pixel 7 Price in Pakistan | RAES TECH', 'Google Pixel 7 from Rs 68,400. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('google-pixel-7', (SELECT id FROM brands WHERE slug='google'), 'Google Pixel 7', 'Pixel 7', 'Google Pixel 7 — 5G on supported models, 6.3 OLED 90Hz, Tensor G2. Pricing shown includes PTA / SIM-lock variants where available.', 'Google Pixel 7 Price in Pakistan | RAES TECH', 'Google Pixel 7 from Rs 68,400. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -1266,8 +1266,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='google-pixel-7'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('google-pixel-7-pro', (SELECT id FROM brands WHERE slug='google'), 'Google Pixel 7 Pro', 'Pixel 7 Pro', 'Google Pixel 7 Pro — 5G on supported models, 6.7 LTPO OLED 120Hz, Tensor G2. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Google Pixel 7 Pro Price in Pakistan | RAES TECH', 'Google Pixel 7 Pro from Rs 65,700. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('google-pixel-7-pro', (SELECT id FROM brands WHERE slug='google'), 'Google Pixel 7 Pro', 'Pixel 7 Pro', 'Google Pixel 7 Pro — 5G on supported models, 6.7 LTPO OLED 120Hz, Tensor G2. Pricing shown includes PTA / SIM-lock variants where available.', 'Google Pixel 7 Pro Price in Pakistan | RAES TECH', 'Google Pixel 7 Pro from Rs 65,700. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -1295,8 +1295,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='google-pixel-7-pro'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('google-pixel-7a', (SELECT id FROM brands WHERE slug='google'), 'Google Pixel 7a', 'Pixel 7a', 'Google Pixel 7a — 5G on supported models, 6.1 OLED 90Hz, Tensor G2. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Google Pixel 7a Price in Pakistan | RAES TECH', 'Google Pixel 7a from Rs 57,600. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('google-pixel-7a', (SELECT id FROM brands WHERE slug='google'), 'Google Pixel 7a', 'Pixel 7a', 'Google Pixel 7a — 5G on supported models, 6.1 OLED 90Hz, Tensor G2. Pricing shown includes PTA / SIM-lock variants where available.', 'Google Pixel 7a Price in Pakistan | RAES TECH', 'Google Pixel 7a from Rs 57,600. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -1308,8 +1308,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='google-pixel-7a'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('google-pixel-8', (SELECT id FROM brands WHERE slug='google'), 'Google Pixel 8', 'Pixel 8', 'Google Pixel 8 — 5G on supported models, 6.2 OLED 120Hz, Tensor G3. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Google Pixel 8 Price in Pakistan | RAES TECH', 'Google Pixel 8 from Rs 89,100. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('google-pixel-8', (SELECT id FROM brands WHERE slug='google'), 'Google Pixel 8', 'Pixel 8', 'Google Pixel 8 — 5G on supported models, 6.2 OLED 120Hz, Tensor G3. Pricing shown includes PTA / SIM-lock variants where available.', 'Google Pixel 8 Price in Pakistan | RAES TECH', 'Google Pixel 8 from Rs 89,100. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -1329,8 +1329,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='google-pixel-8'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('google-pixel-8-pro', (SELECT id FROM brands WHERE slug='google'), 'Google Pixel 8 Pro', 'Pixel 8 Pro', 'Google Pixel 8 Pro — 5G on supported models, 6.7 LTPO OLED 120Hz, Tensor G3. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Google Pixel 8 Pro Price in Pakistan | RAES TECH', 'Google Pixel 8 Pro from Rs 96,300. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('google-pixel-8-pro', (SELECT id FROM brands WHERE slug='google'), 'Google Pixel 8 Pro', 'Pixel 8 Pro', 'Google Pixel 8 Pro — 5G on supported models, 6.7 LTPO OLED 120Hz, Tensor G3. Pricing shown includes PTA / SIM-lock variants where available.', 'Google Pixel 8 Pro Price in Pakistan | RAES TECH', 'Google Pixel 8 Pro from Rs 96,300. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -1366,8 +1366,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='google-pixel-8-pro'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('google-pixel-8a', (SELECT id FROM brands WHERE slug='google'), 'Google Pixel 8a', 'Pixel 8a', 'Google Pixel 8a — 5G on supported models, 6.1 OLED 120Hz, Tensor G3. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Google Pixel 8a Price in Pakistan | RAES TECH', 'Google Pixel 8a from Rs 73,800. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('google-pixel-8a', (SELECT id FROM brands WHERE slug='google'), 'Google Pixel 8a', 'Pixel 8a', 'Google Pixel 8a — 5G on supported models, 6.1 OLED 120Hz, Tensor G3. Pricing shown includes PTA / SIM-lock variants where available.', 'Google Pixel 8a Price in Pakistan | RAES TECH', 'Google Pixel 8a from Rs 73,800. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -1387,8 +1387,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='google-pixel-8a'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('google-pixel-9', (SELECT id FROM brands WHERE slug='google'), 'Google Pixel 9', 'Pixel 9', 'Google Pixel 9 — 5G on supported models, 6.3 OLED 120Hz, Tensor G4. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Google Pixel 9 Price in Pakistan | RAES TECH', 'Google Pixel 9 from Rs 112,500. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('google-pixel-9', (SELECT id FROM brands WHERE slug='google'), 'Google Pixel 9', 'Pixel 9', 'Google Pixel 9 — 5G on supported models, 6.3 OLED 120Hz, Tensor G4. Pricing shown includes PTA / SIM-lock variants where available.', 'Google Pixel 9 Price in Pakistan | RAES TECH', 'Google Pixel 9 from Rs 112,500. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -1408,8 +1408,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='google-pixel-9'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('google-pixel-9-pro', (SELECT id FROM brands WHERE slug='google'), 'Google Pixel 9 Pro', 'Pixel 9 Pro', 'Google Pixel 9 Pro — 5G on supported models, 6.3 LTPO OLED 120Hz, Tensor G4. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Google Pixel 9 Pro Price in Pakistan | RAES TECH', 'Google Pixel 9 Pro from Rs 171,000. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('google-pixel-9-pro', (SELECT id FROM brands WHERE slug='google'), 'Google Pixel 9 Pro', 'Pixel 9 Pro', 'Google Pixel 9 Pro — 5G on supported models, 6.3 LTPO OLED 120Hz, Tensor G4. Pricing shown includes PTA / SIM-lock variants where available.', 'Google Pixel 9 Pro Price in Pakistan | RAES TECH', 'Google Pixel 9 Pro from Rs 171,000. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -1445,8 +1445,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='google-pixel-9-pro'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('google-pixel-9-pro-xl', (SELECT id FROM brands WHERE slug='google'), 'Google Pixel 9 Pro XL', 'Pixel 9 Pro XL', 'Google Pixel 9 Pro XL — 5G on supported models, 6.8 LTPO OLED 120Hz, Tensor G4. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Google Pixel 9 Pro XL Price in Pakistan | RAES TECH', 'Google Pixel 9 Pro XL from Rs 207,000. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('google-pixel-9-pro-xl', (SELECT id FROM brands WHERE slug='google'), 'Google Pixel 9 Pro XL', 'Pixel 9 Pro XL', 'Google Pixel 9 Pro XL — 5G on supported models, 6.8 LTPO OLED 120Hz, Tensor G4. Pricing shown includes PTA / SIM-lock variants where available.', 'Google Pixel 9 Pro XL Price in Pakistan | RAES TECH', 'Google Pixel 9 Pro XL from Rs 207,000. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -1482,8 +1482,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='google-pixel-9-pro-xl'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('google-pixel-9a', (SELECT id FROM brands WHERE slug='google'), 'Google Pixel 9a', 'Pixel 9a', 'Google Pixel 9a — 5G on supported models, 6.3 OLED 120Hz, Tensor G4. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Google Pixel 9a Price in Pakistan | RAES TECH', 'Google Pixel 9a from Rs 100,800. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('google-pixel-9a', (SELECT id FROM brands WHERE slug='google'), 'Google Pixel 9a', 'Pixel 9a', 'Google Pixel 9a — 5G on supported models, 6.3 OLED 120Hz, Tensor G4. Pricing shown includes PTA / SIM-lock variants where available.', 'Google Pixel 9a Price in Pakistan | RAES TECH', 'Google Pixel 9a from Rs 100,800. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -1503,8 +1503,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='google-pixel-9a'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('google-pixel-10', (SELECT id FROM brands WHERE slug='google'), 'Google Pixel 10', 'Pixel 10', 'Google Pixel 10 — 5G on supported models, 6.3 OLED 120Hz (reported), Tensor G5 (reported). Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Google Pixel 10 Price in Pakistan | RAES TECH', 'Google Pixel 10 from Rs 151,200. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('google-pixel-10', (SELECT id FROM brands WHERE slug='google'), 'Google Pixel 10', 'Pixel 10', 'Google Pixel 10 — 5G on supported models, 6.3 OLED 120Hz (reported), Tensor G5 (reported). Pricing shown includes PTA / SIM-lock variants where available.', 'Google Pixel 10 Price in Pakistan | RAES TECH', 'Google Pixel 10 from Rs 151,200. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -1524,8 +1524,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='google-pixel-10'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('google-pixel-10-pro', (SELECT id FROM brands WHERE slug='google'), 'Google Pixel 10 Pro', 'Pixel 10 Pro', 'Google Pixel 10 Pro — 5G on supported models, 6.3 LTPO OLED 120Hz (reported), Tensor G5 (reported). Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Google Pixel 10 Pro Price in Pakistan | RAES TECH', 'Google Pixel 10 Pro from Rs 135,000. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('google-pixel-10-pro', (SELECT id FROM brands WHERE slug='google'), 'Google Pixel 10 Pro', 'Pixel 10 Pro', 'Google Pixel 10 Pro — 5G on supported models, 6.3 LTPO OLED 120Hz (reported), Tensor G5 (reported). Pricing shown includes PTA / SIM-lock variants where available.', 'Google Pixel 10 Pro Price in Pakistan | RAES TECH', 'Google Pixel 10 Pro from Rs 135,000. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -1561,8 +1561,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='google-pixel-10-pro'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('google-pixel-10-pro-xl', (SELECT id FROM brands WHERE slug='google'), 'Google Pixel 10 Pro XL', 'Pixel 10 Pro XL', 'Google Pixel 10 Pro XL — 5G on supported models, 6.8 LTPO OLED 120Hz (reported), Tensor G5 (reported). Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Google Pixel 10 Pro XL Price in Pakistan | RAES TECH', 'Google Pixel 10 Pro XL from Rs 201,600. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('google-pixel-10-pro-xl', (SELECT id FROM brands WHERE slug='google'), 'Google Pixel 10 Pro XL', 'Pixel 10 Pro XL', 'Google Pixel 10 Pro XL — 5G on supported models, 6.8 LTPO OLED 120Hz (reported), Tensor G5 (reported). Pricing shown includes PTA / SIM-lock variants where available.', 'Google Pixel 10 Pro XL Price in Pakistan | RAES TECH', 'Google Pixel 10 Pro XL from Rs 201,600. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -1590,8 +1590,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='google-pixel-10-pro-xl'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('google-pixel-10-pro-fold', (SELECT id FROM brands WHERE slug='google'), 'Google Pixel 10 Pro Fold', 'Pixel 10 Pro Fold', 'Google Pixel 10 Pro Fold — 5G on supported models, Foldable LTPO OLED 120Hz (reported), Tensor G5 (reported). Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Google Pixel 10 Pro Fold Price in Pakistan | RAES TECH', 'Google Pixel 10 Pro Fold from Rs 296,100. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('google-pixel-10-pro-fold', (SELECT id FROM brands WHERE slug='google'), 'Google Pixel 10 Pro Fold', 'Pixel 10 Pro Fold', 'Google Pixel 10 Pro Fold — 5G on supported models, Foldable LTPO OLED 120Hz (reported), Tensor G5 (reported). Pricing shown includes PTA / SIM-lock variants where available.', 'Google Pixel 10 Pro Fold Price in Pakistan | RAES TECH', 'Google Pixel 10 Pro Fold from Rs 296,100. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -1619,8 +1619,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='google-pixel-10-pro-fold'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('google-pixel-10a', (SELECT id FROM brands WHERE slug='google'), 'Google Pixel 10a', 'Pixel 10a', 'Google Pixel 10a — 5G on supported models, Manufacturer specs not independently verified, Verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Google Pixel 10a Price in Pakistan | RAES TECH', 'Google Pixel 10a from Rs 89,100. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('google-pixel-10a', (SELECT id FROM brands WHERE slug='google'), 'Google Pixel 10a', 'Pixel 10a', 'Google Pixel 10a — 5G on supported models, Manufacturer specs not independently verified, Verify. Pricing shown includes PTA / SIM-lock variants where available.', 'Google Pixel 10a Price in Pakistan | RAES TECH', 'Google Pixel 10a from Rs 89,100. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -1640,8 +1640,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='google-pixel-10a'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('google-pixel-11', (SELECT id FROM brands WHERE slug='google'), 'Google Pixel 11', 'Pixel 11', 'Google Pixel 11 — 5G on supported models, 6.3 OLED 120Hz (retailer-reported), Tensor G6 (retailer-reported). Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Google Pixel 11 Price in Pakistan | RAES TECH', 'Google Pixel 11 from Rs 170,100. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('google-pixel-11', (SELECT id FROM brands WHERE slug='google'), 'Google Pixel 11', 'Pixel 11', 'Google Pixel 11 — 5G on supported models, 6.3 OLED 120Hz (retailer-reported), Tensor G6 (retailer-reported). Pricing shown includes PTA / SIM-lock variants where available.', 'Google Pixel 11 Price in Pakistan | RAES TECH', 'Google Pixel 11 from Rs 170,100. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -1661,8 +1661,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='google-pixel-11'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('google-pixel-11-pro', (SELECT id FROM brands WHERE slug='google'), 'Google Pixel 11 Pro', 'Pixel 11 Pro', 'Google Pixel 11 Pro — 5G on supported models, 6.3 LTPO OLED 120Hz (retailer-reported), Tensor G6 (retailer-reported). Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Google Pixel 11 Pro Price in Pakistan | RAES TECH', 'Google Pixel 11 Pro from Rs 309,600. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('google-pixel-11-pro', (SELECT id FROM brands WHERE slug='google'), 'Google Pixel 11 Pro', 'Pixel 11 Pro', 'Google Pixel 11 Pro — 5G on supported models, 6.3 LTPO OLED 120Hz (retailer-reported), Tensor G6 (retailer-reported). Pricing shown includes PTA / SIM-lock variants where available.', 'Google Pixel 11 Pro Price in Pakistan | RAES TECH', 'Google Pixel 11 Pro from Rs 309,600. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -1682,8 +1682,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='google-pixel-11-pro'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('google-pixel-11-pro-xl', (SELECT id FROM brands WHERE slug='google'), 'Google Pixel 11 Pro XL', 'Pixel 11 Pro XL', 'Google Pixel 11 Pro XL — 5G on supported models, 6.8 LTPO OLED 120Hz (retailer-reported), Tensor G6 (retailer-reported). Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Google Pixel 11 Pro XL Price in Pakistan | RAES TECH', 'Google Pixel 11 Pro XL from Rs 341,100. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('google-pixel-11-pro-xl', (SELECT id FROM brands WHERE slug='google'), 'Google Pixel 11 Pro XL', 'Pixel 11 Pro XL', 'Google Pixel 11 Pro XL — 5G on supported models, 6.8 LTPO OLED 120Hz (retailer-reported), Tensor G6 (retailer-reported). Pricing shown includes PTA / SIM-lock variants where available.', 'Google Pixel 11 Pro XL Price in Pakistan | RAES TECH', 'Google Pixel 11 Pro XL from Rs 341,100. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -1703,8 +1703,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='google-pixel-11-pro-xl'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('google-pixel-11-pro-fold', (SELECT id FROM brands WHERE slug='google'), 'Google Pixel 11 Pro Fold', 'Pixel 11 Pro Fold', 'Google Pixel 11 Pro Fold — 5G on supported models, Foldable OLED 120Hz (reported), Tensor G6 (reported). Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Google Pixel 11 Pro Fold Price in Pakistan | RAES TECH', 'Google Pixel 11 Pro Fold from Rs 476,100. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('google-pixel-11-pro-fold', (SELECT id FROM brands WHERE slug='google'), 'Google Pixel 11 Pro Fold', 'Pixel 11 Pro Fold', 'Google Pixel 11 Pro Fold — 5G on supported models, Foldable OLED 120Hz (reported), Tensor G6 (reported). Pricing shown includes PTA / SIM-lock variants where available.', 'Google Pixel 11 Pro Fold Price in Pakistan | RAES TECH', 'Google Pixel 11 Pro Fold from Rs 476,100. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -1724,8 +1724,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='google-pixel-11-pro-fold'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('samsung-galaxy-s26-ultra', (SELECT id FROM brands WHERE slug='samsung'), 'Samsung Galaxy S26 Ultra', 'Galaxy S26 Ultra', 'Samsung Galaxy S26 Ultra — Yes, 6.9 AMOLED 120Hz (reported), Regional chipset verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Samsung Galaxy S26 Ultra Price in Pakistan | RAES TECH', 'Samsung Galaxy S26 Ultra from Rs 348,746. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('samsung-galaxy-s26-ultra', (SELECT id FROM brands WHERE slug='samsung'), 'Samsung Galaxy S26 Ultra', 'Galaxy S26 Ultra', 'Samsung Galaxy S26 Ultra — Yes, 6.9 AMOLED 120Hz (reported), Regional chipset verify. Pricing shown includes PTA / SIM-lock variants where available.', 'Samsung Galaxy S26 Ultra Price in Pakistan | RAES TECH', 'Samsung Galaxy S26 Ultra from Rs 348,746. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -1733,8 +1733,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='samsung-galaxy-s26-ultra'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('samsung-galaxy-s26-plus', (SELECT id FROM brands WHERE slug='samsung'), 'Samsung Galaxy S26 Plus', 'Galaxy S26 Plus', 'Samsung Galaxy S26 Plus — Yes, 6.7 AMOLED 120Hz (reported), Regional chipset verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Samsung Galaxy S26 Plus Price in Pakistan | RAES TECH', 'Samsung Galaxy S26 Plus from Rs 297,446. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('samsung-galaxy-s26-plus', (SELECT id FROM brands WHERE slug='samsung'), 'Samsung Galaxy S26 Plus', 'Galaxy S26 Plus', 'Samsung Galaxy S26 Plus — Yes, 6.7 AMOLED 120Hz (reported), Regional chipset verify. Pricing shown includes PTA / SIM-lock variants where available.', 'Samsung Galaxy S26 Plus Price in Pakistan | RAES TECH', 'Samsung Galaxy S26 Plus from Rs 297,446. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -1742,8 +1742,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='samsung-galaxy-s26-plus'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('samsung-galaxy-s26', (SELECT id FROM brands WHERE slug='samsung'), 'Samsung Galaxy S26', 'Galaxy S26', 'Samsung Galaxy S26 — Yes, 6.3 AMOLED 120Hz (reported), Regional chipset verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Samsung Galaxy S26 Price in Pakistan | RAES TECH', 'Samsung Galaxy S26 from Rs 256,050. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('samsung-galaxy-s26', (SELECT id FROM brands WHERE slug='samsung'), 'Samsung Galaxy S26', 'Galaxy S26', 'Samsung Galaxy S26 — Yes, 6.3 AMOLED 120Hz (reported), Regional chipset verify. Pricing shown includes PTA / SIM-lock variants where available.', 'Samsung Galaxy S26 Price in Pakistan | RAES TECH', 'Samsung Galaxy S26 from Rs 256,050. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -1751,8 +1751,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='samsung-galaxy-s26'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('samsung-galaxy-s26-fe', (SELECT id FROM brands WHERE slug='samsung'), 'Samsung Galaxy S26 FE', 'Galaxy S26 FE', 'Samsung Galaxy S26 FE — Yes, AMOLED 120Hz (reported), Verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Samsung Galaxy S26 FE Price in Pakistan | RAES TECH', 'Samsung Galaxy S26 FE from Rs 208,796. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('samsung-galaxy-s26-fe', (SELECT id FROM brands WHERE slug='samsung'), 'Samsung Galaxy S26 FE', 'Galaxy S26 FE', 'Samsung Galaxy S26 FE — Yes, AMOLED 120Hz (reported), Verify. Pricing shown includes PTA / SIM-lock variants where available.', 'Samsung Galaxy S26 FE Price in Pakistan | RAES TECH', 'Samsung Galaxy S26 FE from Rs 208,796. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -1760,8 +1760,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='samsung-galaxy-s26-fe'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('samsung-galaxy-a57-5g', (SELECT id FROM brands WHERE slug='samsung'), 'Samsung Galaxy A57 5G', 'Galaxy A57 5G', 'Samsung Galaxy A57 5G — Yes, 6.7 Super AMOLED 120Hz (reported), Exynos family; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Samsung Galaxy A57 5G Price in Pakistan | RAES TECH', 'Samsung Galaxy A57 5G from Rs 148,946. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('samsung-galaxy-a57-5g', (SELECT id FROM brands WHERE slug='samsung'), 'Samsung Galaxy A57 5G', 'Galaxy A57 5G', 'Samsung Galaxy A57 5G — Yes, 6.7 Super AMOLED 120Hz (reported), Exynos family; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'Samsung Galaxy A57 5G Price in Pakistan | RAES TECH', 'Samsung Galaxy A57 5G from Rs 148,946. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -1769,8 +1769,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='samsung-galaxy-a57-5g'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('samsung-galaxy-a37-5g', (SELECT id FROM brands WHERE slug='samsung'), 'Samsung Galaxy A37 5G', 'Galaxy A37 5G', 'Samsung Galaxy A37 5G — Yes, Super AMOLED 120Hz (reported), Verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Samsung Galaxy A37 5G Price in Pakistan | RAES TECH', 'Samsung Galaxy A37 5G from Rs 118,346. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('samsung-galaxy-a37-5g', (SELECT id FROM brands WHERE slug='samsung'), 'Samsung Galaxy A37 5G', 'Galaxy A37 5G', 'Samsung Galaxy A37 5G — Yes, Super AMOLED 120Hz (reported), Verify. Pricing shown includes PTA / SIM-lock variants where available.', 'Samsung Galaxy A37 5G Price in Pakistan | RAES TECH', 'Samsung Galaxy A37 5G from Rs 118,346. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -1778,8 +1778,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='samsung-galaxy-a37-5g'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('samsung-galaxy-a27-5g', (SELECT id FROM brands WHERE slug='samsung'), 'Samsung Galaxy A27 5G', 'Galaxy A27 5G', 'Samsung Galaxy A27 5G — Yes, AMOLED high refresh rate (reported), Verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Samsung Galaxy A27 5G Price in Pakistan | RAES TECH', 'Samsung Galaxy A27 5G from Rs 98,996. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('samsung-galaxy-a27-5g', (SELECT id FROM brands WHERE slug='samsung'), 'Samsung Galaxy A27 5G', 'Galaxy A27 5G', 'Samsung Galaxy A27 5G — Yes, AMOLED high refresh rate (reported), Verify. Pricing shown includes PTA / SIM-lock variants where available.', 'Samsung Galaxy A27 5G Price in Pakistan | RAES TECH', 'Samsung Galaxy A27 5G from Rs 98,996. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -1787,8 +1787,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='samsung-galaxy-a27-5g'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('samsung-galaxy-a17-5g', (SELECT id FROM brands WHERE slug='samsung'), 'Samsung Galaxy A17 5G', 'Galaxy A17 5G', 'Samsung Galaxy A17 5G — Yes, 6.7 Super AMOLED 90Hz (reported), Verify regional chipset. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Samsung Galaxy A17 5G Price in Pakistan | RAES TECH', 'Samsung Galaxy A17 5G from Rs 80,996. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('samsung-galaxy-a17-5g', (SELECT id FROM brands WHERE slug='samsung'), 'Samsung Galaxy A17 5G', 'Galaxy A17 5G', 'Samsung Galaxy A17 5G — Yes, 6.7 Super AMOLED 90Hz (reported), Verify regional chipset. Pricing shown includes PTA / SIM-lock variants where available.', 'Samsung Galaxy A17 5G Price in Pakistan | RAES TECH', 'Samsung Galaxy A17 5G from Rs 80,996. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -1796,8 +1796,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='samsung-galaxy-a17-5g'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('samsung-galaxy-a17-4g', (SELECT id FROM brands WHERE slug='samsung'), 'Samsung Galaxy A17 4G', 'Galaxy A17 4G', 'Samsung Galaxy A17 4G — No, 6.7 Super AMOLED 90Hz (reported), Helio family; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Samsung Galaxy A17 4G Price in Pakistan | RAES TECH', 'Samsung Galaxy A17 4G from Rs 56,696. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('samsung-galaxy-a17-4g', (SELECT id FROM brands WHERE slug='samsung'), 'Samsung Galaxy A17 4G', 'Galaxy A17 4G', 'Samsung Galaxy A17 4G — No, 6.7 Super AMOLED 90Hz (reported), Helio family; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'Samsung Galaxy A17 4G Price in Pakistan | RAES TECH', 'Samsung Galaxy A17 4G from Rs 56,696. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -1805,8 +1805,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='samsung-galaxy-a17-4g'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('samsung-galaxy-a07', (SELECT id FROM brands WHERE slug='samsung'), 'Samsung Galaxy A07', 'Galaxy A07', 'Samsung Galaxy A07 — No, 6.7 LCD 90Hz (reported), Helio family; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Samsung Galaxy A07 Price in Pakistan | RAES TECH', 'Samsung Galaxy A07 from Rs 32,846. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('samsung-galaxy-a07', (SELECT id FROM brands WHERE slug='samsung'), 'Samsung Galaxy A07', 'Galaxy A07', 'Samsung Galaxy A07 — No, 6.7 LCD 90Hz (reported), Helio family; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'Samsung Galaxy A07 Price in Pakistan | RAES TECH', 'Samsung Galaxy A07 from Rs 32,846. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -1814,8 +1814,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='samsung-galaxy-a07'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('samsung-galaxy-a56-5g', (SELECT id FROM brands WHERE slug='samsung'), 'Samsung Galaxy A56 5G', 'Galaxy A56 5G', 'Samsung Galaxy A56 5G — Yes, 6.7 Super AMOLED 120Hz, Exynos 1580. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Samsung Galaxy A56 5G Price in Pakistan | RAES TECH', 'Samsung Galaxy A56 5G from Rs 131,399. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('samsung-galaxy-a56-5g', (SELECT id FROM brands WHERE slug='samsung'), 'Samsung Galaxy A56 5G', 'Galaxy A56 5G', 'Samsung Galaxy A56 5G — Yes, 6.7 Super AMOLED 120Hz, Exynos 1580. Pricing shown includes PTA / SIM-lock variants where available.', 'Samsung Galaxy A56 5G Price in Pakistan | RAES TECH', 'Samsung Galaxy A56 5G from Rs 131,399. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -1823,8 +1823,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='samsung-galaxy-a56-5g'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('samsung-galaxy-a36-5g', (SELECT id FROM brands WHERE slug='samsung'), 'Samsung Galaxy A36 5G', 'Galaxy A36 5G', 'Samsung Galaxy A36 5G — Yes, 6.7 Super AMOLED 120Hz, Snapdragon 6 Gen 3. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Samsung Galaxy A36 5G Price in Pakistan | RAES TECH', 'Samsung Galaxy A36 5G from Rs 116,999. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('samsung-galaxy-a36-5g', (SELECT id FROM brands WHERE slug='samsung'), 'Samsung Galaxy A36 5G', 'Galaxy A36 5G', 'Samsung Galaxy A36 5G — Yes, 6.7 Super AMOLED 120Hz, Snapdragon 6 Gen 3. Pricing shown includes PTA / SIM-lock variants where available.', 'Samsung Galaxy A36 5G Price in Pakistan | RAES TECH', 'Samsung Galaxy A36 5G from Rs 116,999. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -1832,8 +1832,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='samsung-galaxy-a36-5g'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('samsung-galaxy-s25-fe', (SELECT id FROM brands WHERE slug='samsung'), 'Samsung Galaxy S25 FE', 'Galaxy S25 FE', 'Samsung Galaxy S25 FE — Yes, 6.7 Dynamic AMOLED 2X 120Hz, Verify regional chipset. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Samsung Galaxy S25 FE Price in Pakistan | RAES TECH', 'Samsung Galaxy S25 FE from Rs 170,999. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('samsung-galaxy-s25-fe', (SELECT id FROM brands WHERE slug='samsung'), 'Samsung Galaxy S25 FE', 'Galaxy S25 FE', 'Samsung Galaxy S25 FE — Yes, 6.7 Dynamic AMOLED 2X 120Hz, Verify regional chipset. Pricing shown includes PTA / SIM-lock variants where available.', 'Samsung Galaxy S25 FE Price in Pakistan | RAES TECH', 'Samsung Galaxy S25 FE from Rs 170,999. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -1841,8 +1841,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='samsung-galaxy-s25-fe'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('samsung-galaxy-s25-ultra', (SELECT id FROM brands WHERE slug='samsung'), 'Samsung Galaxy S25 Ultra', 'Galaxy S25 Ultra', 'Samsung Galaxy S25 Ultra — Yes, 6.9 Dynamic AMOLED 2X 120Hz, Snapdragon 8 Elite. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Samsung Galaxy S25 Ultra Price in Pakistan | RAES TECH', 'Samsung Galaxy S25 Ultra from Rs 299,699. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('samsung-galaxy-s25-ultra', (SELECT id FROM brands WHERE slug='samsung'), 'Samsung Galaxy S25 Ultra', 'Galaxy S25 Ultra', 'Samsung Galaxy S25 Ultra — Yes, 6.9 Dynamic AMOLED 2X 120Hz, Snapdragon 8 Elite. Pricing shown includes PTA / SIM-lock variants where available.', 'Samsung Galaxy S25 Ultra Price in Pakistan | RAES TECH', 'Samsung Galaxy S25 Ultra from Rs 299,699. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -1850,8 +1850,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='samsung-galaxy-s25-ultra'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('samsung-galaxy-z-fold8-ultra', (SELECT id FROM brands WHERE slug='samsung'), 'Samsung Galaxy Z Fold8 Ultra', 'Galaxy Z Fold8 Ultra', 'Samsung Galaxy Z Fold8 Ultra — 5G, 8.0" foldable LTPO AMOLED 2X 120Hz (cover 6.5"), Snapdragon 8 Elite Gen 5. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Samsung Galaxy Z Fold8 Ultra Price in Pakistan | RAES TECH', 'Samsung Galaxy Z Fold8 Ultra from Rs 445,499. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('samsung-galaxy-z-fold8-ultra', (SELECT id FROM brands WHERE slug='samsung'), 'Samsung Galaxy Z Fold8 Ultra', 'Galaxy Z Fold8 Ultra', 'Samsung Galaxy Z Fold8 Ultra — 5G, 8.0" foldable LTPO AMOLED 2X 120Hz (cover 6.5"), Snapdragon 8 Elite Gen 5. Pricing shown includes PTA / SIM-lock variants where available.', 'Samsung Galaxy Z Fold8 Ultra Price in Pakistan | RAES TECH', 'Samsung Galaxy Z Fold8 Ultra from Rs 445,499. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -1863,8 +1863,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='samsung-galaxy-z-fold8-ultra'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('samsung-galaxy-z-fold8', (SELECT id FROM brands WHERE slug='samsung'), 'Samsung Galaxy Z Fold8', 'Galaxy Z Fold8', 'Samsung Galaxy Z Fold8 — 5G, 7.6" foldable 120Hz (cover 5.5"), Snapdragon 8 Elite Gen 5. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Samsung Galaxy Z Fold8 Price in Pakistan | RAES TECH', 'Samsung Galaxy Z Fold8 from Rs 422,999. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('samsung-galaxy-z-fold8', (SELECT id FROM brands WHERE slug='samsung'), 'Samsung Galaxy Z Fold8', 'Galaxy Z Fold8', 'Samsung Galaxy Z Fold8 — 5G, 7.6" foldable 120Hz (cover 5.5"), Snapdragon 8 Elite Gen 5. Pricing shown includes PTA / SIM-lock variants where available.', 'Samsung Galaxy Z Fold8 Price in Pakistan | RAES TECH', 'Samsung Galaxy Z Fold8 from Rs 422,999. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -1876,8 +1876,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='samsung-galaxy-z-fold8'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('samsung-galaxy-z-fold7', (SELECT id FROM brands WHERE slug='samsung'), 'Samsung Galaxy Z Fold7', 'Galaxy Z Fold7', 'Samsung Galaxy Z Fold7 — 5G, 8.0" foldable LTPO AMOLED 2X 120Hz (cover 6.5"), Snapdragon 8 Elite. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Samsung Galaxy Z Fold7 Price in Pakistan | RAES TECH', 'Samsung Galaxy Z Fold7 from Rs 337,499. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('samsung-galaxy-z-fold7', (SELECT id FROM brands WHERE slug='samsung'), 'Samsung Galaxy Z Fold7', 'Galaxy Z Fold7', 'Samsung Galaxy Z Fold7 — 5G, 8.0" foldable LTPO AMOLED 2X 120Hz (cover 6.5"), Snapdragon 8 Elite. Pricing shown includes PTA / SIM-lock variants where available.', 'Samsung Galaxy Z Fold7 Price in Pakistan | RAES TECH', 'Samsung Galaxy Z Fold7 from Rs 337,499. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -1893,8 +1893,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='samsung-galaxy-z-fold7'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('samsung-galaxy-z-fold6', (SELECT id FROM brands WHERE slug='samsung'), 'Samsung Galaxy Z Fold6', 'Galaxy Z Fold6', 'Samsung Galaxy Z Fold6 — 5G, 7.6" foldable LTPO AMOLED 2X 120Hz (cover 6.3"), Snapdragon 8 Gen 3. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Samsung Galaxy Z Fold6 Price in Pakistan | RAES TECH', 'Samsung Galaxy Z Fold6 from Rs 305,999. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('samsung-galaxy-z-fold6', (SELECT id FROM brands WHERE slug='samsung'), 'Samsung Galaxy Z Fold6', 'Galaxy Z Fold6', 'Samsung Galaxy Z Fold6 — 5G, 7.6" foldable LTPO AMOLED 2X 120Hz (cover 6.3"), Snapdragon 8 Gen 3. Pricing shown includes PTA / SIM-lock variants where available.', 'Samsung Galaxy Z Fold6 Price in Pakistan | RAES TECH', 'Samsung Galaxy Z Fold6 from Rs 305,999. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -1902,8 +1902,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='samsung-galaxy-z-fold6'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('samsung-galaxy-z-fold5', (SELECT id FROM brands WHERE slug='samsung'), 'Samsung Galaxy Z Fold5', 'Galaxy Z Fold5', 'Samsung Galaxy Z Fold5 — 5G, 7.6" foldable Dynamic AMOLED 2X 120Hz (cover 6.2"), Snapdragon 8 Gen 2. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Samsung Galaxy Z Fold5 Price in Pakistan | RAES TECH', 'Samsung Galaxy Z Fold5 from Rs 152,999. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('samsung-galaxy-z-fold5', (SELECT id FROM brands WHERE slug='samsung'), 'Samsung Galaxy Z Fold5', 'Galaxy Z Fold5', 'Samsung Galaxy Z Fold5 — 5G, 7.6" foldable Dynamic AMOLED 2X 120Hz (cover 6.2"), Snapdragon 8 Gen 2. Pricing shown includes PTA / SIM-lock variants where available.', 'Samsung Galaxy Z Fold5 Price in Pakistan | RAES TECH', 'Samsung Galaxy Z Fold5 from Rs 152,999. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -1915,8 +1915,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='samsung-galaxy-z-fold5'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('samsung-galaxy-z-fold4', (SELECT id FROM brands WHERE slug='samsung'), 'Samsung Galaxy Z Fold4', 'Galaxy Z Fold4', 'Samsung Galaxy Z Fold4 — 5G, 7.6" foldable Dynamic AMOLED 2X 120Hz (cover 6.2"), Snapdragon 8+ Gen 1. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Samsung Galaxy Z Fold4 Price in Pakistan | RAES TECH', 'Samsung Galaxy Z Fold4 from Rs 179,999. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('samsung-galaxy-z-fold4', (SELECT id FROM brands WHERE slug='samsung'), 'Samsung Galaxy Z Fold4', 'Galaxy Z Fold4', 'Samsung Galaxy Z Fold4 — 5G, 7.6" foldable Dynamic AMOLED 2X 120Hz (cover 6.2"), Snapdragon 8+ Gen 1. Pricing shown includes PTA / SIM-lock variants where available.', 'Samsung Galaxy Z Fold4 Price in Pakistan | RAES TECH', 'Samsung Galaxy Z Fold4 from Rs 179,999. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -1924,8 +1924,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='samsung-galaxy-z-fold4'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('oppo-a6', (SELECT id FROM brands WHERE slug='oppo'), 'OPPO A6', 'A6', 'OPPO A6 — 4G/5G SKU verify, 6.7 LCD high refresh (reported), Verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'OPPO A6 Price in Pakistan | RAES TECH', 'OPPO A6 from Rs 62,996. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('oppo-a6', (SELECT id FROM brands WHERE slug='oppo'), 'OPPO A6', 'A6', 'OPPO A6 — 4G/5G SKU verify, 6.7 LCD high refresh (reported), Verify. Pricing shown includes PTA / SIM-lock variants where available.', 'OPPO A6 Price in Pakistan | RAES TECH', 'OPPO A6 from Rs 62,996. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -1933,8 +1933,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='oppo-a6'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('oppo-reno-16f-5g', (SELECT id FROM brands WHERE slug='oppo'), 'OPPO Reno 16F 5G', 'Reno 16F 5G', 'OPPO Reno 16F 5G — Yes, AMOLED 120Hz (reported), Dimensity family; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'OPPO Reno 16F 5G Price in Pakistan | RAES TECH', 'OPPO Reno 16F 5G from Rs 125,546. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('oppo-reno-16f-5g', (SELECT id FROM brands WHERE slug='oppo'), 'OPPO Reno 16F 5G', 'Reno 16F 5G', 'OPPO Reno 16F 5G — Yes, AMOLED 120Hz (reported), Dimensity family; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'OPPO Reno 16F 5G Price in Pakistan | RAES TECH', 'OPPO Reno 16F 5G from Rs 125,546. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -1942,8 +1942,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='oppo-reno-16f-5g'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('oppo-reno-16-5g', (SELECT id FROM brands WHERE slug='oppo'), 'OPPO Reno 16 5G', 'Reno 16 5G', 'OPPO Reno 16 5G — Yes, AMOLED 120Hz (reported), Dimensity family; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'OPPO Reno 16 5G Price in Pakistan | RAES TECH', 'OPPO Reno 16 5G from Rs 165,146. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('oppo-reno-16-5g', (SELECT id FROM brands WHERE slug='oppo'), 'OPPO Reno 16 5G', 'Reno 16 5G', 'OPPO Reno 16 5G — Yes, AMOLED 120Hz (reported), Dimensity family; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'OPPO Reno 16 5G Price in Pakistan | RAES TECH', 'OPPO Reno 16 5G from Rs 165,146. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -1951,8 +1951,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='oppo-reno-16-5g'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('oppo-a6c', (SELECT id FROM brands WHERE slug='oppo'), 'OPPO A6C', 'A6C', 'OPPO A6C — No, LCD; verify, Helio family; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'OPPO A6C Price in Pakistan | RAES TECH', 'OPPO A6C from Rs 39,146. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('oppo-a6c', (SELECT id FROM brands WHERE slug='oppo'), 'OPPO A6C', 'A6C', 'OPPO A6C — No, LCD; verify, Helio family; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'OPPO A6C Price in Pakistan | RAES TECH', 'OPPO A6C from Rs 39,146. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -1960,8 +1960,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='oppo-a6c'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('oppo-a6s-pro', (SELECT id FROM brands WHERE slug='oppo'), 'OPPO A6s Pro', 'A6s Pro', 'OPPO A6s Pro — Verify exact SKU, Display type verify, Verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'OPPO A6s Pro Price in Pakistan | RAES TECH', 'OPPO A6s Pro from Rs 94,496. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('oppo-a6s-pro', (SELECT id FROM brands WHERE slug='oppo'), 'OPPO A6s Pro', 'A6s Pro', 'OPPO A6s Pro — Verify exact SKU, Display type verify, Verify. Pricing shown includes PTA / SIM-lock variants where available.', 'OPPO A6s Pro Price in Pakistan | RAES TECH', 'OPPO A6s Pro from Rs 94,496. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -1969,8 +1969,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='oppo-a6s-pro'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('oppo-a6k', (SELECT id FROM brands WHERE slug='oppo'), 'OPPO A6K', 'A6K', 'OPPO A6K — No, LCD; verify, Verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'OPPO A6K Price in Pakistan | RAES TECH', 'OPPO A6K from Rs 48,596. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('oppo-a6k', (SELECT id FROM brands WHERE slug='oppo'), 'OPPO A6K', 'A6K', 'OPPO A6K — No, LCD; verify, Verify. Pricing shown includes PTA / SIM-lock variants where available.', 'OPPO A6K Price in Pakistan | RAES TECH', 'OPPO A6K from Rs 48,596. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -1978,8 +1978,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='oppo-a6k'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('oppo-a6s', (SELECT id FROM brands WHERE slug='oppo'), 'OPPO A6s', 'A6s', 'OPPO A6s — Verify exact SKU, Display type verify, Verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'OPPO A6s Price in Pakistan | RAES TECH', 'OPPO A6s from Rs 82,796. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('oppo-a6s', (SELECT id FROM brands WHERE slug='oppo'), 'OPPO A6s', 'A6s', 'OPPO A6s — Verify exact SKU, Display type verify, Verify. Pricing shown includes PTA / SIM-lock variants where available.', 'OPPO A6s Price in Pakistan | RAES TECH', 'OPPO A6s from Rs 82,796. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -1987,8 +1987,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='oppo-a6s'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('oppo-reno-15-pro', (SELECT id FROM brands WHERE slug='oppo'), 'OPPO Reno 15 Pro', 'Reno 15 Pro', 'OPPO Reno 15 Pro — Yes, AMOLED; exact refresh verify, Dimensity family; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'OPPO Reno 15 Pro Price in Pakistan | RAES TECH', 'OPPO Reno 15 Pro from Rs 211,499. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('oppo-reno-15-pro', (SELECT id FROM brands WHERE slug='oppo'), 'OPPO Reno 15 Pro', 'Reno 15 Pro', 'OPPO Reno 15 Pro — Yes, AMOLED; exact refresh verify, Dimensity family; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'OPPO Reno 15 Pro Price in Pakistan | RAES TECH', 'OPPO Reno 15 Pro from Rs 211,499. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -1996,8 +1996,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='oppo-reno-15-pro'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('oppo-reno-15', (SELECT id FROM brands WHERE slug='oppo'), 'OPPO Reno 15', 'Reno 15', 'OPPO Reno 15 — Yes (listing), AMOLED; verify, Verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'OPPO Reno 15 Price in Pakistan | RAES TECH', 'OPPO Reno 15 from Rs 143,996. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('oppo-reno-15', (SELECT id FROM brands WHERE slug='oppo'), 'OPPO Reno 15', 'Reno 15', 'OPPO Reno 15 — Yes (listing), AMOLED; verify, Verify. Pricing shown includes PTA / SIM-lock variants where available.', 'OPPO Reno 15 Price in Pakistan | RAES TECH', 'OPPO Reno 15 from Rs 143,996. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -2005,8 +2005,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='oppo-reno-15'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('oppo-reno-15f', (SELECT id FROM brands WHERE slug='oppo'), 'OPPO Reno 15F', 'Reno 15F', 'OPPO Reno 15F — Verify, Display type verify, Verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'OPPO Reno 15F Price in Pakistan | RAES TECH', 'OPPO Reno 15F from Rs 107,099. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('oppo-reno-15f', (SELECT id FROM brands WHERE slug='oppo'), 'OPPO Reno 15F', 'Reno 15F', 'OPPO Reno 15F — Verify, Display type verify, Verify. Pricing shown includes PTA / SIM-lock variants where available.', 'OPPO Reno 15F Price in Pakistan | RAES TECH', 'OPPO Reno 15F from Rs 107,099. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -2014,8 +2014,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='oppo-reno-15f'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('realme-c100i', (SELECT id FROM brands WHERE slug='realme'), 'realme C100i', 'C100i', 'realme C100i — No, 6.8 LCD (reported), Entry-level chipset; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'realme C100i Price in Pakistan | RAES TECH', 'realme C100i from Rs 33,299. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('realme-c100i', (SELECT id FROM brands WHERE slug='realme'), 'realme C100i', 'C100i', 'realme C100i — No, 6.8 LCD (reported), Entry-level chipset; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'realme C100i Price in Pakistan | RAES TECH', 'realme C100i from Rs 33,299. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -2027,8 +2027,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='realme-c100i'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('realme-16-5g', (SELECT id FROM brands WHERE slug='realme'), 'realme 16 5G', '16 5G', 'realme 16 5G — Yes, AMOLED high refresh (reported), Dimensity family; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'realme 16 5G Price in Pakistan | RAES TECH', 'realme 16 5G from Rs 103,049. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('realme-16-5g', (SELECT id FROM brands WHERE slug='realme'), 'realme 16 5G', '16 5G', 'realme 16 5G — Yes, AMOLED high refresh (reported), Dimensity family; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'realme 16 5G Price in Pakistan | RAES TECH', 'realme 16 5G from Rs 103,049. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -2036,8 +2036,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='realme-16-5g'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('realme-15-pro', (SELECT id FROM brands WHERE slug='realme'), 'realme 15 Pro', '15 Pro', 'realme 15 Pro — Yes, AMOLED 120Hz (reported), Verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'realme 15 Pro Price in Pakistan | RAES TECH', 'realme 15 Pro from Rs 116,099. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('realme-15-pro', (SELECT id FROM brands WHERE slug='realme'), 'realme 15 Pro', '15 Pro', 'realme 15 Pro — Yes, AMOLED 120Hz (reported), Verify. Pricing shown includes PTA / SIM-lock variants where available.', 'realme 15 Pro Price in Pakistan | RAES TECH', 'realme 15 Pro from Rs 116,099. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -2045,8 +2045,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='realme-15-pro'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('realme-note-70', (SELECT id FROM brands WHERE slug='realme'), 'realme Note 70', 'Note 70', 'realme Note 70 — No, LCD; verify, Unisoc family; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'realme Note 70 Price in Pakistan | RAES TECH', 'realme Note 70 from Rs 37,439. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('realme-note-70', (SELECT id FROM brands WHERE slug='realme'), 'realme Note 70', 'Note 70', 'realme Note 70 — No, LCD; verify, Unisoc family; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'realme Note 70 Price in Pakistan | RAES TECH', 'realme Note 70 from Rs 37,439. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -2054,8 +2054,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='realme-note-70'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('realme-c75x', (SELECT id FROM brands WHERE slug='realme'), 'realme C75x', 'C75x', 'realme C75x — No, LCD high refresh (reported), Helio family; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'realme C75x Price in Pakistan | RAES TECH', 'realme C75x from Rs 46,799. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('realme-c75x', (SELECT id FROM brands WHERE slug='realme'), 'realme C75x', 'C75x', 'realme C75x — No, LCD high refresh (reported), Helio family; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'realme C75x Price in Pakistan | RAES TECH', 'realme C75x from Rs 46,799. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -2063,8 +2063,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='realme-c75x'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('realme-note-60x', (SELECT id FROM brands WHERE slug='realme'), 'realme Note 60x', 'Note 60x', 'realme Note 60x — No, LCD; verify, Unisoc family; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'realme Note 60x Price in Pakistan | RAES TECH', 'realme Note 60x from Rs 29,699. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('realme-note-60x', (SELECT id FROM brands WHERE slug='realme'), 'realme Note 60x', 'Note 60x', 'realme Note 60x — No, LCD; verify, Unisoc family; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'realme Note 60x Price in Pakistan | RAES TECH', 'realme Note 60x from Rs 29,699. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -2072,8 +2072,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='realme-note-60x'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('realme-c100', (SELECT id FROM brands WHERE slug='realme'), 'realme C100', 'C100', 'realme C100 — Verify, Display type verify, Verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'realme C100 Price in Pakistan | RAES TECH', 'realme C100 from Rs 77,850. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('realme-c100', (SELECT id FROM brands WHERE slug='realme'), 'realme C100', 'C100', 'realme C100 — Verify, Display type verify, Verify. Pricing shown includes PTA / SIM-lock variants where available.', 'realme C100 Price in Pakistan | RAES TECH', 'realme C100 from Rs 77,850. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -2081,8 +2081,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='realme-c100'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('realme-c100x', (SELECT id FROM brands WHERE slug='realme'), 'realme C100X', 'C100X', 'realme C100X — No, LCD; verify, Verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'realme C100X Price in Pakistan | RAES TECH', 'realme C100X from Rs 56,250. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('realme-c100x', (SELECT id FROM brands WHERE slug='realme'), 'realme C100X', 'C100X', 'realme C100X — No, LCD; verify, Verify. Pricing shown includes PTA / SIM-lock variants where available.', 'realme C100X Price in Pakistan | RAES TECH', 'realme C100X from Rs 56,250. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -2090,8 +2090,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='realme-c100x'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('vivo-y05', (SELECT id FROM brands WHERE slug='vivo'), 'vivo Y05', 'Y05', 'vivo Y05 — No, 6.74 LCD (listing reference), Entry-level chipset; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'vivo Y05 Price in Pakistan | RAES TECH', 'vivo Y05 from Rs 36,899. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('vivo-y05', (SELECT id FROM brands WHERE slug='vivo'), 'vivo Y05', 'Y05', 'vivo Y05 — No, 6.74 LCD (listing reference), Entry-level chipset; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'vivo Y05 Price in Pakistan | RAES TECH', 'vivo Y05 from Rs 36,899. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -2103,8 +2103,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='vivo-y05'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('vivo-y05e', (SELECT id FROM brands WHERE slug='vivo'), 'vivo Y05e', 'Y05e', 'vivo Y05e — No, LCD; verify, Entry-level chipset; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'vivo Y05e Price in Pakistan | RAES TECH', 'vivo Y05e from Rs 33,299. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('vivo-y05e', (SELECT id FROM brands WHERE slug='vivo'), 'vivo Y05e', 'Y05e', 'vivo Y05e — No, LCD; verify, Entry-level chipset; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'vivo Y05e Price in Pakistan | RAES TECH', 'vivo Y05e from Rs 33,299. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -2112,8 +2112,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='vivo-y05e'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('vivo-x300-fe', (SELECT id FROM brands WHERE slug='vivo'), 'vivo X300 FE', 'X300 FE', 'vivo X300 FE — Yes, AMOLED high refresh (reported), Dimensity family; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'vivo X300 FE Price in Pakistan | RAES TECH', 'vivo X300 FE from Rs 226,799. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('vivo-x300-fe', (SELECT id FROM brands WHERE slug='vivo'), 'vivo X300 FE', 'X300 FE', 'vivo X300 FE — Yes, AMOLED high refresh (reported), Dimensity family; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'vivo X300 FE Price in Pakistan | RAES TECH', 'vivo X300 FE from Rs 226,799. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -2121,8 +2121,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='vivo-x300-fe'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('vivo-y500', (SELECT id FROM brands WHERE slug='vivo'), 'vivo Y500', 'Y500', 'vivo Y500 — Verify, Display type verify, Verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'vivo Y500 Price in Pakistan | RAES TECH', 'vivo Y500 from Rs 74,249. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('vivo-y500', (SELECT id FROM brands WHERE slug='vivo'), 'vivo Y500', 'Y500', 'vivo Y500 — Verify, Display type verify, Verify. Pricing shown includes PTA / SIM-lock variants where available.', 'vivo Y500 Price in Pakistan | RAES TECH', 'vivo Y500 from Rs 74,249. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -2130,8 +2130,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='vivo-y500'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('vivo-v70-fe', (SELECT id FROM brands WHERE slug='vivo'), 'vivo V70 FE', 'V70 FE', 'vivo V70 FE — Yes, AMOLED high refresh (reported), Dimensity family; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'vivo V70 FE Price in Pakistan | RAES TECH', 'vivo V70 FE from Rs 109,799. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('vivo-v70-fe', (SELECT id FROM brands WHERE slug='vivo'), 'vivo V70 FE', 'V70 FE', 'vivo V70 FE — Yes, AMOLED high refresh (reported), Dimensity family; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'vivo V70 FE Price in Pakistan | RAES TECH', 'vivo V70 FE from Rs 109,799. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -2139,8 +2139,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='vivo-v70-fe'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('vivo-y31d', (SELECT id FROM brands WHERE slug='vivo'), 'vivo Y31d', 'Y31d', 'vivo Y31d — Verify, Display type verify, Verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'vivo Y31d Price in Pakistan | RAES TECH', 'vivo Y31d from Rs 60,749. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('vivo-y31d', (SELECT id FROM brands WHERE slug='vivo'), 'vivo Y31d', 'Y31d', 'vivo Y31d — Verify, Display type verify, Verify. Pricing shown includes PTA / SIM-lock variants where available.', 'vivo Y31d Price in Pakistan | RAES TECH', 'vivo Y31d from Rs 60,749. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -2148,8 +2148,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='vivo-y31d'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('vivo-y11d', (SELECT id FROM brands WHERE slug='vivo'), 'vivo Y11d', 'Y11d', 'vivo Y11d — No, LCD; verify, Entry-level chipset; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'vivo Y11d Price in Pakistan | RAES TECH', 'vivo Y11d from Rs 46,349. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('vivo-y11d', (SELECT id FROM brands WHERE slug='vivo'), 'vivo Y11d', 'Y11d', 'vivo Y11d — No, LCD; verify, Entry-level chipset; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'vivo Y11d Price in Pakistan | RAES TECH', 'vivo Y11d from Rs 46,349. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -2157,8 +2157,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='vivo-y11d'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('vivo-x300-pro', (SELECT id FROM brands WHERE slug='vivo'), 'vivo X300 Pro', 'X300 Pro', 'vivo X300 Pro — Yes, LTPO AMOLED 120Hz (reported), Dimensity flagship family; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'vivo X300 Pro Price in Pakistan | RAES TECH', 'vivo X300 Pro from Rs 285,299. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('vivo-x300-pro', (SELECT id FROM brands WHERE slug='vivo'), 'vivo X300 Pro', 'X300 Pro', 'vivo X300 Pro — Yes, LTPO AMOLED 120Hz (reported), Dimensity flagship family; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'vivo X300 Pro Price in Pakistan | RAES TECH', 'vivo X300 Pro from Rs 285,299. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -2166,8 +2166,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='vivo-x300-pro'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('vivo-x200-fe', (SELECT id FROM brands WHERE slug='vivo'), 'vivo X200 FE', 'X200 FE', 'vivo X200 FE — Yes, AMOLED 120Hz (reported), Dimensity family; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'vivo X200 FE Price in Pakistan | RAES TECH', 'vivo X200 FE from Rs 194,399. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('vivo-x200-fe', (SELECT id FROM brands WHERE slug='vivo'), 'vivo X200 FE', 'X200 FE', 'vivo X200 FE — Yes, AMOLED 120Hz (reported), Dimensity family; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'vivo X200 FE Price in Pakistan | RAES TECH', 'vivo X200 FE from Rs 194,399. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -2175,8 +2175,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='vivo-x200-fe'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('infinix-smart-20', (SELECT id FROM brands WHERE slug='infinix'), 'Infinix Smart 20', 'Smart 20', 'Infinix Smart 20 — No, LCD high refresh; verify, Entry-level chipset; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Infinix Smart 20 Price in Pakistan | RAES TECH', 'Infinix Smart 20 from Rs 34,649. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('infinix-smart-20', (SELECT id FROM brands WHERE slug='infinix'), 'Infinix Smart 20', 'Smart 20', 'Infinix Smart 20 — No, LCD high refresh; verify, Entry-level chipset; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'Infinix Smart 20 Price in Pakistan | RAES TECH', 'Infinix Smart 20 from Rs 34,649. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -2188,8 +2188,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='infinix-smart-20'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('infinix-note-60-edge-5g', (SELECT id FROM brands WHERE slug='infinix'), 'Infinix Note 60 Edge 5G', 'Note 60 Edge 5G', 'Infinix Note 60 Edge 5G — Yes, AMOLED high refresh (reported), Dimensity family; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Infinix Note 60 Edge 5G Price in Pakistan | RAES TECH', 'Infinix Note 60 Edge 5G from Rs 85,859. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('infinix-note-60-edge-5g', (SELECT id FROM brands WHERE slug='infinix'), 'Infinix Note 60 Edge 5G', 'Note 60 Edge 5G', 'Infinix Note 60 Edge 5G — Yes, AMOLED high refresh (reported), Dimensity family; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'Infinix Note 60 Edge 5G Price in Pakistan | RAES TECH', 'Infinix Note 60 Edge 5G from Rs 85,859. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -2197,8 +2197,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='infinix-note-60-edge-5g'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('infinix-hot-70-pro-5g', (SELECT id FROM brands WHERE slug='infinix'), 'Infinix Hot 70 Pro 5G', 'Hot 70 Pro 5G', 'Infinix Hot 70 Pro 5G — Yes, Display type verify, Dimensity family; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Infinix Hot 70 Pro 5G Price in Pakistan | RAES TECH', 'Infinix Hot 70 Pro 5G from Rs 74,699. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('infinix-hot-70-pro-5g', (SELECT id FROM brands WHERE slug='infinix'), 'Infinix Hot 70 Pro 5G', 'Hot 70 Pro 5G', 'Infinix Hot 70 Pro 5G — Yes, Display type verify, Dimensity family; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'Infinix Hot 70 Pro 5G Price in Pakistan | RAES TECH', 'Infinix Hot 70 Pro 5G from Rs 74,699. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -2206,8 +2206,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='infinix-hot-70-pro-5g'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('infinix-hot-70', (SELECT id FROM brands WHERE slug='infinix'), 'Infinix Hot 70', 'Hot 70', 'Infinix Hot 70 — No, LCD high refresh (reported), Helio family; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Infinix Hot 70 Price in Pakistan | RAES TECH', 'Infinix Hot 70 from Rs 52,199. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('infinix-hot-70', (SELECT id FROM brands WHERE slug='infinix'), 'Infinix Hot 70', 'Hot 70', 'Infinix Hot 70 — No, LCD high refresh (reported), Helio family; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'Infinix Hot 70 Price in Pakistan | RAES TECH', 'Infinix Hot 70 from Rs 52,199. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -2215,8 +2215,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='infinix-hot-70'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('infinix-gt-50-pro', (SELECT id FROM brands WHERE slug='infinix'), 'Infinix GT 50 Pro', 'GT 50 Pro', 'Infinix GT 50 Pro — Yes, AMOLED high refresh (reported), Dimensity flagship family; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Infinix GT 50 Pro Price in Pakistan | RAES TECH', 'Infinix GT 50 Pro from Rs 146,699. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('infinix-gt-50-pro', (SELECT id FROM brands WHERE slug='infinix'), 'Infinix GT 50 Pro', 'GT 50 Pro', 'Infinix GT 50 Pro — Yes, AMOLED high refresh (reported), Dimensity flagship family; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'Infinix GT 50 Pro Price in Pakistan | RAES TECH', 'Infinix GT 50 Pro from Rs 146,699. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -2224,8 +2224,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='infinix-gt-50-pro'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('infinix-note-60', (SELECT id FROM brands WHERE slug='infinix'), 'Infinix Note 60', 'Note 60', 'Infinix Note 60 — Yes, AMOLED high refresh (reported), Dimensity family; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Infinix Note 60 Price in Pakistan | RAES TECH', 'Infinix Note 60 from Rs 91,799. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('infinix-note-60', (SELECT id FROM brands WHERE slug='infinix'), 'Infinix Note 60', 'Note 60', 'Infinix Note 60 — Yes, AMOLED high refresh (reported), Dimensity family; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'Infinix Note 60 Price in Pakistan | RAES TECH', 'Infinix Note 60 from Rs 91,799. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -2233,8 +2233,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='infinix-note-60'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('infinix-hot-60-pro', (SELECT id FROM brands WHERE slug='infinix'), 'Infinix Hot 60 Pro', 'Hot 60 Pro', 'Infinix Hot 60 Pro — 4G/5G SKU verify, AMOLED high refresh (reported), Verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Infinix Hot 60 Pro Price in Pakistan | RAES TECH', 'Infinix Hot 60 Pro from Rs 62,999. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('infinix-hot-60-pro', (SELECT id FROM brands WHERE slug='infinix'), 'Infinix Hot 60 Pro', 'Hot 60 Pro', 'Infinix Hot 60 Pro — 4G/5G SKU verify, AMOLED high refresh (reported), Verify. Pricing shown includes PTA / SIM-lock variants where available.', 'Infinix Hot 60 Pro Price in Pakistan | RAES TECH', 'Infinix Hot 60 Pro from Rs 62,999. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -2242,8 +2242,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='infinix-hot-60-pro'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('infinix-hot-60i', (SELECT id FROM brands WHERE slug='infinix'), 'Infinix Hot 60i', 'Hot 60i', 'Infinix Hot 60i — No, LCD high refresh (reported), Helio family; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Infinix Hot 60i Price in Pakistan | RAES TECH', 'Infinix Hot 60i from Rs 48,599. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('infinix-hot-60i', (SELECT id FROM brands WHERE slug='infinix'), 'Infinix Hot 60i', 'Hot 60i', 'Infinix Hot 60i — No, LCD high refresh (reported), Helio family; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'Infinix Hot 60i Price in Pakistan | RAES TECH', 'Infinix Hot 60i from Rs 48,599. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -2251,8 +2251,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='infinix-hot-60i'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('infinix-note-60-pro', (SELECT id FROM brands WHERE slug='infinix'), 'Infinix Note 60 Pro', 'Note 60 Pro', 'Infinix Note 60 Pro — Yes, AMOLED high refresh (reported), Dimensity family; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Infinix Note 60 Pro Price in Pakistan | RAES TECH', 'Infinix Note 60 Pro from Rs 106,199. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('infinix-note-60-pro', (SELECT id FROM brands WHERE slug='infinix'), 'Infinix Note 60 Pro', 'Note 60 Pro', 'Infinix Note 60 Pro — Yes, AMOLED high refresh (reported), Dimensity family; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'Infinix Note 60 Pro Price in Pakistan | RAES TECH', 'Infinix Note 60 Pro from Rs 106,199. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -2260,8 +2260,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='infinix-note-60-pro'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('tecno-spark-50', (SELECT id FROM brands WHERE slug='tecno'), 'Tecno Spark 50', 'Spark 50', 'Tecno Spark 50 — Verify SKU, LCD high refresh (reported), Entry/midrange chipset; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Tecno Spark 50 Price in Pakistan | RAES TECH', 'Tecno Spark 50 from Rs 52,646. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('tecno-spark-50', (SELECT id FROM brands WHERE slug='tecno'), 'Tecno Spark 50', 'Spark 50', 'Tecno Spark 50 — Verify SKU, LCD high refresh (reported), Entry/midrange chipset; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'Tecno Spark 50 Price in Pakistan | RAES TECH', 'Tecno Spark 50 from Rs 52,646. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -2269,8 +2269,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='tecno-spark-50'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('tecno-pova-curve-2-5g', (SELECT id FROM brands WHERE slug='tecno'), 'Tecno Pova Curve 2 5G', 'Pova Curve 2 5G', 'Tecno Pova Curve 2 5G — Yes, AMOLED high refresh (reported), Dimensity family; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Tecno Pova Curve 2 5G Price in Pakistan | RAES TECH', 'Tecno Pova Curve 2 5G from Rs 89,999. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('tecno-pova-curve-2-5g', (SELECT id FROM brands WHERE slug='tecno'), 'Tecno Pova Curve 2 5G', 'Pova Curve 2 5G', 'Tecno Pova Curve 2 5G — Yes, AMOLED high refresh (reported), Dimensity family; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'Tecno Pova Curve 2 5G Price in Pakistan | RAES TECH', 'Tecno Pova Curve 2 5G from Rs 89,999. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -2278,8 +2278,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='tecno-pova-curve-2-5g'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('tecno-spark-50-pro', (SELECT id FROM brands WHERE slug='tecno'), 'Tecno Spark 50 Pro', 'Spark 50 Pro', 'Tecno Spark 50 Pro — Verify, Display type verify, Verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Tecno Spark 50 Pro Price in Pakistan | RAES TECH', 'Tecno Spark 50 Pro from Rs 63,446. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('tecno-spark-50-pro', (SELECT id FROM brands WHERE slug='tecno'), 'Tecno Spark 50 Pro', 'Spark 50 Pro', 'Tecno Spark 50 Pro — Verify, Display type verify, Verify. Pricing shown includes PTA / SIM-lock variants where available.', 'Tecno Spark 50 Pro Price in Pakistan | RAES TECH', 'Tecno Spark 50 Pro from Rs 63,446. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -2287,8 +2287,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='tecno-spark-50-pro'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('tecno-camon-50', (SELECT id FROM brands WHERE slug='tecno'), 'Tecno Camon 50', 'Camon 50', 'Tecno Camon 50 — Verify, AMOLED high refresh (reported), Helio/Dimensity family; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Tecno Camon 50 Price in Pakistan | RAES TECH', 'Tecno Camon 50 from Rs 82,796. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('tecno-camon-50', (SELECT id FROM brands WHERE slug='tecno'), 'Tecno Camon 50', 'Camon 50', 'Tecno Camon 50 — Verify, AMOLED high refresh (reported), Helio/Dimensity family; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'Tecno Camon 50 Price in Pakistan | RAES TECH', 'Tecno Camon 50 from Rs 82,796. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -2296,8 +2296,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='tecno-camon-50'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('tecno-camon-50-pro', (SELECT id FROM brands WHERE slug='tecno'), 'Tecno Camon 50 Pro', 'Camon 50 Pro', 'Tecno Camon 50 Pro — Verify, AMOLED high refresh (reported), Helio/Dimensity family; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Tecno Camon 50 Pro Price in Pakistan | RAES TECH', 'Tecno Camon 50 Pro from Rs 89,996. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('tecno-camon-50-pro', (SELECT id FROM brands WHERE slug='tecno'), 'Tecno Camon 50 Pro', 'Camon 50 Pro', 'Tecno Camon 50 Pro — Verify, AMOLED high refresh (reported), Helio/Dimensity family; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'Tecno Camon 50 Pro Price in Pakistan | RAES TECH', 'Tecno Camon 50 Pro from Rs 89,996. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -2305,8 +2305,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='tecno-camon-50-pro'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('tecno-spark-go-3', (SELECT id FROM brands WHERE slug='tecno'), 'Tecno Spark Go 3', 'Spark Go 3', 'Tecno Spark Go 3 — No, LCD; verify, Entry-level chipset; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Tecno Spark Go 3 Price in Pakistan | RAES TECH', 'Tecno Spark Go 3 from Rs 34,196. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('tecno-spark-go-3', (SELECT id FROM brands WHERE slug='tecno'), 'Tecno Spark Go 3', 'Spark Go 3', 'Tecno Spark Go 3 — No, LCD; verify, Entry-level chipset; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'Tecno Spark Go 3 Price in Pakistan | RAES TECH', 'Tecno Spark Go 3 from Rs 34,196. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -2314,8 +2314,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='tecno-spark-go-3'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('tecno-spark-40-pro-plus', (SELECT id FROM brands WHERE slug='tecno'), 'Tecno Spark 40 Pro Plus', 'Spark 40 Pro Plus', 'Tecno Spark 40 Pro Plus — No, AMOLED high refresh (reported), Helio family; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Tecno Spark 40 Pro Plus Price in Pakistan | RAES TECH', 'Tecno Spark 40 Pro Plus from Rs 65,699. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('tecno-spark-40-pro-plus', (SELECT id FROM brands WHERE slug='tecno'), 'Tecno Spark 40 Pro Plus', 'Spark 40 Pro Plus', 'Tecno Spark 40 Pro Plus — No, AMOLED high refresh (reported), Helio family; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'Tecno Spark 40 Pro Plus Price in Pakistan | RAES TECH', 'Tecno Spark 40 Pro Plus from Rs 65,699. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -2323,8 +2323,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='tecno-spark-40-pro-plus'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('tecno-camon-50-ultra-5g', (SELECT id FROM brands WHERE slug='tecno'), 'Tecno Camon 50 Ultra 5G', 'Camon 50 Ultra 5G', 'Tecno Camon 50 Ultra 5G — Yes, AMOLED high refresh (reported), Dimensity family; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Tecno Camon 50 Ultra 5G Price in Pakistan | RAES TECH', 'Tecno Camon 50 Ultra 5G from Rs 107,999. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('tecno-camon-50-ultra-5g', (SELECT id FROM brands WHERE slug='tecno'), 'Tecno Camon 50 Ultra 5G', 'Camon 50 Ultra 5G', 'Tecno Camon 50 Ultra 5G — Yes, AMOLED high refresh (reported), Dimensity family; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'Tecno Camon 50 Ultra 5G Price in Pakistan | RAES TECH', 'Tecno Camon 50 Ultra 5G from Rs 107,999. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -2332,8 +2332,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='tecno-camon-50-ultra-5g'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('xiaomi-17-ultra', (SELECT id FROM brands WHERE slug='xiaomi'), 'Xiaomi 17 Ultra', '17 Ultra', 'Xiaomi 17 Ultra — Yes, 6.9 LTPO AMOLED 120Hz, Snapdragon flagship; verify exact regional SKU. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Xiaomi 17 Ultra Price in Pakistan | RAES TECH', 'Xiaomi 17 Ultra from Rs 413,999. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('xiaomi-17-ultra', (SELECT id FROM brands WHERE slug='xiaomi'), 'Xiaomi 17 Ultra', '17 Ultra', 'Xiaomi 17 Ultra — Yes, 6.9 LTPO AMOLED 120Hz, Snapdragon flagship; verify exact regional SKU. Pricing shown includes PTA / SIM-lock variants where available.', 'Xiaomi 17 Ultra Price in Pakistan | RAES TECH', 'Xiaomi 17 Ultra from Rs 413,999. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -2341,8 +2341,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='xiaomi-17-ultra'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('xiaomi-redmi-15c', (SELECT id FROM brands WHERE slug='xiaomi'), 'Xiaomi Redmi 15C', 'Redmi 15C', 'Xiaomi Redmi 15C — 4G, LCD high refresh (reported), Helio family; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Xiaomi Redmi 15C Price in Pakistan | RAES TECH', 'Xiaomi Redmi 15C from Rs 40,496. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('xiaomi-redmi-15c', (SELECT id FROM brands WHERE slug='xiaomi'), 'Xiaomi Redmi 15C', 'Redmi 15C', 'Xiaomi Redmi 15C — 4G, LCD high refresh (reported), Helio family; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'Xiaomi Redmi 15C Price in Pakistan | RAES TECH', 'Xiaomi Redmi 15C from Rs 40,496. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -2350,8 +2350,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='xiaomi-redmi-15c'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('honor-x8d', (SELECT id FROM brands WHERE slug='honor'), 'Honor X8d', 'X8d', 'Honor X8d — Verify, Display type needs exact SKU verification, Verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Honor X8d Price in Pakistan | RAES TECH', 'Honor X8d from Rs 69,299. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('honor-x8d', (SELECT id FROM brands WHERE slug='honor'), 'Honor X8d', 'X8d', 'Honor X8d — Verify, Display type needs exact SKU verification, Verify. Pricing shown includes PTA / SIM-lock variants where available.', 'Honor X8d Price in Pakistan | RAES TECH', 'Honor X8d from Rs 69,299. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -2359,8 +2359,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='honor-x8d'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('honor-x9d', (SELECT id FROM brands WHERE slug='honor'), 'Honor X9d', 'X9d', 'Honor X9d — Verify, AMOLED high refresh (reported), Verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Honor X9d Price in Pakistan | RAES TECH', 'Honor X9d from Rs 125,099. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('honor-x9d', (SELECT id FROM brands WHERE slug='honor'), 'Honor X9d', 'X9d', 'Honor X9d — Verify, AMOLED high refresh (reported), Verify. Pricing shown includes PTA / SIM-lock variants where available.', 'Honor X9d Price in Pakistan | RAES TECH', 'Honor X9d from Rs 125,099. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -2368,8 +2368,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='honor-x9d'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('honor-x6c', (SELECT id FROM brands WHERE slug='honor'), 'Honor X6c', 'X6c', 'Honor X6c — No, LCD; verify, Entry/midrange chipset; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Honor X6c Price in Pakistan | RAES TECH', 'Honor X6c from Rs 40,496. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('honor-x6c', (SELECT id FROM brands WHERE slug='honor'), 'Honor X6c', 'X6c', 'Honor X6c — No, LCD; verify, Entry/midrange chipset; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'Honor X6c Price in Pakistan | RAES TECH', 'Honor X6c from Rs 40,496. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -2377,8 +2377,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='honor-x6c'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('itel-a200', (SELECT id FROM brands WHERE slug='itel'), 'itel A200', 'A200', 'itel A200 — No, LCD; verify, Entry-level chipset; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'itel A200 Price in Pakistan | RAES TECH', 'itel A200 from Rs 29,696. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('itel-a200', (SELECT id FROM brands WHERE slug='itel'), 'itel A200', 'A200', 'itel A200 — No, LCD; verify, Entry-level chipset; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'itel A200 Price in Pakistan | RAES TECH', 'itel A200 from Rs 29,696. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -2386,8 +2386,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='itel-a200'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('itel-power-80', (SELECT id FROM brands WHERE slug='itel'), 'itel Power 80', 'Power 80', 'itel Power 80 — No, LCD; verify, Entry-level chipset; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'itel Power 80 Price in Pakistan | RAES TECH', 'itel Power 80 from Rs 38,696. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('itel-power-80', (SELECT id FROM brands WHERE slug='itel'), 'itel Power 80', 'Power 80', 'itel Power 80 — No, LCD; verify, Entry-level chipset; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'itel Power 80 Price in Pakistan | RAES TECH', 'itel Power 80 from Rs 38,696. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -2395,8 +2395,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='itel-power-80'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('itel-a100c', (SELECT id FROM brands WHERE slug='itel'), 'itel A100C', 'A100C', 'itel A100C — No, LCD; verify, Entry-level chipset; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'itel A100C Price in Pakistan | RAES TECH', 'itel A100C from Rs 21,149. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('itel-a100c', (SELECT id FROM brands WHERE slug='itel'), 'itel A100C', 'A100C', 'itel A100C — No, LCD; verify, Entry-level chipset; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'itel A100C Price in Pakistan | RAES TECH', 'itel A100C from Rs 21,149. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -2404,8 +2404,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='itel-a100c'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('nothing-cmf-phone-1-5g', (SELECT id FROM brands WHERE slug='nothing'), 'Nothing CMF Phone 1 5G', 'CMF Phone 1 5G', 'Nothing CMF Phone 1 5G — Yes, 6.67 AMOLED 120Hz, Dimensity 7300. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Nothing CMF Phone 1 5G Price in Pakistan | RAES TECH', 'Nothing CMF Phone 1 5G from Rs 67,496. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('nothing-cmf-phone-1-5g', (SELECT id FROM brands WHERE slug='nothing'), 'Nothing CMF Phone 1 5G', 'CMF Phone 1 5G', 'Nothing CMF Phone 1 5G — Yes, 6.67 AMOLED 120Hz, Dimensity 7300. Pricing shown includes PTA / SIM-lock variants where available.', 'Nothing CMF Phone 1 5G Price in Pakistan | RAES TECH', 'Nothing CMF Phone 1 5G from Rs 67,496. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)
@@ -2413,8 +2413,8 @@ INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, ch
     FROM products WHERE slug='nothing-cmf-phone-1-5g'
     ON CONFLICT (sku) DO NOTHING;
 
-INSERT INTO products (slug, brand_id, name, model, description, category, seo_title, seo_description)
-  VALUES ('motorola-edge-70-fusion', (SELECT id FROM brands WHERE slug='motorola'), 'Motorola Edge 70 Fusion', 'Edge 70 Fusion', 'Motorola Edge 70 Fusion — Yes, pOLED high refresh (reported), Snapdragon family; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'smartphone', 'Motorola Edge 70 Fusion Price in Pakistan | RAES TECH', 'Motorola Edge 70 Fusion from Rs 121,499. Buy Now or interest-free instalments, nationwide delivery.')
+INSERT INTO products (slug, brand_id, name, model, description, seo_title, seo_description)
+  VALUES ('motorola-edge-70-fusion', (SELECT id FROM brands WHERE slug='motorola'), 'Motorola Edge 70 Fusion', 'Edge 70 Fusion', 'Motorola Edge 70 Fusion — Yes, pOLED high refresh (reported), Snapdragon family; verify. Pricing shown includes PTA / SIM-lock variants where available.', 'Motorola Edge 70 Fusion Price in Pakistan | RAES TECH', 'Motorola Edge 70 Fusion from Rs 121,499. Buy Now or interest-free instalments, nationwide delivery.')
   ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO product_variants (product_id, sku, storage, ram, colors, display, chipset, rear_camera, front_camera, battery, network, pta_status, listed_price, buy_now_price, instalment_total, stock, requires_verification)

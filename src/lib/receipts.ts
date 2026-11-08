@@ -99,7 +99,7 @@ export async function attachReceiptToOrder(
     const method = toDbPaymentMethod(ownedOrder.payment_method as string | null);
     const { data: inserted, error: payErr } = await supabase!
       .from("payments")
-      .insert({ order_id: orderId, user_id: userId, amount, status: "pending", method })
+      .insert({ order_id: orderId, user_id: userId, amount, status: "pending_verification", method })
       .select("id")
       .single();
     if (payErr) {
@@ -108,7 +108,18 @@ export async function attachReceiptToOrder(
     paymentId = inserted?.id as string;
   }
 
-  // 2. Record the receipt.
+  // 2. Ensure a receipt is linked exactly once. If one already exists (e.g. a
+  //    previous attempt completed server-side but the browser timed out), treat
+  //    this retry as success and return the same reference and status.
+  const { data: existingReceipt } = await supabase!
+    .from("payment_receipts")
+    .select("id")
+    .eq("payment_id", paymentId)
+    .maybeSingle();
+  if (existingReceipt) {
+    return { ok: true, message: "Receipt received — awaiting payment review." };
+  }
+
   const { error: rcErr } = await supabase!.from("payment_receipts").insert({
     payment_id: paymentId,
     file_path: path,
@@ -131,7 +142,7 @@ export async function attachReceiptToOrder(
 
   return {
     ok: true,
-    message: "Receipt uploaded. Our team will verify your payment shortly.",
+    message: "Receipt received — awaiting payment review.",
   };
 }
 
@@ -204,7 +215,9 @@ export async function attachReceiptToInstalment(
       .eq("payment_id", paymentId)
       .maybeSingle();
     if (existingReceipt) {
-      return { ok: false, error: "A receipt has already been uploaded for this advance payment." };
+      // The submission already completed server-side (e.g. a previous attempt
+      // timed out). Return the same success reference and status.
+      return { ok: true, message: "Receipt received — awaiting payment review." };
     }
   } else {
     const { data: inserted, error: payErr } = await supabase!
@@ -213,7 +226,7 @@ export async function attachReceiptToInstalment(
         instalment_application_id: applicationId,
         user_id: userId,
         amount,
-        status: "pending",
+        status: "pending_verification",
         method: "manual_bank_transfer",
       })
       .select("id")
@@ -224,7 +237,18 @@ export async function attachReceiptToInstalment(
     paymentId = inserted?.id as string;
   }
 
-  // 2. Record the receipt.
+  // 2. Ensure a receipt is linked exactly once. If one already exists (e.g. a
+  //    previous attempt completed server-side but the browser timed out), treat
+  //    this retry as success and return the same reference and status.
+  const { data: existingReceipt } = await supabase!
+    .from("payment_receipts")
+    .select("id")
+    .eq("payment_id", paymentId)
+    .maybeSingle();
+  if (existingReceipt) {
+    return { ok: true, message: "Receipt received — awaiting payment review." };
+  }
+
   const { error: rcErr } = await supabase!.from("payment_receipts").insert({
     payment_id: paymentId,
     file_path: path,
@@ -247,7 +271,7 @@ export async function attachReceiptToInstalment(
 
   return {
     ok: true,
-    message: "Receipt uploaded. Our team will verify your advance payment shortly.",
+    message: "Receipt received — awaiting payment review.",
   };
 }
 

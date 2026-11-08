@@ -12,6 +12,11 @@
 -- and are only ever served through short-lived signed URLs.
 -- ============================================================
 
+-- The order-approval trigger (migration 00024) references the 'approved'
+-- order status. The enum value must exist in its own transaction first
+-- (Postgres forbids using a just-added enum value in the same transaction).
+alter type public.order_status add value if not exists 'approved';
+
 -- ---- Finance-staff helper (reviewers + super admin) ----
 create or replace function public.is_finance_staff()
 returns boolean

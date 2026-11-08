@@ -63,6 +63,16 @@ export function CheckoutPage() {
   const [uploadStage, setUploadStage] = useState<"idle" | "uploading">("idle");
   // Guard against duplicate order submissions (double-click / rapid re-trigger).
   const placingRef = useRef(false);
+  // Path of the receipt already uploaded to storage. Kept so a retry after a
+  // payment-record failure reuses the same file without asking the customer to
+  // transfer again or re-upload.
+  const [receiptPath, setReceiptPath] = useState<string | null>(null);
+  // True only after the backend confirms the receipt is stored and linked to a
+  // payment row. The "Receipt received — awaiting payment review" success
+  // message is shown ONLY when this is true.
+  const [receiptAttached, setReceiptAttached] = useState(false);
+  const [receiptLinking, setReceiptLinking] = useState(false);
+  const [placedOrderId, setPlacedOrderId] = useState<string | null>(null);
 
   // ---- 11.11 Sale pricing: one shared rule for the Buy Now (prepaid) flow.
   // Instalments (11% off) are handled on the instalment pages. COD is disabled.
@@ -182,15 +192,19 @@ export function CheckoutPage() {
       // 1. Upload/verify the payment receipt FIRST. The order is only created
       //    after this upload succeeds, so a failed upload never leaves an
       //    order without payment evidence.
-      let receiptPath: string | null = null;
-      if (receipt && isSupabaseConfigured) {
+      // Reuse a previously uploaded receipt path on retry so the customer is
+      // never asked to transfer again or re-upload after a payment-record
+      // failure. Only upload when we have no reusable path yet.
+      let effectiveReceiptPath = receiptPath;
+      if (!effectiveReceiptPath && receipt && isSupabaseConfigured) {
         const uploaded = await uploadReceipt(receipt);
         if (!uploaded.ok) {
           setUploadStage("idle");
           setError(uploaded.error);
           return;
         }
-        receiptPath = uploaded.path;
+        effectiveReceiptPath = uploaded.path;
+        setReceiptPath(effectiveReceiptPath);
       }
 
       // 2. Generate the order (only reached if the upload succeeded).
@@ -216,12 +230,17 @@ export function CheckoutPage() {
         return;
       }
       setOrderNumber(result.order.orderNumber);
+      setPlacedOrderId(result.order.id);
 
       // 3. Attach the uploaded receipt to the created order (pending verification).
       let receiptError = "";
-      if (receiptPath && receipt && isSupabaseConfigured) {
-        const rc = await attachReceiptToOrder(result.order.id, total, receiptPath, receipt);
-        if (!rc.ok) receiptError = rc.error;
+      if (effectiveReceiptPath && receipt && isSupabaseConfigured) {
+        const rc = await attachReceiptToOrder(result.order.id, total, effectiveReceiptPath, receipt);
+        if (rc.ok) {
+          setReceiptAttached(true);
+        } else {
+          receiptError = rc.error;
+        }
       }
 
       setPlaced(true);
@@ -233,18 +252,44 @@ export function CheckoutPage() {
     }
   }
 
+  // Retry linking an already-uploaded receipt to a saved order (recovery path
+  // shown when the order saved but the payment-record/receipt link failed).
+  async function retryLinkReceipt() {
+    if (!placedOrderId || !receiptPath || !receipt) return;
+    setReceiptLinking(true);
+    setError("");
+    const rc = await attachReceiptToOrder(placedOrderId, total, receiptPath, receipt);
+    setReceiptLinking(false);
+    if (rc.ok) setReceiptAttached(true);
+    else setError(rc.error);
+  }
+
   if (placed) {
     return (
       <div className="mx-auto max-w-xl py-10 text-center">
         <CheckCircle2 className="mx-auto mb-4 h-14 w-14 text-emerald-600" />
         <h1 className="text-2xl font-bold">Order placed</h1>
-        <p className="mt-2 text-muted-foreground">
-          Your order <span className="font-semibold text-foreground">{orderNumber}</span> has been received
-          {isAuthenticated ? " and your payment receipt has been submitted for verification." : "."}
-        </p>
-        {error && (
+        {receiptAttached ? (
+          <p className="mt-2 text-muted-foreground">
+            Order <span className="font-semibold text-foreground">{orderNumber}</span>: Receipt received — awaiting payment review.
+          </p>
+        ) : (
+          <>
+            <p className="mt-2 text-muted-foreground">
+              Order <span className="font-semibold text-foreground">{orderNumber}</span> saved. Your receipt is still needed.
+            </p>
+            <Button
+              className="mt-4"
+              disabled={receiptLinking || !receiptPath}
+              onClick={() => void retryLinkReceipt()}
+            >
+              {receiptLinking ? "Linking…" : "Upload receipt for this order"}
+            </Button>
+          </>
+        )}
+        {!receiptAttached && error && (
           <div className="mt-4 rounded-xl border border-amber-500/40 bg-amber-50 px-4 py-3 text-sm text-amber-800">
-            {error} You can also upload your receipt later from your order page.
+            {error}
           </div>
         )}
         <div className="mt-6 rounded-2xl border bg-card p-5 text-left text-sm">
@@ -518,7 +563,7 @@ export function CheckoutPage() {
                     accept=".jpg,.jpeg,.png,.pdf"
                     maxSize={5 * 1024 * 1024}
                     value={receipt}
-                    onChange={(f) => setReceipt(f)}
+                    onChange={(f) => { setReceipt(f); setReceiptPath(null); setReceiptAttached(false); }}
                     helperText="JPG, PNG or PDF, up to 5 MB."
                   />
                 </Card>

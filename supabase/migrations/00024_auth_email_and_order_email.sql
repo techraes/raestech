@@ -82,7 +82,7 @@ drop trigger if exists trg_order_approved on public.orders;
 create trigger trg_order_approved
 after update of status on public.orders
 for each row
-when (new.status = 'approved' and old.status is distinct from 'approved')
+when (new.status::text = 'approved' and old.status::text is distinct from 'approved')
 execute function public.handle_order_approved();
 
 -- Fire when an instalment application first reaches Approved.
@@ -101,7 +101,7 @@ drop trigger if exists trg_instalment_approved on public.instalment_applications
 create trigger trg_instalment_approved
 after update of status on public.instalment_applications
 for each row
-when (new.status = 'approved' and old.status is distinct from 'approved')
+when (new.status::text = 'approved' and old.status::text is distinct from 'approved')
 execute function public.handle_instalment_approved();
 
 -- Read the email-job state for the admin order page.
