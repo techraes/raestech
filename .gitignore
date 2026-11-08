@@ -38,6 +38,10 @@ raestech/
 *.vercel-token
 *.management-token
 *.token
+*.service-role
+*.resend-token
+*.sb-secret
+*.tok?t*
 
 # Imported master-pack data (extracted zip / archives / scratch) — NOT shipped,
 # never committed. Contains image SHA-256 hashes & markdown/text documentation.
