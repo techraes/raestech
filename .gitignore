@@ -34,6 +34,11 @@ tmp_*
 supabase/.temp/
 raestech/
 
+# API tokens / secrets — never commit
+*.vercel-token
+*.management-token
+*.token
+
 # Imported master-pack data (extracted zip / archives / scratch) — NOT shipped,
 # never committed. Contains image SHA-256 hashes & markdown/text documentation.
 data/attachments/
