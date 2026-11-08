@@ -502,9 +502,9 @@ export function CheckoutPage() {
                           active ? "border-primary bg-primary/5 ring-1 ring-primary" : "hover:bg-muted/50"
                         }`}
                       >
-                        <div className="flex items-center justify-between gap-2">
-                          <span className="text-sm font-semibold">{m.name}</span>
-                          <span className={`h-3.5 w-3.5 rounded-full border ${active ? "border-primary bg-primary" : "border-muted-foreground/40"}`} />
+                        <div className="flex min-w-0 items-center justify-between gap-2">
+                          <span className="min-w-0 break-words text-sm font-semibold">{m.name}</span>
+                          <span className={`h-3.5 w-3.5 shrink-0 rounded-full border ${active ? "border-primary bg-primary" : "border-muted-foreground/40"}`} />
                         </div>
                         {m.customerDescription && <p className="mt-1 text-xs text-muted-foreground">{m.customerDescription}</p>}
                       </button>

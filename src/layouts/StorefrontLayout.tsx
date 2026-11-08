@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
+import { Link, NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
 import {
   Search, ShoppingCart, User, Menu, X, MessageCircle, ChevronDown, Heart,
   Facebook, Instagram, Youtube, MapPin, Mail, Phone, LayoutGrid, ShieldCheck,
@@ -40,6 +40,15 @@ const SOCIALS = [
   { key: "youtube", icon: Youtube, label: "YouTube" },
 ] as const;
 
+/** True on routes where a floating chat button could cover payment controls. */
+function isPaymentRoute(pathname: string): boolean {
+  return (
+    pathname === "/checkout" ||
+    pathname.startsWith("/installments/payment") ||
+    pathname.startsWith("/checkout/")
+  );
+}
+
 /** Only render an icon when a valid HTTPS profile URL is configured. */
 function validHttpsUrl(url?: unknown): url is string {
   if (typeof url !== "string" || !url.trim()) return false;
@@ -61,6 +70,7 @@ export function StorefrontLayout() {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [brandOpen, setBrandOpen] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
   const brands = getBrands();
   const products = useProducts();
 
@@ -391,8 +401,9 @@ export function StorefrontLayout() {
         </div>
       </footer>
 
-      {/* Floating WhatsApp */}
-      {settings.whatsapp && (
+      {/* Floating WhatsApp — hidden on payment/checkout routes so it never
+          covers payment controls (e.g. Copy buttons, amount summary). */}
+      {settings.whatsapp && !isPaymentRoute(location.pathname) && (
         <a
           href={`https://wa.me/${settings.whatsapp.replace(/\+/g, "").replace(/[^0-9]/g, "")}?text=Hello, I have a question about your phones.`}
           target="_blank"
