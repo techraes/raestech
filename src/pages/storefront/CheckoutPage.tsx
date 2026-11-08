@@ -59,6 +59,8 @@ export function CheckoutPage() {
   const [submitting, setSubmitting] = useState(false);
   const [placed, setPlaced] = useState(false);
   const [selectedMethodId, setSelectedMethodId] = useState("");
+  // Phase of the manual-transfer submission: idle (file selected) -> uploading.
+  const [uploadStage, setUploadStage] = useState<"idle" | "uploading">("idle");
   // Guard against duplicate order submissions (double-click / rapid re-trigger).
   const placingRef = useRef(false);
 
@@ -165,6 +167,7 @@ export function CheckoutPage() {
     if (placingRef.current) return;
     placingRef.current = true;
     setSubmitting(true);
+    setUploadStage("uploading");
     try {
       const userId = user?.id ?? null;
 
@@ -183,6 +186,7 @@ export function CheckoutPage() {
       if (receipt && isSupabaseConfigured) {
         const uploaded = await uploadReceipt(receipt);
         if (!uploaded.ok) {
+          setUploadStage("idle");
           setError(uploaded.error);
           return;
         }
@@ -392,7 +396,7 @@ export function CheckoutPage() {
               </div>
 
               {otpError && (
-                <p className="text-sm text-red-600">{otpError}</p>
+                <p className="text-sm text-red-600 dark:text-red-300">{otpError}</p>
               )}
 
               <div className="flex items-center justify-between gap-3">
@@ -416,7 +420,7 @@ export function CheckoutPage() {
                 <Loader2 className="h-4 w-4 animate-spin" /> Loading payment options…
               </div>
             ) : payLoadFailed ? (
-              <div className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-800">
+              <div className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-800 dark:border-red-900 dark:bg-red-950/40 dark:text-red-200">
                 <p>We couldn’t load payment options. Try again.</p>
                 <Button type="button" variant="outline" size="sm" className="mt-3" onClick={refreshSettings}>
                   <RefreshCw className="mr-1.5 h-3.5 w-3.5" /> Retry
@@ -519,14 +523,24 @@ export function CheckoutPage() {
                   />
                 </Card>
 
-                <Button size="lg" className="w-full" onClick={placeOrder} disabled={submitting || !receipt}>
-                  {submitting ? "Placing order…" : "Generate order after uploading receipt"}
-                </Button>
+                <div className="space-y-2">
+                  {receipt && uploadStage === "idle" && !submitting && (
+                    <p className="text-xs text-muted-foreground">File selected — ready to submit for review.</p>
+                  )}
+                  {submitting && (
+                    <p className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                      <Loader2 className="h-3.5 w-3.5 animate-spin" /> Uploading… please wait.
+                    </p>
+                  )}
+                  <Button size="lg" className="w-full" onClick={placeOrder} disabled={submitting || !receipt}>
+                    {submitting ? "Uploading…" : "Submit payment for review"}
+                  </Button>
+                </div>
               </>
             ) : null}
 
             {error && (
-              <div className="rounded-xl border border-destructive/40 bg-destructive/10 px-4 py-3 text-sm text-destructive">{error}</div>
+              <div className="rounded-xl border border-red-300 bg-red-50 px-4 py-3 text-sm text-red-800 dark:border-red-900 dark:bg-red-950/40 dark:text-red-200">{error}</div>
             )}
           </div>
 

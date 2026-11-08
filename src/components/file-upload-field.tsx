@@ -120,7 +120,7 @@ export function FileUploadField({
       />
 
       {helperText && <p className="text-xs text-muted-foreground">{helperText}</p>}
-      {(localError || error) && <p className="text-xs text-red-600">{localError || error}</p>}
+      {(localError || error) && <p className="text-xs text-red-600 dark:text-red-300">{localError || error}</p>}
     </div>
   );
 }

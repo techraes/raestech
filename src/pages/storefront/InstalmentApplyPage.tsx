@@ -33,6 +33,13 @@ type InstalmentFormFields = {
   address: string; city: string; province: string; postalCode: string; employment: string; income: string;
 };
 
+/** Mask a CNIC for Review display (never show the full number). */
+function maskCnic(value: string): string {
+  const digits = value.replace(/[^0-9]/g, "");
+  if (digits.length < 4) return "••••";
+  return `${digits.slice(0, 3)}-${"•".repeat(Math.max(0, digits.length - 5))}-${digits.slice(-2)}`;
+}
+
 export function InstalmentApplyPage() {
   const [params] = useSearchParams();
   const { settings } = useSettings();
@@ -661,7 +668,7 @@ export function InstalmentApplyPage() {
                       <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Customer</p>
                       <div className="mt-2 space-y-1.5 text-sm">
                         <p>{form.fullName} · {form.mobile}{form.email ? ` · ${form.email}` : ""}</p>
-                        <p className="text-muted-foreground">CNIC: {form.cnic}</p>
+                        <p className="text-muted-foreground">CNIC: {maskCnic(form.cnic)}</p>
                         <p className="text-muted-foreground">{[form.address, form.city, form.province, form.postalCode].filter(Boolean).join(", ")}</p>
                       </div>
                     </section>
@@ -711,7 +718,7 @@ export function InstalmentApplyPage() {
                     Continue <ChevronRight className="ml-1 h-4 w-4" />
                   </Button>
                 ) : (
-                  <Button type="button" size="lg" disabled={submitBusy || confirmBusy} onClick={handleSubmit}>
+                  <Button type="button" size="lg" disabled={submitBusy || confirmBusy || needRetry} onClick={handleSubmit}>
                     {confirmBusy ? "Checking availability…" : submitBusy ? "Submitting…" : "Agree & Continue to Payment"}
                   </Button>
                 )}

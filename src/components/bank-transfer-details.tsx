@@ -67,7 +67,7 @@ function CopyCell({ label, value }: { label: string; value: string }) {
         variant="outline"
         size="sm"
         onClick={copy}
-        className={cn("shrink-0 gap-1.5", copied && "border-emerald-500 text-emerald-700")}
+        className={cn("shrink-0 gap-1.5", copied && "border-emerald-600 text-emerald-700 dark:border-emerald-400 dark:text-emerald-300")}
         aria-label={`Copy ${label}`}
       >
         {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
@@ -92,18 +92,22 @@ export function BankTransferDetails({ orderNumber, amountText, className, bank }
   };
   return (
     <Card className={cn("overflow-hidden", className)}>
-      <div className="flex items-center gap-3 border-b bg-gradient-to-r from-emerald-50 to-teal-50 px-5 py-4">
-        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-600 text-white">
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-2 border-b bg-gradient-to-r from-emerald-100 to-teal-100 px-5 py-4 dark:from-emerald-950/60 dark:to-teal-950/60">
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-600 text-white">
           <Landmark className="h-5 w-5" />
         </div>
-        <div>
-          <p className="font-bold text-foreground">Bank Transfer Payment</p>
-          <p className="text-xs text-muted-foreground">Faysal Bank Limited — manual verification</p>
+        <div className="min-w-0 flex-1">
+          <p className="text-base font-bold text-emerald-950 dark:text-emerald-50">Bank Transfer Payment</p>
+          <p className="text-xs font-medium text-emerald-800/80 dark:text-emerald-200/80">Faysal Bank Limited — manual verification</p>
         </div>
         {(orderNumber || amountText) && (
           <div className="ml-auto text-right text-xs">
-            {orderNumber && <p className="font-semibold">{orderNumber}</p>}
-            {amountText && <p className="text-muted-foreground">Amount due: <span className="font-semibold text-foreground">{amountText}</span></p>}
+            {orderNumber && <p className="font-semibold text-emerald-950 dark:text-emerald-50">{orderNumber}</p>}
+            {amountText && (
+              <p className="text-emerald-800/70 dark:text-emerald-200/70">
+                Amount due: <span className="font-bold text-emerald-950 dark:text-emerald-50">{amountText}</span>
+              </p>
+            )}
           </div>
         )}
       </div>

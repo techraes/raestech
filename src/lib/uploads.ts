@@ -23,9 +23,15 @@ export async function uploadPrivateFile(
   if (file.size > MAX_UPLOAD_BYTES) {
     return { ok: false, error: "File is too large. Maximum size is 5 MB." };
   }
-  const ext = file.name.split(".").pop()?.toLowerCase() || "bin";
-  const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
-  const path = `${folder}/${ownerId}/${Date.now()}-${safeName}.${ext}`;
+  const dot = file.name.lastIndexOf(".");
+  const base = dot > 0 ? file.name.slice(0, dot) : file.name;
+  const ext = dot > 0 ? file.name.slice(dot + 1).toLowerCase() : "";
+  // Sanitize the base name (spaces -> _, keep dots) and preserve the extension.
+  const safeBase = base.replace(/[^a-zA-Z0-9._-]/g, "_").replace(/^\.+/, "").replace(/\.+$/, "");
+  const safeName = ext ? `${safeBase}.${ext}` : safeBase;
+  // The FIRST path segment MUST be the owner id (matches the storage RLS
+  // policies, e.g. `user uploads receipts` -> foldername(name)[1] = auth.uid()).
+  const path = `${ownerId}/${folder}/${Date.now()}-${safeName}`;
 
   const { error } = await supabase!.storage.from(bucket).upload(path, file, {
     cacheControl: "3600",
