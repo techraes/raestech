@@ -223,14 +223,19 @@ begin
     raise exception 'Decision must be approve or reject';
   end if;
 
-  -- Serialize concurrent reviews: row lock. The second caller waits, then sees
-  -- a non-pending status and returns the recorded decision without re-crediting.
-  select * into v_rec from public.payment_proofs where id = p_proof_id for update;
-  if not found then
-    raise exception 'Payment proof not found';
-  end if;
+  -- Serialize concurrent reviews: lock ONLY a proof that is still pending. If a
+  -- concurrent review commits before this transaction obtains the lock, this
+  -- select finds nothing and we return the recorded decision without re-crediting.
+  select * into v_rec from public.payment_proofs
+    where id = p_proof_id and status = 'pending_verification'
+    for update;
 
-  if v_rec.status <> 'pending_verification' then
+  if not found then
+    -- Distinguish a missing proof from one that was already decided concurrently.
+    select * into v_rec from public.payment_proofs where id = p_proof_id;
+    if not found then
+      raise exception 'Payment proof not found';
+    end if;
     return query select
       v_rec.status, true, v_rec.balance_before, v_rec.balance_after,
       v_rec.reviewed_by, v_rec.reviewed_at;
