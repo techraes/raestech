@@ -6,6 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useSettings } from "@/features/settings/store";
+import { useWishlist } from "@/features/wishlist/store";
 import { buyNowPrice, discountedPrice, SALE_INSTALMENT_DISCOUNT_PERCENT } from "@/lib/pricing";
 import { formatPKR, displayCondition } from "@/lib/utils";
 import { useCart } from "@/store/cart";
@@ -55,7 +56,24 @@ export function ProductCard({ product }: { product: Product }) {
   const hasListedRange = maxListedAll > minListedAll;
 
   const navigate = useNavigate();
-  const [liked, setLiked] = useState(false);
+  const { isSaved, toggle } = useWishlist();
+  const liked = isSaved(product.slug);
+  const [likeBusy, setLikeBusy] = useState(false);
+  const [guestHint, setGuestHint] = useState(false);
+
+  async function toggleLiked() {
+    if (likeBusy) return;
+    setLikeBusy(true);
+    try {
+      const res = await toggle(product.slug);
+      if (res.needsAuth) {
+        setGuestHint(true);
+        window.setTimeout(() => setGuestHint(false), 3000);
+      }
+    } finally {
+      setLikeBusy(false);
+    }
+  }
 
   function quickAdd(e: React.MouseEvent) {
     e.preventDefault();
@@ -86,12 +104,22 @@ export function ProductCard({ product }: { product: Product }) {
           )}
 
           <button
-            onClick={(e) => { e.preventDefault(); e.stopPropagation(); setLiked((v) => !v); }}
+            type="button"
+            onClick={(e) => { e.preventDefault(); e.stopPropagation(); void toggleLiked(); }}
             className="absolute bottom-2.5 right-2.5 inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/90 shadow transition-transform active:scale-90 max-sm:bottom-2.5 sm:translate-y-1 sm:opacity-0 sm:group-hover:translate-y-0 sm:group-hover:opacity-100"
-            aria-label="Add to wishlist"
+            aria-label={liked ? "Remove from wishlist" : "Add to wishlist"}
+            aria-pressed={liked}
           >
             <Heart className={cn("h-4 w-4", liked ? "fill-red-500 text-red-500" : "text-neutral-600")} />
           </button>
+
+          {guestHint && (
+            <div className="pointer-events-none absolute inset-x-0 bottom-2 flex justify-center">
+              <span className="rounded-full bg-neutral-900/85 px-2.5 py-1 text-[10px] font-medium text-white">
+                Sign in to sync your wishlist
+              </span>
+            </div>
+          )}
         </div>
 
         <p className="px-3 pt-1 text-center text-[9px] leading-none text-neutral-400">Representative image — colour may vary</p>

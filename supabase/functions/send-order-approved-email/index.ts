@@ -84,6 +84,23 @@ async function processJob(supabase: ReturnType<typeof createClient>, job: Record
   const jobId = String(job.id);
   if (job.status === "sending") return { id: jobId, skipped: "already_sending" };
 
+  // If an admin already sent the email manually, do NOT auto-send a duplicate.
+  if (job.manually_sent_at) {
+    return { id: jobId, status: "failed", manually_sent: true };
+  }
+
+  // Reconciliation: if a previous attempt was already accepted by the provider
+  // (a delivery/message id was recorded), do NOT resend — that would produce a
+  // duplicate customer email. Just reflect the accepted state.
+  if (job.delivery_id && (job.status === "pending" || job.status === "failed")) {
+    await supabase.from("order_email_jobs").update({
+      status: "sent",
+      last_error: null,
+      updated_at: new Date().toISOString(),
+    }).eq("id", jobId);
+    return { id: jobId, status: "sent", reconciled: true };
+  }
+
   await supabase.from("order_email_jobs").update({
     status: "sending",
     updated_at: new Date().toISOString(),
@@ -127,12 +144,23 @@ async function processJob(supabase: ReturnType<typeof createClient>, job: Record
       return { id: jobId, status: "sent" };
     }
 
+    // Capture the provider's sanitized response so the admin sees an actionable
+    // reason (e.g. sender domain unverified, invalid key, rate limit) instead of
+    // a bare status number. Keep recipient/customer detail out of the log.
+    const rbody = await resendRes.json().catch(() => ({}));
+    let reason = `HTTP ${resendRes.status}`;
+    const msg = typeof rbody?.message === "string" ? rbody.message.trim() : "";
+    if (msg) reason = `${reason}: ${msg.slice(0, 200)}`;
+    if (resendRes.status === 401 || resendRes.status === 403) {
+      reason = `Sender credentials rejected by provider (HTTP ${resendRes.status}) — check RESEND_API_KEY and the sender address.`;
+    }
+
     const permanent = resendRes.status >= 400 && resendRes.status < 500;
     await supabase.from("order_email_jobs").update({
       status: permanent ? "failed" : "pending",
       attempts,
       last_attempt_at: now,
-      last_error: `HTTP ${resendRes.status}`,
+      last_error: reason,
       updated_at: now,
     }).eq("id", jobId);
     return { id: jobId, status: permanent ? "failed" : "pending" };

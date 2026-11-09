@@ -6,6 +6,7 @@ import { getSignedUrl, RECEIPT_BUCKET, IDENTITY_BUCKET } from "@/lib/uploads";
 import { formatPKR } from "@/lib/utils";
 import { useCan } from "@/features/auth/permissions";
 import { getOrderEmailJob, retryOrderEmail, sendOrderApprovedEmail, type OrderEmailJob } from "@/lib/auth-config";
+import { ApprovalEmailCopyPanel } from "./ApprovalEmailCopy";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
@@ -884,6 +885,14 @@ function DetailView(props: {
             <Mail className="h-3.5 w-3.5" /> Approval email job: <EmailJobState orderId={row.id} onRetry={props.onRetryEmail} />
           </div>
         )}
+
+        {(props.canReviewOrders || props.canReviewApps) && (
+          <ApprovalEmailCopyPanel
+            kind={isOrder ? "order" : "instalment"}
+            subjectId={row.id}
+            approved={isOrder ? row.status === "approved" : (row as AppRow).status === "approved"}
+          />
+        )}
       </CardContent>
     </Card>
   );
@@ -891,20 +900,52 @@ function DetailView(props: {
 
 function EmailJobState({ orderId, onRetry }: { orderId: string; onRetry: () => void }) {
   const [job, setJob] = useState<OrderEmailJob | null>(null);
+  const [loadingJob, setLoadingJob] = useState(true);
   useEffect(() => {
     let active = true;
+    setLoadingJob(true);
     void (async () => {
       const j = await getOrderEmailJob(orderId);
-      if (active) setJob(j);
+      if (active) {
+        setJob(j);
+        setLoadingJob(false);
+      }
     })();
     return () => { active = false; };
   }, [orderId]);
+  if (loadingJob) return <span>…</span>;
   if (!job) return <span>none</span>;
+
+  const showRetry = job.status === "failed" || job.status === "pending";
   return (
-    <span className="inline-flex items-center gap-1">
-      {job.status}
-      {(job.status === "failed" || job.status === "pending") && (
-        <Button size="sm" variant="ghost" onClick={onRetry}>Retry</Button>
+    <span className="inline-flex flex-wrap items-center gap-x-2 gap-y-1">
+      <span
+        className={
+          job.status === "sent" || job.status === "delivered"
+            ? "font-medium text-emerald-700"
+            : job.status === "failed"
+            ? "font-medium text-red-600"
+            : "font-medium text-amber-600"
+        }
+      >
+        {job.status}
+      </span>
+      {job.masked_recipient && (
+        <span className="text-xs text-muted-foreground">→ {job.masked_recipient}</span>
+      )}
+      {job.last_attempt_at && (
+        <span className="text-xs text-muted-foreground">last try {fmtDate(job.last_attempt_at)}</span>
+      )}
+      {job.delivery_id && job.status === "sent" && (
+        <span className="text-xs text-muted-foreground">accepted by provider</span>
+      )}
+      {job.last_error && (
+        <span className="block w-full text-xs text-red-600" title="Provider / delivery failure reason">
+          {job.last_error}
+        </span>
+      )}
+      {showRetry && (
+        <Button size="sm" variant="ghost" onClick={onRetry}>Retry email</Button>
       )}
     </span>
   );

@@ -4,6 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import { SettingsProvider } from "@/features/settings/store";
 import { AuthProvider } from "@/features/auth/AuthContext";
+import { WishlistProvider } from "@/features/wishlist/store";
 import { ThemeProvider } from "@/lib/theme";
 import "@/styles/globals.css";
 import "@/styles/base.css";
@@ -16,7 +17,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <ThemeProvider>
         <AuthProvider>
           <SettingsProvider>
-            <App />
+            <WishlistProvider>
+              <App />
+            </WishlistProvider>
           </SettingsProvider>
         </AuthProvider>
       </ThemeProvider>

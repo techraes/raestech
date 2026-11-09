@@ -1,10 +1,11 @@
 import { readFileSync } from "node:fs";
+import { getManagementToken } from "./_token.mjs";
 const REF = "otvfosijrectvlwqqoll";
 
-// The Supabase management (sbp) token is read from the environment, never
-// passed on the command line, so it cannot leak into shell history, process
-// listings, logs or error messages.
-const TOKEN = process.env.SUPABASE_ACCESS_TOKEN;
+// The Supabase management (sbp) token is read from the environment or the
+// gitignored .env.local — never from the command line, so it cannot leak into
+// shell history, process listings, logs or error messages.
+const TOKEN = getManagementToken();
 const file = process.argv[2];
 
 if (!TOKEN || !file) {

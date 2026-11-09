@@ -6,6 +6,7 @@ import {
 } from "lucide-react";
 import { getProductBySlug, relatedProducts } from "@/data/catalog";
 import { useSettings } from "@/features/settings/store";
+import { useWishlist } from "@/features/wishlist/store";
 import { Seo, type SeoJsonLd } from "@/lib/seo";
 import { buyNowPrice, instalmentPlan } from "@/lib/pricing";
 import { getApprovedConceptSrcStatic } from "@/lib/image-resolve";
@@ -44,6 +45,18 @@ export function ProductDetailPage() {
   const { settings } = useSettings();
   const addItem = useCart((s) => s.addItem);
   const navigate = useNavigate();
+  const { isSaved, toggle } = useWishlist();
+  const [likeBusy, setLikeBusy] = useState(false);
+
+  async function toggleLiked() {
+    if (!product || likeBusy) return;
+    setLikeBusy(true);
+    try {
+      await toggle(product.slug);
+    } finally {
+      setLikeBusy(false);
+    }
+  }
 
   const variants = product?.variants ?? [];
   const [searchParams] = useSearchParams();
@@ -210,7 +223,18 @@ export function ProductDetailPage() {
               {isJV && <Badge variant="warning">JV / SIM-Locked</Badge>}
               {ptaApproved && <Badge variant="success">PTA Approved</Badge>}
             </div>
-            <h1 className="mt-1 text-2xl font-bold sm:text-3xl">{product.name}</h1>
+            <div className="flex items-start justify-between gap-3">
+              <h1 className="mt-1 text-2xl font-bold sm:text-3xl">{product.name}</h1>
+              <button
+                type="button"
+                onClick={() => void toggleLiked()}
+                className="mt-1 inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border bg-card text-foreground transition-colors hover:bg-muted"
+                aria-label={isSaved(product.slug) ? "Remove from wishlist" : "Add to wishlist"}
+                aria-pressed={isSaved(product.slug)}
+              >
+                <Heart className={cn("h-5 w-5", isSaved(product.slug) ? "fill-red-500 text-red-500" : "text-neutral-600")} />
+              </button>
+            </div>
             <p className="mt-1 text-sm text-muted-foreground">
               {variant.storage} · {variant.ram} · {displayCondition()}
             </p>

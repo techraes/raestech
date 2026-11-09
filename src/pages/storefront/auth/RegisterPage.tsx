@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "@/features/auth/AuthContext";
+import { getSignupOtpRequired } from "@/lib/auth-config";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -88,6 +89,18 @@ export function RegisterPage() {
   const [pendingGoogle, setPendingGoogle] = useState(false);
   const mountedRef = useRef(true);
   const googleTimeoutRef = useRef<number | undefined>(undefined);
+  // Effective "require email verification" setting (server-side). When OFF we
+  // never show the OTP screen — the account is usable immediately.
+  const [requireOtp, setRequireOtp] = useState(true);
+
+  useEffect(() => {
+    let active = true;
+    void (async () => {
+      const v = await getSignupOtpRequired();
+      if (active) setRequireOtp(v);
+    })();
+    return () => { active = false; };
+  }, []);
 
   // Component-lifetime guard so async handlers never touch state after unmount.
   useEffect(() => {
@@ -249,7 +262,9 @@ export function RegisterPage() {
 
           {phase === "form" ? (
             <>
-              <p className="mt-1 text-sm text-muted-foreground">Verify your email to activate your account.</p>
+              <p className="mt-1 text-sm text-muted-foreground">
+                {requireOtp ? "Verify your email to activate your account." : "Create your account."}
+              </p>
               <form onSubmit={submit} className="mt-6 space-y-4">
                 <div className="space-y-1.5"><Label htmlFor="name">Full name</Label><Input id="name" required value={name} onChange={(e) => setName(e.target.value)} /></div>
                 <div className="space-y-1.5"><Label htmlFor="email">Email</Label><Input id="email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} /></div>
@@ -265,7 +280,7 @@ export function RegisterPage() {
                 </div>
                 {info && <p className="text-sm text-blue-600 dark:text-blue-400">{info}</p>}
                 {error && <p className="text-sm text-red-600 dark:text-red-400">{error}</p>}
-                <Button type="submit" className="w-full" disabled={busy}>{busy ? "Sending code…" : "Continue"}</Button>
+                <Button type="submit" className="w-full" disabled={busy}>{busy ? (requireOtp ? "Sending code…" : "Creating account…") : (requireOtp ? "Continue" : "Create account")}</Button>
               </form>
 
               <div className="my-6 flex items-center gap-3 text-xs text-muted-foreground">
@@ -285,6 +300,18 @@ export function RegisterPage() {
               <p className="mt-3 text-lg font-semibold">Welcome to RAES TECH!</p>
               <p className="mt-1 text-sm text-muted-foreground">Your email is verified and your account is active.</p>
               <Button asChild className="mt-6 w-full"><Link to="/account">Go to my account</Link></Button>
+            </div>
+          ) : !requireOtp ? (
+            <div className="mt-6 text-center">
+              <Mail className="mx-auto h-10 w-10 text-emerald-600" />
+              <p className="mt-3 text-lg font-semibold">Account created</p>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Email verification is currently off — your account is active. Sign in to continue.
+              </p>
+              <Button asChild className="mt-6 w-full"><Link to="/login">Sign in</Link></Button>
+              <button type="button" onClick={() => { setPhase("form"); setOtp(""); setAttempts(0); setError(""); }} className="mt-3 text-sm text-muted-foreground underline-offset-2 hover:underline">
+                Use a different email address
+              </button>
             </div>
           ) : (
             <>

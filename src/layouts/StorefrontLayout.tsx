@@ -5,6 +5,7 @@ import {
   Facebook, Instagram, Youtube, MapPin, Mail, Phone, LayoutGrid, ShieldCheck,
 } from "lucide-react";
 import { useSettings } from "@/features/settings/store";
+import { useWishlist } from "@/features/wishlist/store";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { useAuth } from "@/features/auth/AuthContext";
 import { useCart } from "@/store/cart";
@@ -64,6 +65,7 @@ export function StorefrontLayout() {
   const { settings } = useSettings();
   const { user, isAdmin } = useAuth();
   const count = useCart((s) => s.count());
+  const { count: wishCount } = useWishlist();
   const [query, setQuery] = useState("");
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -190,8 +192,13 @@ export function StorefrontLayout() {
                 </span>
               )}
             </Link>
-            <Link to="/wishlist" className="hidden h-10 w-10 items-center justify-center rounded-full transition-colors hover:bg-muted sm:inline-flex" aria-label="Wishlist">
+            <Link to="/wishlist" className="relative hidden h-10 w-10 items-center justify-center rounded-full transition-colors hover:bg-muted sm:inline-flex" aria-label="Wishlist">
               <Heart className="h-5 w-5" strokeWidth={1.8} />
+              {wishCount > 0 && (
+                <span className="absolute right-1 top-1 inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-bold text-white">
+                  {wishCount}
+                </span>
+              )}
             </Link>
             <ThemeToggle />
             {user ? (

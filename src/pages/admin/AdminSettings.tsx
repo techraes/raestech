@@ -97,7 +97,7 @@ export function AdminSettings() {
         <div className="space-y-4">
           <div className="flex items-center justify-between gap-4 rounded-2xl border p-4">
             <div className="min-w-0">
-              <p className="text-sm font-semibold">Require email OTP for new signups</p>
+              <p className="text-sm font-semibold">Require email verification for new signups</p>
               <p className="mt-1 text-xs text-muted-foreground">
                 When off, new customers can sign up and sign in immediately. Order confirmation emails are always enabled.
               </p>

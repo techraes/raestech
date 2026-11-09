@@ -11,12 +11,14 @@
 //
 // Env (Edge Function secrets):
 //   SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY
-//   SUPABASE_PAT          — Supabase Management API personal access token
+//   MGMT_PAT               — Supabase Management API personal access token
+//                           (must not start with SUPABASE_ — the platform
+//                           rejects SUPABASE_-prefixed secret names).
 import { createClient } from "@supabase/supabase-js";
 
 const SUPABASE_URL = Deno.env.get("SUPABASE_URL") ?? "";
 const SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? Deno.env.get("SUPABASE_SECRET_KEY") ?? "";
-const PAT = Deno.env.get("SUPABASE_PAT") ?? "";
+const PAT = Deno.env.get("MGMT_PAT") ?? "";
 
 function projectRef(): string {
   try {
@@ -97,7 +99,10 @@ Deno.serve(async (req) => {
       Authorization: `Bearer ${PAT}`,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ mailer: { autoconfirm } }),
+    // Use the flat `mailer_autoconfirm` key. The nested `mailer: { autoconfirm }`
+    // form is accepted with HTTP 200 but does NOT change the setting on the
+    // Management API, which would make the admin switch silently ineffective.
+    body: JSON.stringify({ mailer_autoconfirm: autoconfirm }),
   });
   if (!mRes.ok) {
     const txt = await mRes.text().catch(() => "");

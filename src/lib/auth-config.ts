@@ -15,6 +15,8 @@ export interface OrderEmailJob {
   delivery_id: string | null;
   delivered_at: string | null;
   masked_recipient: string | null;
+  manually_sent_at?: string | null;
+  manually_sent_by?: string | null;
 }
 
 /** Effective "require signup OTP" value. Falls back to invoking the edge
@@ -79,6 +81,44 @@ export async function sendOrderApprovedEmail(orderId: string): Promise<{ ok: boo
   if (!supabase) return { ok: false, error: "Supabase is not configured." };
   const { error } = await supabase.functions.invoke("send-order-approved-email", {
     body: { orderId },
+  });
+  if (error) return { ok: false, error: error.message };
+  return { ok: true };
+}
+
+/** Read a job by kind + subject id (order or instalment application). */
+export async function getEmailJobState(
+  kind: "order" | "instalment",
+  subjectId: string
+): Promise<OrderEmailJob | null> {
+  if (!supabase) return null;
+  const { data, error } = await supabase.rpc("get_email_job_state", {
+    p_kind: kind,
+    p_subject_id: subjectId,
+  });
+  if (error) return null;
+  if (!data) return null;
+  return {
+    kind,
+    status: data.status,
+    attempts: Number(data.attempts ?? 0),
+    last_attempt_at: data.last_attempt_at ?? null,
+    last_error: data.last_error ?? null,
+    delivery_id: data.delivery_id ?? null,
+    delivered_at: data.delivered_at ?? null,
+    masked_recipient: data.masked_recipient ?? null,
+    manually_sent_at: data.manually_sent_at ?? null,
+    manually_sent_by: data.manually_sent_by ?? null,
+  };
+}
+
+/** Record that an admin sent the confirmation email manually. */
+export async function markOrderEmailManualSent(
+  subjectId: string
+): Promise<{ ok: boolean; error?: string }> {
+  if (!supabase) return { ok: false, error: "Supabase is not configured." };
+  const { error } = await supabase.rpc("mark_order_email_manual_sent", {
+    p_order_id: subjectId,
   });
   if (error) return { ok: false, error: error.message };
   return { ok: true };
