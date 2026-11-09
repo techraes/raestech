@@ -52,3 +52,6 @@ data/image-master-extracted/
 data/image-master-pack.zip
 # Generated diagnostic reports (contain image SHA-256 hashes / long strings) — not source.
 data/reports/
+
+.vercel
+.env*
