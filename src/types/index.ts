@@ -229,6 +229,13 @@ export interface CustomerOrderItem {
   unitPrice: number;
   /** Selected colour carried through to order records and admin view. */
   color?: string;
+  /** Order-time snapshot fields preserving the exact variant the customer chose. */
+  model?: string;
+  storage?: string;
+  ram?: string;
+  ptaStatus?: string;
+  jvStatus?: string;
+  productSlug?: string;
 }
 
 export interface CustomerOrder {

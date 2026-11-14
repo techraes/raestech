@@ -57,6 +57,12 @@ function variantBySku(sku: string): ProductVariant | undefined {
   return getVariantBySku(sku)?.variant;
 }
 
+/** Detect a JV / SIM-locked / carrier-locked device from the stored flags. */
+function jvStatusOf(variant: ProductVariant): string | undefined {
+  const hay = `${variant.pta_status ?? ""} ${variant.notes ?? ""}`;
+  return /jv|sim-locked|carrier-locked/i.test(hay) ? "JV / SIM-Locked" : undefined;
+}
+
 /** Map a Supabase/PostgREST error to a customer-friendly message. */
 function formatServerError(err: { message?: string }): string {
   const msg = err.message ?? "";
@@ -130,7 +136,19 @@ export const useOrders = create<OrdersState>()(
             };
           }
           const unitPrice = buyNowPrice(variant.listedPrice, discount);
-          items.push({ sku: variant.sku, name: cartItem.product.name, quantity, unitPrice, color: cartItem.color });
+          items.push({
+            sku: variant.sku,
+            name: cartItem.product.name,
+            quantity,
+            unitPrice,
+            color: cartItem.color,
+            model: cartItem.product.model || "",
+            storage: variant.storage || "",
+            ram: variant.ram || "",
+            ptaStatus: variant.pta_status || "",
+            jvStatus: jvStatusOf(variant) || "",
+            productSlug: cartItem.product.slug,
+          });
           computedSubtotal += unitPrice * quantity;
           computedListedSubtotal += variant.listedPrice * quantity;
         }
@@ -195,6 +213,12 @@ export const useOrders = create<OrdersState>()(
                 quantity: item.quantity,
                 product_name: item.name,
                 color: item.color || "",
+                product_slug: item.productSlug || "",
+                model: item.model || "",
+                storage: item.storage || "",
+                ram: item.ram || "",
+                pta_status: item.ptaStatus || "",
+                jv_status: item.jvStatus || "",
               })),
             },
           });
@@ -256,6 +280,11 @@ export const useOrders = create<OrdersState>()(
             buy_now: item.unitPrice,
             subtotal: item.unitPrice * item.quantity,
             color: item.color || null,
+            model: item.model || null,
+            storage: item.storage || null,
+            ram: item.ram || null,
+            pta_status: item.ptaStatus || null,
+            jv_status: item.jvStatus || null,
           }));
 
           const { error: itemsErr } = await supabase.from("order_items").insert(itemRows);

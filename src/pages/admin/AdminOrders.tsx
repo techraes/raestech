@@ -4,6 +4,7 @@ import { Search, RefreshCw, Eye, CheckCircle2, XCircle, Loader2, FileText, Image
 import { supabase, isSupabaseConfigured } from "@/lib/supabase";
 import { getSignedUrl, RECEIPT_BUCKET, IDENTITY_BUCKET } from "@/lib/uploads";
 import { formatPKR } from "@/lib/utils";
+import { getVariantBySku } from "@/data/catalog";
 import { useCan } from "@/features/auth/permissions";
 import { getOrderEmailJob, retryOrderEmail, sendOrderApprovedEmail, type OrderEmailJob } from "@/lib/auth-config";
 import { ApprovalEmailCopyPanel } from "./ApprovalEmailCopy";
@@ -40,6 +41,20 @@ interface DocInfo {
   mime?: string;
 }
 
+/** A single ordered item's display data (snapshot first, then recovery). */
+interface OrderedItemDisplay {
+  productName?: string | null;
+  model?: string | null;
+  storage?: string | null;
+  ram?: string | null;
+  color?: string | null;
+  ptaStatus?: string | null;
+  jvStatus?: string | null;
+  sku?: string | null;
+  variantId?: string | null;
+  quantity?: number;
+}
+
 interface OrderRow {
   kind: "order";
   id: string;
@@ -64,6 +79,7 @@ interface OrderRow {
   method?: string;
   payment?: PaymentInfo | null;
   rejection_reason?: string;
+  items: OrderedItemDisplay[];
 }
 
 interface AppRow {
@@ -92,6 +108,7 @@ interface AppRow {
   deliveryCity?: string;
   deliveryProvince?: string;
   deliveryPostalCode?: string;
+  items: OrderedItemDisplay[];
 }
 
 type Row = OrderRow | AppRow;
@@ -196,7 +213,7 @@ export function AdminOrders() {
         .limit(300);
 
       const aRes = await supabase.from("instalment_applications")
-        .select("id,application_number,full_name,mobile,email,cnic,status,advance_payment,advance_received,remaining_balance,monthly_payment,total_payable,tenure_months,created_at,reviewed_by,reviewed_at,rejection_reason,delivery_full_name,delivery_phone,delivery_address,delivery_area,delivery_city,delivery_province,delivery_postal_code")
+        .select("id,application_number,full_name,mobile,email,cnic,status,advance_payment,advance_received,remaining_balance,monthly_payment,total_payable,tenure_months,created_at,reviewed_by,reviewed_at,rejection_reason,delivery_full_name,delivery_phone,delivery_address,delivery_area,delivery_city,delivery_province,delivery_postal_code,color,variant_id")
         .order("created_at", { ascending: false })
         .limit(300);
 
@@ -205,6 +222,54 @@ export function AdminOrders() {
 
       const orderIds = (oRes.data ?? []).map((o: any) => o.id);
       const appIds = (aRes.data ?? []).map((a: any) => a.id);
+
+      // Fetch line items for orders. We read only columns guaranteed to exist on
+      // the current schema; any missing variant detail is recovered from the DB
+      // variant/product records below (see applyVariantRecovery).
+      const orderItemsRes = orderIds.length
+        ? await supabase.from("order_items").select("order_id,variant_id,product_name,sku,color,quantity").in("order_id", orderIds)
+        : { data: [], error: null };
+      if (orderItemsRes.error) throw orderItemsRes.error;
+      const itemsByOrder = new Map<string, any[]>();
+      for (const it of orderItemsRes.data ?? []) {
+        const arr = itemsByOrder.get(it.order_id) ?? [];
+        arr.push(it);
+        itemsByOrder.set(it.order_id, arr);
+      }
+
+      // Collect every variant reference we need to recover details for.
+      const variantIds = new Set<string>();
+      for (const it of orderItemsRes.data ?? []) if (it.variant_id) variantIds.add(it.variant_id);
+      for (const a of aRes.data ?? []) if (a.variant_id) variantIds.add(a.variant_id);
+
+      // Build a map variantId -> verified variant/product fields (public tables),
+      // used to fill gaps in historical/older records without guessing.
+      const vmap = new Map<string, Record<string, unknown>>();
+      const variantList = [...variantIds];
+      if (variantList.length) {
+        const vr = await supabase.from("product_variants").select("id,product_id,sku,storage,ram,pta_status,sim_lock_status").in("id", variantList);
+        if (vr.error) throw vr.error;
+        const pids = [...new Set((vr.data ?? []).map((v: any) => v.product_id).filter(Boolean))];
+        const productMap = new Map<string, any>();
+        if (pids.length) {
+          const pr = await supabase.from("products").select("id,name,model").in("id", pids);
+          if (pr.error) throw pr.error;
+          for (const p of pr.data ?? []) productMap.set(p.id, p);
+        }
+        for (const v of vr.data ?? []) {
+          const p = productMap.get(v.product_id);
+          const jv = v.sim_lock_status && /jv|sim-locked|carrier-locked/i.test(String(v.sim_lock_status)) ? "JV / SIM-Locked" : null;
+          vmap.set(v.id, {
+            sku: v.sku,
+            storage: v.storage,
+            ram: v.ram,
+            ptaStatus: v.pta_status,
+            jvStatus: jv,
+            model: p?.model ?? null,
+            name: p?.name ?? null,
+          });
+        }
+      }
 
       let payRes: any = { data: [], error: null };
       let receiptRes: any = { data: [], error: null };
@@ -300,6 +365,7 @@ export function AdminOrders() {
                 receipt: receiptByPay.get(pay.id) ? { path: receiptByPay.get(pay.id).file_path, name: receiptByPay.get(pay.id).file_name, mime: receiptByPay.get(pay.id).mime_type } : null,
               }
             : null,
+          items: (itemsByOrder.get(o.id) ?? []).map((it) => normalizeOrderedItem(applyVariantRecovery(it, vmap))),
         };
       });
 
@@ -348,6 +414,20 @@ export function AdminOrders() {
             original_name: d.original_name,
             mime: d.mime_type,
           })),
+          items: [
+            {
+              productName: a.product_name,
+              model: a.model,
+              storage: a.storage,
+              ram: a.ram,
+              color: a.color,
+              ptaStatus: a.pta_status,
+              jvStatus: a.jv_status,
+              sku: a.sku,
+              variantId: a.variant_id,
+              quantity: 1,
+            },
+          ].map((it) => normalizeOrderedItem(applyVariantRecovery(it, vmap))),
         };
       });
 
@@ -530,6 +610,9 @@ export function AdminOrders() {
                       <p className="mt-0.5 text-xs text-muted-foreground">
                         {o.name || "Customer"} · {formatPKR(o.total)} · {fmtDate(o.placed_at)}
                       </p>
+                      {phoneSummary(o.items) && (
+                        <p className="mt-0.5 text-xs font-medium text-foreground/80">{phoneSummary(o.items)}</p>
+                      )}
                     </div>
                     <Button size="sm" variant="outline" onClick={() => openDetail("order", o.id)}>
                       <Eye className="mr-1.5 h-3.5 w-3.5" /> View details
@@ -758,6 +841,8 @@ function DetailView(props: {
           <Button variant="outline" size="sm" onClick={props.onBack}>← Back to list</Button>
         </div>
 
+        <OrderedMobileSection items={isOrder ? ((row as OrderRow).items ?? []) : ((row as AppRow).items ?? [])} />
+
         {isOrder && (
           <div className="grid gap-3 sm:grid-cols-2">
             <Field label="Order reference" value={row.reference} />
@@ -948,6 +1033,140 @@ function EmailJobState({ orderId, onRetry }: { orderId: string; onRetry: () => v
         <Button size="sm" variant="ghost" onClick={onRetry}>Retry email</Button>
       )}
     </span>
+  );
+}
+
+type RawOrderedItem = {
+  product_name?: string | null;
+  model?: string | null;
+  storage?: string | null;
+  ram?: string | null;
+  color?: string | null;
+  pta_status?: string | null;
+  jv_status?: string | null;
+  sku?: string | null;
+  variant_id?: string | null;
+  quantity?: number | null;
+};
+
+function nullOrUndef(v?: string | null): string | null {
+  return v && String(v).trim() ? String(v) : null;
+}
+
+function jvDetected(v: { pta_status?: string; notes?: string }): boolean {
+  return /jv|sim-locked|carrier-locked/i.test(`${v.pta_status ?? ""} ${v.notes ?? ""}`);
+}
+
+/** Fill missing fields from a record reliably linked to the order (variant_id → variant/product). */
+function applyVariantRecovery(raw: RawOrderedItem, vmap: Map<string, Record<string, unknown>>): RawOrderedItem {
+  const vid = raw.variant_id;
+  if (!vid || !vmap) return raw;
+  const rec = vmap.get(vid);
+  if (!rec) return raw;
+  return {
+    ...raw,
+    sku: raw.sku || (rec.sku as string | undefined),
+    model: raw.model || (rec.model as string | undefined),
+    storage: raw.storage || (rec.storage as string | undefined),
+    ram: raw.ram || (rec.ram as string | undefined),
+    pta_status: raw.pta_status || (rec.ptaStatus as string | undefined),
+    jv_status: raw.jv_status || (rec.jvStatus as string | undefined),
+    product_name: raw.product_name || (rec.name as string | undefined),
+  };
+}
+
+/**
+ * Build the display fields for one ordered item. Order-time snapshot columns are
+ * authoritative. Only fields that are missing are recovered from the stored SKU
+ * / variant reference when it reliably identifies one — never by inferring a
+ * variant from the order amount or substituting catalogue defaults.
+ */
+function normalizeOrderedItem(raw: RawOrderedItem): OrderedItemDisplay {
+  const base: OrderedItemDisplay = {
+    productName: nullOrUndef(raw.product_name),
+    model: nullOrUndef(raw.model),
+    storage: nullOrUndef(raw.storage),
+    ram: nullOrUndef(raw.ram),
+    color: nullOrUndef(raw.color),
+    ptaStatus: nullOrUndef(raw.pta_status),
+    jvStatus: nullOrUndef(raw.jv_status),
+    sku: nullOrUndef(raw.sku),
+    variantId: nullOrUndef(raw.variant_id),
+    quantity: typeof raw.quantity === "number" && raw.quantity > 0 ? raw.quantity : 1,
+  };
+
+  if (raw.sku) {
+    const found = getVariantBySku(raw.sku);
+    if (found) {
+      const { product, variant } = found;
+      return {
+        ...base,
+        productName: base.productName || product.name,
+        model: base.model || product.model || null,
+        storage: base.storage || variant.storage || null,
+        ram: base.ram || variant.ram || null,
+        ptaStatus: base.ptaStatus || variant.pta_status || null,
+        jvStatus: base.jvStatus || (jvDetected(variant) ? "JV / SIM-Locked" : null),
+      };
+    }
+  }
+
+  return base;
+}
+
+/** Compact one-line summary for the admin list: model · storage · colour (×qty). */
+function phoneSummary(items: OrderedItemDisplay[]): string {
+  if (!items || !items.length) return "";
+  return items
+    .map((it) => {
+      const title = it.model && it.productName ? `${it.productName} — ${it.model}` : it.productName || it.model;
+      const parts = [title, it.storage, it.color].filter((x): x is string => !!x);
+      const qty = it.quantity && it.quantity > 1 ? ` ×${it.quantity}` : "";
+      return parts.length ? parts.join(" · ") + qty : it.sku || "Phone";
+    })
+    .join(", ");
+}
+
+function OrderedSpec({ label, value }: { label: string; value?: string | null }) {
+  const v = value && String(value).trim() ? String(value) : "";
+  return (
+    <div className="flex items-start justify-between gap-3 border-b border-dashed border-border py-1.5 last:border-0">
+      <span className="text-xs text-muted-foreground">{label}</span>
+      <span className={`text-right text-xs font-medium ${v ? "text-foreground" : "italic text-muted-foreground"}`}>
+        {v || "Not recorded"}
+      </span>
+    </div>
+  );
+}
+
+/** "Ordered Mobile" section shown right below the order/application reference. */
+function OrderedMobileSection({ items }: { items: OrderedItemDisplay[] }) {
+  if (!items.length) return null;
+  return (
+    <section className="rounded-xl border bg-card p-4">
+      <h3 className="text-sm font-bold text-foreground">Ordered Mobile</h3>
+      <div className="mt-3 space-y-4">
+        {items.map((item, idx) => {
+          const modelLine = [
+            item.model && item.productName ? `${item.productName} — ${item.model}` : item.productName || item.model,
+            item.sku ? `(${item.sku})` : "",
+          ].filter(Boolean).join(" ");
+          return (
+            <div key={idx} className="space-y-2">
+              <p className="text-base font-bold text-foreground">{modelLine || "Phone"}</p>
+              <div className="grid gap-x-6 gap-y-0 sm:grid-cols-2">
+                <OrderedSpec label="Storage" value={item.storage} />
+                <OrderedSpec label="RAM" value={item.ram} />
+                <OrderedSpec label="Colour" value={item.color} />
+                <OrderedSpec label="PTA status" value={item.ptaStatus} />
+                <OrderedSpec label="JV / SIM-lock" value={item.jvStatus} />
+                <OrderedSpec label="SKU / variant ID" value={item.sku || item.variantId} />
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </section>
   );
 }
 

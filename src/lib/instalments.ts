@@ -32,6 +32,13 @@ export type InstalmentSubmitInput = {
   consent: boolean;
   cnicFile?: File | null;
   incomeProofFile?: File | null;
+  /** Order-time snapshot fields preserving the exact variant the customer chose. */
+  productName?: string;
+  model?: string;
+  storage?: string;
+  ram?: string;
+  ptaStatus?: string;
+  jvStatus?: string;
 };
 
 export type InstalmentSubmitResult =
@@ -156,6 +163,13 @@ export async function submitInstalmentApplication(
       total_payable: totalPayable,
       consent_given: input.consent,
       status: "submitted",
+      product_name: input.productName || null,
+      sku: input.variantSku,
+      model: input.model || null,
+      storage: input.storage || null,
+      ram: input.ram || null,
+      pta_status: input.ptaStatus || null,
+      jv_status: input.jvStatus || null,
     })
     .select("id")
     .single();
