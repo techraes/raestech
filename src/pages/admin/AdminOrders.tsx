@@ -5,6 +5,7 @@ import { supabase, isSupabaseConfigured } from "@/lib/supabase";
 import { getSignedUrl, RECEIPT_BUCKET, IDENTITY_BUCKET } from "@/lib/uploads";
 import { formatPKR } from "@/lib/utils";
 import { getVariantBySku } from "@/data/catalog";
+import { applyVariantRecovery, normalizeOrderedItem, phoneSummary, type OrderedItemDisplay } from "@/lib/order-item-display";
 import { useCan } from "@/features/auth/permissions";
 import { getOrderEmailJob, retryOrderEmail, sendOrderApprovedEmail, type OrderEmailJob } from "@/lib/auth-config";
 import { ApprovalEmailCopyPanel } from "./ApprovalEmailCopy";
@@ -39,20 +40,6 @@ interface DocInfo {
   doc_type?: string;
   original_name?: string;
   mime?: string;
-}
-
-/** A single ordered item's display data (snapshot first, then recovery). */
-interface OrderedItemDisplay {
-  productName?: string | null;
-  model?: string | null;
-  storage?: string | null;
-  ram?: string | null;
-  color?: string | null;
-  ptaStatus?: string | null;
-  jvStatus?: string | null;
-  sku?: string | null;
-  variantId?: string | null;
-  quantity?: number;
 }
 
 interface OrderRow {
@@ -365,7 +352,7 @@ export function AdminOrders() {
                 receipt: receiptByPay.get(pay.id) ? { path: receiptByPay.get(pay.id).file_path, name: receiptByPay.get(pay.id).file_name, mime: receiptByPay.get(pay.id).mime_type } : null,
               }
             : null,
-          items: (itemsByOrder.get(o.id) ?? []).map((it) => normalizeOrderedItem(applyVariantRecovery(it, vmap))),
+          items: (itemsByOrder.get(o.id) ?? []).map((it) => normalizeOrderedItem(applyVariantRecovery(it, vmap), getVariantBySku)),
         };
       });
 
@@ -416,18 +403,18 @@ export function AdminOrders() {
           })),
           items: [
             {
-              productName: a.product_name,
+              product_name: a.product_name,
               model: a.model,
               storage: a.storage,
               ram: a.ram,
               color: a.color,
-              ptaStatus: a.pta_status,
-              jvStatus: a.jv_status,
+              pta_status: a.pta_status,
+              jv_status: a.jv_status,
               sku: a.sku,
-              variantId: a.variant_id,
+              variant_id: a.variant_id,
               quantity: 1,
             },
-          ].map((it) => normalizeOrderedItem(applyVariantRecovery(it, vmap))),
+          ].map((it) => normalizeOrderedItem(applyVariantRecovery(it, vmap), getVariantBySku)),
         };
       });
 
@@ -1036,96 +1023,6 @@ function EmailJobState({ orderId, onRetry }: { orderId: string; onRetry: () => v
   );
 }
 
-type RawOrderedItem = {
-  product_name?: string | null;
-  model?: string | null;
-  storage?: string | null;
-  ram?: string | null;
-  color?: string | null;
-  pta_status?: string | null;
-  jv_status?: string | null;
-  sku?: string | null;
-  variant_id?: string | null;
-  quantity?: number | null;
-};
-
-function nullOrUndef(v?: string | null): string | null {
-  return v && String(v).trim() ? String(v) : null;
-}
-
-function jvDetected(v: { pta_status?: string; notes?: string }): boolean {
-  return /jv|sim-locked|carrier-locked/i.test(`${v.pta_status ?? ""} ${v.notes ?? ""}`);
-}
-
-/** Fill missing fields from a record reliably linked to the order (variant_id → variant/product). */
-function applyVariantRecovery(raw: RawOrderedItem, vmap: Map<string, Record<string, unknown>>): RawOrderedItem {
-  const vid = raw.variant_id;
-  if (!vid || !vmap) return raw;
-  const rec = vmap.get(vid);
-  if (!rec) return raw;
-  return {
-    ...raw,
-    sku: raw.sku || (rec.sku as string | undefined),
-    model: raw.model || (rec.model as string | undefined),
-    storage: raw.storage || (rec.storage as string | undefined),
-    ram: raw.ram || (rec.ram as string | undefined),
-    pta_status: raw.pta_status || (rec.ptaStatus as string | undefined),
-    jv_status: raw.jv_status || (rec.jvStatus as string | undefined),
-    product_name: raw.product_name || (rec.name as string | undefined),
-  };
-}
-
-/**
- * Build the display fields for one ordered item. Order-time snapshot columns are
- * authoritative. Only fields that are missing are recovered from the stored SKU
- * / variant reference when it reliably identifies one — never by inferring a
- * variant from the order amount or substituting catalogue defaults.
- */
-function normalizeOrderedItem(raw: RawOrderedItem): OrderedItemDisplay {
-  const base: OrderedItemDisplay = {
-    productName: nullOrUndef(raw.product_name),
-    model: nullOrUndef(raw.model),
-    storage: nullOrUndef(raw.storage),
-    ram: nullOrUndef(raw.ram),
-    color: nullOrUndef(raw.color),
-    ptaStatus: nullOrUndef(raw.pta_status),
-    jvStatus: nullOrUndef(raw.jv_status),
-    sku: nullOrUndef(raw.sku),
-    variantId: nullOrUndef(raw.variant_id),
-    quantity: typeof raw.quantity === "number" && raw.quantity > 0 ? raw.quantity : 1,
-  };
-
-  if (raw.sku) {
-    const found = getVariantBySku(raw.sku);
-    if (found) {
-      const { product, variant } = found;
-      return {
-        ...base,
-        productName: base.productName || product.name,
-        model: base.model || product.model || null,
-        storage: base.storage || variant.storage || null,
-        ram: base.ram || variant.ram || null,
-        ptaStatus: base.ptaStatus || variant.pta_status || null,
-        jvStatus: base.jvStatus || (jvDetected(variant) ? "JV / SIM-Locked" : null),
-      };
-    }
-  }
-
-  return base;
-}
-
-/** Compact one-line summary for the admin list: model · storage · colour (×qty). */
-function phoneSummary(items: OrderedItemDisplay[]): string {
-  if (!items || !items.length) return "";
-  return items
-    .map((it) => {
-      const title = it.model && it.productName ? `${it.productName} — ${it.model}` : it.productName || it.model;
-      const parts = [title, it.storage, it.color].filter((x): x is string => !!x);
-      const qty = it.quantity && it.quantity > 1 ? ` ×${it.quantity}` : "";
-      return parts.length ? parts.join(" · ") + qty : it.sku || "Phone";
-    })
-    .join(", ");
-}
 
 function OrderedSpec({ label, value }: { label: string; value?: string | null }) {
   const v = value && String(value).trim() ? String(value) : "";
